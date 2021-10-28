@@ -40,7 +40,6 @@
 }
 
 .bar-options {
-  text-decoration: none;
   font-weight: 400;
 }
 
@@ -53,10 +52,17 @@
   border: 2px solid #ee9d6b;
   border-radius: 15px;
 }
+.nav-links {
+  color: black;
+}
 
 .bar-options:last-child:hover {
   background: #ee9d6bde;
 }
 .bar-options:last-child .nav-links {
   color: white;
+}
+
+.active {
+  text-decoration: underline;
 }

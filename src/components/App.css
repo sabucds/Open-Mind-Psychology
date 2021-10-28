@@ -64,7 +64,11 @@ body {
 .registra-button {
   cursor: pointer;
   padding: 15px 30px;
-  color: #ee9d6bde;
   background-color: white;
   border-radius: 10px;
+}
+
+.registra-link {
+  text-decoration: none;
+  color: #ee9d6bde;
 }
