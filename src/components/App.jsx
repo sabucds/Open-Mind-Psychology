@@ -9,6 +9,8 @@ import Precios from "./pages/Precios";
 import IniciarSesion from "./pages/IniciarSesion";
 import AcercaDe from "./pages/AcercaDe";
 import Navbar from "./Navbar/Navbar";
+import RegistroUser from "./pages/RegistroUser";
+import RegistroEspecialista from "./pages/RegistroEspecialista";
 
 function App() {
   return (
@@ -22,6 +24,8 @@ function App() {
           <Route path="/acerca" component={AcercaDe} />
           <Route path="/contacto" component={Contacto} />
           <Route path="/iniciar" component={IniciarSesion} />
+          <Route path="/RegistroUser" component={RegistroUser} />
+          <Route path="/RegistroEsp" component={ RegistroEspecialista} />
         </Switch>
       </Router>
     </div>

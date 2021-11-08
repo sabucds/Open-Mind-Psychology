@@ -27,6 +27,8 @@ body {
   width: 100%;
   padding: 50px;
   background-image: url(./img/Fondo\ Banner\ 1.png);
+  background-size:cover;
+  background-position: center;
   background-repeat: no-repeat;
   display: flex;
 }
@@ -72,3 +74,4 @@ body {
   text-decoration: none;
   color: #ee9d6bde;
 }
+
