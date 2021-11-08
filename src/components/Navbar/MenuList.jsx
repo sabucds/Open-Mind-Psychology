@@ -4,20 +4,20 @@ export const MenuList = [
     url: "/",
   },
   {
-    title: "Contacto",
-    url: "/contacto",
-  },
-  {
-    title: "Acerca de",
-    url: "/acerca",
-  },
-  {
     title: "Precios",
     url: "/precios",
   },
   {
     title: "Especialistas",
     url: "/especialistas",
+  },
+  {
+    title: "Acerca de",
+    url: "/acerca",
+  },
+  {
+    title: "Contacto",
+    url: "/contacto",
   },
   {
     title: "Iniciar sesion",

@@ -149,3 +149,44 @@
 .emotion {
   font-weight: bold;
 }
+
+@media screen and (max-width: 600px) {
+  .first-sect {
+    flex-direction: column;
+    padding: 10px 0;
+  }
+  .slogan {
+    font-size: 1.5rem;
+  }
+  .registra-button {
+    position: absolute;
+  }
+  .pers-group {
+    display: none;
+  }
+  .left-column {
+    height: 30%;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+  .right-colum {
+    height: 70%;
+    justify-content: center;
+    width: 100%;
+    background-image: url("../../img/Grupo\ Personas.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+  }
+  .second-sect {
+    height: max-content;
+  }
+  .third-sect {
+    height: max-content;
+  }
+  .steps {
+    flex-direction: column;
+    align-items: center;
+  }
+}

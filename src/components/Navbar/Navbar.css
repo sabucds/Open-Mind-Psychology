@@ -1,9 +1,8 @@
 * {
   text-decoration: none;
-}
-.nav-links:active {
   color: black;
 }
+
 .navbar {
   padding: 10px 2em;
   position: fixed;
@@ -38,13 +37,14 @@
   display: inline-flex;
   justify-content: space-between;
   align-items: center;
+  font-weight: 400;
 }
 
 .bar-options {
   font-weight: 400;
 }
 
-.bar-options:last-child {
+.bar-options:last-child .nav-link {
   background: #ee9d6b;
   padding-left: 1em;
   padding-right: 1em;
@@ -53,17 +53,84 @@
   border: 2px solid #ee9d6b;
   border-radius: 15px;
 }
-.nav-links {
-  color: black;
-}
 
-.bar-options:last-child:hover {
+.bar-options:last-child:hover .nav-link {
   background: #ee9d6bde;
 }
-.bar-options:last-child .nav-links {
+.bar-options:last-child .nav-link {
   color: white;
 }
 
 .active {
   text-decoration: underline;
+}
+.bar-options:last-child .active {
+  text-decoration-color: white;
+}
+.menu-icon {
+  display: none;
+  cursor: pointer;
+  height: 50px;
+  width: 50px;
+  background-image: url(../img/salir-menu.png);
+}
+
+.times {
+  transform: rotate(360deg);
+  transition: all 0.2s ease-in-out;
+}
+.bar {
+  transform: rotate(180deg);
+  transition: all 0.2s ease-in-out;
+  background-image: url(../img/menu_icon.png);
+}
+
+@media screen and (max-width: 850px) {
+  .bar-options {
+    font-size: 14px;
+  }
+  .navbar {
+    padding: 10px;
+  }
+  .menu-options {
+    width: 65%;
+  }
+  .nav-wrapper {
+    width: 35%;
+  }
+}
+@media screen and (max-width: 600px) {
+  .menu-icon {
+    display: block;
+    margin-right: 20px;
+    margin-top: 5px;
+  }
+  .menu-options {
+    flex-direction: column;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    width: 100%;
+    position: absolute;
+    background-color: #ffffffe3;
+    margin-top: 60px;
+    padding: 20px;
+    transition: all 0.5s ease-in-out;
+  }
+  .navbar {
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .close {
+    right: -100%;
+    transition: all 0.5s ease-in-out;
+  }
+  .nav-link {
+    margin: 10px 0;
+  }
+
+  .logo {
+    width: 400px;
+  }
 }
