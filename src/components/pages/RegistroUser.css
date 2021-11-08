@@ -16,15 +16,146 @@ body {
   font-family: "roboto", sans-serif;
 }
 
+.left-col{
+  position: relative;
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  flex-wrap: wrap;
+  margin-left: 10em;
+}
+
+.right-col {
+  position: relative;
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  flex-wrap: wrap;
+  margin-right: 10em;
+}
+
+.flexbox-container {
+	display: -ms-flex;
+	display: -webkit-flex;
+	display: flex;
+}
+
+.flexbox-container > div {
+	width: 50%;
+	padding: 10px;
+}
+
+.flexbox-container > div:first-child {
+	margin-right: 10px;
+}
+
+
 .TitleRegister{
-    height: 10%;
-    width: 100%;
-    padding-left: 300px;
-    margin-bottom: 20px;
+  position: relative;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 36px;
+  text-align: center;
+  color: #EE9D6B;
+  padding-bottom: 0.5em;
 }
   
 .main-RegistroUser{
-    margin-top: 500px;
+    margin-top: 95px;
     width: 100%;
     height: 100%;
+}
+
+.registro-button {
+  position: relative;
+  font-style: normal;
+  font-weight: normal;
+  text-align: center;
+  font-family: "roboto", sans-serif;
+  font-size: 1em;
+  cursor: pointer;
+  padding: 0.8em 2.5em;
+  background-color: #ee9d6bde;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  margin-top: 15px;
+  margin-left: 3em;
+  margin-right: auto;
+}
+
+button:active, button:focus  {
+  color: #000;
+}
+
+.all-form{
+  display: block;
+  position: relative;
+  font-family: "roboto", sans-serif;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.formulario-input{
+  background: rgba(238, 157, 107, 0.06);
+  border: 1px solid #EE9D6B;
+  box-sizing: border-box;
+  border-radius: 5px;
+  padding-bottom: 10px;
+  display: block;
+  width: 90%;
+  font-size: 1em;
+  padding-left: 10px;
+  padding-top: 5px;
+}
+
+
+.titulos{
+  font-style: normal;
+  font-weight: normal;
+  font-size: 22px;
+  text-align: center;
+  color: #000000;
+  
+}
+
+.linea {
+  position: relative;
+  text-align: center;
+  border-top: 3px solid #EE9D6B;
+  padding-bottom: 3em;
+}
+
+.subtitulos{
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  text-align: center;
+  color: #000000;
+  padding-left: 0.5em;
+}
+
+.check{
+  margin-top: 1em;
+  text-align: center;
+}
+
+.registro-extra{
+  font-style: normal;
+  position: relative;
+  font-weight: bold;
+  text-align: center;
+  background-color: #f7f7f7e0;
+  cursor: pointer;
+  color: #EE9D6B;
+  border: none;
+  border-radius: 10px;
+  padding: 0.5em;
+  width: 15em;
+  height: 3em;
+  margin-bottom: 5px;
 }

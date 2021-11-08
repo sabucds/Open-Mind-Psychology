@@ -14,7 +14,7 @@ const Inicio = () => {
         </div>
         <div className="right-colum">
           <div className="registra-button">
-            <NavLink className="registra-link" to={MenuList[5].url}>
+            <NavLink className="registra-link" to="/SelectReg">
               Registrate aqui
             </NavLink>
           </div>

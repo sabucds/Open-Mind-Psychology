@@ -10,21 +10,98 @@
   outline: none;
 }
 
-body {
+.letras {
   width: 100%;
+  font-size: 0.8em;
+  padding-top: 0.2em;
+  padding-left: 0.5em;
   position: relative;
   font-family: "roboto", sans-serif;
+  color: #EE9D6B;
+  font-weight: bold;
 }
 
-.sesion{
-    height: 10%;
-    width: 100%;
-    padding-left: 300px;
-    margin-bottom: 20px;
+.title{
+  position: relative;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 36px;
+  text-align: center;
+  color: #EE9D6B;
+  padding-bottom: 0.5em;
 }
-  
+
+.subtitle{
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  text-align: center;
+  color: #000000;
+  padding-left: 0.5em;
+}
+
 .main-sesion{
     margin-top: 95px;
     width: 100%;
     height: 100%;
+}
+
+.iniciar-button {
+  position: relative;
+  font-style: normal;
+  font-weight: normal;
+  text-align: center;
+  font-family: "roboto", sans-serif;
+  font-size: 1em;
+  cursor: pointer;
+  padding: 0.8em 2.5em;
+  background-color: #ee9d6bde;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  margin-top: 15px;
+  margin-left: 3em;
+  margin-right: auto;
+}
+
+.titulos{
+  font-style: normal;
+  font-weight: normal;
+  font-size: 22px;
+  text-align: center;
+  color: #000000;
+}
+
+.linea {
+  position: relative;
+  text-align: center;
+  border-top: 3px solid #EE9D6B;
+  padding-bottom: 3em;
+}
+
+.RegistrosLinks{
+  font-style: normal;
+  font-weight: bold;
+  text-align: center;
+}
+
+.iniciar-input{
+  background: rgba(238, 157, 107, 0.06);
+  border: 1px solid #EE9D6B;
+  box-sizing: border-box;
+  border-radius: 5px;
+  padding-bottom: 10px;
+  display: block;
+  width: 40%;
+  font-size: 1em;
+  padding-left: 10px;
+  padding-top: 5px;
+}
+
+.iniciar-input:focus {
+  outline: 1px solid rgba(0, 0, 0, 0.7);
+}
+
+.formulario{
+  padding-left: 5em;
 }

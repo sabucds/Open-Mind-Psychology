@@ -11,6 +11,10 @@ import AcercaDe from "./pages/AcercaDe";
 import Navbar from "./Navbar/Navbar";
 import RegistroUser from "./pages/RegistroUser";
 import RegistroEspecialista from "./pages/RegistroEspecialista";
+import PerfilUser from "./pages/PerfilUser";
+import SeleccionRegistro from "./pages/SeleccionRegistro";
+import PerfilEspecialista from "./pages/PerfilEspecialista";
+
 
 function App() {
   return (
@@ -26,6 +30,9 @@ function App() {
           <Route path="/iniciar" component={IniciarSesion} />
           <Route path="/RegistroUser" component={RegistroUser} />
           <Route path="/RegistroEsp" component={ RegistroEspecialista} />
+          <Route path="/PerfilUser" component={ PerfilUser } />
+          <Route path="/PerfilEsp" component={ PerfilEspecialista } />
+          <Route path="/SelectReg" component={ SeleccionRegistro } />
         </Switch>
       </Router>
     </div>
