@@ -2,7 +2,7 @@ import "./App.css";
 import "./Navbar/Navbar.css";
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Inicio from "./pages/Inicio";
+import Inicio from "./pages/inicio/Inicio";
 import Contacto from "./pages/Contacto";
 import Especialistas from "./pages/Especialistas";
 import Precios from "./pages/Precios";

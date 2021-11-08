@@ -1,0 +1,147 @@
+.main {
+  margin-top: 65px;
+  width: 100%;
+  height: 100%;
+}
+
+.first-sect {
+  height: 400px;
+  width: 100%;
+  padding: 30px;
+  background-image: url(../../img/Fondo\ Banner\ 1.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+}
+
+.left-column {
+  width: 70%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pers-group {
+  width: 100%;
+  height: 80%;
+  background-image: url(../../img/Grupo\ Personas.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.slogan {
+  font-weight: lighter;
+  font-size: 2rem;
+  text-align: center;
+  width: 100%;
+}
+
+.right-colum {
+  width: 30%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.registra-button {
+  cursor: pointer;
+  padding: 15px 30px;
+  background-color: white;
+  border-radius: 10px;
+}
+
+.registra-link {
+  text-decoration: none;
+  color: #ee9d6bde;
+}
+
+.second-sect {
+  height: 450px;
+  width: 100%;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+}
+.how-works {
+  font-size: 2rem;
+  font-weight: bold;
+  width: 100%;
+}
+
+.steps {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}
+.step {
+  height: 100%;
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.num-cont {
+  height: 100px;
+  width: 100px;
+  margin-top: 50px;
+  margin-bottom: 30px;
+}
+.number {
+  color: white;
+  font-weight: bolder;
+  text-align: center;
+  font-size: 3rem;
+  position: absolute;
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  display: inline-block;
+  background: #ee9d6b;
+}
+.number p {
+  position: relative;
+  top: 23px;
+}
+
+.description {
+  font-size: 1.2rem;
+  text-align: center;
+  width: 100%;
+}
+
+.third-sect {
+  height: 450px;
+  width: 100%;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  background-image: linear-gradient(white, #ee9d6b);
+}
+
+.icon {
+  margin-top: 50px;
+  height: 100px;
+  width: 100px;
+  background-size: contain;
+  margin-bottom: 30px;
+}
+.one {
+  background-image: url("../../img/depresion");
+}
+.two {
+  background-image: url("../../img/amor");
+}
+.three {
+  background-image: url("../../img/genero");
+}
+.four {
+  background-image: url("../../img/estres");
+}
+.services {
+  margin-bottom: 30px;
+}
