@@ -67,19 +67,19 @@ const Inicio = () => {
         <div className="steps">
           <div className="step">
             <div className="icon one"></div>
-            <div className="description">Depresión</div>
+            <div className="description emotion">Depresión</div>
           </div>
           <div className="step">
             <div className="icon two"></div>
-            <div className="description">Problemas de Pareja</div>
+            <div className="description emotion">Problemas de Pareja</div>
           </div>
           <div className="step">
             <div className="icon three"></div>
-            <div className="description">Identidad de Género</div>
+            <div className="description emotion">Identidad de Género</div>
           </div>
           <div className="step">
             <div className="icon four"></div>
-            <div className="description">Estrés</div>
+            <div className="description emotion">Estrés</div>
           </div>
         </div>
       </div>
