@@ -6,7 +6,7 @@ import Inicio from "./pages/inicio/Inicio";
 import Contacto from "./pages/Contacto";
 import Especialistas from "./pages/Especialistas";
 import Precios from "./pages/Precios";
-import IniciarSesion from "./pages/IniciarSesion";
+import IniciarSesion from "./pages/IniciarSesion/IniciarSesion";
 import AcercaDe from "./pages/AcercaDe";
 import Navbar from "./Navbar/Navbar";
 
