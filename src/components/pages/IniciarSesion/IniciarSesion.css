@@ -97,7 +97,7 @@ body {
 
 .button-format {
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
-
+  cursor: pointer;
   width: 8em;
   height: 4em;
   border-radius: 1.5em;
@@ -131,9 +131,40 @@ body {
 }
 
 .sep {
-  width: 20em;
+  border: none;
+  width: 17em;
   margin-top: 1em;
   background-color: #ebad86;
-  border-color: #ebad86;
   border-top: 0.5px solid #ebad86;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+}
+
+.buttonsRS {
+  display: flex;
+  background-color: white;
+  border: 0;
+  color: #ee9d6b;
+  font-weight: 600;
+  font-style: italic;
+  cursor: pointer;
+}
+
+.image1log {
+  width: 2.1em;
+  height: 2.5em;
+  background-image: url(../../img/google.png);
+}
+.image2log {
+  width: 2.3em;
+  height: 2.4em;
+  background-image: url(../../img/facebook.png);
+}
+.image3log {
+  width: 2.3em;
+  height: 2.5em;
+  background-image: url(../../img/twitter.png);
+}
+.textito {
+  margin-left: 1em;
+  margin-top: 0.5em;
 }

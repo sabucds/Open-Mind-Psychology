@@ -53,20 +53,23 @@ const IniciarSesion = () => {
         </div>
         <div className="rrss-box">
           <div className="dist">
-            <button className="googleButton" id="googleB">
-              Ingresar con cuenta de Google
+            <button className="buttonsRS" id="googleB">
+              <div className="image1log"></div>
+              <p className="textito">Ingresar con cuenta de Google</p>
             </button>
             <hr class="solid" className="sep" />
           </div>
           <div className="dist">
-            <button className="faceButton" id="faceB">
-              Ingresar con cuenta de Facebook
+            <button className="buttonsRS" id="faceB">
+              <div className="image2log"></div>
+              <p className="textito">Ingresar con cuenta de Facebook</p>
             </button>
             <hr class="solid" className="sep" />
           </div>
           <div className="dist">
-            <button className="twButton" id="twitterB">
-              Ingresar con cuenta de Twitter
+            <button className="buttonsRS" id="twitterB">
+              <div className="image3log"></div>
+              <p className="textito"> Ingresar con cuenta de Twitter</p>
             </button>
             <hr class="solid" className="sep" />
           </div>
