@@ -1,5 +1,6 @@
 import React from "react";
 import "./IniciarSesion.css";
+import { NavLink } from "react-router-dom";
 
 const IniciarSesion = () => {
   return (
@@ -45,9 +46,13 @@ const IniciarSesion = () => {
               <button className="button-format" id="login-data">
                 Iniciar
               </button>
-              <button className="button-format" id="re-register">
+              <NavLink
+                className="register-button"
+                id="re-register"
+                to="../Registro/Registro.jsx"
+              >
                 Registrarse
-              </button>
+              </NavLink>
             </div>
           </div>
         </div>

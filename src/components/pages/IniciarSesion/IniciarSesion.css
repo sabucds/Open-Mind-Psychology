@@ -4,7 +4,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: ;
 }
 
 *:focus {
@@ -104,6 +103,13 @@ body {
   border-width: 0;
 
   font-weight: 700;
+}
+
+.register-button {
+  padding: 0.7em;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 1.5em;
+  font-weight: 600;
 }
 
 #login-data {

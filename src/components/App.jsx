@@ -9,6 +9,7 @@ import Precios from "./pages/Precios";
 import IniciarSesion from "./pages/IniciarSesion/IniciarSesion";
 import AcercaDe from "./pages/AcercaDe";
 import Navbar from "./Navbar/Navbar";
+import Registro from "./pages/Registro/Registro";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/acerca" component={AcercaDe} />
           <Route path="/contacto" component={Contacto} />
           <Route path="/iniciar" component={IniciarSesion} />
+          <Route path="/registro" component={Registro} />
         </Switch>
       </Router>
     </div>

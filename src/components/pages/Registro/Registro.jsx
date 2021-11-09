@@ -1,7 +1,8 @@
 import React from "react";
-import "./IniciarSesion.css";
+import "./Registro.css";
+import { Link } from "react-router-dom";
 
-const IniciarSesion = () => {
+const Registro = () => {
   return (
     <section className="compInicioSesion">
       <div className="left-column">
@@ -38,4 +39,4 @@ const IniciarSesion = () => {
   );
 };
 
-export default IniciarSesion;
+export default Registro;
