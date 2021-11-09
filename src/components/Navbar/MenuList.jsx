@@ -23,4 +23,5 @@ export const MenuList = [
     title: "Iniciar sesion",
     url: "/iniciar",
   },
+  
 ];

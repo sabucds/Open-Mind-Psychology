@@ -1,0 +1,164 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+*:focus {
+  outline: none;
+}
+
+body {
+  width: 100%;
+  position: relative;
+  font-family: "Open Sans", sans-serif;
+}
+
+.left-col {
+  position: relative;
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  flex-wrap: wrap;
+  margin-left: 10em;
+}
+
+.right-col {
+  position: relative;
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  flex-wrap: wrap;
+  margin-right: 10em;
+}
+
+.flexbox-container {
+  display: -ms-flex;
+  display: -webkit-flex;
+  display: flex;
+}
+
+.flexbox-container > div {
+  width: 50%;
+  padding: 10px;
+}
+
+.flexbox-container > div:first-child {
+  margin-right: 10px;
+}
+
+.TitleRegister {
+  position: relative;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 36px;
+  text-align: center;
+  color: #ee9d6b;
+  padding-bottom: 0.5em;
+}
+
+.main-RegistroUser {
+  margin-top: 95px;
+  width: 100%;
+  height: 100%;
+}
+
+.registro-button {
+  position: relative;
+  font-style: normal;
+  font-weight: normal;
+  text-align: center;
+  font-size: 1em;
+  cursor: pointer;
+  padding: 0.8em 2.5em;
+  background-color: #ee9d6bde;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  margin-top: 15px;
+  margin-left: 3em;
+  margin-right: auto;
+}
+
+.registro-button::content button:active,
+button:focus {
+  color: #000;
+}
+
+.all-form {
+  display: block;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.formulario-input {
+  background: rgba(238, 157, 107, 0.06);
+  border: 1px solid #ee9d6b;
+  box-sizing: border-box;
+  border-radius: 5px;
+  display: block;
+  width: 90%;
+  font-size: 18px;
+  padding-left: 5px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-family: "Open Sans", sans-serif;
+  color: rgba(0, 0, 0, 0.5);
+  font-weight: lighter;
+}
+
+.titulos {
+  font-style: normal;
+  font-weight: lighter;
+  font-size: 18px;
+  text-align: center;
+  color: #000000;
+  margin: 0;
+  font-family: "Open Sans", sans-serif;
+}
+
+.linea {
+  position: relative;
+  text-align: center;
+  border-top: 3px solid #ee9d6b;
+  padding-bottom: 3em;
+}
+
+.subtitulos {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  text-align: center;
+  color: #000000;
+  padding-left: 0.5em;
+}
+
+.check {
+  margin-top: 1em;
+  text-align: center;
+}
+
+.registro-extra {
+  font-style: normal;
+  position: relative;
+  font-weight: bold;
+  text-align: center;
+  background-color: #f7f7f7e0;
+  cursor: pointer;
+  color: #ee9d6b;
+  border: none;
+  border-radius: 10px;
+  padding: 0.5em;
+  width: 15em;
+  height: 3em;
+  margin-bottom: 5px;
+}
