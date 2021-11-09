@@ -99,7 +99,7 @@ body {
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
   cursor: pointer;
   width: 8em;
-  height: 4em;
+  height: 3em;
   border-radius: 1.5em;
   border-width: 0;
 
@@ -112,10 +112,18 @@ body {
   margin-bottom: 5.5em;
 }
 
+#login-data:hover {
+  background-color: #ebad86;
+}
+
 #re-register {
   margin-bottom: 0.5em;
   background-color: white;
   color: #ee9d6b;
+}
+
+#re-register:hover {
+  background-color: rgba(224, 212, 212, 0.719);
 }
 
 .rrss-box {
