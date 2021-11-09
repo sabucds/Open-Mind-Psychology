@@ -5,9 +5,9 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Inicio from "./pages/inicio/Inicio";
 import Contacto from "./pages/Contacto";
 import Especialistas from "./pages/Especialistas";
-import Precios from "./pages/Precios";
+import Precios from "./pages/precios/Precios";
 import IniciarSesion from "./pages/IniciarSesion";
-import AcercaDe from "./pages/AcercaDe";
+import AcercaDe from "./pages/acercade/AcercaDe";
 import Navbar from "./Navbar/Navbar";
 
 function App() {

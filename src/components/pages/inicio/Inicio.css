@@ -92,7 +92,6 @@
   margin-bottom: 30px;
 }
 .number {
-  color: white;
   font-weight: bolder;
   text-align: center;
   font-size: 3rem;
@@ -104,6 +103,7 @@
   background: #ee9d6b;
 }
 .number p {
+  color: white;
   position: relative;
   top: 23px;
 }
