@@ -4,22 +4,32 @@ import { MenuList } from "./MenuList";
 
 const Navbar = () => {
   const [clicked, setClicked] = useState(false);
+  const handleClick = () => {
+    setClicked(!clicked);
+  };
   const menulist = MenuList.map(({ url, title }, index) => {
     return (
       <li className="bar-options" key={index}>
-        <NavLink exact className="nav-links" activeClassName="active" to={url}>
+        <NavLink
+          exact
+          className="nav-links"
+          activeClassName="active"
+          onClick={handleClick}
+          to={url}
+        >
           <div className="nav-link">{title}</div>
         </NavLink>
       </li>
     );
   });
-  const handleClick = () => {
-    setClicked(!clicked);
-  };
+
   return (
     <nav className="navbar">
       <div className="nav-wrapper">
-        <div className="logo"></div>
+        {" "}
+        <NavLink exact to="/">
+          <div className="logo"></div>
+        </NavLink>
       </div>
       <div
         className={clicked ? "menu-icon times" : "menu-icon bar"}
