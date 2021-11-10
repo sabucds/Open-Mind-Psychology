@@ -26,10 +26,9 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="nav-wrapper">
-        {" "}
-        <NavLink exact to="/">
+        <a href="/">
           <div className="logo"></div>
-        </NavLink>
+        </a>
       </div>
       <div
         className={clicked ? "menu-icon times" : "menu-icon bar"}
