@@ -1,18 +1,16 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import "./RegistroUser.css";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import {
   providerGoogle,
   providerFacebook,
   auth,
 } from "../../../utils/firebaseConfig.js";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { useContext } from "react";
 import { UserContext } from "../../../context/UserContext";
 
 const RegistroUser = () => {
-  const { setuser } = useContext(UserContext);
+  const { createUser, type } = useContext(UserContext);
 
   const [values, setValues] = useState({
     nombre: "",
@@ -36,21 +34,53 @@ const RegistroUser = () => {
       values.email,
       values.password
     );
-    console.log(response.user);
+    if (type) {
+      await createUser(
+        {
+          name: values.nombre + " " + values.apellido,
+          email: values.email,
+          phone: values.numero,
+          country: "",
+          info: "",
+          specialty: [],
+          education: [],
+          schedule: [],
+          feedback: [],
+          role: "especialista",
+          status: "standby",
+        },
+        response.user.uid
+      );
+    } else {
+      await createUser(
+        {
+          name: values.nombre + " " + values.apellido,
+          email: values.email,
+          phone: values.numero,
+          country: "",
+          info: "",
+          role: "usuario",
+        },
+        response.user.uid
+      );
+    }
+    console.log(response.user.uid);
     console.log("EMAIL_PASSWORD_LOGIN");
-    history.push("/");
+    if (type) {
+      history.push("/PerfilEspecialista");
+    } else {
+      history.push("/PerfilUser");
+    }
   };
 
   const handleGoogleLogin = async () => {
     console.log("GOOGLE_LOGIN");
-    providerGoogle.setCustomParameters({ prompt: "select_account" });
-    const response = await auth.signInWithPopup(providerGoogle);
-    console.log({ response: response.user });
-    setuser({
-      name: response.user.displayName,
-      email: response.user.email,
-    });
-    history.push("/");
+    await auth.signInWithPopup(providerGoogle);
+    if (type) {
+      history.push("/PerfilEspecialista");
+    } else {
+      history.push("/PerfilUser");
+    }
   };
 
   const handleFacebookLogin = async () => {
@@ -58,7 +88,11 @@ const RegistroUser = () => {
     providerFacebook.setCustomParameters({ prompt: "select_account" });
     const response = await auth.signInWithPopup(providerFacebook);
     console.log({ response: response.user });
-    history.push("/");
+    if (type) {
+      history.push("/PerfilEspecialista");
+    } else {
+      history.push("/PerfilUser");
+    }
   };
 
   return (
@@ -66,7 +100,7 @@ const RegistroUser = () => {
       <div className="TitleRegister">
         Bienvenido a OMP, comienza tu camino con nosotros
       </div>
-      <div class="linea"></div>
+      <div className="linea"></div>
 
       <div className="flexbox-container">
         <div className="left-col">
@@ -169,7 +203,7 @@ const RegistroUser = () => {
               className="registro-button"
               onClick={handleSubmit}
             >
-              <Link to="./PerfilUser">Iniciar</Link>
+              Iniciar
             </button>
           </form>
         </div>

@@ -10,7 +10,6 @@ import IniciarSesion from "./pages/IniciarSesion";
 import AcercaDe from "./pages/AcercaDe";
 import Navbar from "./Navbar/Navbar";
 import RegistroUser from "./pages/registro/RegistroUser";
-import RegistroEspecialista from "./pages/registro/RegistroEspecialista";
 import PerfilUser from "./pages/PerfilUser";
 import SeleccionRegistro from "./pages/registro/SeleccionRegistro";
 import PerfilEspecialista from "./pages/PerfilEspecialista";
@@ -29,8 +28,7 @@ function App() {
             <Route path="/acerca" component={AcercaDe} />
             <Route path="/contacto" component={Contacto} />
             <Route path="/iniciar" component={IniciarSesion} />
-            <Route path="/RegistroUser" component={RegistroUser} />
-            <Route path="/RegistroEsp" component={RegistroEspecialista} />
+            <Route path="/Registro" component={RegistroUser} />
             <Route path="/PerfilUser" component={PerfilUser} />
             <Route path="/PerfilEsp" component={PerfilEspecialista} />
             <Route path="/SelectReg" component={SeleccionRegistro} />

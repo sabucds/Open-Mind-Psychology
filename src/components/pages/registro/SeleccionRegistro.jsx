@@ -1,22 +1,37 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import "../IniciarSesion.css";
+import { useContext } from "react";
+import { UserContext } from "../../../context/UserContext";
 
 const SeleccionRegistro = () => {
+  const { settype } = useContext(UserContext);
+  const history = useHistory();
+
+  const handleTrue = () => {
+    settype(true);
+    history.push("/Registro");
+  };
+
+  const handleFalse = () => {
+    settype(false);
+    history.push("/Registro");
+  };
+
   return (
     <section className="main-sesion">
-      <div className="sesion">Pagina de Selección de Registro</div>
+      <div className="sesion">Página de Selección de Registro</div>
 
       <div className="registra-button">
-        <Link className="registra-link" to="./RegistroUser">
+        <button className="registra-link" onClick={handleFalse}>
           Registrarse como Usuario
-        </Link>
+        </button>
       </div>
 
       <div className="registra-button">
-        <Link className="registra-link" to="./RegistroEsp">
+        <button className="registra-link" onClick={handleTrue}>
           Registrarse como Especialista
-        </Link>
+        </button>
       </div>
     </section>
   );

@@ -24,14 +24,16 @@ const IniciarSesion = () => {
       [name]: value,
     };
     setValues(newValues);
-  }  
+  }
 
   return (
     <section className="main-sesion">
       <div className="title">¡Bienvenido! Inicia sesión con nosotros</div>
       <div class="linea"></div>
-      <form onSubmit={handleSubmit} className = "formulario">
-        <label htmlFor="email" className = "titulos">Correo electrónico </label>
+      <form onSubmit={handleSubmit} className="formulario">
+        <label htmlFor="email" className="titulos">
+          Correo electrónico{" "}
+        </label>
         <br />
         <input
           id="email"
@@ -39,11 +41,13 @@ const IniciarSesion = () => {
           type="email"
           value={values.email}
           onChange={handleChange}
-          className = "iniciar-input"
+          className="iniciar-input"
         />
         <br />
 
-        <label htmlFor="password" className = "titulos">Contraseña </label>
+        <label htmlFor="password" className="titulos">
+          Contraseña{" "}
+        </label>
         <br />
         <input
           id="password"
@@ -51,25 +55,24 @@ const IniciarSesion = () => {
           type="password"
           value={values.password}
           onChange={handleChange}
-          className = "iniciar-input"
+          className="iniciar-input"
         />
-        <p className= "letras">¿Olvidaste tu contraseña?</p>
-        <button type="button"  className= "iniciar-button"  onClick={handleSubmit}>
-          <Link to="./" >Iniciar</Link>  { /* Como hay que validar a donde va cuando inicie secion dependiendo si es user o especialista lo puse que vaya al inicio */  }
+        <p className="letras">¿Olvidaste tu contraseña?</p>
+        <button type="button" className="iniciar-button" onClick={handleSubmit}>
+          <Link to="./">Iniciar</Link>{" "}
+          {/* Como hay que validar a donde va cuando inicie secion dependiendo si es user o especialista lo puse que vaya al inicio */}
         </button>
       </form>
       <br />
-      <p className = "subtitle">¿Todavia no tienes cuenta?</p>
-      <div className = "RegistrosLinks">
+      <p className="subtitle">¿Todavia no tienes cuenta?</p>
+      <div className="RegistrosLinks">
         <div>
-        <Link className="registra-link" to="./RegistroUser">Registrate como Usuario aqui</Link>
-        </div>
-    
-        <div>
-        <Link className="registra-link" to="./RegistroEsp">Registrate como Especialista aqui</Link>
+          <Link className="registra-link" to="/SelectReg">
+            Regístrate aquí
+          </Link>
         </div>
       </div>
-  </section>
+    </section>
   );
 };
 
