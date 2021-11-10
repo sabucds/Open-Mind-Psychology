@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { useContext } from "react";
 import { MenuList } from "./MenuList";
+import { UserContext } from "../../context/UserContext";
 
 const Navbar = () => {
   const [clicked, setClicked] = useState(false);
   const handleClick = () => {
     setClicked(!clicked);
   };
+  const { user } = useContext(UserContext);
+
   const menulist = MenuList.map(({ url, title }, index) => {
     return (
       <li className="bar-options" key={index}>

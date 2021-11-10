@@ -4,7 +4,7 @@ import "./AcercaDe.css";
 const AcercaDe = () => {
   return (
     <section className="about">
-      <div className="title">¿Quiénes somos?</div>
+      <div className="titulo">¿Quiénes somos?</div>
       <div className="text-box">
         <p className="text">
           Somos un grupo de personas apasionadas por ayudar a los demás,

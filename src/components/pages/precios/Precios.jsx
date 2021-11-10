@@ -4,7 +4,7 @@ import "./Precios.css";
 const Precios = () => {
   return (
     <section className="prices">
-      <div className="title">¿Cuánto cuesta el servicio?</div>
+      <div className="titulo">¿Cuánto cuesta el servicio?</div>
       <div className="text-box">
         <p className="text">
           ¡El precio de nuestros servicios abarca una tasa fija por consulta!
@@ -17,7 +17,7 @@ const Precios = () => {
       <div className="price">
         <span>50$</span>/consulta
       </div>
-      <div className="title">Duración de las consultas</div>
+      <div className="titulo">Duración de las consultas</div>
       <div className="text-box">
         <p className="text">
           Todas las consultas tienen una duración de <span>1 hora</span>

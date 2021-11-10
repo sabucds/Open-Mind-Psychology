@@ -1,5 +1,4 @@
 import React from "react";
-import { MenuList } from "../../Navbar/MenuList";
 import { NavLink } from "react-router-dom";
 import "./Inicio.css";
 
@@ -15,8 +14,8 @@ const Inicio = () => {
         </div>
         <div className="right-colum">
           <div className="registra-button">
-            <NavLink className="registra-link" to={MenuList[5].url}>
-              Registrate aqui
+            <NavLink className="registra-link" to="/SelectReg">
+              Regístrate aquí
             </NavLink>
           </div>
         </div>
