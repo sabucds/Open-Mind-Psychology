@@ -15,7 +15,7 @@
   display: flex;
 }
 
-.left-column {
+.left-columna {
   width: 70%;
   height: 100%;
   display: flex;
@@ -38,7 +38,7 @@
   width: 100%;
 }
 
-.right-colum {
+.right-columna {
   width: 30%;
   height: 100%;
   display: flex;
@@ -105,7 +105,7 @@
 .number p {
   color: white;
   position: relative;
-  top: 23px;
+  top: 18px;
 }
 
 .description {
@@ -165,13 +165,13 @@
   .pers-group {
     display: none;
   }
-  .left-column {
+  .left-columna {
     height: 30%;
     width: 100%;
     align-items: center;
     justify-content: center;
   }
-  .right-colum {
+  .right-columna {
     height: 70%;
     justify-content: center;
     width: 100%;

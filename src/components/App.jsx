@@ -3,16 +3,16 @@ import "./Navbar/Navbar.css";
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Inicio from "./pages/inicio/Inicio";
-import Contacto from "./pages/Contacto";
-import Especialistas from "./pages/Especialistas";
+import Contacto from "./pages/contacto/Contacto";
+import Especialistas from "./pages/especialistas/Especialistas";
 import Precios from "./pages/precios/Precios";
-import IniciarSesion from "./pages/iniciarsesion/IniciarSesion";
+import IniciarSesion from "./pages/IniciarSesion/IniciarSesion";
 import AcercaDe from "./pages/acercade/AcercaDe";
 import Navbar from "./Navbar/Navbar";
 import RegistroUser from "./pages/registro/RegistroUser";
-import PerfilUser from "./pages/PerfilUser";
+import PerfilUser from "./pages/perfilUser/PerfilUser";
 import SeleccionRegistro from "./pages/registro/SeleccionRegistro";
-import PerfilEspecialista from "./pages/PerfilEspecialista";
+import PerfilEspecialista from "./pages/perfilEspecialista/PerfilEspecialista";
 import UserContextProvider from "../context/UserContext";
 
 function App() {
@@ -28,10 +28,10 @@ function App() {
             <Route path="/acerca" component={AcercaDe} />
             <Route path="/contacto" component={Contacto} />
             <Route path="/iniciar" component={IniciarSesion} />
-            <Route path="/Registro" component={RegistroUser} />
-            <Route path="/PerfilUser" component={PerfilUser} />
-            <Route path="/PerfilEsp" component={PerfilEspecialista} />
-            <Route path="/SelectReg" component={SeleccionRegistro} />
+            <Route path="/registro" component={RegistroUser} />
+            <Route path="/perfilUser" component={PerfilUser} />
+            <Route path="/perfilEsp" component={PerfilEspecialista} />
+            <Route path="/selectReg" component={SeleccionRegistro} />
           </Switch>
         </Router>
       </div>

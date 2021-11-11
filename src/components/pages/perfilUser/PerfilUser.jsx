@@ -1,5 +1,5 @@
 import React from "react";
-import "./registro/RegistroUser.css";
+import "../registro/RegistroUser.css";
 
 const PerfilUser = () => {
   return (

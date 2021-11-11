@@ -14,8 +14,8 @@ const AcercaDe = () => {
         </p>
       </div>
       <div className="images">
-        <div className="image standing"></div>
-        <div className="image sitting"></div>
+        <div className="imagen standing"></div>
+        <div className="imagen sitting"></div>
       </div>
     </section>
   );

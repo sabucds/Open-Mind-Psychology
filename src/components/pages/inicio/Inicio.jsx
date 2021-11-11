@@ -6,13 +6,13 @@ const Inicio = () => {
   return (
     <section className="main">
       <div className="first-sect">
-        <div className="left-column">
+        <div className="left-columna">
           <div className="slogan">
             Comienza tu viaje hacia la estabilidad emocional
           </div>
           <div className="pers-group"></div>
         </div>
-        <div className="right-colum">
+        <div className="right-columna">
           <div className="registra-button">
             <NavLink className="registra-link" to="/SelectReg">
               Regístrate aquí
