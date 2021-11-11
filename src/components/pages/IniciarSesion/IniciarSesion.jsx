@@ -62,21 +62,21 @@ const IniciarSesion = () => {
               <div className="image1log"></div>
               <p className="textito">Ingresar con cuenta de Google</p>
             </button>
-            <hr class="solid" className="sep" />
+            <hr className="sep solid" />
           </div>
           <div className="dist">
             <button className="buttonsRS" id="faceB">
               <div className="image2log"></div>
               <p className="textito">Ingresar con cuenta de Facebook</p>
             </button>
-            <hr class="solid" className="sep" />
+            <hr className="sep solid" />
           </div>
           <div className="dist">
             <button className="buttonsRS" id="twitterB">
               <div className="image3log"></div>
               <p className="textito"> Ingresar con cuenta de Twitter</p>
             </button>
-            <hr class="solid" className="sep" />
+            <hr className="sep lastLine solid" />
           </div>
         </div>
       </div>
