@@ -11,34 +11,125 @@
 }
 
 .imagen-user{
-    width: 15em;
-    height: 15em;
-    border: 3px solid #ee9d6bde;
+    margin: 8px;
+    width: 200px;
+    height: 200px;
+    border: 1px solid #EE9D6B;
+    box-sizing: border-box;
     border-top-left-radius: 50% 50%;
     border-top-right-radius: 50% 50%;
     border-bottom-right-radius: 50% 50%;
     border-bottom-left-radius: 50% 50%;
+    filter: drop-shadow(0px 4px 44px rgba(0, 0, 0, 0.25));
 }
 
 .encabezado{
     margin: 2em;
-    background-color: pink;
+    display: flex;
+    justify-content: flex-start;
 }
 
-.relleno{
-    margin: 2em;
-    padding: 0.5em;
-    background-color: yellow;
+.nombre-user{
+    text-transform: capitalize;
+    margin-left: 48px;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 65px;
+    display: flex;
+    align-items: center;
+}
+
+.todo-user{
+    margin: auto 160px;
 }
 
 .Datos-user{
-    margin: 0.3em;
-    background-color: violet;
+    margin: 5px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.r-col{
+    margin-top: 16px;
+    margin-left: 48px;
+}
+
+.l-col{
+    margin-top: 2px;
+}
+
+.correo-user, .number-user, .pais-user{
+    display: flex;
+    justify-content: flex-start;
+    margin: 8px auto;
+}
+
+
+.sub{
+    margin: auto;
+    font-family: Open Sans;
+    font-style: normal;
+    font-size: 18px;
+    line-height: 25px;
+    margin-left: 30px;
+}
+
+
+.titles{
+    width: 260px;
+    height: 50px;
+    left: 442px;
+    top: 420px;
+    margin: auto 15px;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 28px;
+    line-height: 38px;
+    display: flex;
+    align-items: center;
+}
+
+.relleno{
+    margin: 32px;
+    padding: 8px;
 }
 
 .about-user{
-    margin: 0.3em;
-    background-color: blue;
-    padding: 0.1em;
-    
+    margin: 16px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25);
+    background: #FFFFFF;
+    border-radius: 15px;
+    padding: 10px;
+}
+
+.info{
+    margin-left: 32px;
+}
+
+.text-info{
+    margin: 16px auto;
+    font-family: Open Sans;
+    font-style: normal;
+    font-size: 18px;
+    line-height: 25px;
+    display: flex;
+}
+
+.line{
+    margin-right: 32px;
+    border: 1px solid #EE9D6B;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+
+.cargando{
+    margin-left: 16px;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 32px;
+    position: center;
 }
