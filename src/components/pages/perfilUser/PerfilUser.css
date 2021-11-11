@@ -1,0 +1,44 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+*:focus {
+  outline: none;
+}
+
+.imagen-user{
+    width: 15em;
+    height: 15em;
+    border: 3px solid #ee9d6bde;
+    border-top-left-radius: 50% 50%;
+    border-top-right-radius: 50% 50%;
+    border-bottom-right-radius: 50% 50%;
+    border-bottom-left-radius: 50% 50%;
+}
+
+.encabezado{
+    margin: 2em;
+    background-color: pink;
+}
+
+.relleno{
+    margin: 2em;
+    padding: 0.5em;
+    background-color: yellow;
+}
+
+.Datos-user{
+    margin: 0.3em;
+    background-color: violet;
+}
+
+.about-user{
+    margin: 0.3em;
+    background-color: blue;
+    padding: 0.1em;
+    
+}
