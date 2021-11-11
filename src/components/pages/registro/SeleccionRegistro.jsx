@@ -1,6 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import "../IniciarSesion.css";
+import "../../pages/iniciarsesion/IniciarSesion.css";
 import { useContext } from "react";
 import { UserContext } from "../../../context/UserContext";
 
