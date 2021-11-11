@@ -26,13 +26,13 @@
     border-color: rgba(0, 0, 0, 0.185);
     align-self: center;
     background-color: rgba(255, 255, 255, 0.75);
+    min-width: 280px;
 }
 
 
 .contactForm .inputsForm {
     width: 100%;
     align-self: center;
-    margin-top: none;
     color:rgba(0, 0, 0, 0.85);
 }
 
@@ -49,6 +49,7 @@
     border-radius: 1.125em;
     font-style: italic;
     color:rgba(0, 0, 0, 0.85);
+    margin-top: 1.25em;
 }
 
 
@@ -62,7 +63,7 @@
 
 @media only screen and (min-width: 900px) { /*computadoras*/
     .contactForm {
-        width: 55%;
+        width: 60%;
         padding: 4em 3em;
     };
 }
