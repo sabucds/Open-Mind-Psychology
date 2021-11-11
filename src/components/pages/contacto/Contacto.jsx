@@ -1,6 +1,7 @@
 import React from "react";
 import { bd } from "../../../utils/firebaseConfig";
 import { useState } from "react";
+import "./Contacto.css";
 
 const Contacto = () => {
   const [contactNombre, setContactNombre] = useState("");
@@ -25,12 +26,12 @@ const Contacto = () => {
         message: contactMensaje,
       })
       .then(() => {
+        setLoading(false);
         alert("¡Mensaje el mensaje fue enviado con éxito!\nGracias por contactarnos.");
-        setLoading(false);
       })
-      .catch((error)=>{
-        alert("El mensaje no pudo ser enviado.");
+      .catch(()=>{
         setLoading(false);
+        alert("El mensaje no pudo ser enviado.");
       });    
       
       setContactNombre("");
@@ -39,14 +40,15 @@ const Contacto = () => {
       setContactMensaje("");
 
     }else{
-      alert("El mensaje no pudo ser enviado.");
       setLoading(false);
+      alert("El mensaje no pudo ser enviado.");
     }
     
   }
 
   return <section className="contact">
     <div className="titulo">Contáctanos</div>
+    
     <form className="contactForm" onSubmit={handleSubmit}>
       
       <label htmlFor="contactName">Nombre</label>
@@ -54,7 +56,8 @@ const Contacto = () => {
       <input 
         type="text" 
         name="contactName" 
-        id="contactName" 
+        className="inputsForm"
+        placeholder="Nombre"
         value={contactNombre}
         onChange={e => setContactNombre(e.target.value)}
         />
@@ -65,7 +68,8 @@ const Contacto = () => {
       <input 
         type="text" 
         name="contactLastName" 
-        id="contactLastName"
+        className="inputsForm"
+        placeholder="Apellido"
         value={contactApellido}
         onChange={e => setContactApellido(e.target.value)}
         />
@@ -76,8 +80,8 @@ const Contacto = () => {
       <input 
         type="email" 
         name="contactEmail" 
-        id="contactEmail" 
-        placeholder="quieroestabilidademocional@correo.com"
+        className="inputsForm"
+        placeholder="ejemplo@correo.com"
         value={contactCorreo}
         onChange={e => setContactCorreo(e.target.value)}
       />
@@ -88,15 +92,13 @@ const Contacto = () => {
       <textarea 
         name="contactMessage" 
         id="contactMessage" 
-        cols="30" 
-        rows="10" 
         placeholder="Escribe tu mensaje aquí"
         value={contactMensaje}
         onChange={e => setContactMensaje(e.target.value)}
         ></textarea>
       <br />
 
-      <button type="submit" disabled={loading} style={{background: loading ? "#CCC" : "#EE9D6B" }}>{loading ? "Enviando..." : "Enviar"}</button>
+      <button type="submit" disabled={loading} style={{background: loading ? "#CCC" : "#EE9D6B" }} className="button-format">{loading ? "Enviando..." : "Enviar"}</button>
     </form>
   </section>;
 };
