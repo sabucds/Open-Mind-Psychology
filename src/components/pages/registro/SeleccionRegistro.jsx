@@ -1,8 +1,23 @@
 import React from "react";
-import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory } from "react-router-dom";
 import "./SeleccionRegistro.css";
+import { useContext } from "react";
+import { UserContext } from "../../../context/UserContext";
 
 const SeleccionRegistro = () => {
+  const { settype } = useContext(UserContext);
+  const history = useHistory();
+
+  const handleTrue = () => {
+    settype(true);
+    history.push("/registro");
+  };
+
+  const handleFalse = () => {
+    settype(false);
+    history.push("/registro");
+  };
+
   return (
     <section className="compInicioSesion">
       <div className="left-column">
@@ -11,12 +26,12 @@ const SeleccionRegistro = () => {
             Registrarse como <br /> cliente
           </p>
           <div className="image"></div>
-          <div className="button">
-            <Link to="/registro" className="start" id="left-button">
+          <div className="button" onClick={handleFalse}>
+            <p className="start" id="left-button">
               Empezar como
               <br />
               cliente
-            </Link>
+            </p>
           </div>
         </div>
       </div>
@@ -26,12 +41,12 @@ const SeleccionRegistro = () => {
             Registrarse como <br /> especialista
           </p>
           <div className="image-1"></div>
-          <div className="button" id="right-button-box">
-            <Link to="/registro" className="start" id="right-button">
+          <div className="button" id="right-button-box" onClick={handleTrue}>
+            <p className="start" id="right-button">
               Empezar como
               <br />
               especialista
-            </Link>
+            </p>
           </div>
         </div>
       </div>
