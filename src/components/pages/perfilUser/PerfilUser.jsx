@@ -13,7 +13,7 @@ const PerfilUser = () => {
     <section className="main-RegistroUser">
       {!!user ? (
         <div className = "todo-user">
-          <div className = "encabezado">
+          <div className = "encabezado1">
             <img src="https://i.insider.com/5f68c25457b7da001ee12c85?width=1100&format=jpeg&auto=webp" className = "imagen-user" />
             <div className = "nombre-user">{user.name}</div>
           </div>

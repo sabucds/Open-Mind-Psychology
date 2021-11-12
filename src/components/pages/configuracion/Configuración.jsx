@@ -7,16 +7,45 @@ import { Link, useHistory } from 'react-router-dom';
 
 const Configuracion = ()=>{
     const history = useHistory();
+    const { createUser, type } = useContext(UserContext);
     const [selected, setSelected] = useState('');
     const { user, setUser } = useContext(UserContext);
     const [shown, setShown] = React.useState(false);
     const [values, setValues] = useState({
+        nombre: "",
+        apellido: "",
+        country: "",
+        numero: "",
+        info: "",
         password: "",
         password2: "",
-      });
+    });
   
-  const switchShown = () => setShown(!shown);
-  const onChange = ({ currentTarget }) => setValues(currentTarget.value);
+    const switchShown = () => setShown(!shown);
+    const onChange = ({ currentTarget }) => setValues(currentTarget.value);
+
+    function handleChange(evt) {
+      const { value, name: inputName } = evt.target;
+      setValues({ ...values, [inputName]: value });
+    }
+
+    const handleSubmit = async (evt) => {
+      evt.preventDefault();
+      await createUser(
+          {
+            name: values.nombre + " " + values.apellido,
+            phone: values.numero,
+            country: values.country,
+            info: values.info,
+            role: "usuario",
+          },
+        );
+      
+      console.log("Datos actualizados");
+      console.log(user)
+      history.push("/PerfilUser");
+    };
+
     return (
         <section className = "main-RegistroUser">
             <div className = "edit">
@@ -40,6 +69,9 @@ const Configuracion = ()=>{
                             name="nombre"
                             type="text"
                             className="input-nombre-edit"
+                            placeholder="Juan"
+                            onChange={handleChange}
+                            value = {values.nombre}
                         />
                     </div>
 
@@ -52,6 +84,9 @@ const Configuracion = ()=>{
                             name="apellido"
                             type="text"
                             className="input-apellido-edit"
+                            placeholder="Perez"
+                            onChange={handleChange}
+                            value = {values.apellido}
                         />
                     </div>
 
@@ -64,6 +99,9 @@ const Configuracion = ()=>{
                             name="numero"
                             type="tel"
                             className="input-numero-edit"
+                            placeholder="xxxx-xxxxxxx"
+                            onChange={handleChange}
+                            value = {values.numero}
                         />
                     </div>
 
@@ -75,6 +113,7 @@ const Configuracion = ()=>{
                           selected={selected}
                           onSelect={code => setSelected(code)}
                           className = "pais-select"
+                          
                         />
                     </div>
 
@@ -86,7 +125,10 @@ const Configuracion = ()=>{
                             id="sobremi"
                             name="sobremi"
                             type="text"
+                            placeholder="Presentación"
                             className="input-sobremi-edit"
+                            onChange={handleChange}
+                            value = {values.info}
                         />
                     </div>
                     </div>
@@ -108,22 +150,7 @@ const Configuracion = ()=>{
 
                 <div className = "cuadro1">
                     <div className = "cuadro2">
-                    <div className = "contra-actual">
-                        <div className = "titles-edit">
-                            Contaseña actual
-                        </div>
-
-                        <input
-                        id="password__input"
-                        onChange={onChange}
-                        placeholder="***********"
-                        type={shown ? 'text' : 'password'}
-                        value={values.password2}
-                        className="input-contra-edit"
-                        />
-
-                    </div>
-
+                    
 
                     <div className = "new-contra">
                         <div className = "titles-edit">
@@ -154,8 +181,6 @@ const Configuracion = ()=>{
                 </div>
                 <br />
                 <br />
-                
-
             </div>
 
         </section>

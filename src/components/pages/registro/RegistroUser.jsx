@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useContext } from "react";
 import "./RegistroUser.css";
+import registro1 from "../../img/registro1.png";
 import { useHistory } from "react-router-dom";
 import {
   providerGoogle,
@@ -11,6 +12,9 @@ import { UserContext } from "../../../context/UserContext";
 
 const RegistroUser = () => {
   const { createUser, type } = useContext(UserContext);
+  const [shown, setShown] = React.useState(false);
+  const switchShown = () => setShown(!shown);
+  const onChange = ({ currentTarget }) => setValues(currentTarget.value);
 
   const [values, setValues] = useState({
     nombre: "",
@@ -97,11 +101,14 @@ const RegistroUser = () => {
 
   return (
     <section className="main-RegistroUser">
-      <div className="TitleRegister">
-        Bienvenido a OMP, comienza tu camino con nosotros
+      <div className="encabezado">
+        <div className="TitleRegister">
+          Bienvenido a OMP, comienza
+          <br />
+          tu camino con nosotros
+        </div>
+        <div className="linea"></div>
       </div>
-      <div className="linea"></div>
-
       <div className="flexbox-container">
         <div className="left-col">
           <form onSubmit={handleSubmit} className="all-form">
@@ -110,6 +117,7 @@ const RegistroUser = () => {
             </label>
             <br />
             <input
+              placeholder="Juan"
               id="nombre"
               name="nombre"
               type="name"
@@ -124,6 +132,7 @@ const RegistroUser = () => {
             </label>
             <br />
             <input
+              placeholder="Almeida"
               id="apellido"
               name="apellido"
               type="lastname"
@@ -138,6 +147,7 @@ const RegistroUser = () => {
             </label>
             <br />
             <input
+              placeholder="4241763045"
               id="numero"
               name="numero"
               type="tel"
@@ -152,6 +162,7 @@ const RegistroUser = () => {
             </label>
             <br />
             <input
+              placeholder="dondetevea@tepateoesetrasero.com"
               id="email"
               name="email"
               type="email"
@@ -166,9 +177,10 @@ const RegistroUser = () => {
             </label>
             <br />
             <input
+              placeholder="************"
               id="password"
               name="password"
-              type="password"
+              type={shown ? 'text' : 'password'}
               value={values.password}
               onChange={handleChange}
               className="formulario-input"
@@ -180,13 +192,17 @@ const RegistroUser = () => {
             </label>
             <br />
             <input
+              placeholder="************"
               id="password2"
               name="password2"
-              type="password"
+              type={shown ? 'text' : 'password'}
               value={values.password2}
               onChange={handleChange}
               className="formulario-input"
             />
+            <button className="password-button-reg" onClick={switchShown}>
+              {shown ? <div className = "ocultar-reg"></div> : <div className = "mostrar-reg"></div>}
+            </button>
             <br />
             <input type="checkbox" className="check" />
             <label className="subtitulos">Confirmo tener 18 años o más.</label>
@@ -209,35 +225,47 @@ const RegistroUser = () => {
         </div>
 
         <div className="right-col">
-          <div>
-            <button
-              type="button"
-              onClick={handleGoogleLogin}
-              className="registro-extra"
-            >
-              Iniciar con cuenta de Google.
-            </button>
+          <div className="rrss-box">
+            <div className="dist">
+              <button
+                className="buttonsRS"
+                id="googleB"
+                onClick={handleGoogleLogin}
+              >
+                <div className="image1log"></div>
+                <p className="textito">Ingresar con cuenta de Google</p>
+              </button>
+              <hr class="solid" className="sep" />
+            </div>
+            <div className="dist">
+              <button
+                className="buttonsRS"
+                id="faceB"
+                onClick={handleFacebookLogin}
+              >
+                <div className="image2log"></div>
+                <p className="textito">Ingresar con cuenta de Facebook</p>
+              </button>
+              <hr class="solid" className="sep" />
+            </div>
+            <div className="dist">
+              <button
+                className="buttonsRS"
+                id="twitterB"
+                onClick={handleGoogleLogin}
+              >
+                <div className="image3log"></div>
+                <p className="textito"> Ingresar con cuenta de Twitter</p>
+              </button>
+              <hr class="solid" className="sep" />
+            </div>
           </div>
-          <br />
-          <div>
-            <button
-              type="button"
-              onClick={handleFacebookLogin}
-              className="registro-extra"
-            >
-              Iniciar con cuenta de Facebook.
-            </button>
-          </div>
-          <br />
-          <div>
-            <button
-              type="button"
-              onClick={handleGoogleLogin}
-              className="registro-extra"
-            >
-              Iniciar con cuenta de Twitter.
-            </button>
-          </div>
+          <img
+            src={registro1}
+            alt="registro-imagen"
+            width="500px"
+            className="img1"
+          />
         </div>
       </div>
     </section>

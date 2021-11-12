@@ -10,6 +10,7 @@
   outline: none;
 }
 
+
 .edit{
   position: relative;
   font-style: normal;
@@ -19,6 +20,7 @@
   color: #ee9d6b;
   padding-bottom: 0.5em;
 }
+
 
 .titulo-editables{
   font-weight: lighter;
