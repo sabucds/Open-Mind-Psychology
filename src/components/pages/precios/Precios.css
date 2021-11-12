@@ -41,9 +41,24 @@
 }
 
 @media screen and (max-width: 600px) {
-  .about {
+  .prices {
     width: 100%;
     height: 100%;
     padding: 50px 20px;
+  }
+  .text-box {
+    width: 100%;
+    font-size: 1em;
+  }
+  .titulo {
+    margin-bottom: 30px;
+  }
+  .price span {
+    font-size: 2rem;
+  }
+  .price {
+    font-weight: bolder;
+    font-size: 1.5rem;
+    margin-bottom: 30px;
   }
 }
