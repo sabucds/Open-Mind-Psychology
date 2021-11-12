@@ -14,6 +14,8 @@ import PerfilUser from "./pages/perfilUser/PerfilUser";
 import SeleccionRegistro from "./pages/registro/SeleccionRegistro";
 import PerfilEspecialista from "./pages/perfilEspecialista/PerfilEspecialista";
 import UserContextProvider from "../context/UserContext";
+import Admin from "./pages/admin/Admin";
+import Error404 from "./pages/error404/Error404";
 
 function App() {
   return (
@@ -32,6 +34,8 @@ function App() {
             <Route path="/perfilUser" component={PerfilUser} />
             <Route path="/perfilEsp" component={PerfilEspecialista} />
             <Route path="/selectReg" component={SeleccionRegistro} />
+            <Route path="/admin" component={Admin} />
+            <Route path="*" component={Error404} />
           </Switch>
         </Router>
       </div>

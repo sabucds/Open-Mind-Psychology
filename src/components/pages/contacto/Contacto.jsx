@@ -49,7 +49,7 @@ const Contacto = () => {
       setLoading(false);
       alert("El mensaje no pudo ser enviado.");
     }
-    
+
   }
 
   return <section className="contact">
