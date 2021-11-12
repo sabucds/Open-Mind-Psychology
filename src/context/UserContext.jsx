@@ -73,7 +73,14 @@ export default function UserContextProvider({ children }) {
   console.log(user);
   return (
     <UserContext.Provider
-      value={{ user, setuser, createUser, type, settype, getUserByEmail }}
+      value={{
+        user,
+        setuser,
+        createUser,
+        type,
+        settype,
+        getUserByEmail,
+      }}
     >
       {children}
     </UserContext.Provider>

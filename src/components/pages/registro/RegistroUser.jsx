@@ -13,7 +13,7 @@ import "./RegistroUser.css";
 import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
 
 const RegistroUser = () => {
-  const { createUser, type } = useContext(UserContext);
+  const { createUser, type, user } = useContext(UserContext);
 
   const [values, setValues] = useState({
     nombre: "",
@@ -74,11 +74,8 @@ const RegistroUser = () => {
         }
         console.log(response.user.uid);
         console.log("EMAIL_PASSWORD_LOGIN");
-        if (type) {
-          history.push("/perfilEsp");
-        } else {
-          history.push("/perfilUser");
-        }
+        console.log(user);
+        history.push("/");
       } catch (e) {
         alert(
           "Hubo un error al enviar el formulario, verifique que los campos sean válidos."
@@ -92,31 +89,19 @@ const RegistroUser = () => {
   const handleGoogleLogin = async () => {
     console.log("GOOGLE_LOGIN");
     await auth.signInWithPopup(providerGoogle);
-    if (type) {
-      history.push("/perfilEsp");
-    } else {
-      history.push("/perfilUser");
-    }
+    history.push("/");
   };
 
   const handleFacebookLogin = async () => {
     console.log("FACEBOOK_LOGIN");
     await auth.signInWithPopup(providerFacebook);
-    if (type) {
-      history.push("/perfilEsp");
-    } else {
-      history.push("/perfilUser");
-    }
+    history.push("/");
   };
 
   const handleTwitterLogin = async () => {
-    console.log("FACEBOOK_LOGIN");
+    console.log("TWITTER_LOGIN");
     await auth.signInWithPopup(providerTwitter);
-    if (type) {
-      history.push("/perfilEsp");
-    } else {
-      history.push("/perfilUser");
-    }
+    history.push("/");
   };
 
   return (

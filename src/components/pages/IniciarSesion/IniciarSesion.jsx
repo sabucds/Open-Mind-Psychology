@@ -1,6 +1,6 @@
 import React from "react";
 import "./IniciarSesion.css";
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import {
@@ -9,11 +9,9 @@ import {
   providerTwitter,
   auth,
 } from "../../../utils/firebaseConfig.js";
-import { UserContext } from "../../../context/UserContext";
 
 const IniciarSesion = () => {
   const history = useHistory();
-  const { user, getUserByEmail } = useContext(UserContext);
   const [values, setValues] = useState({
     email: "",
     password: "",
@@ -29,11 +27,7 @@ const IniciarSesion = () => {
     console.log("EMAIL_LOGIN");
     try {
       await auth.signInWithEmailAndPassword(values.email, values.password);
-      if (user.role === "especialista") {
-        history.push("/perfilEsp");
-      } else {
-        history.push("/perfilUser");
-      }
+      history.push("/");
     } catch (e) {
       alert("Correo o contraseña inválida.");
     }
@@ -41,42 +35,20 @@ const IniciarSesion = () => {
 
   const handleGoogleLogin = async () => {
     console.log("GOOGLE_LOGIN");
-
     await auth.signInWithPopup(providerGoogle);
-    if (user.role === "especialista") {
-      history.push("/perfilEsp");
-    } else {
-      history.push("/perfilUser");
-    }
+    history.push("/");
   };
 
   const handleFacebookLogin = async () => {
     console.log("FACEBOOK_LOGIN");
     await auth.signInWithPopup(providerFacebook);
-    const user = getUserByEmail(values.email);
-    if (user.role === "especialista") {
-      history.push("/perfilEsp");
-    } else {
-      history.push("/perfilUser");
-    }
+    history.push("/");
   };
 
   const handleTwitterLogin = async () => {
     console.log("TWITTER_LOGIN");
-    try {
-      await auth.signInWithPopup(providerTwitter);
-      const user = getUserByEmail(values.email);
-      if (user.role === "especialista") {
-        history.push("/perfilEsp");
-      } else {
-        history.push("/perfilUser");
-      }
-    } catch (e) {
-      console.log(e);
-      if (e.code === "auth/account-exists-with-different-credential") {
-        alert("Usted ya se encuentra registrado con otra cuenta.");
-      }
-    }
+    await auth.signInWithPopup(providerTwitter);
+    history.push("/");
   };
 
   const handleRestorePassword = async () => {
@@ -85,6 +57,7 @@ const IniciarSesion = () => {
       history.push("/");
     } catch (e) {
       console.log(e);
+      alert("Hubo un error. Por favor, revise que el correo sea válido.");
     }
   };
 

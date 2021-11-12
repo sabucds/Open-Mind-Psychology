@@ -14,8 +14,6 @@ import SeleccionRegistro from "./pages/registro/SeleccionRegistro";
 import UserContextProvider from "../context/UserContext";
 import PrivateRoute from "./ProtectedRoutes/PrivateRoute";
 import ProfileRoute from "./ProtectedRoutes/ProfileRoute";
-import PerfilEspecialista from "./pages/perfilEspecialista/PerfilEspecialista";
-import PerfilUser from "./pages/perfilUser/PerfilUser";
 
 function App() {
   return (
@@ -31,12 +29,7 @@ function App() {
             <Route exact path="/contacto" component={Contacto} />
             <Route exact path="/iniciar" component={IniciarSesion} />
             <Route exact path="/selectReg/registro" component={RegistroUser} />
-            <PrivateRoute
-              exact
-              path="/perfilEsp"
-              component={PerfilEspecialista}
-            />
-            <PrivateRoute exact path="/perfilUser" component={PerfilUser} />
+            <PrivateRoute path="/perfil" component={ProfileRoute} />
             <Route exact path="/selectReg" component={SeleccionRegistro} />
           </Switch>
         </Router>
