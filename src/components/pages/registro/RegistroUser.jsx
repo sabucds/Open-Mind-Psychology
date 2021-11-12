@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useContext } from "react";
 import "./RegistroUser.css";
-import registro1 from "/Users/mariv/Documents/Open-Mind-Psychology/src/components/img/Registro.png";
+import registro1 from "../../img/Registro.png";
 import { useHistory } from "react-router-dom";
 import {
   providerGoogle,

@@ -56,6 +56,7 @@
   padding-bottom: 0.2em;
   border: 2px solid #ee9d6b;
   border-radius: 15px;
+  cursor: pointer;
 }
 
 .bar-options:last-child:hover .nav-link {
