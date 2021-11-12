@@ -59,6 +59,11 @@
     color: white;
     margin-top: 1.5em;
     width: 80%;
+    filter: brightness(1);
+}
+
+.contactForm .button-format:hover {
+    filter: brightness(1.05);
 }
 
 @media only screen and (min-width: 900px) { /*computadoras*/
