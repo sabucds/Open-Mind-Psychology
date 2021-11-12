@@ -62,6 +62,10 @@ const PerfilUser = () => {
                   </div>
               </div>
             </div>
+
+          <Link to = "./config" className = "register-button">
+            EDITAR PERFIL
+          </Link>
         </div>
     ) : (
       <div className = "cargando">
