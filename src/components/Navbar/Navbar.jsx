@@ -21,18 +21,15 @@ const Navbar = () => {
   const handleClickCuenta = () => {
     setClickedCuenta(!clickedCuenta);
   };
-  const { user } = useContext(UserContext);
+  const { user, setuser } = useContext(UserContext);
   const history = useHistory();
   const handleLogout = async () => {
     setClickedProfile(false);
     await auth.signOut();
-    // setUser(null);
+    setuser(null);
     history.push("/");
   };
 
-  if (!!user) {
-    console.log(user);
-  }
   function mapear(estructura, clicked) {
     return estructura.map(({ url, title }, index) => {
       return (
@@ -100,8 +97,6 @@ const Navbar = () => {
               className={
                 clickedCuenta ? "nav-links cuenta-iniciada" : "nav-links close"
               }
-              exact
-              activeClassName="active"
               onClick={handleClickCuenta}
             >
               <div className="nav-link clic-cuenta">

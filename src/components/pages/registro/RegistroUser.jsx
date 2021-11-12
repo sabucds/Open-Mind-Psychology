@@ -108,6 +108,9 @@ const RegistroUser = () => {
       </div>
       <div className="flexbox-container">
         <div className="left-col">
+          <div className="registrate-con titulos datos-titulo">
+            O ingresando tus datos:
+          </div>
           <form onSubmit={handleSubmit} className="all-form">
             <label htmlFor="nombre" className="titulos">
               Nombre{" "}
@@ -208,17 +211,20 @@ const RegistroUser = () => {
             </label>
             <br />
 
-            <button
-              type="button"
-              className="registro-button"
-              onClick={handleSubmit}
-            >
-              Iniciar
-            </button>
+            <div className="boton-registro-a">
+              <button
+                type="button"
+                className="registro-button"
+                onClick={handleSubmit}
+              >
+                Iniciar
+              </button>
+            </div>
           </form>
         </div>
 
         <div className="right-col">
+          <div className="registrate-con titulos">Regístrate con:</div>
           <div className="rrss-box">
             <div className="dist">
               <button
@@ -251,7 +257,7 @@ const RegistroUser = () => {
                 <div className="image3log"></div>
                 <p className="textito"> Ingresar con cuenta de Twitter</p>
               </button>
-              <hr class="solid" className="sep" />
+              <hr class="solid" className="sep lastLine" />
             </div>
           </div>
           <img
