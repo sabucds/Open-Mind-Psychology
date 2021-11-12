@@ -5,6 +5,8 @@ import { MenuList } from "./MenuList";
 import { ClienteList } from "./ClienteList";
 import { EspecialistaList } from "./EspecialistaList";
 import { UserContext } from "../../context/UserContext";
+import { auth } from "../../utils/firebaseConfig";
+import { useHistory } from "react-router-dom";
 
 const Navbar = () => {
   const [clickedMenu, setClickedMenu] = useState(false);
@@ -20,11 +22,14 @@ const Navbar = () => {
     setClickedCuenta(!clickedCuenta);
   };
   const { user } = useContext(UserContext);
-  // const history = useHistory();
+  const history = useHistory();
+  const handleLogout = async () => {
+    await auth.signOut();
+    // setUser(null);
+    setClickedProfile(!clickedProfile);
+    history.push("/");
+  };
 
-  if (!!user) {
-    console.log(user);
-  }
   function mapear(estructura, clicked) {
     return estructura.map(({ url, title }, index) => {
       return (
@@ -92,8 +97,6 @@ const Navbar = () => {
               className={
                 clickedCuenta ? "nav-links cuenta-iniciada" : "nav-links close"
               }
-              exact
-              activeClassName="active"
               onClick={handleClickCuenta}
             >
               <div className="nav-link clic-cuenta">
@@ -129,6 +132,9 @@ const Navbar = () => {
           }
         >
           {ValidarRol(user, especialistalist, clientelist)}
+          <li className="bar-options" onClick={handleLogout}>
+            <div className="nav-link nav-links">Cerrar sesión</div>
+          </li>
         </ul>
       ) : (
         <div className="nada_porque_no_inicio"></div>
@@ -140,6 +146,9 @@ const Navbar = () => {
           }
         >
           {ValidarRol(user, especialistalist, clientelist)}
+          <li className="bar-options" onClick={handleLogout}>
+            <div className="nav-link nav-links">Cerrar sesión</div>
+          </li>
         </ul>
       ) : (
         <div className="nada_porque_no_inicio"></div>
