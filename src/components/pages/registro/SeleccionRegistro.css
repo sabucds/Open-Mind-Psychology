@@ -82,6 +82,11 @@ body {
   background-image: url("../../img/Vector2.png");
 }
 
+.textito {
+  margin-left: 1em;
+  margin-top: 0.5em;
+}
+
 #client {
   background-color: #ee9d6b;
 }
