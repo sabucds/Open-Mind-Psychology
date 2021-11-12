@@ -7,6 +7,7 @@ export const UserContext = createContext(null);
 export default function UserContextProvider({ children }) {
   const [user, setuser] = useState(null);
   const [type, settype] = useState(false);
+  const [loading, setloading] = useState(true);
 
   const createUser = async (user, uid) => {
     await bd.collection("users").doc(uid).set(user);
@@ -25,6 +26,7 @@ export default function UserContextProvider({ children }) {
   useEffect(() => {
     const unlisten = auth.onAuthStateChanged(async (loggedUser) => {
       console.log("ON AUTH STATE CHANGED");
+      setloading(true);
       if (loggedUser) {
         const profile = await getUserByEmail(loggedUser.email);
 
@@ -64,6 +66,7 @@ export default function UserContextProvider({ children }) {
       } else {
         setuser(null);
       }
+      setloading(false);
     });
 
     return () => {
@@ -80,6 +83,7 @@ export default function UserContextProvider({ children }) {
         type,
         settype,
         getUserByEmail,
+        loading,
       }}
     >
       {children}

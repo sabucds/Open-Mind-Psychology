@@ -16,11 +16,9 @@ const Inicio = () => {
           <div className="pers-group"></div>
         </div>
         <div className="right-columna">
-          <div className="registra-button">
-            <NavLink className="registra-link" to="/SelectReg">
-              Regístrate aquí
-            </NavLink>
-          </div>
+          <NavLink className="registra-link" to="/SelectReg">
+            <div className="registra-button">Regístrate aquí</div>
+          </NavLink>
         </div>
       </div>
       <div className="second-sect">

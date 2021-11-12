@@ -19,8 +19,4 @@ export const MenuList = [
     title: "Contacto",
     url: "/contacto",
   },
-  {
-    title: "Iniciar sesion",
-    url: "/iniciar",
-  },
 ];

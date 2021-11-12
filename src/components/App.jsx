@@ -11,9 +11,13 @@ import AcercaDe from "./pages/acercade/AcercaDe";
 import Navbar from "./Navbar/Navbar";
 import RegistroUser from "./pages/registro/RegistroUser";
 import SeleccionRegistro from "./pages/registro/SeleccionRegistro";
+import ListaPacientes from "./pages/listaPacientes/ListaPacientes";
+import Chats from "./pages/chats/Chats";
+import Citas from "./pages/citas/Citas";
 import UserContextProvider from "../context/UserContext";
 import PrivateRoute from "./ProtectedRoutes/PrivateRoute";
 import ProfileRoute from "./ProtectedRoutes/ProfileRoute";
+import VisitorRoute from "./ProtectedRoutes/VisitorRoute";
 
 function App() {
   return (
@@ -27,10 +31,21 @@ function App() {
             <Route exact path="/especialistas" component={Especialistas} />
             <Route exact path="/acerca" component={AcercaDe} />
             <Route exact path="/contacto" component={Contacto} />
-            <Route exact path="/iniciar" component={IniciarSesion} />
-            <Route exact path="/selectReg/registro" component={RegistroUser} />
-            <PrivateRoute path="/perfil" component={ProfileRoute} />
-            <Route exact path="/selectReg" component={SeleccionRegistro} />
+            <VisitorRoute exact path="/iniciar" component={IniciarSesion} />
+            <VisitorRoute
+              exact
+              path="/selectReg/registro"
+              component={RegistroUser}
+            />
+            <PrivateRoute exact path="/perfil" component={ProfileRoute} />
+            <VisitorRoute
+              exact
+              path="/selectReg"
+              component={SeleccionRegistro}
+            />
+            <Route exact path="/chats" component={Chats} />
+            <Route exact path="/citas" component={Citas} />
+            <Route exact path="/listaPacientes" component={ListaPacientes} />
           </Switch>
         </Router>
       </div>

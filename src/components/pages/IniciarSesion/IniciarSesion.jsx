@@ -101,7 +101,6 @@ const IniciarSesion = () => {
                     placeholder="**********"
                   />
                   <p className="texto-chiquito" onClick={handleRestorePassword}>
-                    {" "}
                     Olvidé mi contraseña
                   </p>
                 </div>
@@ -135,7 +134,7 @@ const IniciarSesion = () => {
               <div className="image1log"></div>
               <p className="textito">Ingresar con cuenta de Google</p>
             </button>
-            <hr className="solid sep" />
+            <hr className="sep solid" />
           </div>
           <div className="dist">
             <button
@@ -146,7 +145,7 @@ const IniciarSesion = () => {
               <div className="image2log"></div>
               <p className="textito">Ingresar con cuenta de Facebook</p>
             </button>
-            <hr className="solid sep" />
+            <hr className="sep solid" />
           </div>
           <div className="dist">
             <button
@@ -157,7 +156,7 @@ const IniciarSesion = () => {
               <div className="image3log"></div>
               <p className="textito"> Ingresar con cuenta de Twitter</p>
             </button>
-            <hr className="solid sep" />
+            <hr className="sep lastLine solid" />
           </div>
         </div>
       </div>
