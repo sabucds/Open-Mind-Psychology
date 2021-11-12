@@ -86,6 +86,10 @@ body {
   font-size: 0.7em;
 }
 
+.texto-chiquito::hover {
+  cursor: pointer;
+}
+
 .buttons {
   width: 16em;
   display: flex;

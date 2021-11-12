@@ -10,12 +10,12 @@ const SeleccionRegistro = () => {
 
   const handleTrue = () => {
     settype(true);
-    history.push("/registro");
+    history.push("/selectReg/registro");
   };
 
   const handleFalse = () => {
     settype(false);
-    history.push("/registro");
+    history.push("/selectReg/registro");
   };
 
   return (

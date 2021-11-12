@@ -10,10 +10,12 @@ import IniciarSesion from "./pages/IniciarSesion/IniciarSesion";
 import AcercaDe from "./pages/acercade/AcercaDe";
 import Navbar from "./Navbar/Navbar";
 import RegistroUser from "./pages/registro/RegistroUser";
-import PerfilUser from "./pages/perfilUser/PerfilUser";
 import SeleccionRegistro from "./pages/registro/SeleccionRegistro";
-import PerfilEspecialista from "./pages/perfilEspecialista/PerfilEspecialista";
 import UserContextProvider from "../context/UserContext";
+import PrivateRoute from "./ProtectedRoutes/PrivateRoute";
+import ProfileRoute from "./ProtectedRoutes/ProfileRoute";
+import PerfilEspecialista from "./pages/perfilEspecialista/PerfilEspecialista";
+import PerfilUser from "./pages/perfilUser/PerfilUser";
 
 function App() {
   return (
@@ -22,16 +24,20 @@ function App() {
         <Router>
           <Navbar />
           <Switch>
-            <Route path="/" exact component={Inicio} />
-            <Route path="/precios" component={Precios} />
-            <Route path="/especialistas" component={Especialistas} />
-            <Route path="/acerca" component={AcercaDe} />
-            <Route path="/contacto" component={Contacto} />
-            <Route path="/iniciar" component={IniciarSesion} />
-            <Route path="/registro" component={RegistroUser} />
-            <Route path="/perfilUser" component={PerfilUser} />
-            <Route path="/perfilEsp" component={PerfilEspecialista} />
-            <Route path="/selectReg" component={SeleccionRegistro} />
+            <Route exact path="/" component={Inicio} />
+            <Route exact path="/precios" component={Precios} />
+            <Route exact path="/especialistas" component={Especialistas} />
+            <Route exact path="/acerca" component={AcercaDe} />
+            <Route exact path="/contacto" component={Contacto} />
+            <Route exact path="/iniciar" component={IniciarSesion} />
+            <Route exact path="/selectReg/registro" component={RegistroUser} />
+            <PrivateRoute
+              exact
+              path="/perfilEsp"
+              component={PerfilEspecialista}
+            />
+            <PrivateRoute exact path="/perfilUser" component={PerfilUser} />
+            <Route exact path="/selectReg" component={SeleccionRegistro} />
           </Switch>
         </Router>
       </div>

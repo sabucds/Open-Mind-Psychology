@@ -14,10 +14,12 @@ const firebaseConfig = {
 };
 
 export const app = initializeApp(firebaseConfig);
-export const auth = firebase.auth();
+export const auth = app.auth();
 export const storage = app.storage();
 export const bd = app.firestore();
 
 export const providerGoogle = new firebase.auth.GoogleAuthProvider();
 
 export const providerFacebook = new firebase.auth.FacebookAuthProvider();
+
+export const providerTwitter = new firebase.auth.TwitterAuthProvider();

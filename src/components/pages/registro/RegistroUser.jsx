@@ -1,13 +1,16 @@
 import React from "react";
 import { useState, useContext } from "react";
-import "./RegistroUser.css";
 import { useHistory } from "react-router-dom";
 import {
   providerGoogle,
   providerFacebook,
+  providerTwitter,
   auth,
 } from "../../../utils/firebaseConfig.js";
 import { UserContext } from "../../../context/UserContext";
+import "react-phone-number-input/style.css";
+import "./RegistroUser.css";
+import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
 
 const RegistroUser = () => {
   const { createUser, type } = useContext(UserContext);
@@ -18,58 +21,71 @@ const RegistroUser = () => {
     email: "",
     password: "",
     password2: "",
-    numero: "",
   });
 
-  function handleChange(evt) {
-    const { value, name: inputName } = evt.target;
+  const [number, setNumber] = useState();
+
+  function handleChange(e) {
+    const { value, name: inputName } = e.target;
     setValues({ ...values, [inputName]: value });
   }
 
   const history = useHistory();
 
-  const handleSubmit = async (evt) => {
-    evt.preventDefault();
-    const response = await auth.createUserWithEmailAndPassword(
-      values.email,
-      values.password
-    );
-    if (type) {
-      await createUser(
-        {
-          name: values.nombre + " " + values.apellido,
-          email: values.email,
-          phone: values.numero,
-          country: "",
-          info: "",
-          specialty: [],
-          education: [],
-          schedule: [],
-          feedback: [],
-          role: "especialista",
-          status: "standby",
-        },
-        response.user.uid
-      );
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (isValidPhoneNumber(number)) {
+      try {
+        const response = await auth.createUserWithEmailAndPassword(
+          values.email,
+          values.password
+        );
+        if (type) {
+          await createUser(
+            {
+              name: values.nombre + " " + values.apellido,
+              email: values.email,
+              phone: number,
+              country: "",
+              info: "",
+              specialty: [],
+              education: [],
+              schedule: [],
+              feedback: [],
+              ranking: 0,
+              role: "especialista",
+              status: "standby",
+            },
+            response.user.uid
+          );
+        } else {
+          await createUser(
+            {
+              name: values.nombre + " " + values.apellido,
+              email: values.email,
+              phone: number,
+              country: "",
+              info: "",
+              role: "usuario",
+            },
+            response.user.uid
+          );
+        }
+        console.log(response.user.uid);
+        console.log("EMAIL_PASSWORD_LOGIN");
+        if (type) {
+          history.push("/perfilEsp");
+        } else {
+          history.push("/perfilUser");
+        }
+      } catch (e) {
+        alert(
+          "Hubo un error al enviar el formulario, verifique que los campos sean válidos."
+        );
+      }
     } else {
-      await createUser(
-        {
-          name: values.nombre + " " + values.apellido,
-          email: values.email,
-          phone: values.numero,
-          country: "",
-          info: "",
-          role: "usuario",
-        },
-        response.user.uid
-      );
-    }
-    console.log(response.user.uid);
-    console.log("EMAIL_PASSWORD_LOGIN");
-    if (type) {
-      history.push("/PerfilEspecialista");
-    } else {
-      history.push("/PerfilUser");
+      alert("Uno de los campos está vacío o es inválido.");
     }
   };
 
@@ -77,21 +93,29 @@ const RegistroUser = () => {
     console.log("GOOGLE_LOGIN");
     await auth.signInWithPopup(providerGoogle);
     if (type) {
-      history.push("/PerfilEspecialista");
+      history.push("/perfilEsp");
     } else {
-      history.push("/PerfilUser");
+      history.push("/perfilUser");
     }
   };
 
   const handleFacebookLogin = async () => {
     console.log("FACEBOOK_LOGIN");
-    providerFacebook.setCustomParameters({ prompt: "select_account" });
-    const response = await auth.signInWithPopup(providerFacebook);
-    console.log({ response: response.user });
+    await auth.signInWithPopup(providerFacebook);
     if (type) {
-      history.push("/PerfilEspecialista");
+      history.push("/perfilEsp");
     } else {
-      history.push("/PerfilUser");
+      history.push("/perfilUser");
+    }
+  };
+
+  const handleTwitterLogin = async () => {
+    console.log("FACEBOOK_LOGIN");
+    await auth.signInWithPopup(providerTwitter);
+    if (type) {
+      history.push("/perfilEsp");
+    } else {
+      history.push("/perfilUser");
     }
   };
 
@@ -137,13 +161,12 @@ const RegistroUser = () => {
               Número de teléfono{" "}
             </label>
             <br />
-            <input
+            <PhoneInput
               id="numero"
-              name="numero"
-              type="tel"
-              value={values.numero}
-              onChange={handleChange}
-              className="formulario-input"
+              name="number"
+              value={number}
+              onChange={setNumber}
+              className="phone"
             />
             <br />
 
@@ -232,7 +255,7 @@ const RegistroUser = () => {
           <div>
             <button
               type="button"
-              onClick={handleGoogleLogin}
+              onClick={handleTwitterLogin}
               className="registro-extra"
             >
               Iniciar con cuenta de Twitter.

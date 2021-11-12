@@ -51,6 +51,7 @@ export default function UserContextProvider({ children }) {
               education: [],
               schedule: [],
               feedback: [],
+              ranking: 0,
               role: "especialista",
               status: "standby",
             };
@@ -71,7 +72,9 @@ export default function UserContextProvider({ children }) {
   }, [type]);
   console.log(user);
   return (
-    <UserContext.Provider value={{ user, setuser, createUser, type, settype }}>
+    <UserContext.Provider
+      value={{ user, setuser, createUser, type, settype, getUserByEmail }}
+    >
       {children}
     </UserContext.Provider>
   );
