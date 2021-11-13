@@ -57,6 +57,7 @@ const RegistroUser = () => {
               ranking: 0,
               role: "especialista",
               status: "standby",
+              img: "gs://open-mind-psychology.appspot.com/images/default-avatar.png",
             },
             response.user.uid
           );
@@ -69,6 +70,7 @@ const RegistroUser = () => {
               country: "",
               info: "",
               role: "usuario",
+              img: "gs://open-mind-psychology.appspot.com/images/default-avatar.png",
             },
             response.user.uid
           );

@@ -39,6 +39,7 @@ export default function UserContextProvider({ children }) {
               country: "",
               info: "",
               role: "usuario",
+              img: loggedUser.photoURL,
             };
             await createUser(newProfile, loggedUser.uid);
             setuser(newProfile);
@@ -56,6 +57,7 @@ export default function UserContextProvider({ children }) {
               ranking: 0,
               role: "especialista",
               status: "standby",
+              img: loggedUser.photoURL,
             };
             await createUser(newProfile, loggedUser.uid);
             setuser(newProfile);
