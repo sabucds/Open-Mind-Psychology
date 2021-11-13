@@ -12,8 +12,8 @@ import { UserContext } from "../../../context/UserContext";
 
 const RegistroUser = () => {
   const { createUser, type } = useContext(UserContext);
-  const [shown, setShown] = React.useState(false);
-  const switchShown = () => setShown(!shown);
+  const [shown, setShown1] = React.useState(false);{}
+  const switchShown1 = () => setShown1(!shown);
   const onChange = ({ currentTarget }) => setValues(currentTarget.value);
 
   const [values, setValues] = useState({
@@ -200,7 +200,7 @@ const RegistroUser = () => {
               onChange={handleChange}
               className="formulario-input"
             />
-            <button className="password-button-reg" onClick={switchShown}>
+            <button className="password-button-reg" onClick={switchShown1}>
               {shown ? <div className = "ocultar-reg"></div> : <div className = "mostrar-reg"></div>}
             </button>
             <br />
