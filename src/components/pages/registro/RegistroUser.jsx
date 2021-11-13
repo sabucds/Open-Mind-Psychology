@@ -12,10 +12,6 @@ import { UserContext } from "../../../context/UserContext";
 
 const RegistroUser = () => {
   const { createUser, type } = useContext(UserContext);
-  const [shown, setShown1] = useState(false);{}
-  const switchShown1 = () => setShown1(!shown);
-  const onChange = ({ currentTarget }) => setValues(currentTarget.value);
-
   const [values, setValues] = useState({
     nombre: "",
     apellido: "",
@@ -180,7 +176,7 @@ const RegistroUser = () => {
               placeholder="************"
               id="password"
               name="password"
-              type={shown ? 'text' : 'password'}
+              type='password'
               value={values.password}
               onChange={handleChange}
               className="formulario-input"
@@ -195,14 +191,11 @@ const RegistroUser = () => {
               placeholder="************"
               id="password2"
               name="password2"
-              type={shown ? 'text' : 'password'}
+              type = "password"
               value={values.password2}
               onChange={handleChange}
               className="formulario-input"
             />
-            <button className="password-button-reg" onClick={switchShown1}>
-              {shown ? <div className = "ocultar-reg"></div> : <div className = "mostrar-reg"></div>}
-            </button>
             <br />
             <input type="checkbox" className="check" />
             <label className="subtitulos">Confirmo tener 18 años o más.</label>
