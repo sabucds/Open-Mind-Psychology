@@ -1865,6 +1865,11 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
+"@strg/react-snip@^0.2.1":
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/@strg/react-snip/-/react-snip-0.2.1.tgz#a8387ed0a5ca0c017f8c49d7e87e390765996c3a"
+  integrity sha512-WMpU1wXK3Mt/jHILgmh22s5+HybYaxWsOX8HYmB94tKQ5k4YNrDgm2xa+5PcPz6382mOGVLpi8lm9dGCWRf6QA==
+
 "@surma/rollup-plugin-off-main-thread@^1.1.1":
   version "1.4.2"
   resolved "https://registry.npmjs.org/@surma/rollup-plugin-off-main-thread/-/rollup-plugin-off-main-thread-1.4.2.tgz"
@@ -2888,7 +2893,7 @@ axe-core@^4.0.2:
 
 axios@^0.24.0:
   version "0.24.0"
-  resolved "https://registry.npmjs.org/axios/-/axios-0.24.0.tgz"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-0.24.0.tgz#804e6fa1e4b9c5288501dd9dff56a7a0940d20d6"
   integrity sha512-Q6cWsys88HoPgAaFAVUb0WpPk0O8iTeisR9IMqy9G8AbO4NlpVknrnQS03zzF9PGAWgO3cgletO3VjV/P7VztA==
   dependencies:
     follow-redirects "^1.14.4"
@@ -3617,9 +3622,15 @@ class-utils@^0.3.5:
     isobject "^3.0.0"
     static-extend "^0.1.1"
 
+<<<<<<< HEAD
 classnames@^2.2.5, classnames@^2.2.6:
   version "2.3.1"
   resolved "https://registry.npmjs.org/classnames/-/classnames-2.3.1.tgz"
+=======
+classnames@^2.2.6:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.3.1.tgz#dfcfa3891e306ec1dad105d0e88f4417b8535e8e"
+>>>>>>> marianna
   integrity sha512-OlQdbZ7gLfGarSqxesMesDa5uz7KFbID8Kpq/SxIoNGDqY8lSYs0D+hhtBXhcdB3rcbXArFr7vlHheLk1voeNA==
 
 clean-css@^4.2.3:
