@@ -17,6 +17,7 @@ import ListaPacientes from "./pages/listaPacientes/ListaPacientes";
 import Chats from "./pages/chats/Chats";
 import Citas from "./pages/citas/Citas";
 import UserContextProvider from "../context/UserContext";
+import Configuracion from "./pages/configuracion/Configuración";
 
 function App() {
   return (
@@ -35,9 +36,8 @@ function App() {
             <Route path="/perfilUser" component={PerfilUser} />
             <Route path="/perfilEsp" component={PerfilEspecialista} />
             <Route path="/selectReg" component={SeleccionRegistro} />
-            <Route path="/chats" component={Chats} />
-            <Route path="/citas" component={Citas} />
-            <Route path="/listaPacientes" component={ListaPacientes} />
+            <Route path="/config" component={Configuracion} />
+            
           </Switch>
         </Router>
       </div>

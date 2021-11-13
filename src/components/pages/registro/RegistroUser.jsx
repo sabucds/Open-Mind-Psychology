@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useContext } from "react";
 import "./RegistroUser.css";
-import registro1 from "../../img/Registro.png";
+import registro1 from "../../img/registro1.png";
 import { useHistory } from "react-router-dom";
 import {
   providerGoogle,
@@ -12,7 +12,6 @@ import { UserContext } from "../../../context/UserContext";
 
 const RegistroUser = () => {
   const { createUser, type } = useContext(UserContext);
-
   const [values, setValues] = useState({
     nombre: "",
     apellido: "",
@@ -180,7 +179,7 @@ const RegistroUser = () => {
               placeholder="************"
               id="password"
               name="password"
-              type="password"
+              type='password'
               value={values.password}
               onChange={handleChange}
               className="formulario-input"
@@ -195,7 +194,7 @@ const RegistroUser = () => {
               placeholder="************"
               id="password2"
               name="password2"
-              type="password"
+              type = "password"
               value={values.password2}
               onChange={handleChange}
               className="formulario-input"
