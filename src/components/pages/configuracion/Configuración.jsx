@@ -19,6 +19,7 @@ const Configuracion = ()=>{
         info: "",
         password: "",
         password2: "",
+        // foto: "",
     });
   
     const switchShown = () => setShown(!shown);
@@ -129,6 +130,21 @@ const Configuracion = ()=>{
                             className="input-sobremi-edit"
                             onChange={handleChange}
                             value = {values.info}
+                        />
+                    </div>
+
+                    <div className = "perfil-edit">
+                        <div className = "titles-edit">
+                            Foto de perfil
+                        </div>
+                        <input
+                            id="perfil"
+                            name="perfil"
+                            type="file"
+                            accept=".jpg,.png"
+                            className="input-foto-edit"
+                            onChange={handleChange}
+                            // value = {values.foto}
                         />
                     </div>
                     </div>

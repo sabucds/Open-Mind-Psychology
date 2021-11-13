@@ -12,7 +12,7 @@ import { UserContext } from "../../../context/UserContext";
 
 const RegistroUser = () => {
   const { createUser, type } = useContext(UserContext);
-  const [shown, setShown1] = React.useState(false);{}
+  const [shown, setShown1] = useState(false);{}
   const switchShown1 = () => setShown1(!shown);
   const onChange = ({ currentTarget }) => setValues(currentTarget.value);
 

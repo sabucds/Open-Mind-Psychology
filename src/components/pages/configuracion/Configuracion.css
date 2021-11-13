@@ -48,13 +48,13 @@
   text-align: center;
 }
 
-.nombre-edit, .apellido-edit, .numero-edit, .pais-edit, .sobremi-edit, .new-contra, .contra-actual{
+.nombre-edit, .perfil-edit, .apellido-edit, .numero-edit, .pais-edit, .sobremi-edit, .new-contra, .contra-actual{
   display: flex;
   position: relative;
   
 }
 
-.input-nombre-edit, .input-apellido-edit, .input-numero-edit, .input-sobremi-edit, .input-contra-edit, .pais-select{
+.input-nombre-edit, .input-apellido-edit, .input-numero-edit, .input-sobremi-edit, .input-contra-edit, .pais-select, .input-foto-edit{
   background-color: transparent;
   border-color: transparent;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25);
@@ -69,6 +69,13 @@
   padding-left: 5px;
 }
 
+
+.perfil-edit .input-foto-edit {
+  background-color: white;
+  border: 10px solid transparent;
+  cursor: pointer;
+  font-size: 1.09em;
+ }
 
 .titles-edit{
   width: 260px;
