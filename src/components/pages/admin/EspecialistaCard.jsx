@@ -6,7 +6,7 @@ const EspecialistaCard = (props) => {
     return (
         <div className="especialistaCard">
             <div className="espCardTop">
-                <button type="button" className="credencialButton" title="Click para ver credenciales."></button>
+                <button type="button" className="credencialButton" title="Click para ver credenciales." onClick={()=>{props.handleCredentials(props.especialista)}}></button>
             </div>
             <div className="espBox">
                 <div className="espBoxCategory">Nombre</div>
@@ -24,9 +24,5 @@ const EspecialistaCard = (props) => {
     )
 }
 
-// {/* <div className="choiceEspBox">
-// <button type="button" className="aceptarEsp" onClick={props.handleAccept}></button>
-// <button type="button" className="rechazarEsp" onClick={props.handleReject}></button>
-// </div> */}
 
 export default EspecialistaCard;

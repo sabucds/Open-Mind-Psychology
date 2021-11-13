@@ -22,8 +22,10 @@ function App() {
     <UserContextProvider>
       <div className="container">
         <Router>
-          <Navbar />
           <Switch>
+            <Route path="/admin" component={Admin} />
+            <>
+            <Navbar />
             <Route path="/" exact component={Inicio} />
             <Route path="/precios" component={Precios} />
             <Route path="/especialistas" component={Especialistas} />
@@ -34,8 +36,8 @@ function App() {
             <Route path="/perfilUser" component={PerfilUser} />
             <Route path="/perfilEsp" component={PerfilEspecialista} />
             <Route path="/selectReg" component={SeleccionRegistro} />
-            <Route path="/admin" component={Admin} />
             <Route path="*" component={Error404} />
+            </>
           </Switch>
         </Router>
       </div>

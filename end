@@ -1,0 +1,206 @@
+[33mcommit 2b6b1c35a6d306dafc3ec689beb84bba643ebe0d[m[33m ([m[1;36mHEAD -> [m[1;32mlili[m[33m)[m
+Author: Liliana Nóbrega <lilisabrina2009@gmail.com>
+Date:   Sat Nov 13 15:17:07 2021 -0400
+
+    cambiado que Navbar no aparezca en vista de admin, nuevo navbar para admin, nueva versión logo-chiqui. falta logout
+
+[33mcommit b1fc517e81c48566897f9e7fd718df1da7237472[m[33m ([m[1;32mlili2[m[33m)[m
+Author: Liliana Nóbrega <lilisabrina2009@gmail.com>
+Date:   Sat Nov 13 12:11:38 2021 -0400
+
+    listo credenciales, falta navbar y cerrar sesión de especialista (y rutas privadas)
+
+[33mcommit 51d02d8e35894728695114f17465ae0fd0cc40ea[m[33m ([m[1;32mlili1[m[33m)[m
+Author: Liliana Nóbrega <lilisabrina2009@gmail.com>
+Date:   Fri Nov 12 23:07:45 2021 -0400
+
+    commit packages
+
+[33mcommit 683216259d3ca57b0ddda0fcb4bfdac26d9280f5[m[33m ([m[1;31morigin/lili[m[33m)[m
+Author: Liliana Nóbrega <lilisabrina2009@gmail.com>
+Date:   Fri Nov 12 22:16:56 2021 -0400
+
+    lista vista de admin, falta lectura de credenciales
+
+[33mcommit 808239b95084c76d330972726396f6ea6510986a[m
+Author: Liliana Nóbrega <lilisabrina2009@gmail.com>
+Date:   Fri Nov 12 17:28:53 2021 -0400
+
+    listo css y responsivo de vista de admin. falta funcionalidad de botones
+
+[33mcommit e3cefb1d94a88cb46aa68dc288f1bd061f99478a[m
+Author: Liliana Nóbrega <lilisabrina2009@gmail.com>
+Date:   Fri Nov 12 02:39:45 2021 -0400
+
+    ediciones pequeñas en págs de inicio, adición de 404, inicio de admin de especialistas
+
+[33mcommit 4be169eafd1f3300309c588522892113ed99915e[m
+Author: Liliana Nóbrega <lilisabrina2009@gmail.com>
+Date:   Thu Nov 11 14:50:16 2021 -0400
+
+    cambiado un poquito el responsive, cambiado un poco la validación para poder trabajar con package validator (falta validar número tlf para reutilizar función en Registro), añadidos tool-tips
+
+[33mcommit 94b692482b765c5b70bb58b92bb7bffe20b42621[m
+Author: Liliana Nóbrega <lilisabrina2009@gmail.com>
+Date:   Thu Nov 11 03:45:48 2021 -0400
+
+    Listo contacto, con aspectos responsive, guardado en base de datos y css
+
+[33mcommit 2cc97b6aba85f775a93135b3c787f22ca529072e[m
+Author: Liliana Nóbrega <lilisabrina2009@gmail.com>
+Date:   Thu Nov 11 03:00:52 2021 -0400
+
+    Listo CSS
+
+[33mcommit 3fd680d9a22b90e368854b84b3debfa414795c7b[m
+Author: Liliana Nóbrega <lilisabrina2009@gmail.com>
+Date:   Thu Nov 11 01:57:42 2021 -0400
+
+    Formulario de contacto listo, validado y con envío a la base de datos. falta CSS
+
+[33mcommit 5ce9aac80aedef0f41be545c49316c2b9b81c00a[m[33m ([m[1;31morigin/sabrina[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmaster[m[33m)[m
+Author: Sabrina Correia <sabrina.correia@correo.unimet.edu.ve>
+Date:   Wed Nov 10 22:31:18 2021 -0400
+
+    cambio en seleccion de rol
+
+[33mcommit 3c8a703a3d5fd42f33771e445013bdd6619791b1[m
+Merge: b98e77c c19c320
+Author: Sabrina Correia <sabrina.correia@correo.unimet.edu.ve>
+Date:   Wed Nov 10 21:42:48 2021 -0400
+
+    YA ESTA ESTA VAINA
+
+[33mcommit b98e77c7ddf43d3e991626ce81dd6f95de1bf18a[m
+Author: Sabrina Correia <sabrina.correia@correo.unimet.edu.ve>
+Date:   Wed Nov 10 20:36:49 2021 -0400
+
+    a
+
+[33mcommit 33164c80151c75bc5ef5ee362f86391868c9f6dd[m
+Author: Sabrina Correia <sabrina.correia@correo.unimet.edu.ve>
+Date:   Wed Nov 10 19:34:25 2021 -0400
+
+    MERGE A RAMA ANA
+
+[33mcommit 16154586f16905ccf7bd8dca62f0df7c0b69244c[m
+Merge: bfd36b8 4243333
+Author: Sabrina Correia <sabrina.correia@correo.unimet.edu.ve>
+Date:   Wed Nov 10 19:33:16 2021 -0400
+
+    MERGE A RAMA ANA
+
+[33mcommit bfd36b81556cb90f54269707cccca093df6c60da[m
+Author: Sabrina Correia <sabrina.correia@correo.unimet.edu.ve>
+Date:   Wed Nov 10 18:38:46 2021 -0400
+
+    al hacer clic al logo se refresca la pagina
+
+[33mcommit 8e26af9f4ef0b8b7794d0aa528abe4d9b4274550[m
+Author: Sabrina Correia <sabrina.correia@correo.unimet.edu.ve>
+Date:   Wed Nov 10 18:27:20 2021 -0400
+
+    cambios en navbar de telefono y puse logo en la tab
+
+[33mcommit 42433332a587b51741c718ddf9a066160343fad2[m[33m ([m[1;31morigin/ana[m[33m)[m
+Author: vantoara <a.tovar@correo.unimet.edu.ve>
+Date:   Wed Nov 10 17:45:47 2021 -0400
+
+    Añadí el parser, user contex, ahora se suben al firestore los datos de un nuevo usuario (se crean) ya sea ingresando por el formulario o por una cuenta externa. Unifiqué los registros también
+
+[33mcommit c19c3205d8ae493f35a84ea903f159577daa49f1[m[33m ([m[1;31morigin/marivi[m[33m)[m
+Author: Mariví <marivick.lop.b@gmail.com>
+Date:   Tue Nov 9 17:08:46 2021 -0400
+
+    Conexion pestañas
+
+[33mcommit 48a80d1e25fb0705f6b6122b1d0f6d922ae0a6de[m
+Author: Mariví <marivick.lop.b@gmail.com>
+Date:   Tue Nov 9 14:45:24 2021 -0400
+
+    Inicio y registro detalles de maquetacion
+
+[33mcommit e74185b53a5aeb10458b7e24e63e85c03e42f963[m
+Author: Mariví <marivick.lop.b@gmail.com>
+Date:   Tue Nov 9 14:36:51 2021 -0400
+
+    Inicio y registro terminado maquetacion
+
+[33mcommit 413bdba08bd0fea3028a3d863405bc9d2b193170[m
+Author: Mariví <marivick.lop.b@gmail.com>
+Date:   Tue Nov 9 12:44:06 2021 -0400
+
+    Inicio y registro casi listo
+
+[33mcommit 0e70c09c07a29a9f941a02c31b8b6ada79363cf1[m
+Merge: 9dc1850 b0b891f
+Author: vantoara <a.tovar@correo.unimet.edu.ve>
+Date:   Tue Nov 9 04:53:17 2021 -0400
+
+    Registro. Implementé autenticación de Google, Facebook y correo y contraseña, userContext y parte de lo que viene siendo guardar los datos en la BD
+
+[33mcommit b4864e527209f36bc2905df130c7b141ddd05428[m
+Author: Sabrina Correia <sabrina.correia@correo.unimet.edu.ve>
+Date:   Tue Nov 9 00:14:37 2021 -0400
+
+    paginas acerca de y precios listas
+
+[33mcommit 950e2cbd9ef5d74add539e7d31c7ee87c4530eb5[m
+Author: Sabrina Correia <sabrina.correia@correo.unimet.edu.ve>
+Date:   Tue Nov 9 00:11:39 2021 -0400
+
+    paginas acerca de y precios listas
+
+[33mcommit b0b891fd87200b9cba6814f6621ebbe5d021ca35[m
+Author: Marianna <mariannamelendez0504@gmail.com>
+Date:   Mon Nov 8 17:21:24 2021 -0400
+
+    listos los registros en cuanto html y css al igual que pagina de inicio y movimiento entre pestañas
+
+[33mcommit 00c8d14bab4f6164c69feae5a4125b350690f321[m
+Author: Sabrina Correia <sabrina.correia@correo.unimet.edu.ve>
+Date:   Mon Nov 8 14:54:09 2021 -0400
+
+    navbar e inicio responsives
+
+[33mcommit 827c01dca3db0dbd78354b468149d5eb83117006[m
+Author: Sabrina Correia <sabrina.correia@correo.unimet.edu.ve>
+Date:   Mon Nov 8 14:52:16 2021 -0400
+
+    navbar e inicio responsives
+
+[33mcommit 9dc18502016dd16d64aee614f9874bf030e0ee98[m
+Author: Sabrina Correia <sabrina.correia@correo.unimet.edu.ve>
+Date:   Sun Nov 7 23:35:53 2021 -0400
+
+    cambio en seccion 1 de inicio
+
+[33mcommit 78ddb3033a2cd50cb8d2b9e807a2d9c65ca72de5[m
+Author: Marianna <mariannamelendez0504@gmail.com>
+Date:   Sun Nov 7 22:59:50 2021 -0400
+
+    adelanto pestañas de registros
+
+[33mcommit a88eac3d99c8d3a7012723c4b8fe38801b521fbe[m
+Author: Sabrina Correia <sabrina.correia@correo.unimet.edu.ve>
+Date:   Sun Nov 7 22:25:37 2021 -0400
+
+    secciones 2 y 3 de pagina de inicio
+
+[33mcommit e8e5af67964a5d717129d673b58e038c74b4d02b[m
+Author: Sabrina Correia <sabrina.correia@correo.unimet.edu.ve>
+Date:   Thu Oct 28 14:26:43 2021 -0400
+
+    firebase hosting listo
+
+[33mcommit 81efb56620d2efeaed80d82ceb2605661ed8a696[m
+Author: Sabrina Correia <sabrina.correia@correo.unimet.edu.ve>
+Date:   Thu Oct 28 00:58:56 2021 -0400
+
+    navbar y primera seccion
+
+[33mcommit 8d5bbc7de9225eb7381ee550bb31278166b36eae[m
+Author: Sabrina Correia <sabrina.correia@correo.unimet.edu.ve>
+Date:   Wed Oct 27 19:18:31 2021 -0400
+
+    Initialize project using Create React App
