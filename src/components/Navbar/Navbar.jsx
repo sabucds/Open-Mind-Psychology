@@ -67,7 +67,7 @@ const Navbar = () => {
               ? "profile-icon times"
               : clickedMenu
               ? "hideProfile"
-              : "profile-icon barProfile"
+              : "profile-icon"
           }
           onClick={handleClickProfile}
         ></div>

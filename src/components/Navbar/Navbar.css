@@ -166,6 +166,10 @@
   .nav-wrapper {
     width: 35%;
   }
+  .cuenta-options {
+    margin-left: 70%;
+    width: 30%;
+  }
 }
 @media screen and (max-width: 600px) {
   .menu-icon {
