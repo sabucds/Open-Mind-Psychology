@@ -30,7 +30,7 @@ function App() {
             <Route path="/iniciar" component={IniciarSesion} />
             <Route path="/registro" component={RegistroUser} />
             <Route path="/perfilUser" component={PerfilUser} />
-            <Route path="/perfilEsp" component={PerfilEspecialista} />
+            <Route path="/perfilEspecialista" component={PerfilEspecialista} />
             <Route path="/selectReg" component={SeleccionRegistro} />
           </Switch>
         </Router>
