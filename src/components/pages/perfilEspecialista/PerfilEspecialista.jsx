@@ -39,11 +39,27 @@ const PerfilEspecialista = () => {
               </div>
             </div>
           </div>
-
+          <div className="info-edu">
+            <div className="edu-box">
+              <div className="titles" id="titles-ed1">
+                Áreas de
+                <br />
+                atención
+              </div>
+              <div className="line"></div>
+            </div>
+            <div className="edu-box">
+              <div className="titles" id="titles-ed">
+                Formación Académica
+              </div>
+              <div className="line"></div>
+            </div>
+          </div>
           <div className="about-user">
             <div className="info">
               <div className="titles">Sobre mi</div>
               <div className="line"></div>
+
               <div className="text-info">
                 {/* {user.info} */}
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto
@@ -56,9 +72,11 @@ const PerfilEspecialista = () => {
             </div>
           </div>
 
-          <Link to="./config" className="register-button">
-            EDITAR PERFIL
-          </Link>
+          <div className="div-button">
+            <Link to="./config" className="register-button">
+              EDITAR PERFIL
+            </Link>
+          </div>
         </div>
       ) : (
         <div className="cargando">Loading User...</div>
