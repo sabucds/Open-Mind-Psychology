@@ -12,9 +12,9 @@
 
 
 .espInfo {
-    word-wrap: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    white-space: nowrap;
     width: 120px;
     line-height: 2em;
     margin-left: 0.5em;

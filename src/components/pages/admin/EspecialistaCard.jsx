@@ -10,18 +10,16 @@ const EspecialistaCard = (props) => {
             </div>
             <div className="espBox">
                 <div className="espBoxCategory">Nombre</div>
-                <p className="espInfo">{props.especialista.name}</p>
+                <p className="espInfo" title={props.especialista.name}>{props.especialista.name}</p>
             </div>
             <div className="espBox">
                 <div className="espBoxCategory">Correo</div>
-                <p className="espInfo">{props.especialista.email}</p>
+                <p className="espInfo" title={props.especialista.email}>{props.especialista.email}</p>
             </div>
             <div className="choiceEspBox">
-                <button type="button" className="aceptarEsp" title="Click para aceptar al especialista."></button>
-                <button type="button" className="rechazarEsp" title="Click para rechazar al especialista."></button>
+                <button type="button" className="aceptarEsp" title="Click para aceptar al especialista." onClick={()=>{props.handleAccept(props.especialista)}}></button>
+                <button type="button" className="rechazarEsp" title="Click para rechazar al especialista." onClick={()=>{props.handleReject(props.especialista)}}></button>
             </div>
-
-           
         </div>
     )
 }
