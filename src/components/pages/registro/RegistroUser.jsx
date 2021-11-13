@@ -9,6 +9,7 @@ import {
   auth,
 } from "../../../utils/firebaseConfig.js";
 import { UserContext } from "../../../context/UserContext";
+import validator from "validator";
 
 const RegistroUser = () => {
   const { createUser, type } = useContext(UserContext);
@@ -22,6 +23,19 @@ const RegistroUser = () => {
     numero: "",
   });
 
+  function validInputs(name, lname, email) {
+    //esta función será usada para validar inputs del usuario en el formulario de contacto y el de registro.
+    let isValid =
+      name &&
+      validator.isAlpha(name) &&
+      lname &&
+      validator.isAlpha(lname) &&
+      email &&
+      validator.isEmail(email);
+    //Si cualquiera de las condiciones de adentro del paréntesis exterior se cumple, alguno de los campos es inválidos. Por tanto, para saber si lo introducido es válido, se retorna la negación del resultado de las validaciones de invalidez.
+
+    return isValid;
+  }
   function handleChange(evt) {
     const { value, name: inputName } = evt.target;
     setValues({ ...values, [inputName]: value });
@@ -31,46 +45,60 @@ const RegistroUser = () => {
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();
-    const response = await auth.createUserWithEmailAndPassword(
-      values.email,
-      values.password
-    );
+
+    const { nombre, apellido, email } = values;
     if (type) {
-      await createUser(
-        {
-          name: values.nombre + " " + values.apellido,
-          email: values.email,
-          phone: values.numero,
-          country: "",
-          info: "",
-          specialty: [],
-          education: [],
-          schedule: [],
-          feedback: [],
-          role: "especialista",
-          status: "standby",
-        },
-        response.user.uid
-      );
+      if (validInputs(nombre, apellido, email)) {
+        const response = await auth.createUserWithEmailAndPassword(
+          values.email,
+          values.password
+        );
+
+        await createUser(
+          {
+            name: values.nombre + " " + values.apellido,
+            email: values.email,
+            phone: values.numero,
+            country: "",
+            info: "",
+            specialty: [],
+            education: [],
+            schedule: [],
+            feedback: [],
+            role: "especialista",
+            status: "standby",
+          },
+          response.user.uid
+        );
+        history.push("/PerfilEspecialista");
+
+        console.log(response.user.uid);
+        console.log("EMAIL_PASSWORD_LOGIN");
+      } else {
+        alert("Datos ingresados invalidos, intente de nuevo");
+      }
     } else {
-      await createUser(
-        {
-          name: values.nombre + " " + values.apellido,
-          email: values.email,
-          phone: values.numero,
-          country: "",
-          info: "",
-          role: "usuario",
-        },
-        response.user.uid
-      );
-    }
-    console.log(response.user.uid);
-    console.log("EMAIL_PASSWORD_LOGIN");
-    if (type) {
-      history.push("/PerfilEspecialista");
-    } else {
-      history.push("/PerfilUser");
+      if (validInputs(nombre, apellido, email)) {
+        const response = await auth.createUserWithEmailAndPassword(
+          values.email,
+          values.password
+        );
+        await createUser(
+          {
+            name: values.nombre + " " + values.apellido,
+            email: values.email,
+            phone: values.numero,
+            country: "",
+            info: "",
+            role: "usuario",
+          },
+          response.user.uid
+        );
+        history.push("/PerfilUser");
+        console.log(response.user.uid);
+      } else {
+        alert("Datos ingresados invalidos, intente de nuevo");
+      }
     }
   };
 
