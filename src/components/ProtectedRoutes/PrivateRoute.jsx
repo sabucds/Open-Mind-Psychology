@@ -14,7 +14,9 @@ const PrivateRoute = ({ component: View, ...args }) => {
           isLoggedIn ? (
             <View />
           ) : (
-            <Redirect to={{ pathname: "iniciar", state: { from: location } }} />
+            <Redirect
+              to={{ pathname: "/iniciar", state: { from: location } }}
+            />
           )
         ) : (
           <h1>Loading...</h1>
