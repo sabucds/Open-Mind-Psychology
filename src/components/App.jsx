@@ -14,6 +14,7 @@ import PerfilUser from "./pages/perfilUser/PerfilUser";
 import SeleccionRegistro from "./pages/registro/SeleccionRegistro";
 import PerfilEspecialista from "./pages/perfilEspecialista/PerfilEspecialista";
 import UserContextProvider from "../context/UserContext";
+import Configuracion from "./pages/configuracion/Configuración";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
             <Route path="/perfilUser" component={PerfilUser} />
             <Route path="/perfilEspecialista" component={PerfilEspecialista} />
             <Route path="/selectReg" component={SeleccionRegistro} />
+            <Route path="/config" component={Configuracion} />
           </Switch>
         </Router>
       </div>
