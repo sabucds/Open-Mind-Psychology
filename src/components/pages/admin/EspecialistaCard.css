@@ -1,0 +1,112 @@
+.especialistaCard {
+    width: 275px;
+    height: 270px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 1em;
+    padding: 1.75em 1.5em;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+}
+
+
+.espInfo {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 120px;
+    line-height: 2em;
+    margin-left: 0.5em;
+}
+
+.espCardTop {
+    height: 40px;
+    width: 100%;
+    margin-bottom: 0.5em;
+}
+
+.credencialButton {
+    background-image: url('../../img/credenciales.svg');
+    height: 40px;
+    width: 40px;
+    background-color: white;
+    background-size: contain;
+    background-repeat: no-repeat;
+    float: right;
+    filter:brightness(1);
+    border:none;
+}
+
+.credencialButton:hover {
+    cursor: pointer;
+    filter:brightness(1.05);
+}
+
+.espBox {
+    display: flex;
+    flex-direction: row;
+    align-content: space-between;
+    margin:0.5em;
+}
+
+.choiceEspBox {
+    margin-top: 1em;
+    display: flex;
+    flex-direction: row;
+}
+
+.choiceEspBox button {
+    height: 40px;
+    width: 40px;
+    background-color: rgba(255,255,255,0);
+    border-radius: 50%;
+    border: none;
+    filter:brightness(1);
+    margin:auto;
+}
+
+.choiceEspBox button:hover {
+    filter:brightness(1.05);
+    cursor:pointer;
+}
+
+.aceptarEsp {
+    background-image: url('../../img/circle-check-fill.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.rechazarEsp {
+    background-image: url('../../img/circle-x.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.espBoxCategory {
+    border-radius: 1.5em;
+    background-color: #EE9D6B;
+    width: 5.5em;
+    height: 2em;
+    border-width: 0;
+    color: white;
+    text-align: center;
+    line-height: 2em;
+}
+
+
+@media only screen and (max-width: 360px) {
+    .especialistaCard {
+        width: 200px;
+        height: 350px;
+        padding: 1.25em 0.75em;
+    }
+    .espBox {
+        flex-direction: column;
+        align-items: center;
+    }
+    .espInfo {
+        width: 190px;
+        text-align: center;
+    }
+}

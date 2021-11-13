@@ -9,7 +9,7 @@ const AcercaDe = () => {
         <p className="text">
           Somos un grupo de personas apasionadas por ayudar a los demás,
           mediante esta plataforma buscamos brindar esa ayuda a quienes la
-          necesiten de manera fácil y accesible <br></br>¡Porque todos necesitan
+          necesiten de manera fácil y accesible. <br></br>¡Porque todos necesitan
           a alguien que esté ahí para ellos!
         </p>
       </div>

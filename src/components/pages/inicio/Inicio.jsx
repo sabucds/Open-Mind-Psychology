@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import "./Inicio.css";
+import SeccionEspecialistasInicio from "./SeccionEspecialistasInicio";
 
 const Inicio = () => {
   return (
@@ -79,6 +80,10 @@ const Inicio = () => {
             <div className="description emotion">Estrés</div>
           </div>
         </div>
+      </div>
+      <div className="second-sect especialistas-sect">
+        <div className="how-works">Algunos de nuestros especialistas</div>
+        <SeccionEspecialistasInicio />
       </div>
     </section>
   );
