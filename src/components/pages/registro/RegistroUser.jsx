@@ -1,6 +1,5 @@
 import React from "react";
 import { useState, useContext } from "react";
-import "./RegistroUser.css";
 import registro1 from "../../img/Registro.png";
 import { useHistory } from "react-router-dom";
 import {
@@ -77,7 +76,7 @@ const RegistroUser = () => {
         console.log(response.user.uid);
         console.log("EMAIL_PASSWORD_LOGIN");
         console.log(user);
-        history.push("/");
+        history.push("/selectReg/registro/upload");
       } catch (e) {
         alert(
           "Hubo un error al enviar el formulario, verifique que los campos sean válidos."
@@ -91,19 +90,19 @@ const RegistroUser = () => {
   const handleGoogleLogin = async () => {
     console.log("GOOGLE_LOGIN");
     await auth.signInWithPopup(providerGoogle);
-    history.push("/");
+    history.push("/selectReg/registro/upload");
   };
 
   const handleFacebookLogin = async () => {
     console.log("FACEBOOK_LOGIN");
     await auth.signInWithPopup(providerFacebook);
-    history.push("/");
+    history.push("/selectReg/registro/upload");
   };
 
   const handleTwitterLogin = async () => {
     console.log("TWITTER_LOGIN");
     await auth.signInWithPopup(providerTwitter);
-    history.push("/");
+    history.push("/selectReg/registro/upload");
   };
 
   return (

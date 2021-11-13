@@ -24,9 +24,9 @@ export default function UserContextProvider({ children }) {
   };
 
   useEffect(() => {
+    setloading(true);
     const unlisten = auth.onAuthStateChanged(async (loggedUser) => {
       console.log("ON AUTH STATE CHANGED");
-      setloading(true);
       if (loggedUser) {
         const profile = await getUserByEmail(loggedUser.email);
 

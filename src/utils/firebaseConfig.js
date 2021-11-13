@@ -18,6 +18,8 @@ export const auth = app.auth();
 export const storage = app.storage();
 export const bd = app.firestore();
 
+export const credentials = storage.ref().child("credentials");
+
 export const providerGoogle = new firebase.auth.GoogleAuthProvider();
 
 export const providerFacebook = new firebase.auth.FacebookAuthProvider();

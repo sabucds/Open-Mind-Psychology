@@ -27,7 +27,7 @@ const IniciarSesion = () => {
     console.log("EMAIL_LOGIN");
     try {
       await auth.signInWithEmailAndPassword(values.email, values.password);
-      history.push("/");
+      history.push("/perfil");
     } catch (e) {
       alert("Correo o contraseña inválida.");
     }
@@ -36,7 +36,7 @@ const IniciarSesion = () => {
   const handleGoogleLogin = async () => {
     console.log("GOOGLE_LOGIN");
     await auth.signInWithPopup(providerGoogle);
-    history.push("/");
+    history.push("/perfil");
   };
 
   const handleFacebookLogin = async () => {

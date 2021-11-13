@@ -18,6 +18,7 @@ import UserContextProvider from "../context/UserContext";
 import PrivateRoute from "./ProtectedRoutes/PrivateRoute";
 import ProfileRoute from "./ProtectedRoutes/ProfileRoute";
 import VisitorRoute from "./ProtectedRoutes/VisitorRoute";
+import CredUpload from "./pages/registro/CredUpload";
 
 function App() {
   return (
@@ -43,6 +44,11 @@ function App() {
               path="/selectReg"
               component={SeleccionRegistro}
             />
+            <PrivateRoute
+              exact
+              path="/selectReg/registro/upload"
+              component={CredUpload}
+            ></PrivateRoute>
             <Route exact path="/chats" component={Chats} />
             <Route exact path="/citas" component={Citas} />
             <Route exact path="/listaPacientes" component={ListaPacientes} />
