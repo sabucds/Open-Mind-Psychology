@@ -74,9 +74,11 @@ const Navbar = () => {
       ) : (
         <div className=""></div>
       )}
-      <div className="nav-wrapper">
+      <div
+        className={user ? "nav-wrapper con-profile" : "nav-wrapper sin-profile"}
+      >
         <a href="/">
-          <div className={user ? "logo" : "logo sin-profile"}></div>
+          <div className="logo"></div>
         </a>
       </div>
       <div

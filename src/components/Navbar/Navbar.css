@@ -111,7 +111,10 @@
   z-index: 50;
   margin-left: 80%;
   display: flex;
-  margin-top: 50px;
+  margin-top: 70px;
+  border-bottom: 1px solid #00000057;
+  border-right: 1px solid #00000057;
+  border-left: 1px solid #00000057;
   flex-direction: column;
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
@@ -186,6 +189,7 @@
   }
 
   .menu-options {
+    border-bottom: 1px solid #00000057;
     flex-direction: column;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
@@ -213,17 +217,23 @@
   }
 
   .logo {
-    width: 50px;
-    margin-left: auto;
+    width: 100%;
     background-image: url("../img/logo-chiqui.jpg");
   }
   .sin-profile {
     margin-left: 20px;
+  }
+  .con-profile {
+    margin-left: auto;
   }
   .clic-cuenta {
     display: none;
   }
   .cuenta-options {
     display: none;
+  }
+  .nav-wrapper {
+    width: 50px;
+    height: 100%;
   }
 }
