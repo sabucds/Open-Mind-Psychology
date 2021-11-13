@@ -54,4 +54,14 @@
     height: 100%;
     padding: 50px 20px;
   }
+  .text-box {
+    width: 100%;
+    height: max-content;
+    align-items: center;
+    font-size: 1em;
+  }
+
+  .titulo {
+    margin-bottom: 30;
+  }
 }

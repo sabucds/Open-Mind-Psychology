@@ -13,6 +13,9 @@ import RegistroUser from "./pages/registro/RegistroUser";
 import PerfilUser from "./pages/perfilUser/PerfilUser";
 import SeleccionRegistro from "./pages/registro/SeleccionRegistro";
 import PerfilEspecialista from "./pages/perfilEspecialista/PerfilEspecialista";
+import ListaPacientes from "./pages/listaPacientes/ListaPacientes";
+import Chats from "./pages/chats/Chats";
+import Citas from "./pages/citas/Citas";
 import UserContextProvider from "../context/UserContext";
 import Configuracion from "./pages/configuracion/Configuración";
 

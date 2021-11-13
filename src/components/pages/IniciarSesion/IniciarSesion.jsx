@@ -17,29 +17,29 @@ const IniciarSesion = () => {
           <div className="inicio-sesion">
             <div>
               <form name="formLogin" id="formLogin">
-                <p className="email-box">
+                <div className="email-box">
                   <label for="emailInput" className="classForm">
                     Correo Electrónico
                   </label>
                   <input
-                    class="inputsForm"
+                    className="inputsForm"
                     id="emailInput"
                     type="email"
                     name="email"
                     placeholder="quieroestabilidademocional@correo.com"
                   />
-                </p>
-                <p className="passwordBox">
+                </div>
+                <div className="passwordBox">
                   <label for="passwordInput">Contraseña</label>
                   <input
-                    class="inputsForm"
+                    className="inputsForm"
                     id="passwordInput"
                     type="password"
                     name="password"
                     placeholder="**********"
                   />
                   <p className="texto-chiquito"> Olvidé mi contraseña</p>
-                </p>
+                </div>
               </form>
             </div>
             <div className="buttons">
@@ -62,21 +62,21 @@ const IniciarSesion = () => {
               <div className="image1log"></div>
               <p className="textito">Ingresar con cuenta de Google</p>
             </button>
-            <hr class="solid" className="sep" />
+            <hr className="sep solid" />
           </div>
           <div className="dist">
             <button className="buttonsRS" id="faceB">
               <div className="image2log"></div>
               <p className="textito">Ingresar con cuenta de Facebook</p>
             </button>
-            <hr class="solid" className="sep" />
+            <hr className="sep solid" />
           </div>
           <div className="dist">
             <button className="buttonsRS" id="twitterB">
               <div className="image3log"></div>
               <p className="textito"> Ingresar con cuenta de Twitter</p>
             </button>
-            <hr class="solid" className="sep" />
+            <hr className="sep lastLine solid" />
           </div>
         </div>
       </div>
