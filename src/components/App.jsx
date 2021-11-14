@@ -17,7 +17,7 @@ import ListaPacientes from "./pages/listaPacientes/ListaPacientes";
 import Chats from "./pages/chats/Chats";
 import Citas from "./pages/citas/Citas";
 import UserContextProvider from "../context/UserContext";
-import Configuracion from "./pages/configuracion/Configuración";
+import ConfiguracionUser from "./pages/configuracion/ConfiguracionUser";
 import Admin from "./pages/admin/Admin";
 import Error404 from "./pages/error404/Error404";
 
@@ -71,7 +71,7 @@ function App() {
             </Route>
             <Route exact path="/config" >
               <Navbar />
-              <Configuracion />
+              <ConfiguracionUser />
             </Route>           
             <Route path="*" component={Error404} />
 

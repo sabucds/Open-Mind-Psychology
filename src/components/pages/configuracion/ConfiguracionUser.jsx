@@ -1,9 +1,12 @@
 import React from "react";
-import "./Configuracion.css"
+import "./ConfiguracionUser.css"
 import { useState, useContext } from "react";
 import { UserContext } from '../../../context/UserContext';
 import ReactFlagsSelect from 'react-flags-select';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import validator from 'validator';
+import { bd } from "../../../utils/firebaseConfig";
+import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
 
 const Configuracion = ()=>{
     const history = useHistory();
@@ -11,40 +14,75 @@ const Configuracion = ()=>{
     const [selected, setSelected] = useState('');
     const { user, setUser } = useContext(UserContext);
     const [shown, setShown] = React.useState(false);
-    const [values, setValues] = useState({
-        nombre: "",
-        apellido: "",
-        country: "",
-        numero: "",
-        info: "",
-        password: "",
-        password2: "",
-        // foto: "",
-    });
+    const [name, setName] = useState("");
+    const [lname, setLname] = useState("");
+    const [country, setCountry] = useState("");
+    const [number, setNumber] = useState("");
+    const [info, setInfo] = useState("");
+    const [password, setPassword] = useState("");
+    const [newPassword, setNewPassword] = useState("");
+    const [picture, setPicture] = useState("");
+    const [saving, setSaving] = useState(false);
+
   
     const switchShown = () => setShown(!shown);
-    const onChange = ({ currentTarget }) => setValues(currentTarget.value);
-
-    function handleChange(evt) {
-      const { value, name: inputName } = evt.target;
-      setValues({ ...values, [inputName]: value });
-    }
 
     const handleSubmit = async (evt) => {
-      evt.preventDefault();
-      await createUser(
-          {
-            name: values.nombre + " " + values.apellido,
-            phone: values.numero,
-            country: values.country,
-            info: values.info,
-            role: "usuario",
-          },
-        );
-      
-      console.log("Datos actualizados");
-      console.log(user)
-      history.push("/PerfilUser");
+        evt.preventDefault();
+        setSaving(true);
+        try {
+            var errorMessage = "Se detectaron cambios inválidos que no se guardaron:\n";
+            var successMessage = "Se guardaron los cambios para los siguientes campos:\n";
+            var userDoc = await bd.collection("users").doc(user.id);
+            if (name) {
+                if (validator.isAlpha(name, 'es-ES')) {
+                    let oldName = user.name.split(" ");
+                    const newName = name+" "+oldName[1];
+                    await userDoc.update({name: newName});
+                    successMessage+="Nombre\n";
+                } else {
+                    errorMessage+="Nombre\n";
+                }
+            }
+            if (lname) {
+                if (validator.isAlpha(name, 'es-ES')) {
+                    let oldName = user.name.split(" ");
+                    const newName = oldName[0]+" "+lname;
+                    await userDoc.update({name: newName});
+                    successMessage+="Apellido\n";
+                } else {
+                    errorMessage+="Apellido\n";
+                }
+            }
+            if (country) {
+                await userDoc.update({country: country});
+                successMessage+="País\n";
+            }
+            if (number) {
+                if (isValidPhoneNumber) {
+                    await userDoc.update({phone: number});
+                    successMessage+="Número\n";
+                } else {
+                    errorMessage += "Número\n";
+                }
+            }
+            if (info) {
+                await userDoc.update({info: info});
+                successMessage+="Información sobre mí";
+            }
+
+        } catch (err) {
+            alert("Hubo un error al guardar: "+err.message);
+        }
+        setSaving(false);
+        if (successMessage!=="Se guardaron los cambios para los siguientes campos:\n") {
+            alert(successMessage);
+        }
+        if (errorMessage!=="Se detectaron cambios inválidos que no se guardaron:\n") {
+            alert(errorMessage);
+        }
+        
+        history.push("/PerfilUser");
     };
 
     return (
@@ -71,8 +109,8 @@ const Configuracion = ()=>{
                             type="text"
                             className="input-nombre-edit"
                             placeholder="Juan"
-                            onChange={handleChange}
-                            value = {values.nombre}
+                            onChange={e => setName(e.target.value)}
+                            value = {name}
                         />
                     </div>
 
@@ -86,8 +124,8 @@ const Configuracion = ()=>{
                             type="text"
                             className="input-apellido-edit"
                             placeholder="Perez"
-                            onChange={handleChange}
-                            value = {values.apellido}
+                            onChange={e => setLname(e.target.value)}
+                            value = {lname}
                         />
                     </div>
 
@@ -95,14 +133,12 @@ const Configuracion = ()=>{
                         <div className = "titles-edit">
                             Número telefónico
                         </div>
-                        <input
+                        <PhoneInput 
                             id="numero"
                             name="numero"
-                            type="tel"
                             className="input-numero-edit"
-                            placeholder="xxxx-xxxxxxx"
-                            onChange={handleChange}
-                            value = {values.numero}
+                            onChange={setNumber}
+                            value = {number}
                         />
                     </div>
 
@@ -120,7 +156,7 @@ const Configuracion = ()=>{
 
                     <div className = "sobremi-edit">
                         <div className = "titles-edit">
-                            Sobre mi
+                            Sobre mí
                         </div>
                         <input
                             id="sobremi"
@@ -128,8 +164,8 @@ const Configuracion = ()=>{
                             type="text"
                             placeholder="Presentación"
                             className="input-sobremi-edit"
-                            onChange={handleChange}
-                            value = {values.info}
+                            onChange={e => setInfo(e.target.value)}
+                            value = {info}
                         />
                     </div>
 
@@ -143,15 +179,15 @@ const Configuracion = ()=>{
                             type="file"
                             accept=".jpg,.png"
                             className="input-foto-edit"
-                            onChange={handleChange}
-                            // value = {values.foto}
+                            onChange={e => setPicture(e.target.value)}
+                            // value = {picture}
                         />
                     </div>
                     </div>
                     
                 </div>
                 <div className = "cuadro3">
-                    <button className = "config-button">
+                    <button type="submit" className="config-button" onClick={handleSubmit}>
                         Guardar
                     </button>
                 </div>
@@ -175,11 +211,11 @@ const Configuracion = ()=>{
 
                         <input
                         id="password__input2"
-                        onChange={onChange}
+                        onChange={e => setNewPassword(e.target.value)}
                         placeholder="***********"
                         type={shown ? 'text' : 'password'}
                         className="input-contra-edit"
-                        value={values.password}
+                        value={newPassword}
                         />
                     </div>
 
