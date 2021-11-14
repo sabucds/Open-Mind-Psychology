@@ -15,6 +15,9 @@ import validator from "validator";
 import "react-phone-number-input/style.css";
 import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
 
+import "../../Navbar/Navbar.css";
+import Navbar from "../../Navbar/Navbar";
+
 const RegistroUser = () => {
   const { createUser, type } = useContext(UserContext);
   const [values, setValues] = useState({
@@ -56,6 +59,7 @@ const RegistroUser = () => {
           values.email,
           values.password
         );
+        // imgURL obtiene la URL de la imagen stock en la base de datos que se seteará como default en usuarios nuevos creados de este manera
         const imgURL = await storage
           .ref("images/default-avatar.png")
           .getDownloadURL();
@@ -69,7 +73,7 @@ const RegistroUser = () => {
               country: "",
               info: "",
               specialty: [],
-              education: [],
+              education: "",
               schedule: [],
               feedback: [],
               ranking: 0,
@@ -80,7 +84,6 @@ const RegistroUser = () => {
             response.user.uid
           );
           console.log("EMAIL_PASSWORD_LOGIN");
-          // console.log(user);
           history.push("/selectReg/registro/upload");
         } else {
           await createUser(
@@ -96,13 +99,8 @@ const RegistroUser = () => {
             response.user.uid
           );
           console.log("EMAIL_PASSWORD_LOGIN");
-          // console.log(user);
           history.push("/perfil");
         }
-        console.log(response.user.uid);
-        console.log("EMAIL_PASSWORD_LOGIN");
-        //console.log(user);
-        history.push("/selectReg/registro/upload");
       } catch (e) {
         console.log(e);
         alert(
@@ -145,170 +143,175 @@ const RegistroUser = () => {
   };
 
   return (
-    <section className="main-RegistroUser">
-      <div className="encabezado">
-        <div className="TitleRegister">
-          Bienvenido a OMP, comienza
-          <br />
-          tu camino con nosotros
-        </div>
-        <div className="linea"></div>
-      </div>
-      <div className="flexbox-container">
-        <div className="left-col">
-          <form onSubmit={handleSubmit} className="all-form">
-            <label htmlFor="nombre" className="titulos">
-              Nombre{" "}
-            </label>
+    <>
+      <Navbar />
+      <section className="main-RegistroUser">
+        <div className="encabezado">
+          <div className="TitleRegister">
+            Bienvenido a OMP, comienza
             <br />
-            <input
-              placeholder="Juan"
-              id="nombre"
-              name="nombre"
-              type="name"
-              value={values.nombre}
-              onChange={handleChange}
-              className="formulario-input"
-            />
-            <br />
-
-            <label htmlFor="apellido" className="titulos">
-              Apellidos{" "}
-            </label>
-            <br />
-            <input
-              placeholder="Almeida"
-              id="apellido"
-              name="apellido"
-              type="lastname"
-              value={values.apellido}
-              onChange={handleChange}
-              className="formulario-input"
-            />
-            <br />
-
-            <label htmlFor="numero" className="titulos">
-              Número de teléfono{" "}
-            </label>
-            <br />
-            <PhoneInput
-              id="numero"
-              name="number"
-              value={number}
-              onChange={setNumber}
-              className="phone"
-            />
-            <br />
-
-            <label htmlFor="email" className="titulos">
-              Correo electrónico{" "}
-            </label>
-            <br />
-            <input
-              placeholder="dondetevea@tepateoesetrasero.com"
-              id="email"
-              name="email"
-              type="email"
-              value={values.email}
-              onChange={handleChange}
-              className="formulario-input"
-            />
-            <br />
-
-            <label htmlFor="password" className="titulos">
-              Contraseña{" "}
-            </label>
-            <br />
-            <input
-              placeholder="************"
-              id="password"
-              name="password"
-              type="password"
-              value={values.password}
-              onChange={handleChange}
-              className="formulario-input"
-            />
-            <br />
-
-            <label htmlFor="password" className="titulos">
-              Confirmar contraseña{" "}
-            </label>
-            <br />
-            <input
-              placeholder="************"
-              id="password2"
-              name="password2"
-              type="password"
-              value={values.password2}
-              onChange={handleChange}
-              className="formulario-input"
-            />
-            <br />
-            <input type="checkbox" className="check" />
-            <label className="subtitulos">Confirmo tener 18 años o más.</label>
-            <br />
-
-            <input type="checkbox" className="check" />
-            <label className="subtitulos">
-              Acepto los términos y condiciones.
-            </label>
-            <br />
-
-            <button
-              type="button"
-              className="registro-button"
-              onClick={handleSubmit}
-            >
-              Iniciar
-            </button>
-          </form>
-        </div>
-
-        <div className="right-col">
-          <div className="rrss-box">
-            <div className="dist">
-              <button
-                className="buttonsRS"
-                id="googleB"
-                onClick={handleGoogleLogin}
-              >
-                <div className="image1log"></div>
-                <p className="textito">Ingresar con cuenta de Google</p>
-              </button>
-              <hr class="solid" className="sep" />
-            </div>
-            <div className="dist">
-              <button
-                className="buttonsRS"
-                id="faceB"
-                onClick={handleFacebookLogin}
-              >
-                <div className="image2log"></div>
-                <p className="textito">Ingresar con cuenta de Facebook</p>
-              </button>
-              <hr class="solid" className="sep" />
-            </div>
-            <div className="dist">
-              <button
-                className="buttonsRS"
-                id="twitterB"
-                onClick={handleTwitterLogin}
-              >
-                <div className="image3log"></div>
-                <p className="textito"> Ingresar con cuenta de Twitter</p>
-              </button>
-              <hr class="solid" className="sep" />
-            </div>
+            tu camino con nosotros
           </div>
-          <img
-            src={registro1}
-            alt="registro-imagen"
-            width="500px"
-            className="img1"
-          />
+          <div className="linea"></div>
         </div>
-      </div>
-    </section>
+        <div className="flexbox-container">
+          <div className="left-col">
+            <form onSubmit={handleSubmit} className="all-form">
+              <label htmlFor="nombre" className="titulos">
+                Nombre{" "}
+              </label>
+              <br />
+              <input
+                placeholder="Juan"
+                id="nombre"
+                name="nombre"
+                type="name"
+                value={values.nombre}
+                onChange={handleChange}
+                className="formulario-input"
+              />
+              <br />
+
+              <label htmlFor="apellido" className="titulos">
+                Apellidos{" "}
+              </label>
+              <br />
+              <input
+                placeholder="Almeida"
+                id="apellido"
+                name="apellido"
+                type="lastname"
+                value={values.apellido}
+                onChange={handleChange}
+                className="formulario-input"
+              />
+              <br />
+
+              <label htmlFor="numero" className="titulos">
+                Número de teléfono{" "}
+              </label>
+              <br />
+              <PhoneInput
+                id="numero"
+                name="number"
+                value={number}
+                onChange={setNumber}
+                className="phone"
+              />
+              <br />
+
+              <label htmlFor="email" className="titulos">
+                Correo electrónico{" "}
+              </label>
+              <br />
+              <input
+                placeholder="dondetevea@tepateoesetrasero.com"
+                id="email"
+                name="email"
+                type="email"
+                value={values.email}
+                onChange={handleChange}
+                className="formulario-input"
+              />
+              <br />
+
+              <label htmlFor="password" className="titulos">
+                Contraseña{" "}
+              </label>
+              <br />
+              <input
+                placeholder="************"
+                id="password"
+                name="password"
+                type="password"
+                value={values.password}
+                onChange={handleChange}
+                className="formulario-input"
+              />
+              <br />
+
+              <label htmlFor="password" className="titulos">
+                Confirmar contraseña{" "}
+              </label>
+              <br />
+              <input
+                placeholder="************"
+                id="password2"
+                name="password2"
+                type="password"
+                value={values.password2}
+                onChange={handleChange}
+                className="formulario-input"
+              />
+              <br />
+              <input type="checkbox" className="check" />
+              <label className="subtitulos">
+                Confirmo tener 18 años o más.
+              </label>
+              <br />
+
+              <input type="checkbox" className="check" />
+              <label className="subtitulos">
+                Acepto los términos y condiciones.
+              </label>
+              <br />
+
+              <button
+                type="button"
+                className="registro-button"
+                onClick={handleSubmit}
+              >
+                Iniciar
+              </button>
+            </form>
+          </div>
+
+          <div className="right-col">
+            <div className="rrss-box">
+              <div className="dist">
+                <button
+                  className="buttonsRS"
+                  id="googleB"
+                  onClick={handleGoogleLogin}
+                >
+                  <div className="image1log"></div>
+                  <p className="textito">Ingresar con cuenta de Google</p>
+                </button>
+                <hr class="solid" className="sep" />
+              </div>
+              <div className="dist">
+                <button
+                  className="buttonsRS"
+                  id="faceB"
+                  onClick={handleFacebookLogin}
+                >
+                  <div className="image2log"></div>
+                  <p className="textito">Ingresar con cuenta de Facebook</p>
+                </button>
+                <hr class="solid" className="sep" />
+              </div>
+              <div className="dist">
+                <button
+                  className="buttonsRS"
+                  id="twitterB"
+                  onClick={handleTwitterLogin}
+                >
+                  <div className="image3log"></div>
+                  <p className="textito"> Ingresar con cuenta de Twitter</p>
+                </button>
+                <hr class="solid" className="sep" />
+              </div>
+            </div>
+            <img
+              src={registro1}
+              alt="registro-imagen"
+              width="500px"
+              className="img1"
+            />
+          </div>
+        </div>
+      </section>
+    </>
   );
 };
 

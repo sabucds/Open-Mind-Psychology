@@ -1,22 +1,25 @@
 import React from "react";
 import { useContext } from "react";
 import { UserContext } from "../../../context/UserContext";
-import { Link, useHistory } from "react-router-dom";
-import { auth } from "../../../utils/firebaseConfig";
+import { useHistory } from "react-router-dom";
 import "./PerfilEspecialista.css";
+
+import "../../Navbar/Navbar.css";
+import Navbar from "../../Navbar/Navbar";
 
 const PerfilEspecialista = () => {
   const history = useHistory();
-  const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
+  const handleConfig = () => {
+    history.push("/config");
+  };
   return (
-    <section className="main-RegistroUser">
-      {!!user ? (
+    <>
+      <Navbar />
+      <section className="main-RegistroUser">
         <div className="todo-user">
           <div className="encabezado1">
-            <img
-              src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-image-icon-default-avatar-profile-icon-social-media-user-vector-image-209162840.jpg"
-              className="imagen-user"
-            />
+            <img src={user.img} alt="Not found" className="imagen-user" />
             <div className="nombre-user">{user.name}</div>
           </div>
 
@@ -73,15 +76,13 @@ const PerfilEspecialista = () => {
           </div>
 
           <div className="div-button">
-            <Link to="./config" className="register-button">
+            <p className="register-button" onClick={handleConfig}>
               EDITAR PERFIL
-            </Link>
+            </p>
           </div>
         </div>
-      ) : (
-        <div className="cargando">Loading User...</div>
-      )}
-    </section>
+      </section>
+    </>
   );
 };
 

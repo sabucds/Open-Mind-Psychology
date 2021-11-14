@@ -8,50 +8,52 @@ import Especialistas from "./pages/especialistas/Especialistas";
 import Precios from "./pages/precios/Precios";
 import IniciarSesion from "./pages/IniciarSesion/IniciarSesion";
 import AcercaDe from "./pages/acercade/AcercaDe";
-import Navbar from "./Navbar/Navbar";
 import RegistroUser from "./pages/registro/RegistroUser";
-import PerfilUser from "./pages/perfilUser/PerfilUser";
 import SeleccionRegistro from "./pages/registro/SeleccionRegistro";
-import PerfilEspecialista from "./pages/perfilEspecialista/PerfilEspecialista";
 import UserContextProvider from "../context/UserContext";
+import CredUpload from "./pages/registro/CredUpload";
+
 import PrivateRoute from "./ProtectedRoutes/PrivateRoute";
 import ProfileRoute from "./ProtectedRoutes/ProfileRoute";
 import VisitorRoute from "./ProtectedRoutes/VisitorRoute";
-import CredUpload from "./pages/registro/CredUpload";
-import Configuracion from "./pages/configuracion/Configuración";
+import ConfigRoute from "./ProtectedRoutes/ConfigRoute";
+import ClientRoute from "./ProtectedRoutes/ClientRoute";
+import NoAdminRoute from "./ProtectedRoutes/NoAdminRoute";
 
 function App() {
   return (
     <UserContextProvider>
       <div className="container">
         <Router>
-          <Navbar />
           <Switch>
-            <Route exact path="/" component={Inicio} />
-            <Route exact path="/precios" component={Precios} />
-            <Route exact path="/especialistas" component={Especialistas} />
-            <Route exact path="/acerca" component={AcercaDe} />
-            <Route exact path="/contacto" component={Contacto} />
+            <NoAdminRoute exact path="/" component={Inicio} />
+            <NoAdminRoute exact path="/precios" component={Precios} />
+            <NoAdminRoute
+              exact
+              path="/especialistas"
+              component={Especialistas}
+            />
+            <NoAdminRoute exact path="/acerca" component={AcercaDe} />
+            <NoAdminRoute exact path="/contacto" component={Contacto} />
             <VisitorRoute exact path="/iniciar" component={IniciarSesion} />
             <VisitorRoute
               exact
               path="/selectReg/registro"
               component={RegistroUser}
             />
-            <PrivateRoute exact path="/perfil" component={ProfileRoute} />
+
             <VisitorRoute
               exact
               path="/selectReg"
               component={SeleccionRegistro}
             />
-            <PrivateRoute
+            <PrivateRoute exact path="/perfil" component={ProfileRoute} />
+            <ClientRoute
               exact
               path="/selectReg/registro/upload"
               component={CredUpload}
-            ></PrivateRoute>
-            {/* <Route exact path="/chats" component={Chats} />
-            <Route exact path="/citas" component={Citas} />
-           <Route exact path="/listaPacientes" component={ListaPacientes} /> */}
+            />
+            <ClientRoute exact path="/config" component={ConfigRoute} />
           </Switch>
         </Router>
       </div>

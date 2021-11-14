@@ -51,7 +51,7 @@ export default function UserContextProvider({ children }) {
               country: "",
               info: "",
               specialty: [],
-              education: [],
+              education: "",
               schedule: [],
               feedback: [],
               ranking: 0,

@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { UserContext } from "../../context/UserContext";
 import { Route, Redirect } from "react-router-dom";
 
+// Esto es para los clientes (no rechazados) Y admin
 const PrivateRoute = ({ component: View, ...args }) => {
   const { user, loading } = useContext(UserContext);
   const isLoggedIn = !!user;
@@ -10,7 +11,9 @@ const PrivateRoute = ({ component: View, ...args }) => {
     <Route
       {...args}
       render={({ location }) =>
+        // Revisamos esté cargado
         !loading ? (
+          // Revisamos que esté logged in
           isLoggedIn ? (
             <View />
           ) : (
