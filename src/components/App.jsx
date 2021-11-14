@@ -10,9 +10,7 @@ import IniciarSesion from "./pages/IniciarSesion/IniciarSesion";
 import AcercaDe from "./pages/acercade/AcercaDe";
 import Navbar from "./Navbar/Navbar";
 import RegistroUser from "./pages/registro/RegistroUser";
-import PerfilUser from "./pages/perfilUser/PerfilUser";
 import SeleccionRegistro from "./pages/registro/SeleccionRegistro";
-import PerfilEspecialista from "./pages/perfilEspecialista/PerfilEspecialista";
 import ListaPacientes from "./pages/listaPacientes/ListaPacientes";
 import Chats from "./pages/chats/Chats";
 import Citas from "./pages/citas/Citas";
@@ -20,6 +18,10 @@ import UserContextProvider from "../context/UserContext";
 import Configuracion from "./pages/configuracion/Configuración";
 import Admin from "./pages/admin/Admin";
 import Error404 from "./pages/error404/Error404";
+import PrivateRoute from "./ProtectedRoutes/PrivateRoute";
+import ProfileRoute from "./ProtectedRoutes/ProfileRoute";
+import VisitorRoute from "./ProtectedRoutes/VisitorRoute";
+import CredUpload from "./pages/registro/CredUpload";
 
 function App() {
   return (
@@ -59,11 +61,11 @@ function App() {
             </Route>
             <Route exact path="/perfilUser">
               <Navbar />
-              <PerfilUser />
+              <perfilUser />
             </Route>
             <Route exact path="/perfilEspecialista">
               <Navbar />
-              <PerfilEspecialista />
+              <perfilEspecialista />
             </Route>
             <Route exact path="/selectReg">
               <Navbar />
@@ -74,6 +76,31 @@ function App() {
               <Configuracion />
             </Route>
             <Route path="*" component={Error404} />
+            <Route exact path="/" component={Inicio} />
+            <Route exact path="/precios" component={Precios} />
+            <Route exact path="/especialistas" component={Especialistas} />
+            <Route exact path="/acerca" component={AcercaDe} />
+            <Route exact path="/contacto" component={Contacto} />
+            <VisitorRoute exact path="/iniciar" component={IniciarSesion} />
+            <VisitorRoute
+              exact
+              path="/selectReg/registro"
+              component={RegistroUser}
+            />
+            <PrivateRoute exact path="/perfil" component={ProfileRoute} />
+            <VisitorRoute
+              exact
+              path="/selectReg"
+              component={SeleccionRegistro}
+            />
+            <PrivateRoute
+              exact
+              path="/selectReg/registro/upload"
+              component={CredUpload}
+            ></PrivateRoute>
+            <Route exact path="/chats" component={Chats} />
+            <Route exact path="/citas" component={Citas} />
+            <Route exact path="/listaPacientes" component={ListaPacientes} />
           </Switch>
         </Router>
       </div>

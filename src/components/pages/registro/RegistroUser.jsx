@@ -6,10 +6,14 @@ import { useHistory } from "react-router-dom";
 import {
   providerGoogle,
   providerFacebook,
+  providerTwitter,
   auth,
 } from "../../../utils/firebaseConfig.js";
 import { UserContext } from "../../../context/UserContext";
 import validator from "validator";
+import "react-phone-number-input/style.css";
+import "./RegistroUser.css";
+import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
 
 const RegistroUser = () => {
   const { createUser, type } = useContext(UserContext);
@@ -19,9 +23,7 @@ const RegistroUser = () => {
     email: "",
     password: "",
     password2: "",
-    numero: "",
   });
-
   function validInputs(name, lname, email) {
     //esta función será usada para validar inputs del usuario en el formulario de contacto y el de registro.
     let isValid =
@@ -35,92 +37,88 @@ const RegistroUser = () => {
 
     return isValid;
   }
-  function handleChange(evt) {
-    const { value, name: inputName } = evt.target;
+  const [number, setNumber] = useState();
+
+  function handleChange(e) {
+    const { value, name: inputName } = e.target;
     setValues({ ...values, [inputName]: value });
   }
 
   const history = useHistory();
 
-  const handleSubmit = async (evt) => {
-    evt.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
     const { nombre, apellido, email } = values;
-    if (type) {
-      if (validInputs(nombre, apellido, email)) {
+    if (isValidPhoneNumber(number) && validInputs(nombre, apellido, email)) {
+      try {
         const response = await auth.createUserWithEmailAndPassword(
           values.email,
           values.password
         );
-
-        await createUser(
-          {
-            name: values.nombre + " " + values.apellido,
-            email: values.email,
-            phone: values.numero,
-            country: "",
-            info: "",
-            specialty: [],
-            education: [],
-            schedule: [],
-            feedback: [],
-            role: "especialista",
-            status: "standby",
-          },
-          response.user.uid
-        );
-        history.push("/PerfilEspecialista");
-
+        if (type) {
+          await createUser(
+            {
+              name: values.nombre + " " + values.apellido,
+              email: values.email,
+              phone: number,
+              country: "",
+              info: "",
+              specialty: [],
+              education: [],
+              schedule: [],
+              feedback: [],
+              ranking: 0,
+              role: "especialista",
+              status: "standby",
+              img: "gs://open-mind-psychology.appspot.com/images/default-avatar.png",
+            },
+            response.user.uid
+          );
+        } else {
+          await createUser(
+            {
+              name: values.nombre + " " + values.apellido,
+              email: values.email,
+              phone: number,
+              country: "",
+              info: "",
+              role: "usuario",
+              img: "gs://open-mind-psychology.appspot.com/images/default-avatar.png",
+            },
+            response.user.uid
+          );
+        }
         console.log(response.user.uid);
         console.log("EMAIL_PASSWORD_LOGIN");
-      } else {
-        alert("Datos ingresados invalidos, intente de nuevo");
+        //console.log(user);
+        history.push("/selectReg/registro/upload");
+      } catch (e) {
+        alert(
+          "Hubo un error al enviar el formulario, verifique que los campos sean válidos."
+        );
       }
     } else {
-      if (validInputs(nombre, apellido, email)) {
-        const response = await auth.createUserWithEmailAndPassword(
-          values.email,
-          values.password
-        );
-        await createUser(
-          {
-            name: values.nombre + " " + values.apellido,
-            email: values.email,
-            phone: values.numero,
-            country: "",
-            info: "",
-            role: "usuario",
-          },
-          response.user.uid
-        );
-        history.push("/PerfilUser");
-        console.log(response.user.uid);
-      } else {
-        alert("Datos ingresados invalidos, intente de nuevo");
-      }
+      alert("Uno de los campos está vacío o es inválido.");
     }
   };
 
   const handleGoogleLogin = async () => {
     console.log("GOOGLE_LOGIN");
     await auth.signInWithPopup(providerGoogle);
-    if (type) {
-      history.push("/PerfilEspecialista");
-    } else {
-      history.push("/PerfilUser");
-    }
+    history.push("/selectReg/registro/upload");
   };
 
   const handleFacebookLogin = async () => {
     console.log("FACEBOOK_LOGIN");
-    providerFacebook.setCustomParameters({ prompt: "select_account" });
-    const response = await auth.signInWithPopup(providerFacebook);
-    console.log({ response: response.user });
-    if (type) {
-      history.push("/PerfilEspecialista");
-    } else {
-      history.push("/PerfilUser");
-    }
+    await auth.signInWithPopup(providerFacebook);
+    history.push("/selectReg/registro/upload");
+  };
+
+  const handleTwitterLogin = async () => {
+    console.log("TWITTER_LOGIN");
+    await auth.signInWithPopup(providerTwitter);
+    history.push("/selectReg/registro/upload");
   };
 
   return (
@@ -170,14 +168,12 @@ const RegistroUser = () => {
               Número de teléfono{" "}
             </label>
             <br />
-            <input
-              placeholder="4241763045"
+            <PhoneInput
               id="numero"
-              name="numero"
-              type="tel"
-              value={values.numero}
-              onChange={handleChange}
-              className="formulario-input"
+              name="number"
+              value={number}
+              onChange={setNumber}
+              className="phone"
             />
             <br />
 
@@ -204,7 +200,7 @@ const RegistroUser = () => {
               placeholder="************"
               id="password"
               name="password"
-              type='password'
+              type="password"
               value={values.password}
               onChange={handleChange}
               className="formulario-input"
@@ -219,7 +215,7 @@ const RegistroUser = () => {
               placeholder="************"
               id="password2"
               name="password2"
-              type = "password"
+              type="password"
               value={values.password2}
               onChange={handleChange}
               className="formulario-input"
@@ -273,7 +269,7 @@ const RegistroUser = () => {
               <button
                 className="buttonsRS"
                 id="twitterB"
-                onClick={handleGoogleLogin}
+                onClick={handleTwitterLogin}
               >
                 <div className="image3log"></div>
                 <p className="textito"> Ingresar con cuenta de Twitter</p>

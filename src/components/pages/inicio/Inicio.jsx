@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import "./Inicio.css";
+import { UserContext } from "../../../context/UserContext";
 
 const Inicio = () => {
+  const { user } = useContext(UserContext);
+  console.log(user);
   return (
     <section className="main">
       <div className="first-sect">

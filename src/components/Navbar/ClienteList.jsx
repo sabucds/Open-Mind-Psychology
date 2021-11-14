@@ -9,6 +9,6 @@ export const ClienteList = [
   },
   {
     title: "Ver perfil",
-    url: "/perfilUser",
+    url: "/perfil",
   },
 ];
