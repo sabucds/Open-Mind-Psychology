@@ -5,13 +5,15 @@ import { NavLink } from "react-router-dom";
 const IniciarSesion = () => {
   return (
     <section className="box-InicioSesion">
-      <div className="title-box">
-        <h1 className="title-text">
+      <div className="encabezado de-inicio">
+        <div className="TitleRegister">
           ¡Bienvenido! Inicia sesión con
           <br />
           nosotros
-        </h1>
+        </div>
+        <div className="linea"></div>
       </div>
+
       <div className="bottom-main">
         <div className="inicio-box">
           <div className="inicio-sesion">
@@ -56,23 +58,23 @@ const IniciarSesion = () => {
             </div>
           </div>
         </div>
-        <div className="rrss-box">
-          <div className="dist">
-            <button className="buttonsRS" id="googleB">
+        <div className="rrss-box-1">
+          <div className="dist-1">
+            <button className="buttonsRS-1" id="googleB">
               <div className="image1log"></div>
               <p className="textito">Ingresar con cuenta de Google</p>
             </button>
             <hr className="sep solid" />
           </div>
-          <div className="dist">
-            <button className="buttonsRS" id="faceB">
+          <div className="dist-1">
+            <button className="buttonsRS-1" id="faceB">
               <div className="image2log"></div>
               <p className="textito">Ingresar con cuenta de Facebook</p>
             </button>
             <hr className="sep solid" />
           </div>
-          <div className="dist">
-            <button className="buttonsRS" id="twitterB">
+          <div className="dist-1">
+            <button className="buttonsRS-1" id="twitterB">
               <div className="image3log"></div>
               <p className="textito"> Ingresar con cuenta de Twitter</p>
             </button>
