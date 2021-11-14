@@ -530,7 +530,11 @@
   integrity sha512-nyYmIo7ZqKsY6P4lnVmBlxp9B3a96CscbLotlsNuktMHahkDwoPYEjXrZHU0Tj844Z9f1IthVxQln57mhkcExw==
   dependencies:
     "@babel/helper-plugin-utils" "^7.14.5"
+<<<<<<< HEAD
 >>>>>>> origin/ana
+=======
+>>>>>>> c249604d5b2cae4d8ce36afedd340447e4d80d49
+>>>>>>> ana
     "@babel/helper-remap-async-to-generator" "^7.16.0"
     "@babel/plugin-syntax-async-generators" "^7.8.4"
 

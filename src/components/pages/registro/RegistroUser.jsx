@@ -8,6 +8,7 @@ import {
   providerFacebook,
   providerTwitter,
   auth,
+  storage,
 } from "../../../utils/firebaseConfig.js";
 import { UserContext } from "../../../context/UserContext";
 import validator from "validator";
@@ -55,6 +56,10 @@ const RegistroUser = () => {
           values.email,
           values.password
         );
+        const imgURL = await storage
+          .ref("images/default-avatar.png")
+          .getDownloadURL();
+        console.log(imgURL);
         if (type) {
           await createUser(
             {
@@ -70,10 +75,13 @@ const RegistroUser = () => {
               ranking: 0,
               role: "especialista",
               status: "standby",
-              img: "gs://open-mind-psychology.appspot.com/images/default-avatar.png",
+              img: imgURL,
             },
             response.user.uid
           );
+          console.log("EMAIL_PASSWORD_LOGIN");
+          // console.log(user);
+          history.push("/selectReg/registro/upload");
         } else {
           await createUser(
             {
@@ -83,16 +91,20 @@ const RegistroUser = () => {
               country: "",
               info: "",
               role: "usuario",
-              img: "gs://open-mind-psychology.appspot.com/images/default-avatar.png",
+              img: imgURL,
             },
             response.user.uid
           );
+          console.log("EMAIL_PASSWORD_LOGIN");
+          // console.log(user);
+          history.push("/perfil");
         }
         console.log(response.user.uid);
         console.log("EMAIL_PASSWORD_LOGIN");
         //console.log(user);
         history.push("/selectReg/registro/upload");
       } catch (e) {
+        console.log(e);
         alert(
           "Hubo un error al enviar el formulario, verifique que los campos sean válidos."
         );
@@ -105,19 +117,31 @@ const RegistroUser = () => {
   const handleGoogleLogin = async () => {
     console.log("GOOGLE_LOGIN");
     await auth.signInWithPopup(providerGoogle);
-    history.push("/selectReg/registro/upload");
+    if (type) {
+      history.push("/selectReg/registro/upload");
+    } else {
+      history.push("/perfil");
+    }
   };
 
   const handleFacebookLogin = async () => {
     console.log("FACEBOOK_LOGIN");
     await auth.signInWithPopup(providerFacebook);
-    history.push("/selectReg/registro/upload");
+    if (type) {
+      history.push("/selectReg/registro/upload");
+    } else {
+      history.push("/perfil");
+    }
   };
 
   const handleTwitterLogin = async () => {
     console.log("TWITTER_LOGIN");
     await auth.signInWithPopup(providerTwitter);
-    history.push("/selectReg/registro/upload");
+    if (type) {
+      history.push("/selectReg/registro/upload");
+    } else {
+      history.push("/perfil");
+    }
   };
 
   return (
