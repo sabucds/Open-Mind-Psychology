@@ -13,27 +13,67 @@ import RegistroUser from "./pages/registro/RegistroUser";
 import PerfilUser from "./pages/perfilUser/PerfilUser";
 import SeleccionRegistro from "./pages/registro/SeleccionRegistro";
 import PerfilEspecialista from "./pages/perfilEspecialista/PerfilEspecialista";
+import ListaPacientes from "./pages/listaPacientes/ListaPacientes";
+import Chats from "./pages/chats/Chats";
+import Citas from "./pages/citas/Citas";
 import UserContextProvider from "../context/UserContext";
 import Configuracion from "./pages/configuracion/Configuración";
+import Admin from "./pages/admin/Admin";
+import Error404 from "./pages/error404/Error404";
 
 function App() {
   return (
     <UserContextProvider>
       <div className="container">
         <Router>
-          <Navbar />
           <Switch>
-            <Route path="/" exact component={Inicio} />
-            <Route path="/precios" component={Precios} />
-            <Route path="/especialistas" component={Especialistas} />
-            <Route path="/acerca" component={AcercaDe} />
-            <Route path="/contacto" component={Contacto} />
-            <Route path="/iniciar" component={IniciarSesion} />
-            <Route path="/registro" component={RegistroUser} />
-            <Route path="/perfilUser" component={PerfilUser} />
-            <Route path="/perfilEspecialista" component={PerfilEspecialista} />
-            <Route path="/selectReg" component={SeleccionRegistro} />
-            <Route path="/config" component={Configuracion} />
+            <Route path="/admin" component={Admin} />
+
+            <Route exact path="/">
+              <Navbar />
+              <Inicio />
+            </Route>
+            <Route exact path="/precios">
+              <Navbar />
+              <Precios />
+            </Route>
+            <Route exact path="/especialistas">
+              <Navbar />
+              <Especialistas />
+            </Route>
+            <Route exact path="/acerca">
+              <Navbar />
+              <AcercaDe />
+            </Route>
+            <Route exact path="/contacto">
+              <Navbar />
+              <Contacto />
+            </Route>
+            <Route exact path="/iniciar">
+              <Navbar />
+              <IniciarSesion />
+            </Route>
+            <Route exact path="/registro">
+              <Navbar />
+              <RegistroUser />
+            </Route>
+            <Route exact path="/perfilUser">
+              <Navbar />
+              <PerfilUser />
+            </Route>
+            <Route exact path="/perfilEspecialista">
+              <Navbar />
+              <PerfilEspecialista />
+            </Route>
+            <Route exact path="/selectReg">
+              <Navbar />
+              <SeleccionRegistro />
+            </Route>
+            <Route exact path="/config">
+              <Navbar />
+              <Configuracion />
+            </Route>
+            <Route path="*" component={Error404} />
           </Switch>
         </Router>
       </div>

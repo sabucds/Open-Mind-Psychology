@@ -3,6 +3,10 @@
   color: black;
 }
 
+.not-active {
+  text-decoration: none;
+}
+
 .navbar {
   padding: 10px 2em;
   position: fixed;
@@ -15,12 +19,11 @@
   background: rgb(255, 255, 255);
   border-bottom: 1px solid #00000057;
   display: flex;
-  justify-content: flex-start;
   z-index: 100;
 }
 
 .nav-wrapper {
-  width: 40%;
+  width: 250px;
   height: 100%;
 }
 .logo {
@@ -38,6 +41,7 @@
   justify-content: space-between;
   align-items: center;
   font-weight: 400;
+  margin-left: auto;
 }
 
 .bar-options {
@@ -52,6 +56,7 @@
   padding-bottom: 0.2em;
   border: 2px solid #ee9d6b;
   border-radius: 15px;
+  cursor: pointer;
 }
 
 .bar-options:last-child:hover .nav-link {
@@ -72,17 +77,77 @@
   cursor: pointer;
   height: 50px;
   width: 50px;
-  background-image: url(../img/salir-menu.png);
+  background-image: url(../img/menu_icon.png);
+}
+.profile-icon {
+  display: none;
+  cursor: pointer;
+  height: 50px;
+  width: 50px;
+  background-image: url(../img/profile-icon.png);
 }
 
 .times {
   transform: rotate(360deg);
   transition: all 0.2s ease-in-out;
+  background-image: url(../img/salir-menu.png);
 }
-.bar {
-  transform: rotate(180deg);
+
+.voltea-arrow {
+  transform: rotate(-180deg);
   transition: all 0.2s ease-in-out;
-  background-image: url(../img/menu_icon.png);
+}
+.voltea-arrow-again {
+  transition: all 0.2s ease-in-out;
+}
+.profileHidden {
+  display: none;
+}
+.clic-cuenta {
+  cursor: pointer;
+  display: flex;
+}
+.cuenta-options {
+  z-index: 50;
+  margin-left: 80%;
+  display: flex;
+  margin-top: 50px;
+  flex-direction: column;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  width: 20%;
+  position: absolute;
+  background-color: #ffffff;
+  padding: 20px;
+  transition: all 0.5s ease-in-out;
+  list-style-type: none;
+  display: inline-flex;
+  align-items: center;
+  font-weight: 400;
+}
+.cuenta-options .nav-link {
+  margin: 10px 0;
+}
+.cuenta-options:first-child {
+  margin: 20px 0;
+}
+
+.cuenta-close {
+  right: -100%;
+  transition: all 0.5s ease-in-out;
+}
+
+.cuenta-iniciada {
+  color: white;
+  text-decoration: underline;
+}
+
+.cuenta-icon-arrow {
+  margin-left: 10px;
+  height: 20px;
+  width: 20px;
+  background-image: url("../img/cuenta-arrow.png");
+  background-size: contain;
 }
 
 @media screen and (max-width: 850px) {
@@ -103,13 +168,23 @@
   .menu-icon {
     display: block;
     margin-right: 20px;
+    margin-left: auto;
     margin-top: 5px;
     z-index: 200;
   }
-  .linkClicked {
-    right: -100%;
-    transition: all 0.5s ease-in-out;
+  .profile-icon {
+    display: block;
+    margin-top: 5px;
+    margin-left: 20px;
+    z-index: 200;
   }
+  .hideProfile {
+    z-index: 50;
+  }
+  .hideMenuIcon {
+    z-index: 50;
+  }
+
   .menu-options {
     flex-direction: column;
     border-bottom-left-radius: 10px;
@@ -121,10 +196,12 @@
     transition: all 0.5s ease-in-out;
     z-index: 100;
   }
+  .profileHidden {
+    display: block;
+  }
+
   .navbar {
     padding: 10px 0px;
-    display: flex;
-    justify-content: space-between;
   }
 
   .close {
@@ -136,6 +213,17 @@
   }
 
   .logo {
-    width: 400px;
+    width: 50px;
+    margin-left: auto;
+    background-image: url("../img/logo-chiqui.jpg");
+  }
+  .sin-profile {
+    margin-left: 20px;
+  }
+  .clic-cuenta {
+    display: none;
+  }
+  .cuenta-options {
+    display: none;
   }
 }
