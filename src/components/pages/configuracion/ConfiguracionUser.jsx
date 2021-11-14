@@ -7,6 +7,7 @@ import { useHistory } from 'react-router-dom';
 import validator from 'validator';
 import { bd } from "../../../utils/firebaseConfig";
 import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
+import "react-phone-number-input/style.css";
 
 const Configuracion = ()=>{
     const history = useHistory();
@@ -28,14 +29,15 @@ const Configuracion = ()=>{
     const switchShown = () => setShown(!shown);
 
     const handleSubmit = async (evt) => {
+        console.log(country);
         evt.preventDefault();
         setSaving(true);
         try {
-            var errorMessage = "Se detectaron cambios inválidos que no se guardaron:\n";
+            var errorMessage = "Se detectaron cambios inválidos que no se guardaron en:\n";
             var successMessage = "Se guardaron los cambios para los siguientes campos:\n";
             var userDoc = await bd.collection("users").doc(user.id);
             if (name) {
-                if (validator.isAlpha(name, 'es-ES')) {
+                if (validator.isAlpha(name, 'es-ES') && name.match(/\s/).length===0) {
                     let oldName = user.name.split(" ");
                     const newName = name+" "+oldName[1];
                     await userDoc.update({name: newName});
@@ -45,7 +47,7 @@ const Configuracion = ()=>{
                 }
             }
             if (lname) {
-                if (validator.isAlpha(name, 'es-ES')) {
+                if (validator.isAlpha(lname, 'es-ES', "-")) {
                     let oldName = user.name.split(" ");
                     const newName = oldName[0]+" "+lname;
                     await userDoc.update({name: newName});
@@ -78,12 +80,21 @@ const Configuracion = ()=>{
         if (successMessage!=="Se guardaron los cambios para los siguientes campos:\n") {
             alert(successMessage);
         }
-        if (errorMessage!=="Se detectaron cambios inválidos que no se guardaron:\n") {
+        if (errorMessage!=="Se detectaron cambios inválidos que no se guardaron en:\n") {
             alert(errorMessage);
         }
+        setName("");
+        setLname("");
+        setNumber("");
+        setCountry(null);
+        setInfo("");
         
-        history.push("/PerfilUser");
     };
+
+    const handleCancel = () => {
+        history.push("/PerfilUser"); 
+        window.location.reload();
+    } 
 
     return (
         <section className = "main-RegistroUser">
@@ -108,7 +119,7 @@ const Configuracion = ()=>{
                             name="nombre"
                             type="text"
                             className="input-nombre-edit"
-                            placeholder="Juan"
+                            placeholder="Nombre"
                             onChange={e => setName(e.target.value)}
                             value = {name}
                         />
@@ -123,7 +134,7 @@ const Configuracion = ()=>{
                             name="apellido"
                             type="text"
                             className="input-apellido-edit"
-                            placeholder="Perez"
+                            placeholder="Apellido"
                             onChange={e => setLname(e.target.value)}
                             value = {lname}
                         />
@@ -147,8 +158,8 @@ const Configuracion = ()=>{
                             País
                         </div>
                         <ReactFlagsSelect
-                          selected={selected}
-                          onSelect={code => setSelected(code)}
+                          selected={country}
+                          onSelect={code => setCountry(code)}
                           className = "pais-select"
                           
                         />
@@ -158,15 +169,14 @@ const Configuracion = ()=>{
                         <div className = "titles-edit">
                             Sobre mí
                         </div>
-                        <input
+                        <textarea
                             id="sobremi"
                             name="sobremi"
-                            type="text"
                             placeholder="Presentación"
                             className="input-sobremi-edit"
                             onChange={e => setInfo(e.target.value)}
                             value = {info}
-                        />
+                        ></textarea>
                     </div>
 
                     <div className = "perfil-edit">
@@ -187,8 +197,11 @@ const Configuracion = ()=>{
                     
                 </div>
                 <div className = "cuadro3">
-                    <button type="submit" className="config-button" onClick={handleSubmit}>
+                    <button type="button" className="config-button" onClick={handleSubmit} disabled={saving} style={{background: saving ? "#CCC" : "#EE9D6B" }}>
                         Guardar
+                    </button>
+                    <button type="button" className="config-button" onClick={handleCancel} disabled={saving} style={{background: saving ? "#CCC" : "#EE9D6B" }}>
+                        Cancelar
                     </button>
                 </div>
                 <br />

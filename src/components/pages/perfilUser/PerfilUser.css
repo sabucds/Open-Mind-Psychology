@@ -107,15 +107,20 @@
 
 .info{
     margin-left: 32px;
+    
 }
 
 .text-info{
     margin: 16px auto;
+    padding-right: 32px;
     font-family: Open Sans;
     font-style: normal;
     font-size: 18px;
     line-height: 25px;
-    display: flex;
+    word-wrap: break-word;
+    white-space: normal;
+    height: fit-content;
+    text-indent: 32px;
 }
 
 .line{
