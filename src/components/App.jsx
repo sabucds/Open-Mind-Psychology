@@ -19,6 +19,7 @@ import PrivateRoute from "./ProtectedRoutes/PrivateRoute";
 import ProfileRoute from "./ProtectedRoutes/ProfileRoute";
 import VisitorRoute from "./ProtectedRoutes/VisitorRoute";
 import CredUpload from "./pages/registro/CredUpload";
+import Configuracion from "./pages/configuracion/Configuración";
 
 function App() {
   return (
