@@ -5,7 +5,7 @@ import { UserContext } from '../../../context/UserContext';
 import ReactFlagsSelect from 'react-flags-select';
 import { useHistory } from 'react-router-dom';
 import validator from 'validator';
-import { bd } from "../../../utils/firebaseConfig";
+import { bd, auth, providerEmail, providerFacebook, providerGoogle, providerTwitter } from "../../../utils/firebaseConfig";
 import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 
@@ -24,7 +24,7 @@ const Configuracion = ()=>{
     const [newPassword, setNewPassword] = useState("");
     const [picture, setPicture] = useState("");
     const [saving, setSaving] = useState(false);
-
+    const [updating, setUpdating] = useState(false);
   
     const switchShown = () => setShown(!shown);
 
@@ -91,10 +91,31 @@ const Configuracion = ()=>{
         
     };
 
-    const handleCancel = () => {
+    const handleExit = () => {
         history.push("/PerfilUser"); 
         window.location.reload();
     } 
+
+    const handlePassChange = async () => {
+        if (newPassword) {
+            setUpdating(true);
+            var currentUser = auth.currentUser;
+            try {
+                await currentUser.updatePassword(newPassword);
+                alert("Su contraseña fue actualizada exitosamente.");
+            } catch (err) {
+                if (err.message === "This operation is sensitive and requires recent authentication. Log in again before retrying this request.") {
+                    alert("Para cambiar de contraseña necesitará volver a iniciar sesión e intentar nuevamente."); 
+                } else if (err.message === "Password should be at least 6 characters" ){
+                    alert("ERROR: la contraseña debe tener al menos 6 caracteres.");
+                } else {
+                    alert("ERROR: "+err.message);
+                }
+            }
+            setUpdating(false);
+            setNewPassword("");
+        }
+    }
 
     return (
         <section className = "main-RegistroUser">
@@ -200,8 +221,8 @@ const Configuracion = ()=>{
                     <button type="button" className="config-button" onClick={handleSubmit} disabled={saving} style={{background: saving ? "#CCC" : "#EE9D6B" }}>
                         Guardar
                     </button>
-                    <button type="button" className="config-button" onClick={handleCancel} disabled={saving} style={{background: saving ? "#CCC" : "#EE9D6B" }}>
-                        Cancelar
+                    <button type="button" className="config-button" onClick={handleExit} disabled={saving} style={{background: saving ? "#CCC" : "#EE9D6B" }}>
+                        Salir
                     </button>
                 </div>
                 <br />
@@ -223,7 +244,7 @@ const Configuracion = ()=>{
                         </div>
 
                         <input
-                        id="password__input2"
+                        id="password_input"
                         onChange={e => setNewPassword(e.target.value)}
                         placeholder="***********"
                         type={shown ? 'text' : 'password'}
@@ -240,7 +261,7 @@ const Configuracion = ()=>{
                   {shown ? <div className = "ocultar"></div> : <div className = "mostrar"></div>}
                 </button>
                 <br />
-                <button className = "config-button">
+                <button className = "config-button" type="button" onClick={handlePassChange} disabled={updating} style={{background: updating ? "#CCC" : "#EE9D6B"}}>
                     Cambiar contraseña
                 </button>
                 </div>
