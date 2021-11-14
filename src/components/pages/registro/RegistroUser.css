@@ -257,17 +257,39 @@ button:focus {
     flex-direction: column;
     padding: 0;
   }
+  .all-form {
+    width: 100%;
+  }
   .left-col {
     width: 100%;
   }
   .right-col {
     width: 100%;
+    margin-top: 20px;
   }
   .rrss-box {
     margin-left: 0;
+    width: 100%;
   }
   .img1 {
     display: none;
+  }
+  .inicio-sesion-1 {
+    width: 100%;
+    padding: 0 50px;
+  }
+  .registro-2 {
+    width: 100%;
+  }
+  .sep {
+    width: 100%;
+  }
+  .dist {
+    width: 100%;
+    padding: 0 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 }
 @media screen and (max-width: 600px) {
@@ -351,7 +373,10 @@ button:focus {
     width: 33%;
     height: 50px;
     display: flex;
+    flex-direction: row;
+    align-items: unset;
     justify-content: center;
+    padding: 0;
   }
   .registro-button {
     margin-top: 30px;
@@ -376,8 +401,9 @@ button:focus {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 15px;
+    padding-top: 10px;
     padding-left: 20px;
+    padding-right: 20px;
   }
   .registro-button {
     margin-right: 20px;
