@@ -67,7 +67,7 @@ const RegistroUser = () => {
     console.log(response.user.uid);
     console.log("EMAIL_PASSWORD_LOGIN");
     if (type) {
-      history.push("/PerfilEspecialista");
+      history.push("/PerfilEsp");
     } else {
       history.push("/PerfilUser");
     }
@@ -77,7 +77,7 @@ const RegistroUser = () => {
     console.log("GOOGLE_LOGIN");
     await auth.signInWithPopup(providerGoogle);
     if (type) {
-      history.push("/PerfilEspecialista");
+      history.push("/PerfilEsp");
     } else {
       history.push("/PerfilUser");
     }

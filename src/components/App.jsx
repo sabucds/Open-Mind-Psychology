@@ -18,6 +18,7 @@ import Chats from "./pages/chats/Chats";
 import Citas from "./pages/citas/Citas";
 import UserContextProvider from "../context/UserContext";
 import ConfiguracionUser from "./pages/configuracion/ConfiguracionUser";
+import ConfiguracionEsp from "./pages/configuracion/ConfiguracionEsp";
 import Admin from "./pages/admin/Admin";
 import Error404 from "./pages/error404/Error404";
 
@@ -69,9 +70,13 @@ function App() {
               <Navbar />
               <SeleccionRegistro />
             </Route>
-            <Route exact path="/config" >
+            <Route exact path="/configuracion-usuario" >
               <Navbar />
               <ConfiguracionUser />
+            </Route>
+            <Route exact path="/configuracion-especialista" >
+              <Navbar />
+              <ConfiguracionEsp />
             </Route>           
             <Route path="*" component={Error404} />
 

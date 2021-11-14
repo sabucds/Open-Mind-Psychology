@@ -256,7 +256,7 @@ const PerfilUser = () => {
                 Número telefónico
               </div>
               <div className = "sub">
-                {user.phone}
+              {user.phone? user.phone : <p className="altText">No se especificó un número</p>}
               </div>
             </div>
             <div className = "line"></div>
@@ -265,7 +265,7 @@ const PerfilUser = () => {
                 País
               </div>
               <div className = "sub">
-                {(user.country)? countries[user.country] : null}
+                {(user.country)? countries[user.country] : <p className="altText">No se especificó un país</p>}
               </div>
             </div>
           </div>
@@ -278,12 +278,12 @@ const PerfilUser = () => {
                 </div>
                 <div className = "line"></div>
                 <div className = "text-info">
-                  {user.info}
+                  {user.info ? user.info : <p className="altText">No se especificó una descripción</p>}
                 </div>
               </div>
             </div>
 
-          <Link to = "./config" className = "register-button">
+          <Link to = "./configuracion-usuario" className = "register-button">
             EDITAR PERFIL
           </Link>
         </div>

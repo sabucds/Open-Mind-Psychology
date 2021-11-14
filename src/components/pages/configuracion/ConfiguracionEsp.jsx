@@ -1,5 +1,5 @@
 import React from "react";
-import "./ConfiguracionUser.css"
+import "./ConfiguracionEsp.css"
 import { useState, useContext } from "react";
 import { UserContext } from '../../../context/UserContext';
 import ReactFlagsSelect from 'react-flags-select';
@@ -20,6 +20,8 @@ const Configuracion = ()=>{
     const [country, setCountry] = useState("");
     const [number, setNumber] = useState("");
     const [info, setInfo] = useState("");
+    const [edu, setEdu] = useState("");
+    const [spec, setSpec] = useState("");
     const [newPassword, setNewPassword] = useState("");
     const [picture, setPicture] = useState("");
     const [saving, setSaving] = useState(false);
@@ -69,7 +71,15 @@ const Configuracion = ()=>{
             }
             if (info) {
                 await userDoc.update({info: info});
-                successMessage+="Información sobre mí";
+                successMessage+="Información sobre mí\n";
+            }
+            if (edu) {
+                await userDoc.update({education: edu});
+                successMessage+="Educación\n";
+            }
+            if (spec) {
+                await userDoc.update({specialty: spec});
+                successMessage+="Especialidades";
             }
 
         } catch (err) {
@@ -87,11 +97,13 @@ const Configuracion = ()=>{
         setNumber("");
         setCountry(null);
         setInfo("");
+        setEdu("");
+        setSpec("");
         
     };
 
     const handleExit = () => {
-        history.push("/PerfilUser"); 
+        history.push("/perfilEsp"); 
         window.location.reload();
     } 
 
@@ -196,6 +208,34 @@ const Configuracion = ()=>{
                             className="input-textArea-edit"
                             onChange={e => setInfo(e.target.value)}
                             value = {info}
+                        ></textarea>
+                    </div>
+
+                    <div className = "textArea-edit">
+                        <div className = "titles-edit">
+                            Educación
+                        </div>
+                        <textarea
+                            id="educacion"
+                            name="educacion"
+                            placeholder="Formación académica"
+                            className="input-textArea-edit"
+                            onChange={e => setEdu(e.target.value)}
+                            value = {edu}
+                        ></textarea>
+                    </div>
+
+                    <div className = "textArea-edit">
+                        <div className = "titles-edit">
+                            Especialidades
+                        </div>
+                        <textarea
+                            id="especialidad"
+                            name="especialidad"
+                            placeholder="Especialidades"
+                            className="input-textArea-edit"
+                            onChange={e => setSpec(e.target.value)}
+                            value = {spec}
                         ></textarea>
                     </div>
 
