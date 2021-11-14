@@ -12,7 +12,6 @@ import {
 import { UserContext } from "../../../context/UserContext";
 import validator from "validator";
 import "react-phone-number-input/style.css";
-import "./RegistroUser.css";
 import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
 
 const RegistroUser = () => {
