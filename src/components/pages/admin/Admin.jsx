@@ -1,8 +1,9 @@
 import React from 'react'
-import { bd, storage } from "../../../utils/firebaseConfig";
+import { bd, storage, auth } from "../../../utils/firebaseConfig";
 import EspecialistaCard from './EspecialistaCard';
 import { useState, useEffect } from "react";
 import './Admin.css';
+import { useHistory } from "react-router-dom";
 
 const Admin = () => {
     const [loading, setLoading] = useState(true);
@@ -10,6 +11,7 @@ const Admin = () => {
     const [error, setError] = useState(null);
     const [refresh, setRefresh] = useState(0);
     const [navbar, setNavbar] = useState(false);
+    
 
     async function getEspecialistas () {
         try{
@@ -73,6 +75,11 @@ const Admin = () => {
         }
     }
 
+    const history = useHistory();
+    const handleLogout = async () => {
+        await auth.signOut();
+        history.push("/");
+    };
 
     return (
         <>
@@ -84,7 +91,7 @@ const Admin = () => {
                     <button
                         type="button"
                         className="adminLogOut"
-                        //falta onClick={handleLogOut}
+                        onClick={handleLogout}
                     >Salir</button>
                 </div>
             </nav>
