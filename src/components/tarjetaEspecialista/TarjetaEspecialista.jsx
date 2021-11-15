@@ -7,7 +7,8 @@ const TarjetaEspecialista = (props) => {
       <div className="espBox-1">
         <div>
           <img
-            src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-image-icon-default-avatar-profile-icon-social-media-user-vector-image-209162840.jpg"
+            src={props.especialista.img}
+            alt="Not found"
             className="imagen-especialista"
           />
         </div>

@@ -300,7 +300,7 @@ const RegistroUser = () => {
                 <button
                   className="buttonsRS"
                   id="twitterB"
-                  onClick={handleGoogleLogin}
+                  onClick={handleTwitterLogin}
                 >
                   <div className="image3log"></div>
                   <p className="textito"> Ingresar con cuenta de Twitter</p>

@@ -96,7 +96,7 @@ const IniciarSesion = () => {
                       name="email"
                       value={values.email}
                       onChange={handleChange}
-                      placeholder="ejemplo@correo.com"
+                      placeholder="quieroestabilidademocional@correo.com"
                     />
                   </div>
                   <div className="passwordBox">
