@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { UserContext } from "../../context/UserContext";
 import { Route, Redirect } from "react-router-dom";
+import Cargando from "../cargando/Cargando";
 
 const NoAdminRoute = ({ component: View, ...args }) => {
   const { user, loading } = useContext(UserContext);
@@ -19,7 +20,7 @@ const NoAdminRoute = ({ component: View, ...args }) => {
             <View />
           )
         ) : (
-          <h1>Loading...</h1>
+          <Cargando />
         )
       }
     />

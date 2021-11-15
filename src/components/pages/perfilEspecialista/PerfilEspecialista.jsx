@@ -6,6 +6,7 @@ import "./PerfilEspecialista.css";
 
 import "../../Navbar/Navbar.css";
 import Navbar from "../../Navbar/Navbar";
+import Cargando from "../../cargando/Cargando";
 
 const PerfilEspecialista = () => {
   const countries = {
@@ -240,82 +241,88 @@ const PerfilEspecialista = () => {
   return (
     <>
       <Navbar />
-      <section className="main-RegistroUser">
-        <div className="todo-user">
-          <div className="encabezado1">
-            <img src={user.img} alt="Not found" className="imagen-user" />
-            <div className="nombre-user">{user.name}</div>
-            <div
-              className="editar-boton register-button"
-              onClick={handleConfig}
-            >
-              Editar Perfil
+      {!!user ? (
+        <section className="main-RegistroUser">
+          <div className="todo-user">
+            <div className="encabezado1">
+              <img src={user.img} alt="Not found" className="imagen-user" />
+              <div className="nombre-user">{user.name}</div>
+              <div
+                className="editar-boton register-button"
+                onClick={handleConfig}
+              >
+                Editar Perfil
+              </div>
             </div>
-          </div>
 
-          <div className="relleno">
-            <div className="correo-user">
-              <div className="titles">Correo electrónico</div>
-              <div className="sub">{user.email}</div>
-            </div>
-            <div className="line"></div>
-            <div className="number-user">
-              <div className="titles">Número telefónico</div>
-              <div className="sub">
-                {user.phone ? (
-                  user.phone
-                ) : (
-                  <p className="altText">No se especificó número de teléfono</p>
-                )}
-              </div>
-            </div>
-            <div className="line"></div>
-            <div className="pais-user">
-              <div className="titles">País</div>
-              <div className="sub">
-                {user.country ? (
-                  countries[user.country]
-                ) : (
-                  <p className="altText">No se especificó país</p>
-                )}
-              </div>
-            </div>
-            <div className="line"></div>
-          </div>
-          <div className="info-edu">
-            <div className="edu-box">
-              <div className="titles" id="titles-ed1">
-                Áreas de
-                <br />
-                atención
+            <div className="relleno">
+              <div className="correo-user">
+                <div className="titles">Correo electrónico</div>
+                <div className="sub">{user.email}</div>
               </div>
               <div className="line"></div>
-              <div className="text-info">{user.specialty}</div>
-            </div>
-            <div className="edu-box">
-              <div className="titles" id="titles-ed">
-                Formación Académica
+              <div className="number-user">
+                <div className="titles">Número telefónico</div>
+                <div className="sub">
+                  {user.phone ? (
+                    user.phone
+                  ) : (
+                    <p className="altText">
+                      No se especificó número de teléfono
+                    </p>
+                  )}
+                </div>
               </div>
               <div className="line"></div>
-              <div className="text-info">{user.education}</div>
-            </div>
-          </div>
-          <div className="about-user">
-            <div className="info">
-              <div className="titles">Sobre mí</div>
+              <div className="pais-user">
+                <div className="titles">País</div>
+                <div className="sub">
+                  {user.country ? (
+                    countries[user.country]
+                  ) : (
+                    <p className="altText">No se especificó país</p>
+                  )}
+                </div>
+              </div>
               <div className="line"></div>
+            </div>
+            <div className="info-edu">
+              <div className="edu-box">
+                <div className="titles" id="titles-ed1">
+                  Áreas de
+                  <br />
+                  atención
+                </div>
+                <div className="line"></div>
+                <div className="text-info">{user.specialty}</div>
+              </div>
+              <div className="edu-box">
+                <div className="titles" id="titles-ed">
+                  Formación Académica
+                </div>
+                <div className="line"></div>
+                <div className="text-info">{user.education}</div>
+              </div>
+            </div>
+            <div className="about-user">
+              <div className="info">
+                <div className="titles">Sobre mí</div>
+                <div className="line"></div>
 
-              <div className="text-info">
-                {user.info ? (
-                  user.info
-                ) : (
-                  <p className="altText">No se especificó una descripción</p>
-                )}
+                <div className="text-info">
+                  {user.info ? (
+                    user.info
+                  ) : (
+                    <p className="altText">No se especificó una descripción</p>
+                  )}
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      ) : (
+        <Cargando />
+      )}
     </>
   );
 };

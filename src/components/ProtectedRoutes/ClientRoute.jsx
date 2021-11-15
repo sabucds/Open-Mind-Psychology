@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { UserContext } from "../../context/UserContext";
 import { Route, Redirect } from "react-router-dom";
+import Cargando from "../cargando/Cargando";
 
 const ClientRoute = ({ component: View, ...args }) => {
   const { user, loading } = useContext(UserContext);
@@ -29,7 +30,7 @@ const ClientRoute = ({ component: View, ...args }) => {
             />
           )
         ) : (
-          <h1>Loading...</h1>
+          <Cargando />
         )
       }
     />

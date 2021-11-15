@@ -1,12 +1,12 @@
 import React from "react";
 import { useContext } from "react";
 import { UserContext } from "../../../context/UserContext";
-import { Link, useHistory } from "react-router-dom";
-import { auth } from "../../../utils/firebaseConfig";
+import { useHistory } from "react-router-dom";
 import "./PerfilUser.css";
 
 import "../../Navbar/Navbar.css";
 import Navbar from "../../Navbar/Navbar";
+import Cargando from "../../cargando/Cargando";
 
 const PerfilUser = () => {
   const countries = {
@@ -302,7 +302,7 @@ const PerfilUser = () => {
           </div>
         </section>
       ) : (
-        <div className="cargando">Loading User...</div>
+        <Cargando />
       )}
     </>
   );
