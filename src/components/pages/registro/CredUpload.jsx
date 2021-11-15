@@ -45,6 +45,13 @@ const CredUpload = () => {
 
     return (
       <section className="main-FileUp">
+        <div className="title-updiv">
+          <h3 className="title-up">
+            ¡Ya casi estas listo!
+            <br />
+            Solo nos falta obtener tus credenciales (.pdf)
+          </h3>
+        </div>
         <form className="form-up">
           {uploading ? (
             <></>
