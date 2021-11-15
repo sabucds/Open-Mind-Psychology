@@ -1,5 +1,5 @@
 import React from "react";
-import "./ConfiguracionUser.css";
+import "./ConfiguracionEsp.css";
 import { useState, useContext } from "react";
 import { UserContext } from "../../../context/UserContext";
 import ReactFlagsSelect from "react-flags-select";
@@ -12,15 +12,17 @@ import "react-phone-number-input/style.css";
 import "../../Navbar/Navbar.css";
 import Navbar from "../../Navbar/Navbar";
 
-const Configuracion = () => {
+const ConfiguracionEsp = () => {
   const history = useHistory();
   const { user } = useContext(UserContext);
-  const [shown, setShown] = useState(false);
+  const [shown, setShown] = React.useState(false);
   const [name, setName] = useState("");
   const [lname, setLname] = useState("");
   const [country, setCountry] = useState("");
   const [number, setNumber] = useState("");
   const [info, setInfo] = useState("");
+  const [edu, setEdu] = useState("");
+  const [spec, setSpec] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [picture, setPicture] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -112,7 +114,15 @@ const Configuracion = () => {
       }
       if (info) {
         await userDoc.update({ info: info });
-        successMessage += "Información sobre mí";
+        successMessage += "Información sobre mí\n";
+      }
+      if (edu) {
+        await userDoc.update({ education: edu });
+        successMessage += "Educación\n";
+      }
+      if (spec) {
+        await userDoc.update({ specialty: spec });
+        successMessage += "Especialidades";
       }
     } catch (err) {
       alert("Hubo un error al guardar: " + err.message);
@@ -135,6 +145,8 @@ const Configuracion = () => {
     setNumber("");
     setCountry(null);
     setInfo("");
+    setEdu("");
+    setSpec("");
   };
 
   const handleExit = () => {
@@ -241,13 +253,37 @@ const Configuracion = () => {
                 ></textarea>
               </div>
 
+              <div className="textArea-edit">
+                <div className="titles-edit">Educación</div>
+                <textarea
+                  id="educacion"
+                  name="educacion"
+                  placeholder="Formación académica"
+                  className="input-textArea-edit"
+                  onChange={(e) => setEdu(e.target.value)}
+                  value={edu}
+                ></textarea>
+              </div>
+
+              <div className="textArea-edit">
+                <div className="titles-edit">Especialidades</div>
+                <textarea
+                  id="especialidad"
+                  name="especialidad"
+                  placeholder="Especialidades"
+                  className="input-textArea-edit"
+                  onChange={(e) => setSpec(e.target.value)}
+                  value={spec}
+                ></textarea>
+              </div>
+
               <div className="perfil-edit">
                 <div className="titles-edit">Foto de perfil</div>
                 <input
                   id="perfil"
                   name="perfil"
                   type="file"
-                  accept=".png"
+                  accept=".jpg,.png"
                   className="input-foto-edit"
                   onChange={handleUpload}
                   // value = {picture}
@@ -328,4 +364,4 @@ const Configuracion = () => {
   );
 };
 
-export default Configuracion;
+export default ConfiguracionEsp;

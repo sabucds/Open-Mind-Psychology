@@ -9,7 +9,6 @@ const CredUpload = () => {
   const { user, loading } = useContext(UserContext);
   const [uploading, setUploading] = useState(false);
   const history = useHistory();
-  // La verdad es que el loading no sé si realmente haga falta aquí, porque técnicamente el user estará ya seteado(?)
   if (loading) {
     return <h1>Cargando...</h1>;
   } else {
@@ -18,8 +17,8 @@ const CredUpload = () => {
 
       // Esto es lo que agarra al archivo perse
       const file = e.target.files[0];
-
       const ref = storage.ref("credentials/" + user.id);
+
       const upload = ref.put(file);
       setUploading(true);
       upload.on(
@@ -27,6 +26,7 @@ const CredUpload = () => {
         function progress(snapshot) {
           const progress =
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log(user.id);
           console.log("Archivo " + progress + "% listo");
         },
         function error(error) {
@@ -47,7 +47,7 @@ const CredUpload = () => {
       <section className="main-RegistroUser">
         <form>
           {uploading ? (
-            <></>
+            <h1>Subiendo archivo...</h1>
           ) : (
             <input
               name="userfile"
@@ -61,4 +61,5 @@ const CredUpload = () => {
     );
   }
 };
+
 export default CredUpload;

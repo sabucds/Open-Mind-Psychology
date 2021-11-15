@@ -15,7 +15,7 @@ const ClientRoute = ({ component: View, ...args }) => {
         !loading ? (
           // Verificamos que esté logged in
           isLoggedIn ? (
-            // Verificamos que sea admin o un especialista RECHAZADO, para redirigirlo a su perfil
+            // Verificamos que sea admin, para redirigirlo a su perfil
             user.role !== "admin" ? (
               <View />
             ) : (

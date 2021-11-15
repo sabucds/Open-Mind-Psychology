@@ -12,6 +12,7 @@ import RegistroUser from "./pages/registro/RegistroUser";
 import SeleccionRegistro from "./pages/registro/SeleccionRegistro";
 import UserContextProvider from "../context/UserContext";
 import CredUpload from "./pages/registro/CredUpload";
+import Error404 from "./pages/error404/Error404";
 
 import PrivateRoute from "./ProtectedRoutes/PrivateRoute";
 import ProfileRoute from "./ProtectedRoutes/ProfileRoute";
@@ -48,7 +49,7 @@ function App() {
               component={SeleccionRegistro}
             />
             <PrivateRoute exact path="/perfil" component={ProfileRoute} />
-            <ClientRoute
+            <NoAdminRoute
               exact
               path="/selectReg/registro/upload"
               component={CredUpload}

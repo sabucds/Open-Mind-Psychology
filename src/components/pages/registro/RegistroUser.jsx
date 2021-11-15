@@ -1,6 +1,5 @@
 import React from "react";
 import { useState, useContext } from "react";
-import "./RegistroUser.css";
 import registro1 from "../../img/registro1.png";
 import { useHistory } from "react-router-dom";
 import {
@@ -12,11 +11,12 @@ import {
 } from "../../../utils/firebaseConfig.js";
 import { UserContext } from "../../../context/UserContext";
 import validator from "validator";
-import "react-phone-number-input/style.css";
 import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
-
 import "../../Navbar/Navbar.css";
 import Navbar from "../../Navbar/Navbar";
+
+import "react-phone-number-input/style.css";
+import "./RegistroUser.css";
 
 const RegistroUser = () => {
   const { createUser, type } = useContext(UserContext);
@@ -64,6 +64,7 @@ const RegistroUser = () => {
           .ref("images/default-avatar.png")
           .getDownloadURL();
         console.log(imgURL);
+        console.log("EMAIL_PASSWORD_LOGIN");
         if (type) {
           await createUser(
             {
@@ -72,7 +73,7 @@ const RegistroUser = () => {
               phone: number,
               country: "",
               info: "",
-              specialty: [],
+              specialty: "",
               education: "",
               schedule: [],
               feedback: [],
@@ -83,7 +84,6 @@ const RegistroUser = () => {
             },
             response.user.uid
           );
-          console.log("EMAIL_PASSWORD_LOGIN");
           history.push("/selectReg/registro/upload");
         } else {
           await createUser(
@@ -98,7 +98,6 @@ const RegistroUser = () => {
             },
             response.user.uid
           );
-          console.log("EMAIL_PASSWORD_LOGIN");
           history.push("/perfil");
         }
       } catch (e) {

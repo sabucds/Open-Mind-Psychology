@@ -18,9 +18,9 @@ const Contacto = () => {
     //esta función será usada para validar inputs del usuario en el formulario de contacto y el de registro.
     let isValid = !(
       !name ||
-      !validator.isAlpha(name, "es-ES") ||
+      !validator.isAlpha(name, "es-ES", "-") ||
       !lname ||
-      !validator.isAlpha(lname, "es-ES") ||
+      !validator.isAlpha(lname, "es-ES", "-") ||
       !userInput ||
       !email ||
       !validator.isEmail(email)
