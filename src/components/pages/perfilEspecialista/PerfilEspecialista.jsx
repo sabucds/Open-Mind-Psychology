@@ -245,6 +245,12 @@ const PerfilEspecialista = () => {
           <div className="encabezado1">
             <img src={user.img} alt="Not found" className="imagen-user" />
             <div className="nombre-user">{user.name}</div>
+            <div
+              className="editar-boton register-button"
+              onClick={handleConfig}
+            >
+              Editar Perfil
+            </div>
           </div>
 
           <div className="relleno">
@@ -274,6 +280,7 @@ const PerfilEspecialista = () => {
                 )}
               </div>
             </div>
+            <div className="line"></div>
           </div>
           <div className="info-edu">
             <div className="edu-box">
@@ -306,12 +313,6 @@ const PerfilEspecialista = () => {
                 )}
               </div>
             </div>
-          </div>
-
-          <div className="div-button">
-            <p className="register-button" onClick={handleConfig}>
-              EDITAR PERFIL
-            </p>
           </div>
         </div>
       </section>

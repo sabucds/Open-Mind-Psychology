@@ -33,3 +33,20 @@
 #titles-ed1 {
   margin-bottom: 20px;
 }
+
+@media screen and (max-width: 600px) {
+  .info-edu {
+    padding: 0px;
+    justify-content: space-between;
+  }
+  .edu-box {
+    margin-top: 30px;
+    padding: 10px;
+    padding-top: 20px;
+    width: 45%;
+    text-align: center;
+  }
+  #titles-ed1 {
+    justify-content: center;
+  }
+}

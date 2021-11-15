@@ -1,14 +1,11 @@
 import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import "./Inicio.css";
-<<<<<<< HEAD
 import SeccionEspecialistasInicio from "./SeccionEspecialistasInicio";
-=======
 import { UserContext } from "../../../context/UserContext";
 
 import "../../Navbar/Navbar.css";
 import Navbar from "../../Navbar/Navbar";
->>>>>>> 407b1270902cfec9f305fcc5e38386f02264bdc5
 
 const Inicio = () => {
   const { user } = useContext(UserContext);
@@ -92,17 +89,13 @@ const Inicio = () => {
             </div>
           </div>
         </div>
-<<<<<<< HEAD
-      </div>
-      <div className="second-sect especialistas-sect">
-        <div className="how-works">Algunos de nuestros especialistas</div>
-        <SeccionEspecialistasInicio />
-      </div>
-    </section>
-=======
+
+        <div className="second-sect especialistas-sect">
+          <div className="how-works">Algunos de nuestros especialistas</div>
+          <SeccionEspecialistasInicio />
+        </div>
       </section>
     </>
->>>>>>> 407b1270902cfec9f305fcc5e38386f02264bdc5
   );
 };
 

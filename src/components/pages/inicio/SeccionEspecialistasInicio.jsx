@@ -9,7 +9,7 @@ const SeccionEspecialistasInicio = () => {
   const [loading, setLoading] = useState(true);
   const [especialistas, setEspecialistas] = useState({});
   const [error, setError] = useState(null);
-  const [refresh, setRefresh] = useState(0);
+  const [refresh] = useState(0);
 
   function desplegarEspecialistas(especialistas) {
     var arr = [];

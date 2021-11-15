@@ -212,7 +212,7 @@ const Configuracion = () => {
               <div className="numero-edit">
                 <div className="titles-edit">Número telefónico</div>
                 <PhoneInput
-                  id="numero"
+                  id="numero2"
                   name="numero"
                   className="input-numero-edit"
                   onChange={setNumber}

@@ -72,20 +72,22 @@ const IniciarSesion = () => {
     <>
       <Navbar />
       <section className="box-InicioSesion">
-        <div className="title-box">
-          <h1 className="title-text">
+        <div className="encabezado de-inicio">
+          <div className="TitleRegister">
             ¡Bienvenido! Inicia sesión con
             <br />
             nosotros
-          </h1>
+          </div>
+          <div className="linea"></div>
         </div>
+
         <div className="bottom-main">
           <div className="inicio-box">
             <div className="inicio-sesion">
               <div>
                 <form name="formLogin" id="formLogin">
                   <div className="email-box">
-                    <label htmlFor="emailInput" className="classForm">
+                    <label for="emailInput" className="classForm">
                       Correo Electrónico
                     </label>
                     <input
@@ -93,28 +95,19 @@ const IniciarSesion = () => {
                       id="emailInput"
                       type="email"
                       name="email"
-                      value={values.email}
-                      onChange={handleChange}
                       placeholder="quieroestabilidademocional@correo.com"
                     />
                   </div>
                   <div className="passwordBox">
-                    <label htmlFor="passwordInput">Contraseña</label>
+                    <label for="passwordInput">Contraseña</label>
                     <input
                       className="inputsForm"
                       id="passwordInput"
                       type="password"
                       name="password"
-                      value={values.password}
-                      onChange={handleChange}
                       placeholder="**********"
                     />
-                    <p
-                      className="texto-chiquito"
-                      onClick={handleRestorePassword}
-                    >
-                      Olvidé mi contraseña
-                    </p>
+                    <p className="texto-chiquito"> Olvidé mi contraseña</p>
                   </div>
                 </form>
               </div>
@@ -136,10 +129,10 @@ const IniciarSesion = () => {
               </div>
             </div>
           </div>
-          <div className="rrss-box">
-            <div className="dist">
+          <div className="rrss-box-1">
+            <div className="dist-1">
               <button
-                className="buttonsRS"
+                className="buttonsRS-1"
                 id="googleB"
                 onClick={handleGoogleLogin}
               >
@@ -148,9 +141,9 @@ const IniciarSesion = () => {
               </button>
               <hr className="sep solid" />
             </div>
-            <div className="dist">
+            <div className="dist-1">
               <button
-                className="buttonsRS"
+                className="buttonsRS-1"
                 id="faceB"
                 onClick={handleFacebookLogin}
               >
@@ -159,9 +152,9 @@ const IniciarSesion = () => {
               </button>
               <hr className="sep solid" />
             </div>
-            <div className="dist">
+            <div className="dist-1">
               <button
-                className="buttonsRS"
+                className="buttonsRS-1"
                 id="twitterB"
                 onClick={handleTwitterLogin}
               >

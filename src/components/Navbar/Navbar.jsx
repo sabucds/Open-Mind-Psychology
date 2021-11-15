@@ -21,18 +21,15 @@ const Navbar = () => {
   const handleClickCuenta = () => {
     setClickedCuenta(!clickedCuenta);
   };
-  const { user } = useContext(UserContext);
+  const { user, setuser } = useContext(UserContext);
   const history = useHistory();
   const handleLogout = async () => {
     setClickedProfile(false);
     await auth.signOut();
-    // setUser(null);
+    setuser(null);
     history.push("/");
   };
 
-  if (!!user) {
-    console.log(user);
-  }
   function mapear(estructura, clicked) {
     return estructura.map(({ url, title }, index) => {
       return (
@@ -70,16 +67,18 @@ const Navbar = () => {
               ? "profile-icon times"
               : clickedMenu
               ? "hideProfile"
-              : "profile-icon barProfile"
+              : "profile-icon"
           }
           onClick={handleClickProfile}
         ></div>
       ) : (
         <div className=""></div>
       )}
-      <div className="nav-wrapper">
+      <div
+        className={user ? "nav-wrapper con-profile" : "nav-wrapper sin-profile"}
+      >
         <a href="/">
-          <div className={user ? "logo" : "logo sin-profile"}></div>
+          <div className="logo"></div>
         </a>
       </div>
       <div
@@ -100,8 +99,6 @@ const Navbar = () => {
               className={
                 clickedCuenta ? "nav-links cuenta-iniciada" : "nav-links close"
               }
-              exact
-              activeClassName="active"
               onClick={handleClickCuenta}
             >
               <div className="nav-link clic-cuenta">

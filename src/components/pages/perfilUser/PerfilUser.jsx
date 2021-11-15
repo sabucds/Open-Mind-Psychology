@@ -1,12 +1,8 @@
 import React from "react";
 import { useContext } from "react";
 import { UserContext } from "../../../context/UserContext";
-<<<<<<< HEAD
 import { Link, useHistory } from "react-router-dom";
 import { auth } from "../../../utils/firebaseConfig";
-=======
-import { useHistory } from "react-router-dom";
->>>>>>> 407b1270902cfec9f305fcc5e38386f02264bdc5
 import "./PerfilUser.css";
 
 import "../../Navbar/Navbar.css";
@@ -244,110 +240,71 @@ const PerfilUser = () => {
   };
 
   return (
-<<<<<<< HEAD
-    <section className="main-RegistroUser">
-      {!!user ? (
-        <div className="todo-user">
-          <div className="encabezado1">
-            <img
-              src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-image-icon-default-avatar-profile-icon-social-media-user-vector-image-209162840.jpg"
-              className="imagen-user"
-            />
-            <div className="nombre-user">{user.name}</div>
-            <div className="editar-boton">
-              <Link to="./config" className="register-button">
-                Editar Perfil
-              </Link>
-            </div>
-=======
     <>
       <Navbar />
-      <section className="main-RegistroUser">
-        <div className="todo-user">
-          <div className="encabezado1">
-            <img src={user.img} alt="Not found" className="imagen-user" />
-            <div className="nombre-user">{user.name}</div>
->>>>>>> 407b1270902cfec9f305fcc5e38386f02264bdc5
-          </div>
+      {!!user ? (
+        <section className="main-RegistroUser">
+          <div className="todo-user">
+            <div className="encabezado1">
+              <img src={user.img} alt="Not found" className="imagen-user" />
+              <div className="nombre-user">{user.name}</div>
+              <div
+                className="editar-boton register-button"
+                onClick={handleConfig}
+              >
+                Editar Perfil
+              </div>
+            </div>
 
-          <div className="relleno">
-            <div className="correo-user">
-              <div className="titles">Correo electrónico</div>
-              <div className="sub">{user.email}</div>
-            </div>
-            <div className="line"></div>
-            <div className="number-user">
-              <div className="titles">Número telefónico</div>
-<<<<<<< HEAD
-              <div className="sub">{user.phone}</div>
-=======
-              <div className="sub">
-                {user.phone ? (
-                  user.phone
-                ) : (
-                  <p className="altText">No se especificó un número</p>
-                )}
+            <div className="relleno">
+              <div className="correo-user">
+                <div className="titles">Correo electrónico</div>
+                <div className="sub">{user.email}</div>
               </div>
->>>>>>> 407b1270902cfec9f305fcc5e38386f02264bdc5
-            </div>
-            <div className="line"></div>
-            <div className="pais-user">
-              <div className="titles">País</div>
-              <div className="sub">
-<<<<<<< HEAD
-                {/* {user.country} */}
-                Venezuela
-=======
-                {user.country ? (
-                  countries[user.country]
-                ) : (
-                  <p className="altText">No se especificó un país</p>
-                )}
->>>>>>> 407b1270902cfec9f305fcc5e38386f02264bdc5
+              <div className="line"></div>
+              <div className="number-user">
+                <div className="titles">Número telefónico</div>
+                <div className="sub">
+                  {user.phone ? (
+                    user.phone
+                  ) : (
+                    <p className="altText">No se especificó un número</p>
+                  )}
+                </div>
               </div>
+              <div className="line"></div>
+              <div className="pais-user">
+                <div className="titles">País</div>
+                <div className="sub">
+                  {user.country ? (
+                    countries[user.country]
+                  ) : (
+                    <p className="altText">No se especificó un país</p>
+                  )}
+                </div>
+              </div>
+              <div className="line"></div>
             </div>
-          </div>
 
-          <div className="about-user">
-            <div className="info">
-<<<<<<< HEAD
-              <div className="titles">Sobre mi</div>
-              <div className="line"></div>
-              <div className="text-info">
-                {/* {user.info} */}
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto
-                mollitia soluta et sapiente, quisquam, ratione eveniet,
-                excepturi tempore harum ex veritatis officiis autem itaque nemo
-                explicabo unde beatae distinctio reiciendis id corrupti atque
-                maiores rerum? Expedita vitae ipsum ab architecto quae
-                accusamus, atque dolores quia sit ex sunt eaque magni.
-=======
-              <div className="titles">Sobre mí</div>
-              <div className="line"></div>
-              <div className="text-info">
-                {user.info ? (
-                  user.info
-                ) : (
-                  <p className="altText">No se especificó una descripción</p>
-                )}
->>>>>>> 407b1270902cfec9f305fcc5e38386f02264bdc5
+            <div className="about-user">
+              <div className="info">
+                <div className="titles">Sobre mí</div>
+                <div className="line"></div>
+                <div className="text-info">
+                  {user.info ? (
+                    user.info
+                  ) : (
+                    <p className="altText">No se especificó una descripción</p>
+                  )}
+                </div>
               </div>
             </div>
           </div>
-        </div>
-<<<<<<< HEAD
+        </section>
       ) : (
         <div className="cargando">Loading User...</div>
       )}
-    </section>
-=======
-
-        <p className="register-button" onClick={handleConfig}>
-          EDITAR PERFIL
-        </p>
-      </section>
     </>
->>>>>>> 407b1270902cfec9f305fcc5e38386f02264bdc5
   );
 };
 

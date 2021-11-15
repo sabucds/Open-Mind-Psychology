@@ -224,7 +224,7 @@ const ConfiguracionEsp = () => {
               <div className="numero-edit">
                 <div className="titles-edit">Número telefónico</div>
                 <PhoneInput
-                  id="numero"
+                  id="numero3"
                   name="numero"
                   className="input-numero-edit"
                   onChange={setNumber}
