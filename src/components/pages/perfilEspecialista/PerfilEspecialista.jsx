@@ -238,6 +238,7 @@ const PerfilEspecialista = () => {
   const handleConfig = () => {
     history.push("/config");
   };
+
   return (
     <>
       <Navbar />
@@ -256,6 +257,19 @@ const PerfilEspecialista = () => {
             </div>
 
             <div className="relleno">
+              {user.status === "standby" ? (
+                <>
+                  <div className="correo-user">
+                    <div className="sub estado-perfil">
+                      ¡La evaluación de sus credenciales sigue en pie, mientras
+                      tanto, puede ir configurando su perfil!
+                    </div>
+                  </div>
+                  <div className="line"></div>
+                </>
+              ) : (
+                <div></div>
+              )}
               <div className="correo-user">
                 <div className="titles">Correo electrónico</div>
                 <div className="sub">{user.email}</div>

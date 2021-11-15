@@ -10,6 +10,12 @@
   outline: none;
 }
 
+.estado-perfil {
+  font-weight: bold;
+  margin: 5px;
+  width: 100%;
+  text-align: center;
+}
 .info-edu {
   display: flex;
   flex-direction: row;

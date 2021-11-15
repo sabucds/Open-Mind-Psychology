@@ -1,15 +1,11 @@
-import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import "./Inicio.css";
 import SeccionEspecialistasInicio from "./SeccionEspecialistasInicio";
-import { UserContext } from "../../../context/UserContext";
 
 import "../../Navbar/Navbar.css";
 import Navbar from "../../Navbar/Navbar";
 
 const Inicio = () => {
-  const { user } = useContext(UserContext);
-  console.log(user);
   return (
     <>
       <Navbar />
