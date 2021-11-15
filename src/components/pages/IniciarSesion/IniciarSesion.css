@@ -77,6 +77,7 @@ body {
 }
 
 .texto-chiquito {
+  cursor: pointer;
   font-style: italic;
   color: #ee9d6b;
   margin-left: 1em;
