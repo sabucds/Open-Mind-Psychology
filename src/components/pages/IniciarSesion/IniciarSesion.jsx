@@ -80,14 +80,13 @@ const IniciarSesion = () => {
           </div>
           <div className="linea"></div>
         </div>
-
         <div className="bottom-main">
           <div className="inicio-box">
             <div className="inicio-sesion">
               <div>
                 <form name="formLogin" id="formLogin">
                   <div className="email-box">
-                    <label for="emailInput" className="classForm">
+                    <label htmlFor="emailInput" className="classForm">
                       Correo Electrónico
                     </label>
                     <input
@@ -95,19 +94,28 @@ const IniciarSesion = () => {
                       id="emailInput"
                       type="email"
                       name="email"
-                      placeholder="quieroestabilidademocional@correo.com"
+                      value={values.email}
+                      onChange={handleChange}
+                      placeholder="ejemplo@correo.com"
                     />
                   </div>
                   <div className="passwordBox">
-                    <label for="passwordInput">Contraseña</label>
+                    <label htmlFor="passwordInput">Contraseña</label>
                     <input
                       className="inputsForm"
                       id="passwordInput"
                       type="password"
                       name="password"
+                      value={values.password}
+                      onChange={handleChange}
                       placeholder="**********"
                     />
-                    <p className="texto-chiquito"> Olvidé mi contraseña</p>
+                    <p
+                      className="texto-chiquito"
+                      onClick={handleRestorePassword}
+                    >
+                      Olvidé mi contraseña
+                    </p>
                   </div>
                 </form>
               </div>
@@ -129,10 +137,10 @@ const IniciarSesion = () => {
               </div>
             </div>
           </div>
-          <div className="rrss-box-1">
-            <div className="dist-1">
+          <div className="rrss-box">
+            <div className="dist">
               <button
-                className="buttonsRS-1"
+                className="buttonsRS"
                 id="googleB"
                 onClick={handleGoogleLogin}
               >
@@ -141,9 +149,9 @@ const IniciarSesion = () => {
               </button>
               <hr className="sep solid" />
             </div>
-            <div className="dist-1">
+            <div className="dist">
               <button
-                className="buttonsRS-1"
+                className="buttonsRS"
                 id="faceB"
                 onClick={handleFacebookLogin}
               >
@@ -152,9 +160,9 @@ const IniciarSesion = () => {
               </button>
               <hr className="sep solid" />
             </div>
-            <div className="dist-1">
+            <div className="dist">
               <button
-                className="buttonsRS-1"
+                className="buttonsRS"
                 id="twitterB"
                 onClick={handleTwitterLogin}
               >

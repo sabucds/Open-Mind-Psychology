@@ -208,7 +208,7 @@ const RegistroUser = () => {
                 </label>
                 <br />
                 <input
-                  placeholder="dondetevea@tepateoesetrasero.com"
+                  placeholder="ejemplo@correo.com"
                   id="email"
                   name="email"
                   type="email"
