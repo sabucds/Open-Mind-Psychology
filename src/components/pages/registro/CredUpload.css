@@ -103,10 +103,8 @@ body {
   background-image: url(../../img/Grupo\ Personas.png);
 }
 
-.title-updiv {
-  text-align: center;
-}
 .title-up {
+  text-align: center;
   font-size: 2em;
   color: #fff;
 }

@@ -54,7 +54,7 @@ const CredUpload = () => {
         </div>
         <form className="form-up">
           {uploading ? (
-            <h1>Subiendo archivo...</h1>
+            <h1 className="title-up">Subiendo archivo...</h1>
           ) : (
             <div
               className="file-wrapper"
