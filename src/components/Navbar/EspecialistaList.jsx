@@ -13,6 +13,6 @@ export const EspecialistaList = [
   },
   {
     title: "Ver perfil",
-    url: "/perfilEsp",
+    url: "/perfil",
   },
 ];

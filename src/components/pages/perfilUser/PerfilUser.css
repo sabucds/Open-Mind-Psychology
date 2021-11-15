@@ -21,6 +21,7 @@
   border-bottom-right-radius: 50% 50%;
   border-bottom-left-radius: 50% 50%;
   filter: drop-shadow(0px 4px 44px rgba(0, 0, 0, 0.25));
+<<<<<<< HEAD
 }
 
 .encabezado1 {
@@ -116,16 +117,117 @@
   margin-bottom: 50px;
 }
 
+=======
+}
+
+.encabezado1 {
+  margin: 2em;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.nombre-user {
+  text-transform: capitalize;
+  margin-left: 48px;
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 30px;
+  line-height: 65px;
+  display: flex;
+  align-items: center;
+}
+
+.todo-user {
+  margin: auto 160px;
+}
+
+.Datos-user {
+  margin: 5px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.r-col {
+  margin-top: 16px;
+  margin-left: 48px;
+}
+
+.l-col {
+  margin-top: 2px;
+}
+
+.correo-user,
+.number-user,
+.pais-user {
+  display: flex;
+  justify-content: flex-start;
+  margin: 8px auto;
+}
+
+.sub {
+  margin: auto;
+  font-family: Open Sans;
+  font-style: normal;
+  font-size: 18px;
+  line-height: 25px;
+  margin-left: 30px;
+}
+
+.titles {
+  width: 260px;
+  height: 50px;
+  left: 442px;
+  top: 420px;
+  margin: auto 15px;
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 28px;
+  line-height: 38px;
+  display: flex;
+  align-items: center;
+}
+
+.relleno {
+  margin: 32px;
+  padding: 8px;
+}
+
+.about-user {
+  margin: 16px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25);
+  background: #ffffff;
+  border-radius: 15px;
+  padding: 10px;
+}
+
+.info {
+  margin-left: 32px;
+}
+
+.line {
+  background-color: #ee9d6b;
+  margin-right: 32px;
+  border: 1px solid #ee9d6b;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+>>>>>>> 407b1270902cfec9f305fcc5e38386f02264bdc5
 .info {
   margin-left: 32px;
 }
 
 .text-info {
   margin: 16px auto;
+<<<<<<< HEAD
+=======
+  padding-right: 32px;
+>>>>>>> 407b1270902cfec9f305fcc5e38386f02264bdc5
   font-family: Open Sans;
   font-style: normal;
   font-size: 18px;
   line-height: 25px;
+<<<<<<< HEAD
   display: flex;
 }
 
@@ -238,4 +340,33 @@
   .main-RegistroUser {
     padding: 30px 20px;
   }
+=======
+  word-wrap: break-word;
+  white-space: normal;
+  height: fit-content;
+  text-indent: 32px;
+}
+
+.cargando {
+  margin-left: 16px;
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 32px;
+  position: center;
+}
+
+.div-button {
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.register-button {
+  color: white;
+  background-color: #ee9d6b;
+  margin-top: 10px;
+  margin-bottom: 10px;
+>>>>>>> 407b1270902cfec9f305fcc5e38386f02264bdc5
 }
