@@ -1,5 +1,5 @@
 import React from "react";
-import "./RegistroUser.css";
+import "./CredUpload.css";
 import { storage } from "../../../utils/firebaseConfig";
 import { UserContext } from "../../../context/UserContext";
 import { useState, useContext } from "react";
@@ -44,19 +44,25 @@ const CredUpload = () => {
     };
 
     return (
-      <section className="main-RegistroUser">
-        <form>
+      <section className="main-FileUp">
+        <form className="form-up">
           {uploading ? (
             <></>
           ) : (
-            <input
-              name="userfile"
-              type="file"
-              accept="application/pdf"
-              onChange={handleUpload}
-            ></input>
+            <div
+              className="file-wrapper"
+              data-text="Selecciona el archivo a escoger:"
+            >
+              <input
+                name="userfile"
+                type="file"
+                accept="application/pdf"
+                onChange={handleUpload}
+              ></input>
+            </div>
           )}
         </form>
+        <div className="img-form"></div>
       </section>
     );
   }
