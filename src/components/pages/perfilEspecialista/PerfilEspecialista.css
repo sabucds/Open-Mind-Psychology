@@ -14,6 +14,7 @@
   font-weight: bold;
   margin: 5px;
   width: 100%;
+  height: max-content;
   text-align: center;
 }
 .info-edu {
@@ -44,15 +45,21 @@
   .info-edu {
     padding: 0px;
     justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
   }
   .edu-box {
     margin-top: 30px;
     padding: 10px;
     padding-top: 20px;
-    width: 45%;
+    width: 100%;
+    text-align: center;
     text-align: center;
   }
   #titles-ed1 {
+    justify-content: center;
+  }
+  #titles-ed {
     justify-content: center;
   }
 }

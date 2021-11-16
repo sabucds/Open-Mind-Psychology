@@ -8,6 +8,8 @@ import validator from "validator";
 import { bd, auth, storage } from "../../../utils/firebaseConfig";
 import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
 import "react-phone-number-input/style.css";
+import Example from "../../inputTags/InputTags";
+import { lista } from "../../inputTags/InputTags";
 
 import "../../Navbar/Navbar.css";
 import Navbar from "../../Navbar/Navbar";
@@ -128,8 +130,8 @@ const ConfiguracionEsp = () => {
         await userDoc.update({ education: edu });
         successMessage += "Educación\n";
       }
-      if (spec) {
-        await userDoc.update({ specialty: spec });
+      if (lista.length > 0) {
+        await userDoc.update({ specialty: lista });
         successMessage += "Especialidades";
       }
     } catch (err) {
@@ -277,16 +279,9 @@ const ConfiguracionEsp = () => {
                     ></textarea>
                   </div>
 
-                  <div className="textArea-edit">
+                  <div className="pais-edit esp-edit">
                     <div className="titles-edit">Especialidades</div>
-                    <textarea
-                      id="especialidad"
-                      name="especialidad"
-                      placeholder="Especialidades"
-                      className="input-textArea-edit"
-                      onChange={(e) => setSpec(e.target.value)}
-                      value={spec}
-                    ></textarea>
+                    <Example />
                   </div>
 
                   <div className="perfil-edit">
