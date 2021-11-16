@@ -308,8 +308,15 @@ const PerfilEspecialista = () => {
                   atención
                 </div>
                 <div className="line"></div>
-                <div className="text-info">{user.specialty}</div>
+                <div className="text-info">
+                  <ul>
+                    {user.specialty.map((esp) => {
+                      return <li>{esp}</li>;
+                    })}
+                  </ul>
+                </div>
               </div>
+
               <div className="edu-box">
                 <div className="titles" id="titles-ed">
                   Formación Académica
