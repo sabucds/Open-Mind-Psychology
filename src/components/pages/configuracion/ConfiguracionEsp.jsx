@@ -8,7 +8,7 @@ import validator from "validator";
 import { bd, auth, storage } from "../../../utils/firebaseConfig";
 import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
 import "react-phone-number-input/style.css";
-import Example from "../../inputTags/InputTags";
+import Sintomas from "../../inputTags/InputTags";
 import { lista } from "../../inputTags/InputTags";
 
 import "../../Navbar/Navbar.css";
@@ -25,7 +25,7 @@ const ConfiguracionEsp = () => {
   const [number, setNumber] = useState("");
   const [info, setInfo] = useState("");
   const [edu, setEdu] = useState("");
-  const [spec, setSpec] = useState("");
+  //const [spec, setSpec] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [picture, setPicture] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -78,18 +78,6 @@ const ConfiguracionEsp = () => {
         "Se guardaron los cambios para los siguientes campos:\n";
       var userDoc = bd.collection("users").doc(user.id);
 
-      if (picture) {
-        handleUpload(eImg);
-        console.log("Imagen URL:");
-        const imgURL = await storage
-          .ref("images/" + user.id + ".png")
-          .getDownloadURL();
-        console.log(imgURL);
-        userDoc.update({ img: imgURL });
-        successMessage += "Imagen\n";
-        setPicture(false);
-      }
-
       if (name) {
         if (validator.isAlpha(name, "es-ES", "-")) {
           let oldName = user.name.split(" ");
@@ -132,10 +120,24 @@ const ConfiguracionEsp = () => {
       }
       if (lista.length > 0) {
         await userDoc.update({ specialty: lista });
-        successMessage += "Especialidades";
+        successMessage += "Especialidades\n";
       }
+
+      if (picture) {
+        handleUpload(eImg);
+        console.log("Imagen URL:");
+        const imgURL = await storage
+          .ref("images/" + user.id + ".png")
+          .getDownloadURL();
+        console.log(imgURL);
+        userDoc.update({ img: imgURL });
+        successMessage += "Imagen\n";
+        setPicture(false);
+      }
+
     } catch (err) {
-      alert("Hubo un error al guardar: " + err.message);
+      alert("Hubo un error al guardar.");
+      console.log(err.message); 
     }
     setSaving(false);
     if (
@@ -156,7 +158,7 @@ const ConfiguracionEsp = () => {
     setCountry(null);
     setInfo("");
     setEdu("");
-    setSpec("");
+    //setSpec("");
   };
 
   const handleExit = () => {
@@ -182,7 +184,8 @@ const ConfiguracionEsp = () => {
         } else if (err.message === "Password should be at least 6 characters") {
           alert("ERROR: la contraseña debe tener al menos 6 caracteres.");
         } else {
-          alert("ERROR: " + err.message);
+          alert("Hubo un error al intentar cambiar la contraseña.");
+          console.log(err.message);
         }
       }
       setUpdating(false);
@@ -192,7 +195,7 @@ const ConfiguracionEsp = () => {
 
   return (
     <>
-      {saving ? (
+      {saving || updating ? (
         <CargandoDatos />
       ) : (
         <>
@@ -279,9 +282,9 @@ const ConfiguracionEsp = () => {
                     ></textarea>
                   </div>
 
-                  <div className="pais-edit esp-edit">
+                  <div className="esp-edit">
                     <div className="titles-edit">Especialidades</div>
-                    <Example />
+                    <Sintomas className="esp-select"/>
                   </div>
 
                   <div className="perfil-edit">
@@ -290,10 +293,9 @@ const ConfiguracionEsp = () => {
                       id="perfil"
                       name="perfil"
                       type="file"
-                      accept=".jpg,.png"
+                      accept=".png"
                       className="input-foto-edit"
                       onChange={handlePicture}
-                      // value = {picture}
                     />
                   </div>
                 </div>

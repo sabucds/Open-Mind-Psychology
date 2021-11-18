@@ -309,11 +309,14 @@ const PerfilEspecialista = () => {
                 </div>
                 <div className="line"></div>
                 <div className="text-info">
+                  { (user.specialty.length !== 0) ?
                   <ul>
                     {user.specialty.map((esp) => {
-                      return <li>{esp}</li>;
+                      return <li key={esp}>{esp}</li>;
                     })}
                   </ul>
+                  : <p className="altText">No se especificaron especialidades</p>
+                  }
                 </div>
               </div>
 
@@ -322,7 +325,12 @@ const PerfilEspecialista = () => {
                   Formación Académica
                 </div>
                 <div className="line"></div>
-                <div className="text-info">{user.education}</div>
+                <div className="text-info">
+                  {user.education ? (
+                    user.education
+                    ) : ( 
+                      <p className="altText">No se especificó información sobre su educación</p>
+                    )}</div>
               </div>
             </div>
             <div className="about-user">

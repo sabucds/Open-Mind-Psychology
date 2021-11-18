@@ -21,7 +21,7 @@ import VisitorRoute from "./ProtectedRoutes/VisitorRoute";
 import ConfigRoute from "./ProtectedRoutes/ConfigRoute";
 import ClientRoute from "./ProtectedRoutes/ClientRoute";
 import NoAdminRoute from "./ProtectedRoutes/NoAdminRoute";
-import Example from "./inputTags/InputTags";
+
 function App() {
   return (
     <UserContextProvider>

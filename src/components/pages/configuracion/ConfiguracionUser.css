@@ -60,9 +60,11 @@
 .contra-actual {
   display: flex;
   position: relative;
+  margin: 2em 0 2em 0;
 }
-.esp-edit {
-  height: max-content;
+
+.textArea-edit {
+  margin: 2em 0 2em 0;
 }
 
 .input-nombre-edit,
@@ -74,7 +76,7 @@
 .input-foto-edit {
   background-color: transparent;
   border-color: transparent;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
   width: 400px;
   margin: auto;
@@ -133,18 +135,20 @@
 .ocultar {
   background-image: url("../../img/ojo_abierto.png");
   background-color: transparent;
-  width: 38px;
+  width: 39px;
   height: 39px;
   background-size: contain;
+  background-repeat: no-repeat;
   cursor: pointer;
 }
 
 .mostrar {
   background-image: url("../../img/ojo_cerrado.png");
   background-color: transparent;
-  width: 36px;
+  width: 39px;
   height: 40px;
   background-size: contain;
+  background-repeat: no-repeat;
   cursor: pointer;
 }
 
@@ -245,7 +249,6 @@
   }
   .titles-edit {
     width: 100%;
-
     left: 0;
     top: 0;
     font-size: 1.2em;

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { colourOptions } from "./data";
+import { symptomOptions } from "./data";
 import { default as ReactSelect } from "react-select";
 import { components } from "react-select";
 import styles from "./InputTags.module.css";
@@ -23,7 +23,7 @@ const Option = (props) => {
   );
 };
 
-export default class Example extends Component {
+export default class Sintomas extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -40,13 +40,13 @@ export default class Example extends Component {
   render() {
     return (
       <span
-        class="d-inline-block"
+        className="d-inline-block"
         data-toggle="popover"
         data-trigger="focus"
-        data-content="Please selecet account(s)"
+        //data-content="Please select account(s)" 
       >
         <ReactSelect
-          options={colourOptions}
+          options={symptomOptions}
           isMulti
           closeMenuOnSelect={false}
           hideSelectedOptions={false}
