@@ -17,7 +17,7 @@ const Especialistas = () => {
   const [especialistas, setEspecialistas] = useState({});
   const [error, setError] = useState(null);
   const [search, setSearch] = useState(false);
-  const [results, setResults] = useState(true);
+  const [results, setResults] = useState(false);
   var searchResults = [];
 
 
@@ -149,9 +149,7 @@ const Especialistas = () => {
                 </span>
               </div>
             ) : results ? (
-              <div className="especialistaList">
-                {//se me ocurría aquí hacer un map de searchResults con lo de la tarjeta de especialista per ajá no me funciona lol.}
-              </div>
+              <div className="especialistaList">no funciona xd</div>
             ) : search ? (
               <div className="altText">
                 No se consiguieron especialistas que coincidieran con la búsqueda.
