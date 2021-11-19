@@ -17,6 +17,7 @@ const Especialistas = () => {
   const [especialistas, setEspecialistas] = useState({});
   const [error, setError] = useState(null);
   const [search, setSearch] = useState(false);
+  const [results, setResults] = useState(true);
   var searchResults = [];
 
 
@@ -35,7 +36,6 @@ const Especialistas = () => {
           especialistaDocs[docId]["id"] = docId;
         }
       });
-
       setEspecialistas(especialistaDocs);
     } catch (e) {
       setError(e);
@@ -43,38 +43,59 @@ const Especialistas = () => {
     }
   }
 
-  const containsSpecialty = (especialista, symptoms) => {
+  const containsSpecialty = (especialista) => {
     var specialty = especialista.specialty;
-    for (let i = 0 ; i<symptoms.length ; i++) {
-      if (specialty.indexOf(symptoms[i])===-1) {
+    console.log("Specialty:");
+    console.log(specialty);
+    console.log("Lista:");
+    console.log(lista);
+    for (let i = 0 ; i<lista.length ; i++) {
+      console.log("Loop");
+      if (specialty.indexOf(lista[i])===-1) {
         return false;
       }
     }
     return true;
   } 
 
-  const filterEspecialista = (id, symptoms) => {
+  const filterEspecialista = (id) => {
     var isValid = true;
     const especialista = especialistas[id];
+    console.log("Nombre");
+    console.log(nombre);
     if (nombre) { 
       isValid = isValid && especialista.name.toLowerCase().includes(nombre.toLowerCase());
     }
-    if (symptoms.length>0) {
-      isValid = isValid && containsSpecialty(especialista, symptoms);
+    if (lista.length>0) {
+      console.log("Lista");
+      console.log(lista);
+      isValid = isValid && containsSpecialty(especialista);
     }
     return isValid;
+  }
+
+  const getSearchResults = () => {
+    var found = [];
+    Object.keys(especialistas).forEach((id, i) => {
+        if (filterEspecialista(id)) {
+          found.push(id);
+        }
+      }
+    )
+    searchResults = found;
   }
 
   const handleSearch = async () => {
     setLoading(true);
     await getEspecialistas();
+    console.log(especialistas);
+    console.log(lista);
     if (!error) {
       setSearch(true);
-      const symptoms = lista;
-      searchResults = Object.keys(especialistas)
-      .filter((id) => {filterEspecialista(id, symptoms)});
-      setLoading(false);
+      getSearchResults();
+      (searchResults.length>0? setResults(true) : setResults(false));
       console.log(searchResults);
+      setLoading(false);
     }
 
   }
@@ -127,17 +148,9 @@ const Especialistas = () => {
                   Intente refrescar la página.
                 </span>
               </div>
-            ) : searchResults.length !== 0 ? (
+            ) : results ? (
               <div className="especialistaList">
-                {searchResults.map((key) => {
-                  const especialista = especialistas[key];
-                  return (
-                    <TarjetaEspecialista
-                    key={especialista.id}
-                    especialista={especialista}
-                  />
-                  );
-                })}
+                {//se me ocurría aquí hacer un map de searchResults con lo de la tarjeta de especialista per ajá no me funciona lol.}
               </div>
             ) : search ? (
               <div className="altText">

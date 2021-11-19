@@ -9,7 +9,6 @@ const SeccionEspecialistasInicio = () => {
   const [loading, setLoading] = useState(true);
   const [especialistas, setEspecialistas] = useState({});
   const [error, setError] = useState(null);
-  const [refresh] = useState(0);
 
   function desplegarEspecialistas(especialistas) {
     var arr = [];
@@ -50,8 +49,7 @@ const SeccionEspecialistasInicio = () => {
 
   useEffect(() => {
     getEspecialistas();
-  }, [refresh]); //cambios en refresh harán que se llame getEspecialistas
-
+  }, []);
   return (
     <section className="admin-1">
       <div className="containerEspecialistasAdmin">
