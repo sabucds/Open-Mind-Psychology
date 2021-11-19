@@ -34,6 +34,11 @@
   border-radius: 20px;
 }
 
+.text-info {
+  list-style-position: inside;
+  padding: 5px;
+}
+
 #titles-ed {
   margin-bottom: 20px;
 }

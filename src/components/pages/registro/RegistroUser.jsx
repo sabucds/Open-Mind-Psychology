@@ -247,14 +247,14 @@ const RegistroUser = () => {
                   className="inputsForm registro-2"
                 />
                 <br />
-                <input type="checkbox" className="check" />
-                <label className="subtitulos">
+                <input type="checkbox" className="check" name="check18" />
+                <label className="subtitulos" htmlFor="check18">
                   Confirmo tener 18 años o más.
                 </label>
                 <br />
 
-                <input type="checkbox" className="check" />
-                <label className="subtitulos">
+                <input type="checkbox" className="check" name="checkTermsConds" />
+                <label className="subtitulos" htmlFor="checkTermsConds">
                   Acepto los términos y condiciones.
                 </label>
                 <br />
