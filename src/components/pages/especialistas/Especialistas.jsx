@@ -18,11 +18,35 @@ const Especialistas = () => {
   const [error, setError] = useState(null);
   const [search, setSearch] = useState(false);
   const [results, setResults] = useState(false);
-  var searchResults = [];
+  const [searchResults, setSearchResults] = useState([]);
+  const [esVacio, setEsVacio] = useState(false);
+  const [refresh, setRefresh] = useState(0);
 
+  function desplegarEspecialistas(especialistas, resultadosId) {
+    var arr = [];
+    if (resultadosId === 1) {
+      for (let index = 0; index < especialistas.length; index++) {
+        arr.push(especialistas[index]);
+      }
+      return arr;
+    } else {
+      for (let index = 0; index < especialistas.length; index++) {
+        for (let j = 0; j < resultadosId.length; j++) {
+          if (
+            especialistas[index] === resultadosId[j] &&
+            !arr.includes(resultadosId[j])
+          ) {
+            arr.push(resultadosId[j]);
+          }
+        }
+      }
+      return arr;
+    }
+  }
 
   async function getEspecialistas() {
     try {
+      setLoading(true);
       const usersRef = await bd.collection("users");
       const users = await usersRef.get();
       let especialistaDocs = {};
@@ -37,6 +61,7 @@ const Especialistas = () => {
         }
       });
       setEspecialistas(especialistaDocs);
+      setLoading(false);
     } catch (e) {
       setError(e);
       setLoading(false);
@@ -45,61 +70,59 @@ const Especialistas = () => {
 
   const containsSpecialty = (especialista) => {
     var specialty = especialista.specialty;
-    console.log("Specialty:");
-    console.log(specialty);
-    console.log("Lista:");
-    console.log(lista);
-    for (let i = 0 ; i<lista.length ; i++) {
+    for (let i = 0; i < lista.length; i++) {
       console.log("Loop");
-      if (specialty.indexOf(lista[i])===-1) {
+      if (specialty.indexOf(lista[i]) === -1) {
         return false;
       }
     }
     return true;
-  } 
+  };
 
   const filterEspecialista = (id) => {
     var isValid = true;
     const especialista = especialistas[id];
-    console.log("Nombre");
-    console.log(nombre);
-    if (nombre) { 
-      isValid = isValid && especialista.name.toLowerCase().includes(nombre.toLowerCase());
+    if (nombre) {
+      isValid =
+        isValid &&
+        especialista.name.toLowerCase().includes(nombre.toLowerCase());
     }
-    if (lista.length>0) {
-      console.log("Lista");
-      console.log(lista);
+    if (lista.length > 0) {
       isValid = isValid && containsSpecialty(especialista);
     }
+    if (nombre === "") {
+      setEsVacio(true);
+    }
     return isValid;
-  }
+  };
 
   const getSearchResults = () => {
-    var found = [];
+    setLoading(true);
     Object.keys(especialistas).forEach((id, i) => {
-        if (filterEspecialista(id)) {
-          found.push(id);
-        }
+      if (searchResults.includes(id)) {
+        const x = searchResults.indexOf(id);
+        searchResults.splice(x, 1);
+      } else if (filterEspecialista(id)) {
+        searchResults.push(id);
       }
-    )
-    searchResults = found;
-  }
+    });
+  };
 
   const handleSearch = async () => {
+    setEsVacio(false);
     setLoading(true);
-    await getEspecialistas();
-    console.log(especialistas);
-    console.log(lista);
+    setRefresh(refresh + 1);
     if (!error) {
       setSearch(true);
       getSearchResults();
-      (searchResults.length>0? setResults(true) : setResults(false));
-      console.log(searchResults);
+      searchResults.length > 0 ? setResults(true) : setResults(false);
       setLoading(false);
     }
+  };
 
-  }
-
+  useEffect(() => {
+    getEspecialistas();
+  }, [refresh]);
 
   return (
     <>
@@ -107,9 +130,11 @@ const Especialistas = () => {
       <section className="search-esp">
         <div className="search-box">
           <div className="searchTitles">
-            <div className="searchTitle">Busca a tu especialista por su nombre</div>
+            <div className="searchTitle">
+              Busca a tu especialista por su nombre
+            </div>
             <div className="searchTitle">Aplica filtros a tu búsqueda</div>
-          </div>  
+          </div>
           <br />
           <div className="searchInputs">
             <div className="byNameInputs">
@@ -120,46 +145,83 @@ const Especialistas = () => {
                 value={nombre}
                 onChange={(e) => setNombre(e.target.value)}
               />
-              <button type="submit" className={loading ? "disabled-search-button" : "search-button"} title="Buscar" onClick={handleSearch} disabled={loading}></button>
-            </div>          
+              <button
+                type="submit"
+                className={loading ? "disabled-search-button" : "search-button"}
+                title="Buscar"
+                onClick={handleSearch}
+                disabled={loading}
+              ></button>
+            </div>
             <div className="filterInputs">
               <div className="searchRanking" htmlFor="checkRanking">
-                <input type="checkbox" className="checkRanking" name="checkRanking" onChange={()=>setRanking(!ranking)}/>
+                <input
+                  type="checkbox"
+                  className="checkRanking"
+                  name="checkRanking"
+                  onChange={() => setRanking(!ranking)}
+                />
                 Buscar por ranking
               </div>
-              <div className="searchSymptom" >Filtrar por síntomas
+              <div className="searchSymptom">
+                Filtrar por síntomas
                 <Sintomas />
               </div>
             </div>
           </div>
         </div>
-        
+
         <hr />
 
         {
-            //si está cargando, muestra "Cargando..."; si no: si hay un error muestra el mensaje de error;
-            //si no: si hay especialistas que mostrar se muestran y si no, muestra "No hay especialistas nuevos."
-            loading && !error ? (
-              <Cargando />
-            ) : error ? (
-              <div className="altText">
-                Error: {error.message}. <br></br>
-                <span className="refreshLink" onClick={() => setError(false)}>
-                  Intente refrescar la página.
-                </span>
+          //si está cargando, muestra "Cargando..."; si no: si hay un error muestra el mensaje de error;
+          //si no: si hay especialistas que mostrar se muestran y si no, muestra "No hay especialistas nuevos."
+          loading && !error ? (
+            <Cargando />
+          ) : error ? (
+            <div className="altText">
+              Error: {error.message}. <br></br>
+              <span className="refreshLink" onClick={() => setError(false)}>
+                Intente refrescar la página.
+              </span>
+            </div>
+          ) : results && !esVacio ? (
+            <>
+              <div className="especialistaList-1">
+                {desplegarEspecialistas(
+                  Object.keys(especialistas),
+                  searchResults
+                ).map((key) => {
+                  const especialista = especialistas[key];
+                  return (
+                    <TarjetaEspecialista
+                      key={especialista.id}
+                      especialista={especialista}
+                    />
+                  );
+                })}
               </div>
-            ) : results ? (
-              <div className="especialistaList">no funciona xd</div>
-            ) : search ? (
-              <div className="altText">
-                No se consiguieron especialistas que coincidieran con la búsqueda.
-              </div>
-            ) : (
-              <div className="altText">
-                Busque un especialista por su nombre, por sus especialidades y/o por ranking.
-              </div>
-            )
-          }
+            </>
+          ) : search && !esVacio ? (
+            <div className="altText">
+              No se consiguieron especialistas que coincidieran con la búsqueda.
+            </div>
+          ) : (
+            <div className="especialistaList-1">
+              {desplegarEspecialistas(Object.keys(especialistas), 1).map(
+                (key) => {
+                  const especialista = especialistas[key];
+                  return (
+                    <TarjetaEspecialista
+                      key={especialista.id}
+                      especialista={especialista}
+                    />
+                  );
+                }
+              )}
+            </div>
+          )
+        }
       </section>
     </>
   );
