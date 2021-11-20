@@ -4,6 +4,7 @@ import Cargando from "../cargando/Cargando";
 import { useContext } from "react";
 import { UserContext } from "../../context/UserContext";
 import "./Perfil.css";
+import labelsList from "../inputTags/labelsList";
 
 import React from "react";
 import { useHistory } from "react-router-dom";
@@ -332,7 +333,7 @@ function Perfil({ user }) {
                 <div className="text-info">
                   {user.specialty.length !== 0 ? (
                     <ul>
-                      {user.specialty.map((esp) => {
+                      {labelsList(user.specialty).map((esp) => {
                         return <li key={esp}>{esp}</li>;
                       })}
                     </ul>
