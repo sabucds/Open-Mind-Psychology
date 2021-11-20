@@ -45,6 +45,9 @@
 #titles-ed1 {
   margin-bottom: 20px;
 }
+.lista-espe-perfil {
+  list-style-image: url("../img/checkList.png");
+}
 
 @media screen and (max-width: 600px) {
   .info-edu {
@@ -66,5 +69,8 @@
   }
   #titles-ed {
     justify-content: center;
+  }
+  .especialidades-perfil {
+    text-align: left;
   }
 }
