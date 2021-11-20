@@ -48,11 +48,11 @@
   background-image: url("../../img/sitting-1.png");
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 850px) {
   .about {
     width: 100%;
     height: 100%;
-    padding: 50px 20px;
+    padding: 50px 50px;
   }
   .text-box {
     width: 100%;
@@ -63,5 +63,12 @@
 
   .titulo {
     margin-bottom: 30;
+  }
+}
+@media screen and (max-width: 600px) {
+  .about {
+    width: 100%;
+    height: 100%;
+    padding: 50px 20px;
   }
 }

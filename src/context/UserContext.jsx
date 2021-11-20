@@ -7,6 +7,7 @@ export const UserContext = createContext(null);
 export default function UserContextProvider({ children }) {
   const [user, setuser] = useState(null);
   const [type, settype] = useState(false);
+  const [loading, setloading] = useState(true);
 
   const createUser = async (user, uid) => {
     await bd.collection("users").doc(uid).set(user);
@@ -23,6 +24,7 @@ export default function UserContextProvider({ children }) {
   };
 
   useEffect(() => {
+    setloading(true);
     const unlisten = auth.onAuthStateChanged(async (loggedUser) => {
       console.log("ON AUTH STATE CHANGED");
       if (loggedUser) {
@@ -37,6 +39,7 @@ export default function UserContextProvider({ children }) {
               country: "",
               info: "",
               role: "usuario",
+              img: loggedUser.photoURL,
             };
             await createUser(newProfile, loggedUser.uid);
             setuser(newProfile);
@@ -48,11 +51,13 @@ export default function UserContextProvider({ children }) {
               country: "",
               info: "",
               specialty: [],
-              education: [],
+              education: "",
               schedule: [],
               feedback: [],
+              ranking: 0,
               role: "especialista",
               status: "standby",
+              img: loggedUser.photoURL,
             };
             await createUser(newProfile, loggedUser.uid);
             setuser(newProfile);
@@ -63,6 +68,7 @@ export default function UserContextProvider({ children }) {
       } else {
         setuser(null);
       }
+      setloading(false);
     });
 
     return () => {
@@ -71,7 +77,17 @@ export default function UserContextProvider({ children }) {
   }, [type]);
   console.log(user);
   return (
-    <UserContext.Provider value={{ user, setuser, createUser, type, settype }}>
+    <UserContext.Provider
+      value={{
+        user,
+        setuser,
+        createUser,
+        type,
+        settype,
+        getUserByEmail,
+        loading,
+      }}
+    >
       {children}
     </UserContext.Provider>
   );

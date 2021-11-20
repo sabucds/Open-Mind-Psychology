@@ -1,12 +1,11 @@
-import React from "react";
-import "../registro/RegistroUser.css";
+import { useContext } from "react";
+import { UserContext } from "../../../context/UserContext";
+
+import Perfil from "../../perfilEspecialistaComp/Perfil";
 
 const PerfilEspecialista = () => {
-  return (
-    <section className="main-RegistroUser">
-      <div className="TitleRegister">Pagina de perfil de Especialista</div>
-    </section>
-  );
+  console.log(useContext(UserContext));
+  return Perfil(useContext(UserContext));
 };
 
 export default PerfilEspecialista;

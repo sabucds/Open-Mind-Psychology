@@ -1,0 +1,279 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+*:focus {
+  outline: none;
+}
+
+.edit {
+  position: relative;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 36px;
+  text-align: center;
+  color: #ee9d6b;
+  padding-bottom: 0.5em;
+  margin-top: 100px;
+}
+
+.titulo-editables {
+  font-weight: lighter;
+  margin-top: 10px;
+  font-size: 1.5em;
+  text-align: center;
+  width: 100%;
+}
+
+.pais-select {
+  width: 400px;
+  size: 20px;
+  padding: 5px;
+}
+
+.cuadro1 {
+  padding: 16px 30px;
+}
+
+.cuadro2 {
+  padding: 0px 28%;
+}
+
+.cuadro3 {
+  text-align: center;
+  display: flex;
+  justify-content: space-evenly;
+  padding: 0 30%;
+}
+
+.nombre-edit,
+.perfil-edit,
+.apellido-edit,
+.numero-edit,
+.pais-edit,
+.sobremi-edit,
+.new-contra,
+.contra-actual {
+  display: flex;
+  position: relative;
+  margin: 2em 0 2em 0;
+}
+
+.textArea-edit {
+  margin: 2em 0 2em 0;
+}
+
+.input-nombre-edit,
+.input-apellido-edit,
+.input-numero-edit,
+.input-sobremi-edit,
+.input-contra-edit,
+.pais-select,
+.input-foto-edit, .reseña-input {
+  background-color: transparent;
+  border-color: transparent;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+  width: 400px;
+  margin: auto;
+  font-family: Open Sans;
+  font-style: normal;
+  font-size: 18px;
+  line-height: 25px;
+  margin-left: 6px;
+  padding-left: 5px;
+}
+
+.perfil-edit .input-foto-edit {
+  background-color: white;
+  border: 10px solid transparent;
+  cursor: pointer;
+  font-size: 1.09em;
+}
+
+.titles-edit {
+  width: 260px;
+  height: 50px;
+  left: 442px;
+  top: 420px;
+  font-size: 22px;
+  line-height: 38px;
+  display: flex;
+  align-items: center;
+}
+
+.password-button {
+  font-size: 16px;
+  cursor: pointer;
+  padding: 0.8em 2.5em;
+  background-color: transparent;
+  border: none;
+  border-radius: 10px;
+  margin-top: -20px;
+  text-align: center;
+  display: inline-block;
+}
+
+.config-button {
+  font-size: 1em;
+  cursor: pointer;
+  padding: 0.8em 2.5em;
+  background-color: #ee9d6bde;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  margin-top: 15px;
+  text-align: center;
+  display: inline-block;
+}
+
+.ocultar {
+  background-image: url("../../img/ojo_abierto.png");
+  background-color: transparent;
+  width: 39px;
+  height: 39px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+.mostrar {
+  background-image: url("../../img/ojo_cerrado.png");
+  background-color: transparent;
+  width: 39px;
+  height: 40px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+.line2 {
+  margin: auto 50px;
+  border: 1px solid #ee9d6b;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  margin-bottom: 15px;
+}
+
+.line3 {
+  margin: auto 250px;
+  border: 1px solid #ee9d6b;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  margin-bottom: 15px;
+}
+.input-textArea-edit {
+  resize: vertical;
+  height: 6em;
+  min-height: 2.75em;
+  width: 100%;
+  background-color: transparent;
+  border-color: transparent;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+}
+.PhoneInputInput {
+  background: rgba(238, 157, 107, 0.06);
+  background-color: transparent;
+  border-color: transparent;
+  box-sizing: border-box;
+  border-radius: 5px;
+  display: block;
+  width: 90%;
+  font-size: 18px;
+  padding-left: 5px;
+  margin: 5px 5px 0px 0;
+  font-family: "Open Sans", sans-serif;
+  color: rgba(0, 0, 0, 0.5);
+  font-weight: lighter;
+}
+@media screen and (max-width: 850px) {
+  .main-RegistroUser {
+    padding: 30px 50px;
+  }
+  .edit {
+    font-size: 1.5 em;
+  }
+  .line2 {
+    margin: 0;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  .editables {
+    margin-top: 10px;
+    font-size: 1em;
+    height: max-content;
+    width: 100%;
+  }
+  .titulo-editables {
+    margin-top: 10px;
+    font-size: 1.3em;
+    text-align: center;
+    width: 100%;
+  }
+  .cuadro1 {
+    padding: 10px 0;
+    width: 100%;
+    height: max-content;
+  }
+  .cuadro2 {
+    padding: 0px 0;
+    width: 100%;
+    height: max-content;
+  }
+  .nombre-edit,
+  .perfil-edit,
+  .apellido-edit,
+  .numero-edit,
+  .pais-edit,
+  .sobremi-edit,
+  .new-contra,
+  .contra-actual {
+    flex-direction: column;
+    width: 100%;
+  }
+  .input-nombre-edit,
+  .input-apellido-edit,
+  .input-numero-edit,
+  .input-sobremi-edit,
+  .input-contra-edit,
+  .pais-select,
+  .input-foto-edit {
+    width: 100%;
+    margin: 0;
+    font-size: 1em;
+    line-height: 25px;
+  }
+  .titles-edit {
+    width: 100%;
+    left: 0;
+    top: 0;
+    font-size: 1.2em;
+    line-height: 30px;
+    display: flex;
+    align-items: center;
+  }
+  .line3 {
+    margin: 0;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  .PhoneInputInput {
+    margin: 5px 5px 0px 0;
+  }
+  .cuadro3 {
+    padding: 0;
+  }
+  .edit {
+    margin-top: 0px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .main-RegistroUser {
+    padding: 30px 20px;
+  }
+}
