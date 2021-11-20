@@ -308,13 +308,14 @@ function Perfil({ user }) {
     } else {
       return (
         <>
-        <div className = "grupo-comentario">
-          <div className = "box-comm">
-            <div>
-              <input type="text" placeholder = "¡Escribe tu reseña aqui!" className = "reseña-input" /></div>
-              <button className= "enviar-button" onClick = {deberiasalir}>Envía tu reseña</button>
+        <div className="reseña-card">
+          <div className = "grupo-comentario">
+            <div className = "caja">
+                <input type="text" placeholder = "¡Escribe tu reseña aqui!" className = "reseña-input" />
+                <button className= "enviar-button" onClick = {deberiasalir}>Envía tu reseña</button>
             </div>
           </div>
+        </div>
         </>
       );
     }
@@ -415,14 +416,17 @@ function Perfil({ user }) {
                 </div>
               </div>
             </div>
-            <div className="reseña-card">
-              {validarcomment()}
-            </div>  
+            {validarcomment()}
+             
 
             <div className = "all-comments">
+              <h3>Sección de comentarios: </h3>
+              <br />
+              <div className = "grupo-comentario">
                 {addcomment()}
                 {addcomment()}
                 {addcomment()}
+              </div>
             </div>
           </div>
         </section>
