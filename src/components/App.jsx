@@ -21,6 +21,7 @@ import VisitorRoute from "./ProtectedRoutes/VisitorRoute";
 import ConfigRoute from "./ProtectedRoutes/ConfigRoute";
 import ClientRoute from "./ProtectedRoutes/ClientRoute";
 import NoAdminRoute from "./ProtectedRoutes/NoAdminRoute";
+import DetallesEspecialista from "./tarjetaEspecialista/DetallesEspecialista";
 
 function App() {
   return (
@@ -56,6 +57,11 @@ function App() {
               component={CredUpload}
             />
             <ClientRoute exact path="/config" component={ConfigRoute} />
+            <Route
+              exact
+              path="/especialistas/:characterId"
+              component={DetallesEspecialista}
+            />
             <Route path="*" component={Error404} />
           </Switch>
         </Router>

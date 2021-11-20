@@ -1,9 +1,14 @@
 import React from "react";
 import "./TarjetaEspecialista.css";
+import { useHistory } from "react-router-dom";
 
 const TarjetaEspecialista = (props) => {
+  const history = useHistory();
+  function handleClick() {
+    history.push(`/especialistas/${props.especialista.id}`);
+  }
   return (
-    <div className="especialistaCard-1">
+    <div className="especialistaCard-1" onClick={handleClick}>
       <div className="espBox-1">
         <div>
           <img

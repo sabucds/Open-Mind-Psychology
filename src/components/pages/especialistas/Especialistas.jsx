@@ -18,7 +18,7 @@ const Especialistas = () => {
   const [error, setError] = useState(null);
   const [search, setSearch] = useState(false);
   const [results, setResults] = useState(false);
-  const [searchResults, setSearchResults] = useState([]);
+  const [searchResults] = useState([]);
   const [esVacio, setEsVacio] = useState(false);
   const [refresh, setRefresh] = useState(0);
 
