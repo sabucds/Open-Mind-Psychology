@@ -309,7 +309,7 @@ function Perfil({ user }) {
       return (
         <>
         <div className = "grupo-comentario">
-          <div className = "caja">
+          <div className = "box-comm">
             <div>
               <input type="text" placeholder = "¡Escribe tu reseña aqui!" className = "reseña-input" /></div>
               <button className= "enviar-button" onClick = {deberiasalir}>Envía tu reseña</button>
@@ -420,10 +420,9 @@ function Perfil({ user }) {
             </div>  
 
             <div className = "all-comments">
-              {addcomment()}
-              {addcomment()}
-              {addcomment()}
-              {addcomment()}
+                {addcomment()}
+                {addcomment()}
+                {addcomment()}
             </div>
           </div>
         </section>
