@@ -290,7 +290,7 @@ function Perfil({ user }) {
             <div className="encabezado1">
               <img src={user.img} alt="Not found" className="imagen-user" />
               <div className="nombre-user">{user.name}</div>
-              {validarEditar}
+              {validarEditar()}
             </div>
 
             <div className="relleno">
@@ -307,7 +307,7 @@ function Perfil({ user }) {
               ) : (
                 <div></div>
               )}
-              {validarNumCorreo}
+              {validarNumCorreo()}
               <div className="line"></div>
               <div className="pais-user">
                 <div className="titles">País</div>
