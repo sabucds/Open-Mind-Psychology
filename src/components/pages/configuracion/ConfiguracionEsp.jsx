@@ -134,10 +134,9 @@ const ConfiguracionEsp = () => {
         successMessage += "Imagen\n";
         setPicture(false);
       }
-
     } catch (err) {
       alert("Hubo un error al guardar.");
-      console.log(err.message); 
+      console.log(err.message);
     }
     setSaving(false);
     if (
@@ -249,6 +248,11 @@ const ConfiguracionEsp = () => {
                     />
                   </div>
 
+                  <div className="dispon-edit">
+                    <div className="titles-edit">Disponibilidad</div>
+                    <input type="text" className="input-dispon" />
+                  </div>
+
                   <div className="pais-edit">
                     <div className="titles-edit">País</div>
                     <ReactFlagsSelect
@@ -284,7 +288,7 @@ const ConfiguracionEsp = () => {
 
                   <div className="esp-edit">
                     <div className="titles-edit">Especialidades</div>
-                    <Sintomas className="esp-select"/>
+                    <Sintomas className="esp-select" />
                   </div>
 
                   <div className="perfil-edit">
