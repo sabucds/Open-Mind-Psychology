@@ -71,7 +71,6 @@ const Especialistas = () => {
   const containsSpecialty = (especialista) => {
     var specialty = especialista.specialty;
     for (let i = 0; i < lista.length; i++) {
-      console.log("Loop");
       if (specialty.indexOf(lista[i]) === -1) {
         return false;
       }
@@ -90,7 +89,7 @@ const Especialistas = () => {
     if (lista.length > 0) {
       isValid = isValid && containsSpecialty(especialista);
     }
-    if (nombre === "") {
+    if (nombre === "" && lista.length === 0) {
       setEsVacio(true);
     }
     return isValid;

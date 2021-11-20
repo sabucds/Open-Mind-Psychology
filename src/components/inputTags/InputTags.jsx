@@ -6,8 +6,8 @@ import styles from "./InputTags.module.css";
 export let lista = [];
 
 const Option = (props) => {
-  if (props.isSelected && !lista.includes(props.label)) {
-    lista.push(props.label);
+  if (props.isSelected && !lista.includes(props.value)) {
+    lista.push(props.value);
   }
   return (
     <div>
@@ -43,7 +43,7 @@ export default class Sintomas extends Component {
         className="d-inline-block"
         data-toggle="popover"
         data-trigger="focus"
-        //data-content="Please select account(s)" 
+        //data-content="Please select account(s)"
       >
         <ReactSelect
           options={symptomOptions}
