@@ -66,6 +66,7 @@
   display: inline-block;
   color: transparent;
   margin-bottom: 5px;
+  font-size: 1.2em;
 }
 
 .stars-container:before {
