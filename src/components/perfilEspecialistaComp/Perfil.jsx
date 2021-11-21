@@ -6,6 +6,8 @@ import Cargando from "../cargando/Cargando";
 import { useContext, useState, useEffect } from "react";
 import { UserContext } from "../../context/UserContext";
 import "./Perfil.css";
+import labelsList from "../inputTags/labelsList";
+
 import React from "react";
 import { useHistory } from "react-router-dom";
 
@@ -439,10 +441,10 @@ const Perfil = ({ user }) => {
                   atención
                 </div>
                 <div className="line"></div>
-                <div className="text-info">
+                <div className="text-info especialidades-perfil">
                   {user.specialty.length !== 0 ? (
-                    <ul>
-                      {user.specialty.map((esp) => {
+                    <ul className="lista-espe-perfil">
+                      {labelsList(user.specialty).map((esp) => {
                         return <li key={esp}>{esp}</li>;
                       })}
                     </ul>

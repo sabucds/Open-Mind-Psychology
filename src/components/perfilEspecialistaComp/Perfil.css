@@ -87,6 +87,9 @@
 #titles-ed1 {
   margin-bottom: 20px;
 }
+.lista-espe-perfil {
+  list-style-image: url("../img/checkList.png");
+}
 
 .commenter {
   font-size: large;
@@ -113,5 +116,8 @@
   }
   #titles-ed {
     justify-content: center;
+  }
+  .especialidades-perfil {
+    text-align: left;
   }
 }

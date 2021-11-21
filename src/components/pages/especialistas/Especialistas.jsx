@@ -21,6 +21,22 @@ const Especialistas = () => {
   const [searchResults] = useState([]);
   const [esVacio, setEsVacio] = useState(false);
   const [refresh, setRefresh] = useState(0);
+  const [espId, setEspId] = useState([]);
+
+  function rankingSort() {
+    console.log(espId);
+
+    for (let index = 1; index < Object.values(especialistas).length; index++) {
+      let current = Object.values(especialistas)[index].ranking;
+      // The last element of our sorted subarray
+      let j = index - 1;
+      while (j > -1 && current >= Object.values(especialistas)[j].ranking) {
+        espId[j + 1] = espId[j];
+        j--;
+      }
+      espId[j + 1] = Object.keys(especialistas)[index];
+    }
+  }
 
   function desplegarEspecialistas(especialistas, resultadosId) {
     var arr = [];
@@ -61,6 +77,9 @@ const Especialistas = () => {
         }
       });
       setEspecialistas(especialistaDocs);
+      if (espId.length === 0) {
+        setEspId(Object.keys(especialistaDocs));
+      }
       setLoading(false);
     } catch (e) {
       setError(e);
@@ -71,7 +90,6 @@ const Especialistas = () => {
   const containsSpecialty = (especialista) => {
     var specialty = especialista.specialty;
     for (let i = 0; i < lista.length; i++) {
-      console.log("Loop");
       if (specialty.indexOf(lista[i]) === -1) {
         return false;
       }
@@ -90,7 +108,7 @@ const Especialistas = () => {
     if (lista.length > 0) {
       isValid = isValid && containsSpecialty(especialista);
     }
-    if (nombre === "") {
+    if (nombre === "" && lista.length === 0) {
       setEsVacio(true);
     }
     return isValid;
@@ -99,7 +117,7 @@ const Especialistas = () => {
   const getSearchResults = () => {
     setLoading(true);
     Object.keys(especialistas).forEach((id, i) => {
-      if (searchResults.includes(id)) {
+      if (searchResults.includes(id) && !filterEspecialista(id)) {
         const x = searchResults.indexOf(id);
         searchResults.splice(x, 1);
       } else if (filterEspecialista(id)) {
@@ -112,9 +130,15 @@ const Especialistas = () => {
     setEsVacio(false);
     setLoading(true);
     setRefresh(refresh + 1);
+    if (ranking) {
+      rankingSort();
+    } else {
+      setEspId(Object.keys(especialistas));
+    }
     if (!error) {
       setSearch(true);
       getSearchResults();
+      console.log(searchResults.length);
       searchResults.length > 0 ? setResults(true) : setResults(false);
       setLoading(false);
     }
@@ -188,10 +212,7 @@ const Especialistas = () => {
           ) : results && !esVacio ? (
             <>
               <div className="especialistaList-1">
-                {desplegarEspecialistas(
-                  Object.keys(especialistas),
-                  searchResults
-                ).map((key) => {
+                {desplegarEspecialistas(espId, searchResults).map((key) => {
                   const especialista = especialistas[key];
                   return (
                     <TarjetaEspecialista
@@ -208,17 +229,15 @@ const Especialistas = () => {
             </div>
           ) : (
             <div className="especialistaList-1">
-              {desplegarEspecialistas(Object.keys(especialistas), 1).map(
-                (key) => {
-                  const especialista = especialistas[key];
-                  return (
-                    <TarjetaEspecialista
-                      key={especialista.id}
-                      especialista={especialista}
-                    />
-                  );
-                }
-              )}
+              {desplegarEspecialistas(espId, 1).map((key) => {
+                const especialista = especialistas[key];
+                return (
+                  <TarjetaEspecialista
+                    key={especialista.id}
+                    especialista={especialista}
+                  />
+                );
+              })}
             </div>
           )
         }
