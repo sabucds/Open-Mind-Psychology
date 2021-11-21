@@ -9,7 +9,6 @@ import "./Perfil.css";
 import React from "react";
 import { useHistory } from "react-router-dom";
 
-
 const Perfil = ({ user }) => {  
   console.log(user);
   const countries = {
