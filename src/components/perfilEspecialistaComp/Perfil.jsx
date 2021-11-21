@@ -240,6 +240,8 @@ const Perfil = ({ user }) => {
     console.log("fue rendereado");
   const [comment, setComment] = useState("");
   const [refreshComments, setRefreshComments] = useState(0);
+  const [loadingComments, setLoadingComments] = useState(false);
+  const [comments, setComments] = useState([]);
   const [rating, setRating] = useState(0);
   
   const handleConfig = () => {
@@ -284,44 +286,49 @@ const Perfil = ({ user }) => {
     }
   }
 
-  const deberiasalir = event => alert("quiero que le den aqui y se agregue el comentario abajo :(");
-
-  
-  const calculateRanking = (user) => {
-    let feedback = user.feedback;
-
+  const recalculateRanking = async (userData) => {
+    let feedback = userData.feedback;
+    var total = 0;
+    feedback.forEach((review) => total = total + review.rating);
+    let ranking = total/feedback.length;
+    const profileUser = await bd.collection("users").doc(user.id);
+    await profileUser.update({ ranking: ranking });
   }
 
-  const addComment = () => {
-    /*
-    if (user.feedback.find((review)=>{review.author === currentUser.id})) {
-      alert("mientras tanto, estoy poniendo esto porque ya comentaste lol");
-    } else {
-    }
-      let newComment = {
+  const addComment = async () => {
+    if (comment){
+      setLoadingComments(true);
+      var newComment = {
         author: currentUser.id,
+        authorName: currentUser.name,
         review: comment,
         rating: 0,
       };
-      calculateRanking(user);
-      const profileUser = bd.collection("users").doc(user.id);
-      await profileUser.update({ feedback : firebase.firestore.FieldValue.arrayUnion(newComment) });
-      setRefreshComments(refreshComments + 1);
-      */
-      return(
-        <>
-          <div className="titles">
-            <h4> Nombre auxiliar</h4>
-          </div>  
-          <div className="line"></div>
-          <div className="text-comment">
-             <p>{user.feedback.comment}mientras pongo este comentario</p>
-          </div>
-          <br />
-        </>
-      );
-  };
 
+      if (comments.length>0 && comments.find((review)=>(review.author === currentUser.id))) {
+        
+          if (window.confirm("Usted ya ha escrito una reseña para este especialista antes.\nSi escribe otra reseña, sobreescribirá su comentario anterior.\n¿Está seguro que quiere escribir una nueva reseña?")){
+            getComments();
+            const commentIndex = comments.map((review)=>{return review.author}).indexOf(currentUser.id);
+            comments[commentIndex] = newComment;
+            const profileUser = bd.collection("users").doc(user.id);
+            await profileUser.update({ feedback : comments });
+            const userDoc = await profileUser.get();
+            recalculateRanking(userDoc.data());
+            setRefreshComments(refreshComments + 1);
+          }
+      } else {
+        const profileUser = bd.collection("users").doc(user.id);
+        await profileUser.update({ feedback : firebase.firestore.FieldValue.arrayUnion(newComment) });
+        const userDoc = await profileUser.get();
+        recalculateRanking(userDoc.data());
+        setRefreshComments(refreshComments + 1);
+      } 
+      setLoadingComments(false);
+      setComment("");
+    }
+    
+  };
 
   function shouldAddComment() {
     if (currentUser === null || currentUser.id === user.id) {
@@ -332,8 +339,8 @@ const Perfil = ({ user }) => {
         <div className="review-card">
           <div className = "grupo-comentario">
             <div className = "caja">
-                <input type="text" placeholder = "¡Escribe tu reseña aquí!" className = "review-input" />
-                <button className= "enviar-button" onClick = {deberiasalir}>Envía tu reseña</button>
+                <input type="text" placeholder = "¡Escribe tu reseña aquí!" className = "review-input" onChange={(e)=>{setComment(e.target.value)}} value={comment}/>
+                <button className= "enviar-button" onClick={addComment} disabled={loadingComments} style={{background: loadingComments ? "#CCC" : "#EE9D6B"}}>Envía tu reseña</button>
             </div>
           </div>
         </div>
@@ -342,7 +349,17 @@ const Perfil = ({ user }) => {
     }
   }
 
-  
+  const getComments = async () => {
+    setLoadingComments(true);
+    const userRef = await bd.collection("users").doc(user.id);
+    const userDoc = await userRef.get();
+    setComments(userDoc.data().feedback);
+    setLoadingComments(false);
+  }  
+
+  useEffect(() =>{
+    getComments();
+  }, [refreshComments])
 
   return (
     <>
@@ -441,12 +458,21 @@ const Perfil = ({ user }) => {
              
 
             <div className = "all-comments">
-              <h3>Sección de comentarios: </h3>
+              <div className="titles">Sección de comentarios: </div>
               <br />
               <div className = "grupo-comentario">
-                {addComment()}
-                {addComment()}
-                {addComment()}
+                  {
+                    loadingComments ? <div className="altText">Cargando comentarios...</div> :
+                    comments.length > 0 ? 
+                    comments.map((review) => {
+                      return (<>
+                      <div className="commenter">{review.authorName}</div>
+                      <div className="line"></div>
+                      <div className="text-comment"><p>{review.review}</p></div>
+                      <br />
+                      </>)
+                    }) : <div className="altText">Este especialista aún no tiene comentarios.</div>
+                  }
               </div>
             </div>
           </div>

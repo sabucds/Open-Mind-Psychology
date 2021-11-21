@@ -32,7 +32,7 @@ const CredUpload = () => {
         function error(error) {
           console.error(error);
           alert(
-            "Hubo un error al subir el archivo, por favor, intente de nuevo. Solo subir archivos pdf"
+            "Hubo un error al subir el archivo, por favor, intente de nuevo. Sólo suba archivos pdf."
           );
         },
         function complete() {
@@ -47,7 +47,7 @@ const CredUpload = () => {
       <section className="main-FileUp">
         <div className="title-updiv">
           <h3 className="title-up">
-            ¡Ya casi estas listo!
+            ¡Ya casi estás listo!
             <br />
             Solo nos falta obtener tus credenciales (.pdf)
           </h3>

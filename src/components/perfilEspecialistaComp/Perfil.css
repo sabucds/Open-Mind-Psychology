@@ -88,6 +88,11 @@
   margin-bottom: 20px;
 }
 
+.commenter {
+  font-size: large;
+  font-weight: bold;
+}
+
 @media screen and (max-width: 600px) {
   .info-edu {
     padding: 0px;
