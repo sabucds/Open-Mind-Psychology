@@ -18,7 +18,7 @@ import CargandoDatos from "../../cargando/CargandoDatos";
 const ConfiguracionEsp = () => {
   const history = useHistory();
   const { user } = useContext(UserContext);
-  const [shown, setShown] = React.useState(false);
+  const [shown, setShown] = useState(false);
   const [name, setName] = useState("");
   const [lname, setLname] = useState("");
   const [country, setCountry] = useState("");
@@ -83,6 +83,7 @@ const ConfiguracionEsp = () => {
           let oldName = user.name.split(" ");
           const newName = name + " " + oldName[1];
           await userDoc.update({ name: newName });
+          user.name = newName;
           successMessage += "Nombre\n";
         } else {
           errorMessage += "Nombre\n";
@@ -93,6 +94,7 @@ const ConfiguracionEsp = () => {
           let oldName = user.name.split(" ");
           const newName = oldName[0] + " " + lname;
           await userDoc.update({ name: newName });
+          user.name = newName;
           successMessage += "Apellido\n";
         } else {
           errorMessage += "Apellido\n";

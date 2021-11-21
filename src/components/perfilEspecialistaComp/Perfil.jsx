@@ -1,14 +1,17 @@
+import { bd } from "../../utils/firebaseConfig";
+import firebase from "firebase/app";
 import "../Navbar/Navbar.css";
 import Navbar from "../Navbar/Navbar";
 import Cargando from "../cargando/Cargando";
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import { UserContext } from "../../context/UserContext";
 import "./Perfil.css";
-
 import React from "react";
 import { useHistory } from "react-router-dom";
 
-function Perfil({ user }) {
+
+const Perfil = ({ user }) => {  
+  console.log(user);
   const countries = {
     AF: "Afghanistan",
     AL: "Albania",
@@ -234,29 +237,29 @@ function Perfil({ user }) {
   };
   const history = useHistory();
   const currentUser = useContext(UserContext).user;
-
+    console.log("fue rendereado");
+  const [comment, setComment] = useState("");
+  const [refreshComments, setRefreshComments] = useState(0);
+  const [rating, setRating] = useState(0);
+  
   const handleConfig = () => {
     history.push("/config");
   };
 
   function validarEditar() {
-    if (currentUser === null) {
-      return <div></div>;
-    } else if (currentUser.id === user.id) {
+  if (currentUser && currentUser.id === user.id) {
       return (
         <div className="editar-boton register-button" onClick={handleConfig}>
           Editar Perfil
         </div>
       );
     } else {
-      return <div></div>;
+      return null;
     }
   }
 
   function validarNumCorreo() {
-    if (currentUser === null) {
-      return <div></div>;
-    } else if (currentUser.id === user.id) {
+    if (currentUser && currentUser.id === user.id) {
       return (
         <>
           <div className="correo-user">
@@ -277,41 +280,59 @@ function Perfil({ user }) {
         </>
       );
     } else {
-      return <div></div>;
+      return null;
     }
   }
 
   const deberiasalir = event => alert("quiero que le den aqui y se agregue el comentario abajo :(");
 
-  const addcomment = () => {
-    console.log("hago esto para que se agregue el comentario")
-    return(
-      <>
-        <div className="titles">
-          <h3> {user.feedback.name}Nombre auxiliar</h3>
-        </div>  
-        <div className="line"></div>
-        <div className="text-comment">
-           <p>{user.feedback.comment}mientras pongo este comentario</p>
-        </div>
-        <br />
-      </>
-    );
+  
+  const calculateRanking = (user) => {
+    let feedback = user.feedback;
+
+  }
+
+  const addComment = () => {
+    /*
+    if (user.feedback.find((review)=>{review.author === currentUser.id})) {
+      alert("mientras tanto, estoy poniendo esto porque ya comentaste lol");
+    } else {
+    }
+      let newComment = {
+        author: currentUser.id,
+        review: comment,
+        rating: 0,
+      };
+      calculateRanking(user);
+      const profileUser = bd.collection("users").doc(user.id);
+      await profileUser.update({ feedback : firebase.firestore.FieldValue.arrayUnion(newComment) });
+      setRefreshComments(refreshComments + 1);
+      */
+      return(
+        <>
+          <div className="titles">
+            <h4> Nombre auxiliar</h4>
+          </div>  
+          <div className="line"></div>
+          <div className="text-comment">
+             <p>{user.feedback.comment}mientras pongo este comentario</p>
+          </div>
+          <br />
+        </>
+      );
   };
 
 
-  function validarcomment() {
-    if (currentUser === null) {
-      return <div></div>;
-    } else if (currentUser.id === user.id) {
-      return <div></div>;
+  function shouldAddComment() {
+    if (currentUser === null || currentUser.id === user.id) {
+      return null;
     } else {
       return (
         <>
-        <div className="reseña-card">
+        <div className="review-card">
           <div className = "grupo-comentario">
             <div className = "caja">
-                <input type="text" placeholder = "¡Escribe tu reseña aqui!" className = "reseña-input" />
+                <input type="text" placeholder = "¡Escribe tu reseña aquí!" className = "review-input" />
                 <button className= "enviar-button" onClick = {deberiasalir}>Envía tu reseña</button>
             </div>
           </div>
@@ -347,7 +368,7 @@ function Perfil({ user }) {
                   <div className="line"></div>
                 </>
               ) : (
-                <div></div>
+                null
               )}
               {validarNumCorreo()}
               <div className="line"></div>
@@ -416,16 +437,16 @@ function Perfil({ user }) {
                 </div>
               </div>
             </div>
-            {validarcomment()}
+            {shouldAddComment()}
              
 
             <div className = "all-comments">
               <h3>Sección de comentarios: </h3>
               <br />
               <div className = "grupo-comentario">
-                {addcomment()}
-                {addcomment()}
-                {addcomment()}
+                {addComment()}
+                {addComment()}
+                {addComment()}
               </div>
             </div>
           </div>
