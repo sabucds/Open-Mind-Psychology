@@ -301,7 +301,7 @@ const Perfil = ({ user }) => {
         author: currentUser.id,
         authorName: currentUser.name,
         review: comment,
-        rating: 0,
+        rating: rating,
       };
 
       if (comments.length>0 && comments.find((review)=>(review.author === currentUser.id))) {
@@ -338,7 +338,10 @@ const Perfil = ({ user }) => {
         <div className="review-card">
           <div className = "grupo-comentario">
             <div className = "caja">
-                <input type="text" placeholder = "¡Escribe tu reseña aquí!" className = "review-input" onChange={(e)=>{setComment(e.target.value)}} value={comment}/>
+                <textarea placeholder = "¡Escribe tu reseña aquí!" className = "review-input" onChange={(e)=>{setComment(e.target.value)}} value={comment}/>
+                <label htmlFor="rating" className="text-comment">Clasificación del servicio: </label>
+                <input  className="rating-input" type="number" name="rating" value={rating} onChange={(e)=>setRating(e.target.value)} min="0" max="5" step="0.5"/>
+                <span className="stars-container star-100">★</span><p className="rating-text">/5</p><span className="stars-container star-100">★</span>
                 <button className= "enviar-button" onClick={addComment} disabled={loadingComments} style={{background: loadingComments ? "#CCC" : "#EE9D6B"}}>Envía tu reseña</button>
             </div>
           </div>
@@ -359,6 +362,34 @@ const Perfil = ({ user }) => {
   useEffect(() =>{
     getComments();
   }, [refreshComments])
+
+  function getStars(ranking) {
+    const percentage = (ranking * 100) / 5;
+
+    if (percentage < 10) {
+      return "stars-container stars-0";
+    } else if (percentage >= 10 && percentage < 20) {
+      return "stars-container stars-10";
+    } else if (percentage >= 20 && percentage < 30) {
+      return "stars-container stars-20";
+    } else if (percentage >= 30 && percentage < 40) {
+      return "stars-container stars-30";
+    } else if (percentage >= 40 && percentage < 50) {
+      return "stars-container stars-40";
+    } else if (percentage >= 50 && percentage < 60) {
+      return "stars-container stars-50";
+    } else if (percentage >= 60 && percentage < 70) {
+      return "stars-container stars-60";
+    } else if (percentage >= 70 && percentage < 80) {
+      return "stars-container stars-70";
+    } else if (percentage >= 80 && percentage < 90) {
+      return "stars-container stars-80";
+    } else if (percentage >= 90 && percentage < 100) {
+      return "stars-container stars-90";
+    } else {
+      return "stars-container stars-100";
+    }
+  }
 
   return (
     <>
@@ -467,6 +498,7 @@ const Perfil = ({ user }) => {
                       return (<>
                       <div className="commenter">{review.authorName}</div>
                       <div className="line"></div>
+                      <div className={getStars(review.rating)}>★★★★★</div>
                       <div className="text-comment"><p>{review.review}</p></div>
                       <br />
                       </>)
