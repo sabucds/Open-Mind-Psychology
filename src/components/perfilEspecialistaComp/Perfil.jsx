@@ -12,7 +12,6 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 
 const Perfil = ({ user }) => {  
-  console.log(user);
   const countries = {
     AF: "Afghanistan",
     AL: "Albania",
@@ -238,7 +237,6 @@ const Perfil = ({ user }) => {
   };
   const history = useHistory();
   const currentUser = useContext(UserContext).user;
-    console.log("fue rendereado");
   const [comment, setComment] = useState("");
   const [refreshComments, setRefreshComments] = useState(0);
   const [loadingComments, setLoadingComments] = useState(false);
@@ -287,13 +285,13 @@ const Perfil = ({ user }) => {
     }
   }
 
-  const recalculateRanking = async (userData) => {
-    let feedback = userData.feedback;
+  const recalculateRanking = async () => {
+    await getComments();
     var total = 0;
-    feedback.forEach((review) => total = total + review.rating);
-    let ranking = total/feedback.length;
-    const profileUser = await bd.collection("users").doc(user.id);
-    await profileUser.update({ ranking: ranking });
+    comments.forEach((review) => total = total + review.rating);
+    console.log(total);
+    let ranking = total/comments.length;
+    await bd.collection("users").doc(user.id).update({ ranking: ranking });
   }
 
   const addComment = async () => {
@@ -309,20 +307,19 @@ const Perfil = ({ user }) => {
       if (comments.length>0 && comments.find((review)=>(review.author === currentUser.id))) {
         
           if (window.confirm("Usted ya ha escrito una reseña para este especialista antes.\nSi escribe otra reseña, sobreescribirá su comentario anterior.\n¿Está seguro que quiere escribir una nueva reseña?")){
-            getComments();
+            await getComments();
             const commentIndex = comments.map((review)=>{return review.author}).indexOf(currentUser.id);
             comments[commentIndex] = newComment;
             const profileUser = bd.collection("users").doc(user.id);
             await profileUser.update({ feedback : comments });
-            const userDoc = await profileUser.get();
-            recalculateRanking(userDoc.data());
+            await recalculateRanking();
             setRefreshComments(refreshComments + 1);
+            
           }
       } else {
         const profileUser = bd.collection("users").doc(user.id);
         await profileUser.update({ feedback : firebase.firestore.FieldValue.arrayUnion(newComment) });
-        const userDoc = await profileUser.get();
-        recalculateRanking(userDoc.data());
+        await recalculateRanking();
         setRefreshComments(refreshComments + 1);
       } 
       setLoadingComments(false);
@@ -331,7 +328,7 @@ const Perfil = ({ user }) => {
     
   };
 
-  function shouldAddComment() {
+  function addNewComment() {
     if (currentUser === null || currentUser.id === user.id) {
       return null;
     } else {
@@ -343,7 +340,7 @@ const Perfil = ({ user }) => {
                 <textarea placeholder = "¡Escribe tu reseña aquí!" className = "review-input" onChange={(e)=>{setComment(e.target.value)}} value={comment}/>
                 <label htmlFor="rating" className="text-comment">Clasificación del servicio: </label>
                 <input  className="rating-input" type="number" name="rating" value={rating} onChange={(e)=>setRating(e.target.value)} min="0" max="5" step="0.5"/>
-                <span className="stars-container star-100">★</span><p className="rating-text">/5</p><span className="stars-container star-100">★</span>
+                <span className="star">★</span><p className="rating-text">/</p><span className="stars-container star-100">★</span>
                 <button className= "enviar-button" onClick={addComment} disabled={loadingComments} style={{background: loadingComments ? "#CCC" : "#EE9D6B"}}>Envía tu reseña</button>
             </div>
           </div>
@@ -355,14 +352,14 @@ const Perfil = ({ user }) => {
 
   const getComments = async () => {
     setLoadingComments(true);
-    const userRef = await bd.collection("users").doc(user.id);
+    const userRef = bd.collection("users").doc(user.id);
     const userDoc = await userRef.get();
     setComments(userDoc.data().feedback);
     setLoadingComments(false);
   }  
 
-  useEffect(() =>{
-    getComments();
+  useEffect(async () =>{
+    await getComments();
   }, [refreshComments])
 
   function getStars(ranking) {
@@ -486,7 +483,7 @@ const Perfil = ({ user }) => {
                 </div>
               </div>
             </div>
-            {shouldAddComment()}
+            {addNewComment()}
              
 
             <div className = "all-comments">
@@ -497,13 +494,13 @@ const Perfil = ({ user }) => {
                     loadingComments ? <div className="altText">Cargando comentarios...</div> :
                     comments.length > 0 ? 
                     comments.map((review) => {
-                      return (<>
+                      return (<div className="comment">
                       <div className="commenter">{review.authorName}</div>
                       <div className="line"></div>
                       <div className={getStars(review.rating)}>★★★★★</div>
                       <div className="text-comment"><p>{review.review}</p></div>
                       <br />
-                      </>)
+                      </div>)
                     }) : <div className="altText">Este especialista aún no tiene comentarios.</div>
                   }
               </div>

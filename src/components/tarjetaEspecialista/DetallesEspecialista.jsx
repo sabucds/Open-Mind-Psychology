@@ -26,7 +26,7 @@ const DetallesEspecialista = () => {
     } catch (e) {
       console.log(e);
       if (componentMounted.current){
-        setError(e);
+        setError(e.message);
         setLoading(false);
       }
     }
@@ -41,7 +41,10 @@ const DetallesEspecialista = () => {
 
   return loading && !especialista && !error ? <Cargando /> : 
     (especialista? <Perfil user={especialista} /> : 
-    <h1>Hubo un error al intentar cargar el especialista.</h1>
+    <>
+      <div className="titulo">Hubo un error al intentar cargar el especialista.</div>
+      <div className="errorMsg404">{error}</div>
+    </>
   );
 };
 

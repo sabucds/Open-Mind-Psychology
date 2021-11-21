@@ -96,6 +96,16 @@
   font-weight: bold;
 }
 
+.star {
+  font-size: 1.5em;
+  display: inline-block;
+  color: gold;
+}
+
+.caja .stars-container, .comment .stars-container {
+  font-size: 1.5em;
+}
+
 @media screen and (max-width: 600px) {
   .info-edu {
     padding: 0px;
