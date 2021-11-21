@@ -24,17 +24,17 @@ const Especialistas = () => {
   const [espId, setEspId] = useState([]);
 
   function rankingSort() {
-    console.log(espId);
-
-    for (let index = 1; index < Object.values(especialistas).length; index++) {
-      let current = Object.values(especialistas)[index].ranking;
-      // The last element of our sorted subarray
+    var especialistasval = Object.values(especialistas);
+    for (let index = 1; index < especialistasval.length; index++) {
+      let current = especialistasval[index].ranking;
       let j = index - 1;
-      while (j > -1 && current >= Object.values(especialistas)[j].ranking) {
+      while (j > -1 && current >= especialistasval[j].ranking) {
         espId[j + 1] = espId[j];
+        especialistasval[j + 1] = especialistasval[j];
         j--;
       }
       espId[j + 1] = Object.keys(especialistas)[index];
+      especialistasval[j + 1] = especialistasval[index];
     }
   }
 
