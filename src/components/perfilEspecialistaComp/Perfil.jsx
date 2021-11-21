@@ -242,10 +242,21 @@ const Perfil = ({ user }) => {
   const [loadingComments, setLoadingComments] = useState(false);
   const [comments, setComments] = useState([]);
   const [rating, setRating] = useState(0);
+  const [userRanking, setUserRanking] = useState(0);
+  const [refreshRanking, setRefreshRanking] = useState(0);
+  const [loadingRanking, setLoadingRanking] = useState(false);
   
   const handleConfig = () => {
     history.push("/config");
   };
+
+  const getRanking = async () => {
+    setLoadingRanking(true);
+    const userRef = bd.collection("users").doc(user.id);
+    const userDoc = await userRef.get();
+    setUserRanking(userDoc.data().ranking);
+    setLoadingRanking(false);
+  }
 
   function validarEditar() {
   if (currentUser && currentUser.id === user.id) {
@@ -286,12 +297,16 @@ const Perfil = ({ user }) => {
   }
 
   const recalculateRanking = async () => {
-    await getComments();
+    const userRef = bd.collection("users").doc(user.id);
+    const userDoc = await userRef.get();
+    const feedback = userDoc.data().feedback;
     var total = 0;
-    comments.forEach((review) => total = total + review.rating);
+    feedback.forEach((review) => total = total + Number(review.rating));
     console.log(total);
-    let ranking = total/comments.length;
+    let ranking = total/feedback.length;
+    console.log(ranking);
     await bd.collection("users").doc(user.id).update({ ranking: ranking });
+    setRefreshRanking(refreshRanking+1);
   }
 
   const addComment = async () => {
@@ -301,7 +316,7 @@ const Perfil = ({ user }) => {
         author: currentUser.id,
         authorName: currentUser.name,
         review: comment,
-        rating: rating,
+        rating: Number(rating),
       };
 
       if (comments.length>0 && comments.find((review)=>(review.author === currentUser.id))) {
@@ -324,9 +339,16 @@ const Perfil = ({ user }) => {
       } 
       setLoadingComments(false);
       setComment("");
+      setRating(0);
     }
     
   };
+
+  const handleNumChange = (event) => {
+    let { value, min, max } = event.target;
+    value = Math.max(Number(min), Math.min(Number(max), Number(value)));
+    setRating(value);
+  } 
 
   function addNewComment() {
     if (currentUser === null || currentUser.id === user.id) {
@@ -335,14 +357,21 @@ const Perfil = ({ user }) => {
       return (
         <>
         <div className="review-card">
-          <div className = "grupo-comentario">
-            <div className = "caja">
-                <textarea placeholder = "¡Escribe tu reseña aquí!" className = "review-input" onChange={(e)=>{setComment(e.target.value)}} value={comment}/>
-                <label htmlFor="rating" className="text-comment">Clasificación del servicio: </label>
-                <input  className="rating-input" type="number" name="rating" value={rating} onChange={(e)=>setRating(e.target.value)} min="0" max="5" step="0.5"/>
-                <span className="star">★</span><p className="rating-text">/</p><span className="stars-container star-100">★</span>
-                <button className= "enviar-button" onClick={addComment} disabled={loadingComments} style={{background: loadingComments ? "#CCC" : "#EE9D6B"}}>Envía tu reseña</button>
-            </div>
+        <div className="titles">Escribir una reseña de este especialista </div>
+        <div className="line"></div>
+        <br /><br />
+          <div className = "caja">
+              <textarea name="review" disabled={loadingComments} placeholder = "¡Escribe tu reseña aquí!" className = "review-input" onChange={(e)=>{setComment(e.target.value)}} value={comment}/>
+              <div className="caja-review">
+                <div className="caja-rating">
+                  <label htmlFor="rating" className="text-comment">Clasificación: </label>
+                  <div className="stars">
+                    <input  className="rating-input" type="number" disabled={loadingComments} name="rating" value={Number(rating)} onChange={handleNumChange} min="0" max="5" step="0.5"/>
+                    <span className="star">★</span><span className="rating-text">/</span><span className="stars-container star-100">★★★★★</span>
+                  </div>
+                </div>
+                <button className= "enviar-button" onClick={addComment} disabled={loadingComments} style={{background: loadingComments ? "#CCC" : "#EE9D6B"}}>Enviar</button>
+              </div>
           </div>
         </div>
         </>
@@ -361,6 +390,10 @@ const Perfil = ({ user }) => {
   useEffect(async () =>{
     await getComments();
   }, [refreshComments])
+
+  useEffect(async () => {
+    await getRanking()
+  }, [refreshRanking])
 
   function getStars(ranking) {
     const percentage = (ranking * 100) / 5;
@@ -429,6 +462,14 @@ const Perfil = ({ user }) => {
                 </div>
               </div>
               <div className="line"></div>
+              <div className="ranking-user">
+                <div className="titles">Ranking</div>
+                <div className="sub">
+                  {loadingRanking ? <span className="altText">Cargando...</span> : 
+                  <span className={getStars(userRanking)}>★★★★★</span>}
+                </div>
+              </div>
+              <div className="line"></div>
             </div>
             <div className="info-edu">
               <div className="edu-box">
@@ -487,8 +528,9 @@ const Perfil = ({ user }) => {
              
 
             <div className = "all-comments">
-              <div className="titles">Sección de comentarios: </div>
-              <br />
+              <div className="titles">Sección de comentarios</div>
+              <div className="line"></div>
+              <br /><br />
               <div className = "grupo-comentario">
                   {
                     loadingComments ? <div className="altText">Cargando comentarios...</div> :
@@ -497,7 +539,7 @@ const Perfil = ({ user }) => {
                       return (<div className="comment">
                       <div className="commenter">{review.authorName}</div>
                       <div className="line"></div>
-                      <div className={getStars(review.rating)}>★★★★★</div>
+                      <span className="text-comment">Clasificación: </span><div className={getStars(review.rating)}>★★★★★</div>
                       <div className="text-comment"><p>{review.review}</p></div>
                       <br />
                       </div>)

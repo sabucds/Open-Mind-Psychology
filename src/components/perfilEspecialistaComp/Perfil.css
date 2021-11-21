@@ -34,22 +34,43 @@
   border-radius: 20px;
 }
 
-.review-card {
+.review-card, .all-comments {
   display: flex;
-  justify-content: center;
-  margin: 16px;
+  flex-direction: column;
+  margin-top: 16px;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25);
   border-radius: 20px;
-  padding: 10px;
+  padding: 30px;
   margin-bottom: 50px;
+  height: fit-content;
+  width: 100%;
 }
 
-.all-comments {
-  margin: 16px;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25);
-  border-radius: 20px;
-  padding: 10px;
-  margin-bottom: 50px;
+
+.review-input {
+  width: 50%;
+  resize: vertical;
+  min-height: 2em;
+  background-color: transparent;
+  border-color: transparent;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+  margin: auto;
+  font-family: Open Sans;
+  font-style: normal;
+  font-size: 18px;
+  line-height: 25px;
+  padding-left: 5px;
+}
+
+
+.rating-input {
+  width: 40px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+  font-family: Open Sans;
+  border-color: transparent;
+  text-align: center;
 }
 
 .box-comm{
@@ -73,11 +94,22 @@
 
 .grupo-comentario{
   width: 100%;
+  padding: 20px;
 }
 
 .text-info, .text-comment {
   list-style-position: inside;
   padding: 5px;
+}
+
+.text-comment p {
+  text-indent: 5px;
+}
+
+
+.review-card .titles, .all-comments .titles {
+  width: 100%;
+  height: fit-content;
 }
 
 
@@ -94,16 +126,59 @@
 .commenter {
   font-size: large;
   font-weight: bold;
+  width: 100%;
+  height: fit-content;
 }
 
 .star {
   font-size: 1.5em;
-  display: inline-block;
+  margin-bottom: 5px;
   color: gold;
+}
+
+.sub .stars-container {
+  font-size: 1.5em;
+}
+
+.caja {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width:100%;
+}
+
+.caja-review {
+  width: 50%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.caja-rating {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .caja .stars-container, .comment .stars-container {
   font-size: 1.5em;
+}
+
+.ranking-user {
+  display: flex;
+  justify-content: flex-start;
+  margin: 8px auto;
+}
+
+@media screen and (max-width: 850px) {
+  .ranking-user {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin: 0;
+  }
 }
 
 @media screen and (max-width: 600px) {
@@ -119,15 +194,45 @@
     padding-top: 20px;
     width: 100%;
     text-align: center;
-    text-align: center;
-  }
-  #titles-ed1 {
-    justify-content: center;
-  }
-  #titles-ed {
-    justify-content: center;
   }
   .especialidades-perfil {
     text-align: left;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .caja {
+    flex-direction: column;
+  }
+  .review-input {
+    width:100%;
+  }
+
+  .caja-review {
+    margin-top: 20px;
+    width: 100%;
+  }
+}
+
+@media only screen  and (max-width: 460px) {
+  .caja-review {
+    flex-direction: column;
+  }
+  .caja-rating {
+    margin-bottom: 20px;
+  }
+}
+
+@media screen and (max-width: 380px) {
+  .caja-rating {
+    flex-direction: column;
+  }
+
+  .all-comments {
+    padding: 10px;
+  }
+
+  .grupo-comentario {
+    padding: 5px;
   }
 }
