@@ -58,8 +58,10 @@ export default class Sintomas extends Component {
           }}
           onChange={this.handleChange}
           allowSelectAll={true}
+          placeholder="Selecciona o escribe los síntomas"
           value={this.state.optionSelected}
           className={styles.inputsForm}
+          id={styles.InputFormEsp}
         />
       </span>
     );
