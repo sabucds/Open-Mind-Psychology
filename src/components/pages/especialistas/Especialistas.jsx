@@ -26,15 +26,15 @@ const Especialistas = () => {
   function rankingSort() {
     var especialistasval = Object.values(especialistas);
     for (let index = 1; index < especialistasval.length; index++) {
-      let current = especialistasval[index].ranking;
+      let current = especialistasval[index];
       let j = index - 1;
-      while (j > -1 && current >= especialistasval[j].ranking) {
-        espId[j + 1] = espId[j];
+      while (j > -1 && current.ranking >= especialistasval[j].ranking) {
+        espId[j + 1] = especialistasval[j].id;
         especialistasval[j + 1] = especialistasval[j];
         j--;
       }
-      espId[j + 1] = Object.keys(especialistas)[index];
-      especialistasval[j + 1] = especialistasval[index];
+      espId[j + 1] = current.id;
+      especialistasval[j + 1] = current;
     }
   }
 
