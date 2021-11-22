@@ -308,18 +308,18 @@ const Configuracion = () => {
                       className="input-contra-edit"
                       value={newPassword}
                     />
+                    <button className="password-button" onClick={switchShown}>
+                      {shown ? (
+                        <div className="ocultar"></div>
+                      ) : (
+                        <div className="mostrar"></div>
+                      )}
+                    </button>
                   </div>
                 </div>
               </div>
 
               <div className="cuadro3">
-                <button className="password-button" onClick={switchShown}>
-                  {shown ? (
-                    <div className="ocultar"></div>
-                  ) : (
-                    <div className="mostrar"></div>
-                  )}
-                </button>
                 <br />
                 <button
                   className="config-button"

@@ -16,7 +16,27 @@
 .dispon-edit {
   display: flex;
   position: relative;
-  margin: 2em 0 2em 0;
+  justify-content: space-between;
+}
+
+.titles-week {
+  color: #ee9d6b;
+  margin-bottom: 10%;
+}
+
+.dispon-edit1 {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.hours-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-time {
+  margin-bottom: 10%;
 }
 
 @media screen and (max-width: 1221px) {
