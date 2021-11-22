@@ -6,9 +6,6 @@ import styles from "./InputTags.module.css";
 export let lista = [];
 
 const Option = (props) => {
-  if (props.isSelected && !lista.includes(props.value)) {
-    lista.push(props.value);
-  }
   return (
     <div>
       <components.Option {...props}>
@@ -32,6 +29,12 @@ export default class Sintomas extends Component {
   }
 
   handleChange = (selected) => {
+    var arr = [];
+    for (let index = 0; index < selected.length; index++) {
+      arr.push(Object.values(selected[index])[0]);
+    }
+    lista = arr;
+
     this.setState({
       optionSelected: selected,
     });

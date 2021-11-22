@@ -89,6 +89,7 @@ const Especialistas = () => {
 
   const containsSpecialty = (especialista) => {
     var specialty = especialista.specialty;
+    console.log(lista);
     for (let i = 0; i < lista.length; i++) {
       if (specialty.indexOf(lista[i]) === -1) {
         return false;
@@ -121,7 +122,9 @@ const Especialistas = () => {
         const x = searchResults.indexOf(id);
         searchResults.splice(x, 1);
       } else if (filterEspecialista(id)) {
-        searchResults.push(id);
+        if (!searchResults.includes(id)) {
+          searchResults.push(id);
+        }
       }
     });
   };
@@ -138,7 +141,6 @@ const Especialistas = () => {
     if (!error) {
       setSearch(true);
       getSearchResults();
-      console.log(searchResults.length);
       searchResults.length > 0 ? setResults(true) : setResults(false);
       setLoading(false);
     }
