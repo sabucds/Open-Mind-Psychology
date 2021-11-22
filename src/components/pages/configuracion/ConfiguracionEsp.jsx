@@ -154,6 +154,9 @@ const ConfiguracionEsp = () => {
       if (weekDisp) {
         if (isFirstBlank(weekDisp) || isSecondBlank(weekDisp)) {
           errorMessage += "Disponibilidad\n";
+        } else {
+          successMessage += "Disponibilidad\n";
+          await userDoc.update({ schedule: weekDisp });
         }
       }
       if (number) {
