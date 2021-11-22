@@ -11,6 +11,7 @@ import "react-phone-number-input/style.css";
 
 import "../../Navbar/Navbar.css";
 import Navbar from "../../Navbar/Navbar";
+import CargandoDatos from "../../cargando/CargandoDatos";
 
 const Configuracion = () => {
   const history = useHistory();
@@ -25,8 +26,13 @@ const Configuracion = () => {
   const [picture, setPicture] = useState(false);
   const [saving, setSaving] = useState(false);
   const [updating, setUpdating] = useState(false);
+  const [eImg, setEImg] = useState(false);
 
   const switchShown = () => setShown(!shown);
+  const handlePicture = (e) => {
+    setEImg(e);
+    setPicture(true);
+  };
 
   const handleUpload = (e) => {
     e.preventDefault();
@@ -52,7 +58,6 @@ const Configuracion = () => {
       },
       function complete() {
         console.info("Carga finalizada");
-        setPicture(true);
       }
     );
   };
@@ -70,12 +75,14 @@ const Configuracion = () => {
 
       if (picture) {
         console.log("Imagen URL:");
+        handleUpload(eImg);
         const imgURL = await storage
           .ref("images/" + user.id + ".png")
           .getDownloadURL();
         console.log(imgURL);
         userDoc.update({ img: imgURL });
         successMessage += "Imagen\n";
+        setPicture(false);
       }
 
       if (name) {
@@ -83,6 +90,7 @@ const Configuracion = () => {
           let oldName = user.name.split(" ");
           const newName = name + " " + oldName[1];
           await userDoc.update({ name: newName });
+          user.name = newName;
           successMessage += "Nombre\n";
         } else {
           errorMessage += "Nombre\n";
@@ -93,6 +101,7 @@ const Configuracion = () => {
           let oldName = user.name.split(" ");
           const newName = oldName[0] + " " + lname;
           await userDoc.update({ name: newName });
+          user.name = newName;
           successMessage += "Apellido\n";
         } else {
           errorMessage += "Apellido\n";
@@ -170,160 +179,166 @@ const Configuracion = () => {
 
   return (
     <>
-      <Navbar />
-      <section className="main-RegistroUser">
-        <div className="edit">Editar perfil</div>
+      {saving ? (
+        <CargandoDatos />
+      ) : (
+        <>
+          <Navbar />
+          <section className="main-RegistroUser">
+            <div className="edit">Editar perfil</div>
 
-        <div className="line2"></div>
+            <div className="line2"></div>
 
-        <div className="editables">
-          <div className="titulo-editables">
-            En esta sección puedes actualizar o verificar tus <br /> datos
-            personales.
-          </div>
-          <div className="cuadro1">
-            <div className="cuadro2">
-              <div className="nombre-edit">
-                <div className="titles-edit">Nombre</div>
-                <input
-                  id="nombre"
-                  name="nombre"
-                  type="text"
-                  className="input-nombre-edit"
-                  placeholder="Nombre"
-                  onChange={(e) => setName(e.target.value)}
-                  value={name}
-                />
+            <div className="editables">
+              <div className="titulo-editables">
+                En esta sección puedes actualizar o verificar tus <br /> datos
+                personales.
+              </div>
+              <div className="cuadro1">
+                <div className="cuadro2">
+                  <div className="nombre-edit">
+                    <div className="titles-edit">Nombre</div>
+                    <input
+                      id="nombre"
+                      name="nombre"
+                      type="text"
+                      className="input-nombre-edit"
+                      placeholder="Nombre"
+                      onChange={(e) => setName(e.target.value)}
+                      value={name}
+                    />
+                  </div>
+
+                  <div className="apellido-edit">
+                    <div className="titles-edit">Apellido</div>
+                    <input
+                      id="apellido"
+                      name="apellido"
+                      type="text"
+                      className="input-apellido-edit"
+                      placeholder="Apellido"
+                      onChange={(e) => setLname(e.target.value)}
+                      value={lname}
+                    />
+                  </div>
+
+                  <div className="numero-edit">
+                    <div className="titles-edit">Número telefónico</div>
+                    <PhoneInput
+                      id="numero2"
+                      name="numero"
+                      className="input-numero-edit"
+                      onChange={setNumber}
+                      value={number}
+                    />
+                  </div>
+
+                  <div className="pais-edit">
+                    <div className="titles-edit">País</div>
+                    <ReactFlagsSelect
+                      selected={country}
+                      onSelect={(code) => setCountry(code)}
+                      className="pais-select"
+                    />
+                  </div>
+
+                  <div className="textArea-edit">
+                    <div className="titles-edit">Sobre mí</div>
+                    <textarea
+                      id="sobremi"
+                      name="sobremi"
+                      placeholder="Presentación"
+                      className="input-textArea-edit"
+                      onChange={(e) => setInfo(e.target.value)}
+                      value={info}
+                    ></textarea>
+                  </div>
+
+                  <div className="perfil-edit">
+                    <div className="titles-edit">Foto de perfil</div>
+                    <input
+                      id="perfil"
+                      name="perfil"
+                      type="file"
+                      accept=".png"
+                      className="input-foto-edit"
+                      onChange={handlePicture}
+                      // value={picture}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="cuadro3">
+                <button
+                  type="button"
+                  className="config-button"
+                  onClick={handleSubmit}
+                  disabled={saving}
+                  style={{ background: saving ? "#CCC" : "#EE9D6B" }}
+                >
+                  Guardar
+                </button>
+                <button
+                  type="button"
+                  className="config-button"
+                  onClick={handleExit}
+                  disabled={saving}
+                  style={{ background: saving ? "#CCC" : "#EE9D6B" }}
+                >
+                  Salir
+                </button>
+              </div>
+              <br />
+              <br />
+
+              <div className="line3"></div>
+
+              <div className="titulo-editables">
+                Si deseas cambiar tu contraseña:
               </div>
 
-              <div className="apellido-edit">
-                <div className="titles-edit">Apellido</div>
-                <input
-                  id="apellido"
-                  name="apellido"
-                  type="text"
-                  className="input-apellido-edit"
-                  placeholder="Apellido"
-                  onChange={(e) => setLname(e.target.value)}
-                  value={lname}
-                />
+              <div className="cuadro1">
+                <div className="cuadro2">
+                  <div className="new-contra">
+                    <div className="titles-edit">Nueva contraseña</div>
+
+                    <input
+                      id="password_input"
+                      onChange={(e) => setNewPassword(e.target.value)}
+                      placeholder="***********"
+                      type={shown ? "text" : "password"}
+                      className="input-contra-edit"
+                      value={newPassword}
+                    />
+                  </div>
+                </div>
               </div>
 
-              <div className="numero-edit">
-                <div className="titles-edit">Número telefónico</div>
-                <PhoneInput
-                  id="numero"
-                  name="numero"
-                  className="input-numero-edit"
-                  onChange={setNumber}
-                  value={number}
-                />
+              <div className="cuadro3">
+                <button className="password-button" onClick={switchShown}>
+                  {shown ? (
+                    <div className="ocultar"></div>
+                  ) : (
+                    <div className="mostrar"></div>
+                  )}
+                </button>
+                <br />
+                <button
+                  className="config-button"
+                  type="button"
+                  onClick={handlePassChange}
+                  disabled={updating}
+                  style={{ background: updating ? "#CCC" : "#EE9D6B" }}
+                >
+                  Cambiar contraseña
+                </button>
               </div>
-
-              <div className="pais-edit">
-                <div className="titles-edit">País</div>
-                <ReactFlagsSelect
-                  selected={country}
-                  onSelect={(code) => setCountry(code)}
-                  className="pais-select"
-                />
-              </div>
-
-              <div className="textArea-edit">
-                <div className="titles-edit">Sobre mí</div>
-                <textarea
-                  id="sobremi"
-                  name="sobremi"
-                  placeholder="Presentación"
-                  className="input-textArea-edit"
-                  onChange={(e) => setInfo(e.target.value)}
-                  value={info}
-                ></textarea>
-              </div>
-
-              <div className="perfil-edit">
-                <div className="titles-edit">Foto de perfil</div>
-                <input
-                  id="perfil"
-                  name="perfil"
-                  type="file"
-                  accept=".png"
-                  className="input-foto-edit"
-                  onChange={handleUpload}
-                  // value = {picture}
-                />
-              </div>
+              <br />
+              <br />
             </div>
-          </div>
-          <div className="cuadro3">
-            <button
-              type="button"
-              className="config-button"
-              onClick={handleSubmit}
-              disabled={saving}
-              style={{ background: saving ? "#CCC" : "#EE9D6B" }}
-            >
-              Guardar
-            </button>
-            <button
-              type="button"
-              className="config-button"
-              onClick={handleExit}
-              disabled={saving}
-              style={{ background: saving ? "#CCC" : "#EE9D6B" }}
-            >
-              Salir
-            </button>
-          </div>
-          <br />
-          <br />
-
-          <div className="line3"></div>
-
-          <div className="titulo-editables">
-            Si deseas cambiar tu contraseña:
-          </div>
-
-          <div className="cuadro1">
-            <div className="cuadro2">
-              <div className="new-contra">
-                <div className="titles-edit">Nueva contraseña</div>
-
-                <input
-                  id="password_input"
-                  onChange={(e) => setNewPassword(e.target.value)}
-                  placeholder="***********"
-                  type={shown ? "text" : "password"}
-                  className="input-contra-edit"
-                  value={newPassword}
-                />
-              </div>
-            </div>
-          </div>
-
-          <div className="cuadro3">
-            <button className="password-button" onClick={switchShown}>
-              {shown ? (
-                <div className="ocultar"></div>
-              ) : (
-                <div className="mostrar"></div>
-              )}
-            </button>
-            <br />
-            <button
-              className="config-button"
-              type="button"
-              onClick={handlePassChange}
-              disabled={updating}
-              style={{ background: updating ? "#CCC" : "#EE9D6B" }}
-            >
-              Cambiar contraseña
-            </button>
-          </div>
-          <br />
-          <br />
-        </div>
-      </section>
+          </section>
+        </>
+      )}
     </>
   );
 };

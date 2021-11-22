@@ -16,19 +16,27 @@ body {
   font-family: "Open Sans", sans-serif;
 }
 
+.registrate-con {
+  display: none;
+}
+
 .left-col {
   width: 50%;
   height: 100%;
+  margin-top: 60px;
+  justify-content: center;
   display: flex;
-  flex-direction: row;
+  align-items: center;
   flex: 1;
   flex-wrap: wrap;
 }
 
 .right-col {
-  width: 40%;
+  width: 50%;
   margin-top: 60px;
-  margin-right: 6%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .TitleRegister {
@@ -41,7 +49,7 @@ body {
 }
 
 .main-RegistroUser {
-  margin-top: 5.9375rem;
+  margin-top: 80px;
   width: 100%;
   height: 100%;
 }
@@ -57,10 +65,9 @@ body {
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25);
   color: white;
   border: none;
-  border-radius: 20px;
-  margin-top: 30px;
-  margin-left: 70px;
-  margin-right: auto;
+  border-radius: 10px;
+  margin: 30px 0;
+
   box-shadow: 0 0.125rem 0.25rem 0 rgba(0, 0, 0, 0.2),
     0 0.1875rem 0.625rem 0 rgba(0, 0, 0, 0.19);
 }
@@ -83,7 +90,7 @@ button:focus {
   margin-left: 80px;
 }
 
-.ocultar-reg{
+.ocultar-reg {
   background-image: url("../../img/ojo_abierto.png");
   background-color: transparent;
   width: 28px;
@@ -92,7 +99,7 @@ button:focus {
   cursor: pointer;
 }
 
-.mostrar-reg{
+.mostrar-reg {
   background-image: url("../../img/ojo_cerrado.png");
   background-color: transparent;
   width: 25px;
@@ -102,8 +109,10 @@ button:focus {
 }
 
 .all-form {
-  margin-top: 60px;
-  margin-left: 19%;
+  margin-top: 30px;
+  margin-left: auto;
+  margin-right: auto;
+  align-items: center;
 }
 
 .formulario-input {
@@ -127,13 +136,12 @@ button:focus {
 
 .flexbox-container {
   display: flex;
-  justify-content: end;
+  padding: 0 50px;
 }
 
 .titulos {
   font-style: normal;
-  font-weight: 600;
-  font-size: 1.125rem;
+  font-weight: bold;
   text-align: center;
   color: #000000;
   margin: 0;
@@ -145,6 +153,7 @@ button:focus {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: 100px;
 }
 
 .linea {
@@ -169,19 +178,28 @@ button:focus {
   margin-top: 1em;
   text-align: center;
 }
+.inicio-sesion-1 {
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 20px;
+  width: 500px;
+  height: max-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
 .rrss-box {
-  margin-left: 53px;
   width: 384px;
   height: 320px;
   background-color: white;
   box-shadow: 0 0.125rem 0.25rem 0 rgba(0, 0, 0, 0.2),
     0 0.1875rem 0.625rem 0 rgba(0, 0, 0, 0.19);
-  border-radius: 1.25rem;
+  border-radius: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
+  padding-top: 30px;
 }
 
 .img1 {
@@ -251,20 +269,180 @@ button:focus {
   --PhoneInputCountryFlag-backgroundColor--loading: rgba(0, 0, 0, 0.1);
 }
 
-.PhoneInputInput {
-  background: rgba(238, 157, 107, 0.06);
-  border: 1px solid #ee9d6b;
-  box-sizing: border-box;
+#numero {
+  font-style: italic;
+  color: rgba(0, 0, 0, 0.85);
+  padding-left: 1em;
   border-radius: 5px;
-  display: block;
-  width: 90%;
-  font-size: 18px;
-  padding-left: 5px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  margin-top: 10px;
+  margin-top: 5px;
+  width: 100%;
+  height: 2.2em;
+  border-width: 0.01em;
+  border-color: rgba(0, 0, 0, 0.185);
+}
+.registro-2 {
   margin-bottom: 10px;
-  font-family: "Open Sans", sans-serif;
-  color: rgba(0, 0, 0, 0.5);
-  font-weight: lighter;
+  margin-top: 5px;
+}
+@media screen and (max-width: 850px) {
+  .encabezado {
+    margin-top: 0px;
+  }
+  .flexbox-container {
+    height: 100%;
+    width: 100%;
+    flex-direction: column;
+    padding: 0;
+  }
+  .all-form {
+    width: 100%;
+  }
+  .left-col {
+    width: 100%;
+  }
+  .right-col {
+    width: 100%;
+    margin-top: 20px;
+  }
+  .rrss-box {
+    margin-left: 0;
+    width: 100%;
+  }
+  .img1 {
+    display: none;
+  }
+  .inicio-sesion-1 {
+    width: 100%;
+    padding: 0 50px;
+  }
+  .registro-2 {
+    width: 100%;
+  }
+  .sep {
+    width: 100%;
+  }
+  .dist {
+    width: 100%;
+    padding: 0 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+@media screen and (max-width: 600px) {
+  .buttons {
+    width: 100%;
+    flex-direction: row;
+  }
+
+  .rrss-box {
+    width: 100%;
+    margin-left: 0;
+    height: max-content;
+    flex-direction: row;
+    margin-bottom: 20px;
+    padding-top: 0px;
+  }
+  .textito {
+    display: none;
+  }
+  .sep {
+    height: 3em;
+    margin-top: 0;
+    width: 1px;
+  }
+  .lastLine {
+    display: none;
+  }
+  .buttonsRS {
+    height: 50px;
+    background-color: none;
+    width: 100%;
+    justify-content: space-evenly;
+    align-items: center;
+    border-radius: 20px;
+  }
+  #pantalla-regis {
+    margin-top: 80px;
+    height: 100%;
+    width: 100%;
+    padding: 30px 10px;
+  }
+
+  .flexbox-container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0px;
+  }
+  .left-col {
+    width: 100%;
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+    margin-top: 15px;
+    flex: 0;
+    flex-wrap: nowrap;
+  }
+  .all-form {
+    margin-top: 10px;
+    margin-left: 0;
+    width: 100%;
+  }
+  .formulario-input {
+    display: unset;
+    width: 100%;
+    height: 35px;
+  }
+
+  .right-col {
+    width: 100%;
+    height: max-content;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    margin-right: 0;
+  }
+  .dist {
+    width: 33%;
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+    align-items: unset;
+    justify-content: center;
+    padding: 0;
+  }
+  .registro-button {
+    margin-top: 30px;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .registrate-con {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 1.2em;
+  }
+  .datos-titulo {
+    margin-bottom: 10px;
+  }
+  .TitleRegister {
+    font-size: 2rem;
+  }
+  .inicio-sesion-1 {
+    width: 100%;
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .registro-button {
+    margin-right: 20px;
+  }
 }

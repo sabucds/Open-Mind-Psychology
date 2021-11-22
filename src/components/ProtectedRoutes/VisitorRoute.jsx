@@ -2,6 +2,8 @@ import { useContext } from "react";
 import { UserContext } from "../../context/UserContext";
 import { Route, Redirect } from "react-router-dom";
 
+import Cargando from "../cargando/Cargando";
+
 const VisitorRoute = ({ component: View, ...args }) => {
   const { user, loading } = useContext(UserContext);
   const isLoggedIn = !!user;
@@ -17,7 +19,9 @@ const VisitorRoute = ({ component: View, ...args }) => {
             <Redirect to={{ pathname: "/perfil", state: { from: location } }} />
           )
         ) : (
-          <h1>Loading...</h1>
+          <>
+            <Cargando />
+          </>
         )
       }
     />

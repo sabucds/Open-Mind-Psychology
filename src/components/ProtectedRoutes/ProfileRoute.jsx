@@ -18,11 +18,6 @@ const ProfileRoute = () => {
       auth.signOut();
       history.push("/");
       return <IniciarSesion />;
-    } else if (user.status === "standby") {
-      alert(
-        "¡La evaluación de sus credenciales sigue en pie, mientras tanto, puede ir configurando su perfil!"
-      );
-      return <PerfilEspecialista />;
     } else {
       return <PerfilEspecialista />;
     }

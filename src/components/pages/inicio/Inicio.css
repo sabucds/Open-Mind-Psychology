@@ -150,6 +150,9 @@
 .emotion {
   font-weight: bold;
 }
+.especialistas-sect {
+  height: max-content;
+}
 
 @media screen and (max-width: 600px) {
   .first-sect {

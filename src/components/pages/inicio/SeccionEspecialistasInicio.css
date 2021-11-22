@@ -1,0 +1,43 @@
+.admin-1 {
+  width: 100%;
+  height: 100%;
+  padding: 50px;
+  padding-bottom: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.introAdmin {
+  font-style: italic;
+  font-size: large;
+}
+
+.altText {
+  font-style: bolder;
+  font-size: larger;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.especialistaList-1 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-gap: 1.5em;
+}
+
+@media only screen and (max-width: 1000px) {
+  .especialistaList-1 {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media only screen and (max-width: 650px) {
+  .admin {
+    padding: 30px 0;
+  }
+  .introAdmin {
+    text-align: center;
+  }
+  .especialistaList-1 {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { UserContext } from "../../context/UserContext";
 import { Route, Redirect } from "react-router-dom";
+import Cargando from "../cargando/Cargando";
 
 // Esto es para los clientes (no rechazados) Y admin
 const PrivateRoute = ({ component: View, ...args }) => {
@@ -22,7 +23,7 @@ const PrivateRoute = ({ component: View, ...args }) => {
             />
           )
         ) : (
-          <h1>Loading...</h1>
+          <Cargando />
         )
       }
     />

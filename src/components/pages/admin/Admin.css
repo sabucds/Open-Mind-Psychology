@@ -1,128 +1,127 @@
 .adminNav {
-    padding: 10px 2em;
-    position: fixed;
-    top: 0;
-    border-bottom-left-radius: 15px;
-    border-bottom-right-radius: 15px;
-    left: 0;
-    width: 100%;
-    height: 80px;
-    border-bottom: 1px solid #00000057;
-    display: flex;
-    z-index: 100;
-    background-color: #EE9D6B;
-    justify-content: space-between;
+  padding: 10px 2em;
+  position: fixed;
+  top: 0;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  border-bottom: 1px solid #00000057;
+  display: flex;
+  z-index: 100;
+  background-color: #ee9d6b;
+  justify-content: space-between;
 }
 
 .adminNavLogo {
-    filter: sepia();
-    width: 100%;
-    height: 100%;
-    background-image: url(/src/components/img/Logo\ y\ Nombre.png);
-    background-repeat: no-repeat;
-    background-size: contain;
+  filter: sepia();
+  width: 100%;
+  height: 100%;
+  background-image: url(/src/components/img/Logo\ y\ Nombre.png);
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 
 .adminLogOut-wrapper {
-    width: 60%;
-    display: inline-flex;
-    justify-content: end;
-    align-items: center;
-    font-weight: 400;
+  width: 60%;
+  display: inline-flex;
+  justify-content: flex-end;
+  align-items: center;
+  font-weight: 400;
 }
 
 .adminLogOut {
-    background: white;
-    padding-left: 1em;
-    padding-right: 1em;
-    padding-top: 0.2em;
-    padding-bottom: 0.2em;
-    border: none;
-    border-radius: 15px;
-    color: #ee9d6b;
-    font-size:large;
-    font-style: bold;
-    filter: brightness(1);
+  background: white;
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  border: none;
+  border-radius: 10px;
+  color: #ee9d6b;
+  font-size: large;
+  font-style: bold;
+  filter: brightness(1);
 }
 
 .adminNav .menu-options {
-    justify-content: end;
+  justify-content: flex-end;
 }
 
 .adminLogOut:hover {
-    filter: brightness(0.95);
-    cursor: pointer;
+  filter: brightness(0.95);
+  cursor: pointer;
 }
 
 .admin {
-    margin-top: 65px;
-    width: 100%;
-    height: 100%;
-    padding: 50px;
-    display: flex;
-    flex-direction: column;
+  margin-top: 65px;
+  width: 100%;
+  height: 100%;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
 }
 
 .introAdmin {
-    font-style: italic;
-    font-size: large;
+  font-style: italic;
+  font-size: large;
 }
 
 hr {
-    border: 1px solid #EE9D6B;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    margin: 2.75em 0;
+  border: 1px solid #ee9d6b;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  margin: 2.75em 0;
 }
 
 .altText {
-    font-size: larger;
-    color:rgba(0, 0, 0, 0.5);
+  font-size: larger;
+  color: rgba(0, 0, 0, 0.5);
 }
 
 .especialistaList {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-gap: 1.5em; 
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-gap: 1.5em;
 }
 
 .refreshLink {
-    color:rgba(0, 0, 0, 0.4);
-    text-decoration: underline;
+  color: rgba(0, 0, 0, 0.4);
+  text-decoration: underline;
 }
 
 .refreshLink:hover {
-    color: rgba(0, 0, 0, 0.3);
-    cursor:pointer;
-    text-decoration: none;
+  color: rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  text-decoration: none;
 }
 
 @media only screen and (max-width: 1400px) {
-    .especialistaList {
-        grid-template-columns: 1fr 1fr 1fr;
-    }
+  .especialistaList {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
 }
 
 @media only screen and (max-width: 1000px) {
-    .especialistaList {
-        grid-template-columns: 1fr 1fr;
-    }
+  .especialistaList {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 @media only screen and (max-width: 650px) {
-    .introAdmin {
-        text-align: center;
-    }
-    .especialistaList {
-        grid-template-columns: 1fr;
-    }
-    .adminNavLogo {
-        width: 400px;
-      }
+  .introAdmin {
+    text-align: center;
+  }
+  .especialistaList {
+    grid-template-columns: 1fr;
+  }
+  .adminNavLogo {
+    width: 400px;
+  }
 }
 
 @media only screen and (max-width: 380px) {
-    
-    .adminNavLogo {
-        background-image: url(/src/components/img/logo-chiqui.jpg);
-    }
+  .adminNavLogo {
+    background-image: url(/src/components/img/logo-chiqui.jpg);
+  }
 }

@@ -72,12 +72,13 @@ const IniciarSesion = () => {
     <>
       <Navbar />
       <section className="box-InicioSesion">
-        <div className="title-box">
-          <h1 className="title-text">
+        <div className="encabezado de-inicio">
+          <div className="TitleRegister">
             ¡Bienvenido! Inicia sesión con
             <br />
             nosotros
-          </h1>
+          </div>
+          <div className="linea"></div>
         </div>
         <div className="bottom-main">
           <div className="inicio-box">

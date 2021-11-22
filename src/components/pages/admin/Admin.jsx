@@ -4,6 +4,7 @@ import EspecialistaCard from "./EspecialistaCard";
 import { useState, useEffect } from "react";
 import "./Admin.css";
 import { useHistory } from "react-router-dom";
+import Cargando from "../../cargando/Cargando";
 
 const Admin = () => {
   const [loading, setLoading] = useState(true);
@@ -104,7 +105,7 @@ const Admin = () => {
             //si está cargando, muestra "Cargando..."; si no: si hay un error muestra el mensaje de error;
             //si no: si hay especialistas que mostrar se muestran y si no, muestra "No hay especialistas nuevos."
             loading && !error ? (
-              <div className="altText">Cargando...</div>
+              <Cargando />
             ) : error ? (
               <div className="altText">
                 Error: {error.message}. <br></br>
