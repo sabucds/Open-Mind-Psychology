@@ -36,11 +36,13 @@
 }
 
 .cuadro1 {
-  padding: 16px 30px;
+  padding: 16px 150px;
 }
 
 .cuadro2 {
-  padding: 0px 28%;
+  padding: 16px 10%;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
 }
 
 .cuadro3 {
@@ -72,20 +74,16 @@
 .input-numero-edit,
 .input-sobremi-edit,
 .input-contra-edit,
-.pais-select,
 .input-foto-edit {
-  background-color: transparent;
-  border-color: transparent;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
+  font-style: italic;
+  color: rgba(0, 0, 0, 0.85);
+  padding-left: 1em;
   border-radius: 5px;
-  width: 400px;
-  margin: auto;
-  font-family: Open Sans;
-  font-style: normal;
-  font-size: 18px;
-  line-height: 25px;
-  margin-left: 6px;
-  padding-left: 5px;
+  margin-top: 5px;
+  width: 26.25em;
+  height: 2.75em;
+  border-width: 0.01em;
+  border-color: rgba(0, 0, 0, 0.185);
 }
 
 .perfil-edit .input-foto-edit {
@@ -113,7 +111,7 @@
   background-color: transparent;
   border: none;
   border-radius: 10px;
-  margin-top: -20px;
+
   text-align: center;
   display: inline-block;
 }
@@ -155,12 +153,15 @@
 .line2 {
   margin: auto 50px;
   border: 1px solid #ee9d6b;
+  background-color: #ee9d6b;
+
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   margin-bottom: 15px;
 }
 
 .line3 {
   margin: auto 250px;
+  background-color: #ee9d6b;
   border: 1px solid #ee9d6b;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   margin-bottom: 15px;
@@ -174,21 +175,26 @@
   border-color: transparent;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
-}
-.PhoneInputInput {
-  background: rgba(238, 157, 107, 0.06);
-  background-color: transparent;
-  border-color: transparent;
-  box-sizing: border-box;
+  font-style: italic;
+  color: rgba(0, 0, 0, 0.85);
+  padding-top: 1em;
+  padding-left: 1em;
   border-radius: 5px;
-  display: block;
-  width: 90%;
-  font-size: 18px;
-  padding-left: 5px;
-  margin: 5px 5px 0px 0;
-  font-family: "Open Sans", sans-serif;
-  color: rgba(0, 0, 0, 0.5);
-  font-weight: lighter;
+  margin-top: 5px;
+  border-width: 0.01em;
+  border-color: rgba(0, 0, 0, 0.185);
+}
+
+.PhoneInputInput {
+  font-style: italic;
+  color: rgba(0, 0, 0, 0.85);
+  padding-left: 1em;
+  border-radius: 5px;
+  margin-top: 5px;
+  width: 26.25em;
+  height: 2.75em;
+  border-width: 0.01em;
+  border-color: rgba(0, 0, 0, 0.185);
 }
 @media screen and (max-width: 850px) {
   .main-RegistroUser {

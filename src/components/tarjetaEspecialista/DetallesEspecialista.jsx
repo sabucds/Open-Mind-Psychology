@@ -14,7 +14,7 @@ const DetallesEspecialista = () => {
   async function getEspecialista() {
     try {
       setLoading(true);
-      const userRef = bd.collection("users").doc(params.characterId);
+      const userRef = await bd.collection("users").doc(params.characterId);
       const userDoc = await userRef.get();
       let user = userDoc.data();
       user.id = userDoc.id;
@@ -36,7 +36,7 @@ const DetallesEspecialista = () => {
     return () => {
       componentMounted.current = false;
     };
-  });
+  }, []);
 
   return loading && !especialista && !error ? (
     <Cargando />

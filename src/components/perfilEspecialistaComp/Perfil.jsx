@@ -11,7 +11,7 @@ import labelsList from "../inputTags/labelsList";
 import React from "react";
 import { useHistory } from "react-router-dom";
 
-const Perfil = ({ user }) => {  
+const Perfil = ({ user }) => {
   const countries = {
     AF: "Afghanistan",
     AL: "Albania",
@@ -245,7 +245,7 @@ const Perfil = ({ user }) => {
   const [userRanking, setUserRanking] = useState(0);
   const [refreshRanking, setRefreshRanking] = useState(0);
   const [loadingRanking, setLoadingRanking] = useState(false);
-  
+
   const handleConfig = () => {
     history.push("/config");
   };
@@ -256,10 +256,10 @@ const Perfil = ({ user }) => {
     const userDoc = await userRef.get();
     setUserRanking(userDoc.data().ranking);
     setLoadingRanking(false);
-  }
+  };
 
   function validarEditar() {
-  if (currentUser && currentUser.id === user.id) {
+    if (currentUser && currentUser.id === user.id) {
       return (
         <div className="editar-boton register-button" onClick={handleConfig}>
           Editar Perfil
@@ -301,16 +301,16 @@ const Perfil = ({ user }) => {
     const userDoc = await userRef.get();
     const feedback = userDoc.data().feedback;
     var total = 0;
-    feedback.forEach((review) => total = total + Number(review.rating));
+    feedback.forEach((review) => (total = total + Number(review.rating)));
     console.log(total);
-    let ranking = total/feedback.length;
+    let ranking = total / feedback.length;
     console.log(ranking);
     await bd.collection("users").doc(user.id).update({ ranking: ranking });
-    setRefreshRanking(refreshRanking+1);
-  }
+    setRefreshRanking(refreshRanking + 1);
+  };
 
   const addComment = async () => {
-    if (comment){
+    if (comment) {
       setLoadingComments(true);
       var newComment = {
         author: currentUser.id,
@@ -319,36 +319,46 @@ const Perfil = ({ user }) => {
         rating: Number(rating),
       };
 
-      if (comments.length>0 && comments.find((review)=>(review.author === currentUser.id))) {
-        
-          if (window.confirm("Usted ya ha escrito una reseña para este especialista antes.\nSi escribe otra reseña, sobreescribirá su comentario anterior.\n¿Está seguro que quiere escribir una nueva reseña?")){
-            await getComments();
-            const commentIndex = comments.map((review)=>{return review.author}).indexOf(currentUser.id);
-            comments[commentIndex] = newComment;
-            const profileUser = bd.collection("users").doc(user.id);
-            await profileUser.update({ feedback : comments });
-            await recalculateRanking();
-            setRefreshComments(refreshComments + 1);
-            
-          }
+      if (
+        comments.length > 0 &&
+        comments.find((review) => review.author === currentUser.id)
+      ) {
+        if (
+          window.confirm(
+            "Usted ya ha escrito una reseña para este especialista antes.\nSi escribe otra reseña, sobreescribirá su comentario anterior.\n¿Está seguro que quiere escribir una nueva reseña?"
+          )
+        ) {
+          await getComments();
+          const commentIndex = comments
+            .map((review) => {
+              return review.author;
+            })
+            .indexOf(currentUser.id);
+          comments[commentIndex] = newComment;
+          const profileUser = bd.collection("users").doc(user.id);
+          await profileUser.update({ feedback: comments });
+          await recalculateRanking();
+          setRefreshComments(refreshComments + 1);
+        }
       } else {
         const profileUser = bd.collection("users").doc(user.id);
-        await profileUser.update({ feedback : firebase.firestore.FieldValue.arrayUnion(newComment) });
+        await profileUser.update({
+          feedback: firebase.firestore.FieldValue.arrayUnion(newComment),
+        });
         await recalculateRanking();
         setRefreshComments(refreshComments + 1);
-      } 
+      }
       setLoadingComments(false);
       setComment("");
       setRating(0);
     }
-    
   };
 
   const handleNumChange = (event) => {
     let { value, min, max } = event.target;
     value = Math.max(Number(min), Math.min(Number(max), Number(value)));
     setRating(value);
-  } 
+  };
 
   function addNewComment() {
     if (currentUser === null || currentUser.id === user.id) {
@@ -356,24 +366,57 @@ const Perfil = ({ user }) => {
     } else {
       return (
         <>
-        <div className="review-card">
-        <div className="titles">Escribir una reseña de este especialista </div>
-        <div className="line"></div>
-        <br /><br />
-          <div className = "caja">
-              <textarea name="review" disabled={loadingComments} placeholder = "¡Escribe tu reseña aquí!" className = "review-input" onChange={(e)=>{setComment(e.target.value)}} value={comment}/>
+          <div className="review-card">
+            <div className="titles">
+              Escribir una reseña de este especialista{" "}
+            </div>
+            <div className="line"></div>
+            <br />
+            <br />
+            <div className="caja">
+              <textarea
+                name="review"
+                disabled={loadingComments}
+                placeholder="¡Escribe tu reseña aquí!"
+                className="review-input"
+                onChange={(e) => {
+                  setComment(e.target.value);
+                }}
+                value={comment}
+              />
               <div className="caja-review">
                 <div className="caja-rating">
-                  <label htmlFor="rating" className="text-comment">Clasificación: </label>
+                  <label htmlFor="rating" className="text-comment">
+                    Clasificación:{" "}
+                  </label>
                   <div className="stars">
-                    <input  className="rating-input" type="number" disabled={loadingComments} name="rating" value={Number(rating)} onChange={handleNumChange} min="0" max="5" step="0.5"/>
-                    <span className="star">★</span><span className="rating-text">/</span><span className="stars-container star-100">★★★★★</span>
+                    <input
+                      className="rating-input"
+                      type="number"
+                      disabled={loadingComments}
+                      name="rating"
+                      value={Number(rating)}
+                      onChange={handleNumChange}
+                      min="0"
+                      max="5"
+                      step="0.5"
+                    />
+                    <span className="star">★</span>
+                    <span className="rating-text">/</span>
+                    <span className="stars-container star-100">★★★★★</span>
                   </div>
                 </div>
-                <button className= "enviar-button" onClick={addComment} disabled={loadingComments} style={{background: loadingComments ? "#CCC" : "#EE9D6B"}}>Enviar</button>
+                <button
+                  className="enviar-button"
+                  onClick={addComment}
+                  disabled={loadingComments}
+                  style={{ background: loadingComments ? "#CCC" : "#EE9D6B" }}
+                >
+                  Enviar
+                </button>
               </div>
+            </div>
           </div>
-        </div>
         </>
       );
     }
@@ -385,15 +428,15 @@ const Perfil = ({ user }) => {
     const userDoc = await userRef.get();
     setComments(userDoc.data().feedback);
     setLoadingComments(false);
-  }  
-
-  useEffect(async () =>{
-    await getComments();
-  }, [refreshComments])
+  };
 
   useEffect(async () => {
-    await getRanking()
-  }, [refreshRanking])
+    await getComments();
+  }, [refreshComments]);
+
+  useEffect(async () => {
+    await getRanking();
+  }, [refreshRanking]);
 
   function getStars(ranking) {
     const percentage = (ranking * 100) / 5;
@@ -446,9 +489,7 @@ const Perfil = ({ user }) => {
                   </div>
                   <div className="line"></div>
                 </>
-              ) : (
-                null
-              )}
+              ) : null}
               {validarNumCorreo()}
               <div className="line"></div>
               <div className="pais-user">
@@ -465,8 +506,11 @@ const Perfil = ({ user }) => {
               <div className="ranking-user">
                 <div className="titles">Ranking</div>
                 <div className="sub">
-                  {loadingRanking ? <span className="altText">Cargando...</span> : 
-                  <span className={getStars(userRanking)}>★★★★★</span>}
+                  {loadingRanking ? (
+                    <span className="altText">Cargando...</span>
+                  ) : (
+                    <span className={getStars(userRanking)}>★★★★★</span>
+                  )}
                 </div>
               </div>
               <div className="line"></div>
@@ -525,26 +569,35 @@ const Perfil = ({ user }) => {
               </div>
             </div>
             {addNewComment()}
-             
 
-            <div className = "all-comments">
+            <div className="all-comments">
               <div className="titles">Sección de comentarios</div>
               <div className="line"></div>
-              <br /><br />
-              <div className = "grupo-comentario">
-                  {
-                    loadingComments ? <div className="altText">Cargando comentarios...</div> :
-                    comments.length > 0 ? 
-                    comments.map((review) => {
-                      return (<div className="comment">
-                      <div className="commenter">{review.authorName}</div>
-                      <div className="line"></div>
-                      <span className="text-comment">Clasificación: </span><div className={getStars(review.rating)}>★★★★★</div>
-                      <div className="text-comment"><p>{review.review}</p></div>
-                      <br />
-                      </div>)
-                    }) : <div className="altText">Este especialista aún no tiene comentarios.</div>
-                  }
+              <br />
+              <br />
+              <div className="grupo-comentario">
+                {loadingComments ? (
+                  <div className="altText">Cargando comentarios...</div>
+                ) : comments.length > 0 ? (
+                  comments.map((review) => {
+                    return (
+                      <div className="comment">
+                        <div className="commenter">{review.authorName}</div>
+                        <div className="line"></div>
+                        <span className="text-comment">Clasificación: </span>
+                        <div className={getStars(review.rating)}>★★★★★</div>
+                        <div className="text-comment">
+                          <p>{review.review}</p>
+                        </div>
+                        <br />
+                      </div>
+                    );
+                  })
+                ) : (
+                  <div className="altText">
+                    Este especialista aún no tiene comentarios.
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -554,6 +607,6 @@ const Perfil = ({ user }) => {
       )}
     </>
   );
-}
+};
 
 export default Perfil;
