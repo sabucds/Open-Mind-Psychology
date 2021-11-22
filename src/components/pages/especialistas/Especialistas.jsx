@@ -26,15 +26,15 @@ const Especialistas = () => {
   function rankingSort() {
     var especialistasval = Object.values(especialistas);
     for (let index = 1; index < especialistasval.length; index++) {
-      let current = especialistasval[index].ranking;
+      let current = especialistasval[index];
       let j = index - 1;
-      while (j > -1 && current >= especialistasval[j].ranking) {
-        espId[j + 1] = espId[j];
+      while (j > -1 && current.ranking >= especialistasval[j].ranking) {
+        espId[j + 1] = especialistasval[j].id;
         especialistasval[j + 1] = especialistasval[j];
         j--;
       }
-      espId[j + 1] = Object.keys(especialistas)[index];
-      especialistasval[j + 1] = especialistasval[index];
+      espId[j + 1] = current.id;
+      especialistasval[j + 1] = current;
     }
   }
 
@@ -89,6 +89,7 @@ const Especialistas = () => {
 
   const containsSpecialty = (especialista) => {
     var specialty = especialista.specialty;
+    console.log(lista);
     for (let i = 0; i < lista.length; i++) {
       if (specialty.indexOf(lista[i]) === -1) {
         return false;
@@ -121,7 +122,9 @@ const Especialistas = () => {
         const x = searchResults.indexOf(id);
         searchResults.splice(x, 1);
       } else if (filterEspecialista(id)) {
-        searchResults.push(id);
+        if (!searchResults.includes(id)) {
+          searchResults.push(id);
+        }
       }
     });
   };
@@ -138,7 +141,6 @@ const Especialistas = () => {
     if (!error) {
       setSearch(true);
       getSearchResults();
-      console.log(searchResults.length);
       searchResults.length > 0 ? setResults(true) : setResults(false);
       setLoading(false);
     }
@@ -153,49 +155,56 @@ const Especialistas = () => {
       <Navbar />
       <section className="search-esp">
         <div className="search-box">
-          <div className="searchTitles">
-            <div className="searchTitle">
-              Busca a tu especialista por su nombre
-            </div>
-            <div className="searchTitle">Aplica filtros a tu búsqueda</div>
+          <div className="encabezado">
+            <div className="TitleRegister">¡Busca a tu psicólogo ideal!</div>
           </div>
+          <div className="line"></div>
           <br />
-          <div className="searchInputs">
-            <div className="byNameInputs">
-              <input
-                type="text"
-                className="inputsForm"
-                placeholder="Nombre"
-                value={nombre}
-                onChange={(e) => setNombre(e.target.value)}
-              />
-              <button
-                type="submit"
-                className={loading ? "disabled-search-button" : "search-button"}
+          <div className="busqueda-sect">
+            <div className="searchInputs">
+              <div className="byNameInputs" id="by-name-inputs">
+                <input
+                  type="text"
+                  className="inputsForm"
+                  id="name-esp-b"
+                  placeholder="Ingresa el nombre y/o apellido"
+                  value={nombre}
+                  onChange={(e) => setNombre(e.target.value)}
+                />
+              </div>
+              <div className="filterInputs">
+                <div className="searchSymptom">
+                  <Sintomas />
+                </div>
+                <label className="searchRanking">
+                  Buscar por ranking
+                  <input
+                    type="checkbox"
+                    className="checkRanking"
+                    name="checkRanking"
+                    onChange={() => setRanking(!ranking)}
+                  />
+                  <span class="checkmark"></span>
+                </label>
+              </div>
+            </div>
+            <div className="buscar-button-sect">
+              <div
+                className={
+                  loading
+                    ? "buscar-button-esp disabled-search-button"
+                    : "buscar-button-esp"
+                }
                 title="Buscar"
                 onClick={handleSearch}
                 disabled={loading}
-              ></button>
-            </div>
-            <div className="filterInputs">
-              <div className="searchRanking" htmlFor="checkRanking">
-                <input
-                  type="checkbox"
-                  className="checkRanking"
-                  name="checkRanking"
-                  onChange={() => setRanking(!ranking)}
-                />
-                Buscar por ranking
-              </div>
-              <div className="searchSymptom">
-                Filtrar por síntomas
-                <Sintomas />
+              >
+                Buscar
+                <button className="search-button"></button>
               </div>
             </div>
           </div>
         </div>
-
-        <hr />
 
         {
           //si está cargando, muestra "Cargando..."; si no: si hay un error muestra el mensaje de error;

@@ -1,82 +1,215 @@
 .search-esp {
-    margin-top: 65px;
-    width: 100%;
-    height: 100%;
-    padding: 50px;
-    display: flex;
-    flex-direction: column;
+  width: 100%;
+  height: 100%;
+  padding: 0 50px;
+  display: flex;
+  flex-direction: column;
 }
 
 .search-box {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
 }
 
 .searchTitles {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
 .searchTitle {
-    font-weight: bold;
-    font-size: larger;
-    width: 50%;
+  font-weight: bold;
+  font-size: larger;
+  width: 50%;
 }
-
 
 .searchInputs {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 70%;
+}
+.buscar-button-sect {
+  width: 30%;
+  display: flex;
+  justify-content: center;
+}
+.buscar-button-esp {
+  width: max-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 15px;
+  border-radius: 5px;
+  font-weight: bold;
+  color: #ee9d6b;
+  cursor: pointer;
+  box-shadow: 0 2px 4px 0 rgb(0 0 0 / 20%), 0 3px 10px 0 rgb(0 0 0 / 19%);
 }
 
-.byNameInputs .inputsForm {
-    width: 100%;
+.busqueda-sect {
+  display: flex;
+  align-items: center;
 }
 
 .byNameInputs {
-    display: flex;
-    align-items: center;
-    width: 45%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 }
-
+#name-esp-b {
+  width: 600px;
+}
 .filterInputs {
-    display: flex;
-    align-items: center;
-    width: 50%;
-    justify-content: space-between;
-}
-
-.search-button, .disabled-search-button {
-    height: 30px;
-    width: 30px;
-    background-color: white;
-    background-size: contain;
-    background-repeat: no-repeat;
-    border: none;
-    background-image: url(/src/components/img/ant-design_search-outlined.svg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 600px;
 }
 
 .search-button {
-    filter: saturate(1);
-    cursor:pointer;
+  height: 30px;
+  width: 30px;
+  margin-left: 10px;
+  background-color: white;
+  background-size: contain;
+  background-repeat: no-repeat;
+  border: none;
+  background-image: url(/src/components/img/ant-design_search-outlined.svg);
+}
+
+.search-button {
+  filter: saturate(1);
+  cursor: pointer;
 }
 
 .disabled-search-button {
-    filter: saturate(0);
+  filter: saturate(0);
 }
 
 .searchRanking {
-    font-style: italic;
-    width: 30%;
+  font-style: italic;
 }
 
 .searchSymptom {
-    font-style: italic;
-    width: 70%;
+  font-style: italic;
+}
+.searchRanking {
+  font-weight: normal;
+  display: block;
+  position: relative;
+  padding-left: 25px;
+  cursor: pointer;
+  font-size: 1em;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
-.checkRanking {
-    height: 15px;
-    width: 15px;
+/* Hide the browser's default checkbox */
+.searchRanking input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  border: 2px solid white;
+  outline: 1px solid #ee9d6b;
+}
+
+/* On mouse-over, add a grey background color */
+.searchRanking:hover input ~ .checkmark {
+  background-color: #ee9d6b;
+}
+
+/* When the checkbox is checked, add a blue background */
+.searchRanking input:checked ~ .checkmark {
+  background-color: white;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.searchRanking input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.searchRanking .checkmark:after {
+  top: 0;
+  left: 0;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  background-color: #ee9d6b;
+}
+
+@media screen and (max-width: 850px) {
+  #name-esp-b {
+    width: 100%;
+  }
+  .filterInputs {
+    width: 100%;
+    justify-content: flex-start;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .searchInputs {
+    align-items: flex-start;
+    width: 50%;
+  }
+
+  .buscar-button-sect {
+    width: 50%;
+  }
+  .byNameInputs {
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  .search-box {
+    margin-top: 100px;
+  }
+}
+@media screen and (max-width: 600px) {
+  .busqueda-sect {
+    flex-direction: column;
+  }
+
+  .filterInputs {
+    align-items: center;
+  }
+  #by-name-inputs {
+    justify-content: center;
+  }
+  .searchInputs {
+    width: 100%;
+  }
+  .byNameInputs {
+    align-items: center;
+  }
+  .buscar-button-sect {
+    width: 100%;
+    margin-top: 20px;
+  }
+  .search-esp {
+    padding: 0 20px;
+  }
 }
