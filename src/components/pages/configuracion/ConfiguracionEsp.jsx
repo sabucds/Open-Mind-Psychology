@@ -33,23 +33,31 @@ const ConfiguracionEsp = () => {
 
   const [eImg, setEImg] = useState(false);
   const [weekDisp, setWeekDisp] = useState({
-    monday: {
+    Monday: {
       start: "",
       end: "",
     },
-    tuesday: {
+    Tuesday: {
       start: "",
       end: "",
     },
-    wednesday: {
+    Wednesday: {
       start: "",
       end: "",
     },
-    thursday: {
+    Thursday: {
       start: "",
       end: "",
     },
-    friday: {
+    Friday: {
+      start: "",
+      end: "",
+    },
+    Saturday: {
+      start: "",
+      end: "",
+    },
+    Sunday: {
       start: "",
       end: "",
     },
@@ -91,11 +99,13 @@ const ConfiguracionEsp = () => {
 
   function isFirstBlank(weekDisp) {
     if (
-      (weekDisp.monday.start.length >= 1 && weekDisp.monday.end === "") ||
-      (weekDisp.tuesday.start.length >= 1 && weekDisp.tuesday.end === "") ||
-      (weekDisp.wednesday.start.length >= 1 && weekDisp.wednesday.end === "") ||
-      (weekDisp.thursday.start.length >= 1 && weekDisp.thursday.end === "") ||
-      (weekDisp.friday.start.length >= 1 && weekDisp.friday.end === "")
+      (weekDisp.Monday.start.length >= 1 && weekDisp.Monday.end === "") ||
+      (weekDisp.Tuesday.start.length >= 1 && weekDisp.Tuesday.end === "") ||
+      (weekDisp.Wednesday.start.length >= 1 && weekDisp.Wednesday.end === "") ||
+      (weekDisp.Thursday.start.length >= 1 && weekDisp.Thursday.end === "") ||
+      (weekDisp.Friday.start.length >= 1 && weekDisp.Friday.end === "") ||
+      (weekDisp.Saturday.start.length >= 1 && weekDisp.Saturday.end === "") ||
+      (weekDisp.Sunday.start.length >= 1 && weekDisp.Sunday.end === "")
     ) {
       return true;
     }
@@ -104,11 +114,13 @@ const ConfiguracionEsp = () => {
 
   function isSecondBlank(weekDisp) {
     if (
-      (weekDisp.monday.end.length >= 1 && weekDisp.monday.start === "") ||
-      (weekDisp.tuesday.end.length >= 1 && weekDisp.tuesday.start === "") ||
-      (weekDisp.wednesday.end.length >= 1 && weekDisp.wednesday.start === "") ||
-      (weekDisp.thursday.end.length >= 1 && weekDisp.thursday.start === "") ||
-      (weekDisp.friday.end.length >= 1 && weekDisp.friday.start === "")
+      (weekDisp.Monday.end.length >= 1 && weekDisp.Monday.start === "") ||
+      (weekDisp.Tuesday.end.length >= 1 && weekDisp.Tuesday.start === "") ||
+      (weekDisp.Wednesday.end.length >= 1 && weekDisp.Wednesday.start === "") ||
+      (weekDisp.Thursday.end.length >= 1 && weekDisp.Thursday.start === "") ||
+      (weekDisp.Friday.end.length >= 1 && weekDisp.Friday.start === "") ||
+      (weekDisp.Saturday.end.length >= 1 && weekDisp.Saturday.start === "") ||
+      (weekDisp.Sunday.end.length >= 1 && weekDisp.Sunday.start === "")
     ) {
       return true;
     }
@@ -157,6 +169,7 @@ const ConfiguracionEsp = () => {
         } else {
           successMessage += "Disponibilidad\n";
           await userDoc.update({ schedule: weekDisp });
+          console.log(weekDisp);
         }
       }
       if (number) {
@@ -326,13 +339,13 @@ const ConfiguracionEsp = () => {
                           <input
                             type="time"
                             className="input-time"
-                            id="monday-start"
+                            id="Monday-start"
                             onChange={handleWeekDispChange}
                           />
                           <input
                             type="time"
                             className="input-time"
-                            id="monday-end"
+                            id="Monday-end"
                             onChange={handleWeekDispChange}
                           />
                         </div>
@@ -344,13 +357,13 @@ const ConfiguracionEsp = () => {
                           <input
                             type="time"
                             className="input-time"
-                            id="tuesday-start"
+                            id="Tuesday-start"
                             onChange={handleWeekDispChange}
                           />
                           <input
                             type="time"
                             className="input-time"
-                            id="tuesday-end"
+                            id="Tuesday-end"
                             onChange={handleWeekDispChange}
                           />
                         </div>
@@ -362,13 +375,13 @@ const ConfiguracionEsp = () => {
                           <input
                             type="time"
                             className="input-time"
-                            id="wednesday-start"
+                            id="Wednesday-start"
                             onChange={handleWeekDispChange}
                           />
                           <input
                             type="time"
                             className="input-time"
-                            id="wednesday-end"
+                            id="Wednesday-end"
                             onChange={handleWeekDispChange}
                           />
                         </div>
@@ -380,14 +393,14 @@ const ConfiguracionEsp = () => {
                           <input
                             type="time"
                             className="input-time"
-                            id="thursday-start"
+                            id="Thursday-start"
                             onChange={handleWeekDispChange}
                           />
 
                           <input
                             type="time"
                             className="input-time"
-                            id="thursday-end"
+                            id="Thursday-end"
                             onChange={handleWeekDispChange}
                           />
                         </div>
@@ -399,13 +412,49 @@ const ConfiguracionEsp = () => {
                           <input
                             type="time"
                             className="input-time"
-                            id="friday-start"
+                            id="Friday-start"
                             onChange={handleWeekDispChange}
                           />
                           <input
                             type="time"
                             className="input-time"
-                            id="friday-end"
+                            id="Friday-end"
+                            onChange={handleWeekDispChange}
+                          />
+                        </div>
+                      </div>
+                      <div className="dispon-edit1">
+                        <div className="titles-week">Sábado</div>
+
+                        <div className="hours-container">
+                          <input
+                            type="time"
+                            className="input-time"
+                            id="Saturday-start"
+                            onChange={handleWeekDispChange}
+                          />
+                          <input
+                            type="time"
+                            className="input-time"
+                            id="Saturday-end"
+                            onChange={handleWeekDispChange}
+                          />
+                        </div>
+                      </div>
+                      <div className="dispon-edit1">
+                        <div className="titles-week">Domingo</div>
+
+                        <div className="hours-container">
+                          <input
+                            type="time"
+                            className="input-time"
+                            id="Sunday-start"
+                            onChange={handleWeekDispChange}
+                          />
+                          <input
+                            type="time"
+                            className="input-time"
+                            id="Sunday-end"
                             onChange={handleWeekDispChange}
                           />
                         </div>
