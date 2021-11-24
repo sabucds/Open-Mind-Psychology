@@ -1,7 +1,9 @@
+import { bd } from "../../utils/firebaseConfig";
+import firebase from "firebase/app";
 import "../Navbar/Navbar.css";
 import Navbar from "../Navbar/Navbar";
 import Cargando from "../cargando/Cargando";
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import { UserContext } from "../../context/UserContext";
 import "./Perfil.css";
 import labelsList from "../inputTags/labelsList";
@@ -9,7 +11,7 @@ import labelsList from "../inputTags/labelsList";
 import React from "react";
 import { useHistory } from "react-router-dom";
 
-function Perfil({ user }) {
+const Perfil = ({ user }) => {  
   const countries = {
     AF: "Afghanistan",
     AL: "Albania",
@@ -235,29 +237,41 @@ function Perfil({ user }) {
   };
   const history = useHistory();
   const currentUser = useContext(UserContext).user;
-
+  const [comment, setComment] = useState("");
+  const [refreshComments, setRefreshComments] = useState(0);
+  const [loadingComments, setLoadingComments] = useState(false);
+  const [comments, setComments] = useState([]);
+  const [rating, setRating] = useState(0);
+  const [userRanking, setUserRanking] = useState(0);
+  const [refreshRanking, setRefreshRanking] = useState(0);
+  const [loadingRanking, setLoadingRanking] = useState(false);
+  
   const handleConfig = () => {
     history.push("/config");
   };
 
+  const getRanking = async () => {
+    setLoadingRanking(true);
+    const userRef = bd.collection("users").doc(user.id);
+    const userDoc = await userRef.get();
+    setUserRanking(userDoc.data().ranking);
+    setLoadingRanking(false);
+  }
+
   function validarEditar() {
-    if (currentUser === null) {
-      return <div></div>;
-    } else if (currentUser.id === user.id) {
+  if (currentUser && currentUser.id === user.id) {
       return (
         <div className="editar-boton register-button" onClick={handleConfig}>
           Editar Perfil
         </div>
       );
     } else {
-      return <div></div>;
+      return null;
     }
   }
 
   function validarNumCorreo() {
-    if (currentUser === null) {
-      return <div></div>;
-    } else if (currentUser.id === user.id) {
+    if (currentUser && currentUser.id === user.id) {
       return (
         <>
           <div className="correo-user">
@@ -278,7 +292,134 @@ function Perfil({ user }) {
         </>
       );
     } else {
-      return <div></div>;
+      return null;
+    }
+  }
+
+  const recalculateRanking = async () => {
+    const userRef = bd.collection("users").doc(user.id);
+    const userDoc = await userRef.get();
+    const feedback = userDoc.data().feedback;
+    var total = 0;
+    feedback.forEach((review) => total = total + Number(review.rating));
+    console.log(total);
+    let ranking = total/feedback.length;
+    console.log(ranking);
+    await bd.collection("users").doc(user.id).update({ ranking: ranking });
+    setRefreshRanking(refreshRanking+1);
+  }
+
+  const addComment = async () => {
+    if (comment){
+      setLoadingComments(true);
+      var newComment = {
+        author: currentUser.id,
+        authorName: currentUser.name,
+        review: comment,
+        rating: Number(rating),
+      };
+
+      if (comments.length>0 && comments.find((review)=>(review.author === currentUser.id))) {
+        
+          if (window.confirm("Usted ya ha escrito una reseña para este especialista antes.\nSi escribe otra reseña, sobreescribirá su comentario anterior.\n¿Está seguro que quiere escribir una nueva reseña?")){
+            await getComments();
+            const commentIndex = comments.map((review)=>{return review.author}).indexOf(currentUser.id);
+            comments[commentIndex] = newComment;
+            const profileUser = bd.collection("users").doc(user.id);
+            await profileUser.update({ feedback : comments });
+            await recalculateRanking();
+            setRefreshComments(refreshComments + 1);
+            
+          }
+      } else {
+        const profileUser = bd.collection("users").doc(user.id);
+        await profileUser.update({ feedback : firebase.firestore.FieldValue.arrayUnion(newComment) });
+        await recalculateRanking();
+        setRefreshComments(refreshComments + 1);
+      } 
+      setLoadingComments(false);
+      setComment("");
+      setRating(0);
+    }
+    
+  };
+
+  const handleNumChange = (event) => {
+    let { value, min, max } = event.target;
+    value = Math.max(Number(min), Math.min(Number(max), Number(value)));
+    setRating(value);
+  } 
+
+  function addNewComment() {
+    if (currentUser === null || currentUser.id === user.id) {
+      return null;
+    } else {
+      return (
+        <>
+        <div className="review-card">
+        <div className="titles">Escribir una reseña de este especialista </div>
+        <div className="line"></div>
+        <br /><br />
+          <div className = "caja">
+              <textarea name="review" disabled={loadingComments} placeholder = "¡Escribe tu reseña aquí!" className = "review-input" onChange={(e)=>{setComment(e.target.value)}} value={comment}/>
+              <div className="caja-review">
+                <div className="caja-rating">
+                  <label htmlFor="rating" className="text-comment">Clasificación: </label>
+                  <div className="stars">
+                    <input  className="rating-input" type="number" disabled={loadingComments} name="rating" value={Number(rating)} onChange={handleNumChange} min="0" max="5" step="0.5"/>
+                    <span className="star">★</span><span className="rating-text">/</span><span className="stars-container star-100">★★★★★</span>
+                  </div>
+                </div>
+                <button className= "enviar-button" onClick={addComment} disabled={loadingComments} style={{background: loadingComments ? "#CCC" : "#EE9D6B"}}>Enviar</button>
+              </div>
+          </div>
+        </div>
+        </>
+      );
+    }
+  }
+
+  const getComments = async () => {
+    setLoadingComments(true);
+    const userRef = bd.collection("users").doc(user.id);
+    const userDoc = await userRef.get();
+    setComments(userDoc.data().feedback);
+    setLoadingComments(false);
+  }  
+
+  useEffect(async () =>{
+    await getComments();
+  }, [refreshComments])
+
+  useEffect(async () => {
+    await getRanking()
+  }, [refreshRanking])
+
+  function getStars(ranking) {
+    const percentage = (ranking * 100) / 5;
+
+    if (percentage < 10) {
+      return "stars-container stars-0";
+    } else if (percentage >= 10 && percentage < 20) {
+      return "stars-container stars-10";
+    } else if (percentage >= 20 && percentage < 30) {
+      return "stars-container stars-20";
+    } else if (percentage >= 30 && percentage < 40) {
+      return "stars-container stars-30";
+    } else if (percentage >= 40 && percentage < 50) {
+      return "stars-container stars-40";
+    } else if (percentage >= 50 && percentage < 60) {
+      return "stars-container stars-50";
+    } else if (percentage >= 60 && percentage < 70) {
+      return "stars-container stars-60";
+    } else if (percentage >= 70 && percentage < 80) {
+      return "stars-container stars-70";
+    } else if (percentage >= 80 && percentage < 90) {
+      return "stars-container stars-80";
+    } else if (percentage >= 90 && percentage < 100) {
+      return "stars-container stars-90";
+    } else {
+      return "stars-container stars-100";
     }
   }
 
@@ -306,7 +447,7 @@ function Perfil({ user }) {
                   <div className="line"></div>
                 </>
               ) : (
-                <div></div>
+                null
               )}
               {validarNumCorreo()}
               <div className="line"></div>
@@ -318,6 +459,14 @@ function Perfil({ user }) {
                   ) : (
                     <p className="altText">No se especificó país</p>
                   )}
+                </div>
+              </div>
+              <div className="line"></div>
+              <div className="ranking-user">
+                <div className="titles">Ranking</div>
+                <div className="sub">
+                  {loadingRanking ? <span className="altText">Cargando...</span> : 
+                  <span className={getStars(userRanking)}>★★★★★</span>}
                 </div>
               </div>
               <div className="line"></div>
@@ -373,6 +522,29 @@ function Perfil({ user }) {
                     <p className="altText">No se especificó una descripción</p>
                   )}
                 </div>
+              </div>
+            </div>
+            {addNewComment()}
+             
+
+            <div className = "all-comments">
+              <div className="titles">Sección de comentarios</div>
+              <div className="line"></div>
+              <br /><br />
+              <div className = "grupo-comentario">
+                  {
+                    loadingComments ? <div className="altText">Cargando comentarios...</div> :
+                    comments.length > 0 ? 
+                    comments.map((review) => {
+                      return (<div className="comment">
+                      <div className="commenter">{review.authorName}</div>
+                      <div className="line"></div>
+                      <span className="text-comment">Clasificación: </span><div className={getStars(review.rating)}>★★★★★</div>
+                      <div className="text-comment"><p>{review.review}</p></div>
+                      <br />
+                      </div>)
+                    }) : <div className="altText">Este especialista aún no tiene comentarios.</div>
+                  }
               </div>
             </div>
           </div>

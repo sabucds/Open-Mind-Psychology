@@ -90,6 +90,7 @@ const Configuracion = () => {
           let oldName = user.name.split(" ");
           const newName = name + " " + oldName[1];
           await userDoc.update({ name: newName });
+          user.name = newName;
           successMessage += "Nombre\n";
         } else {
           errorMessage += "Nombre\n";
@@ -100,6 +101,7 @@ const Configuracion = () => {
           let oldName = user.name.split(" ");
           const newName = oldName[0] + " " + lname;
           await userDoc.update({ name: newName });
+          user.name = newName;
           successMessage += "Apellido\n";
         } else {
           errorMessage += "Apellido\n";

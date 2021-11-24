@@ -239,4 +239,11 @@
   .main-RegistroUser {
     padding: 30px 20px;
   }
+  .about-user {
+    text-align: center;
+  }
+  .titles {
+    width: 100%;
+    justify-content: center;
+  }
 }
