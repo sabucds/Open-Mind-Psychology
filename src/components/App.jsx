@@ -22,6 +22,7 @@ import ConfigRoute from "./ProtectedRoutes/ConfigRoute";
 import ClientRoute from "./ProtectedRoutes/ClientRoute";
 import NoAdminRoute from "./ProtectedRoutes/NoAdminRoute";
 import DetallesEspecialista from "./tarjetaEspecialista/DetallesEspecialista";
+import Agendar from "./pages/agendar/Agendar";
 import Chats from "./pages/chats/Chats";
 import Chat from "./pages/chats/Chat";
 
@@ -64,6 +65,8 @@ function App() {
               path="/especialistas/:characterId"
               component={DetallesEspecialista}
             />
+            <Route exact path={"/agendar/:characterId"} component={Agendar} />
+
             <Route exact path="/chats" component={Chats} />
             <Route exact path="/chats/:userId" component={Chat} />
             <Route path="*" component={Error404} />

@@ -18,14 +18,13 @@ const DetallesEspecialista = () => {
       const userDoc = await userRef.get();
       let user = userDoc.data();
       user.id = userDoc.id;
-      if (componentMounted.current){
+      if (componentMounted.current) {
         setEspecialista(user);
         setLoading(false);
       }
-      
     } catch (e) {
       console.log(e);
-      if (componentMounted.current){
+      if (componentMounted.current) {
         setError(e.message);
         setLoading(false);
       }
@@ -36,13 +35,18 @@ const DetallesEspecialista = () => {
     getEspecialista();
     return () => {
       componentMounted.current = false;
-    }
+    };
   }, []);
 
-  return loading && !especialista && !error ? <Cargando /> : 
-    (especialista? <Perfil user={especialista} /> : 
+  return loading && !especialista && !error ? (
+    <Cargando />
+  ) : especialista ? (
+    <Perfil user={especialista} />
+  ) : (
     <>
-      <div className="titulo">Hubo un error al intentar cargar el especialista.</div>
+      <div className="titulo">
+        Hubo un error al intentar cargar el especialista.
+      </div>
       <div className="errorMsg404">{error}</div>
     </>
   );
