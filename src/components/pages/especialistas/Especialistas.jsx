@@ -21,6 +21,22 @@ const Especialistas = () => {
   const [searchResults] = useState([]);
   const [esVacio, setEsVacio] = useState(false);
   const [refresh, setRefresh] = useState(0);
+  const [espId, setEspId] = useState([]);
+
+  function rankingSort() {
+    var especialistasval = Object.values(especialistas);
+    for (let index = 1; index < especialistasval.length; index++) {
+      let current = especialistasval[index];
+      let j = index - 1;
+      while (j > -1 && current.ranking >= especialistasval[j].ranking) {
+        espId[j + 1] = especialistasval[j].id;
+        especialistasval[j + 1] = especialistasval[j];
+        j--;
+      }
+      espId[j + 1] = current.id;
+      especialistasval[j + 1] = current;
+    }
+  }
 
   function desplegarEspecialistas(especialistas, resultadosId) {
     var arr = [];
@@ -61,6 +77,9 @@ const Especialistas = () => {
         }
       });
       setEspecialistas(especialistaDocs);
+      if (espId.length === 0) {
+        setEspId(Object.keys(especialistaDocs));
+      }
       setLoading(false);
     } catch (e) {
       setError(e);
@@ -70,6 +89,7 @@ const Especialistas = () => {
 
   const containsSpecialty = (especialista) => {
     var specialty = especialista.specialty;
+    console.log(lista);
     for (let i = 0; i < lista.length; i++) {
       if (specialty.indexOf(lista[i]) === -1) {
         return false;
@@ -98,11 +118,13 @@ const Especialistas = () => {
   const getSearchResults = () => {
     setLoading(true);
     Object.keys(especialistas).forEach((id, i) => {
-      if (searchResults.includes(id)) {
+      if (searchResults.includes(id) && !filterEspecialista(id)) {
         const x = searchResults.indexOf(id);
         searchResults.splice(x, 1);
       } else if (filterEspecialista(id)) {
-        searchResults.push(id);
+        if (!searchResults.includes(id)) {
+          searchResults.push(id);
+        }
       }
     });
   };
@@ -111,6 +133,11 @@ const Especialistas = () => {
     setEsVacio(false);
     setLoading(true);
     setRefresh(refresh + 1);
+    if (ranking) {
+      rankingSort();
+    } else {
+      setEspId(Object.keys(especialistas));
+    }
     if (!error) {
       setSearch(true);
       getSearchResults();
@@ -128,49 +155,56 @@ const Especialistas = () => {
       <Navbar />
       <section className="search-esp">
         <div className="search-box">
-          <div className="searchTitles">
-            <div className="searchTitle">
-              Busca a tu especialista por su nombre
-            </div>
-            <div className="searchTitle">Aplica filtros a tu búsqueda</div>
+          <div className="encabezado">
+            <div className="TitleRegister">¡Busca a tu psicólogo ideal!</div>
           </div>
+          <div className="line"></div>
           <br />
-          <div className="searchInputs">
-            <div className="byNameInputs">
-              <input
-                type="text"
-                className="inputsForm"
-                placeholder="Nombre"
-                value={nombre}
-                onChange={(e) => setNombre(e.target.value)}
-              />
-              <button
-                type="submit"
-                className={loading ? "disabled-search-button" : "search-button"}
+          <div className="busqueda-sect">
+            <div className="searchInputs">
+              <div className="byNameInputs" id="by-name-inputs">
+                <input
+                  type="text"
+                  className="inputsForm"
+                  id="name-esp-b"
+                  placeholder="Ingresa el nombre y/o apellido"
+                  value={nombre}
+                  onChange={(e) => setNombre(e.target.value)}
+                />
+              </div>
+              <div className="filterInputs">
+                <div className="searchSymptom">
+                  <Sintomas />
+                </div>
+                <label className="searchRanking">
+                  Buscar por ranking
+                  <input
+                    type="checkbox"
+                    className="checkRanking"
+                    name="checkRanking"
+                    onChange={() => setRanking(!ranking)}
+                  />
+                  <span class="checkmark"></span>
+                </label>
+              </div>
+            </div>
+            <div className="buscar-button-sect">
+              <div
+                className={
+                  loading
+                    ? "buscar-button-esp disabled-search-button"
+                    : "buscar-button-esp"
+                }
                 title="Buscar"
                 onClick={handleSearch}
                 disabled={loading}
-              ></button>
-            </div>
-            <div className="filterInputs">
-              <div className="searchRanking" htmlFor="checkRanking">
-                <input
-                  type="checkbox"
-                  className="checkRanking"
-                  name="checkRanking"
-                  onChange={() => setRanking(!ranking)}
-                />
-                Buscar por ranking
-              </div>
-              <div className="searchSymptom">
-                Filtrar por síntomas
-                <Sintomas />
+              >
+                Buscar
+                <button className="search-button"></button>
               </div>
             </div>
           </div>
         </div>
-
-        <hr />
 
         {
           //si está cargando, muestra "Cargando..."; si no: si hay un error muestra el mensaje de error;
@@ -187,10 +221,7 @@ const Especialistas = () => {
           ) : results && !esVacio ? (
             <>
               <div className="especialistaList-1">
-                {desplegarEspecialistas(
-                  Object.keys(especialistas),
-                  searchResults
-                ).map((key) => {
+                {desplegarEspecialistas(espId, searchResults).map((key) => {
                   const especialista = especialistas[key];
                   return (
                     <TarjetaEspecialista
@@ -207,17 +238,15 @@ const Especialistas = () => {
             </div>
           ) : (
             <div className="especialistaList-1">
-              {desplegarEspecialistas(Object.keys(especialistas), 1).map(
-                (key) => {
-                  const especialista = especialistas[key];
-                  return (
-                    <TarjetaEspecialista
-                      key={especialista.id}
-                      especialista={especialista}
-                    />
-                  );
-                }
-              )}
+              {desplegarEspecialistas(espId, 1).map((key) => {
+                const especialista = especialistas[key];
+                return (
+                  <TarjetaEspecialista
+                    key={especialista.id}
+                    especialista={especialista}
+                  />
+                );
+              })}
             </div>
           )
         }

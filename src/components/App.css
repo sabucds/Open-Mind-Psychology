@@ -4,12 +4,9 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "roboto", sans-serif;
 }
 
 *:focus {
   outline: none;
-}
-
-body {
-  font-family: "roboto", sans-serif;
 }

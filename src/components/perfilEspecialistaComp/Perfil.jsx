@@ -330,9 +330,9 @@ function Perfil({ user }) {
                   atención
                 </div>
                 <div className="line"></div>
-                <div className="text-info">
+                <div className="text-info especialidades-perfil">
                   {user.specialty.length !== 0 ? (
-                    <ul>
+                    <ul className="lista-espe-perfil">
                       {labelsList(user.specialty).map((esp) => {
                         return <li key={esp}>{esp}</li>;
                       })}

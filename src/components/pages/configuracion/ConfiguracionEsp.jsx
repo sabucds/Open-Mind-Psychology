@@ -505,7 +505,7 @@ const ConfiguracionEsp = () => {
                       id="perfil"
                       name="perfil"
                       type="file"
-                      accept=".png"
+                      accept="image/*"
                       className="input-foto-edit"
                       onChange={handlePicture}
                     />
