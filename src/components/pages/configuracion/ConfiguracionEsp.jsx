@@ -134,10 +134,9 @@ const ConfiguracionEsp = () => {
         successMessage += "Imagen\n";
         setPicture(false);
       }
-
     } catch (err) {
       alert("Hubo un error al guardar.");
-      console.log(err.message); 
+      console.log(err.message);
     }
     setSaving(false);
     if (
@@ -284,7 +283,7 @@ const ConfiguracionEsp = () => {
 
                   <div className="esp-edit">
                     <div className="titles-edit">Especialidades</div>
-                    <Sintomas className="esp-select"/>
+                    <Sintomas className="esp-select" />
                   </div>
 
                   <div className="perfil-edit">
@@ -293,7 +292,7 @@ const ConfiguracionEsp = () => {
                       id="perfil"
                       name="perfil"
                       type="file"
-                      accept=".png"
+                      accept="image/*"
                       className="input-foto-edit"
                       onChange={handlePicture}
                     />

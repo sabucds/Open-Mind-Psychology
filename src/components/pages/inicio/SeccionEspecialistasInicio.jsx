@@ -11,13 +11,26 @@ const SeccionEspecialistasInicio = () => {
   const [error, setError] = useState(null);
 
   function desplegarEspecialistas(especialistas) {
+    var especialistasval = Object.values(especialistas);
+    var espId = Object.keys(especialistas);
+    for (let index = 1; index < especialistasval.length; index++) {
+      let current = especialistasval[index];
+      let j = index - 1;
+      while (j > -1 && current.ranking >= especialistasval[j].ranking) {
+        espId[j + 1] = especialistasval[j].id;
+        especialistasval[j + 1] = especialistasval[j];
+        j--;
+      }
+      espId[j + 1] = current.id;
+      especialistasval[j + 1] = current;
+    }
     var arr = [];
     let i = 4;
-    if (especialistas.length < 4) {
-      i = especialistas.length;
+    if (espId.length < 4) {
+      i = espId.length;
     }
     for (let index = 0; index < i; index++) {
-      arr.push(especialistas[index]);
+      arr.push(espId[index]);
     }
     return arr;
   }
@@ -64,7 +77,7 @@ const SeccionEspecialistasInicio = () => {
             </div>
           ) : Object.entries(especialistas).length !== 0 ? (
             <div className="especialistaList-1">
-              {desplegarEspecialistas(Object.keys(especialistas)).map((key) => {
+              {desplegarEspecialistas(especialistas).map((key) => {
                 const especialista = especialistas[key];
                 return (
                   <TarjetaEspecialista
