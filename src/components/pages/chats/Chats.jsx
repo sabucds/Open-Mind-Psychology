@@ -24,7 +24,10 @@ const Chats = () => {
         for (let index = 0; index < usuarios.length; index++) {
           for (let j = 0; j < citas.length; j++) {
             if (usuarios[index].id === citas[j].usuario) {
-              usuariosConCita.push(usuarios[index]);
+              if (!usuariosConCita.includes(usuarios[index])) {
+                console.log(usuarios[index]);
+                usuariosConCita.push(usuarios[index]);
+              }
             }
           }
         }
@@ -33,6 +36,7 @@ const Chats = () => {
           for (let j = 0; j < citas.length; j++) {
             if (usuarios[index].id === citas[j].especialista) {
               if (!usuariosConCita.includes(usuarios[index])) {
+                console.log(usuarios[index]);
                 usuariosConCita.push(usuarios[index]);
               }
             }
@@ -108,25 +112,33 @@ const Chats = () => {
 
   return (
     <>
-      <Navbar />
       {!!!user && Loading ? (
         <Cargando />
       ) : (
-        <section className={styles.chatsSect}>
-          <div className={styles.chats}>
+        <>
+          {listaLista ? (
             <>
-              {listaLista ? (
-                <>
-                  {usuariosConCita.map((u) => {
-                    return <ChatCard key={u.id} usuario={u} />;
-                  })}
-                </>
-              ) : (
-                <Cargando />
-              )}
+              <Navbar />
+              <section className={styles.chatSect}>
+                <div className={styles.encabezado}>
+                  <div className={styles.contact}> Chats</div>
+                  <div className={styles.line}></div>
+                </div>
+                <div className={styles.chatsSect}>
+                  <div className={styles.chats}>
+                    <>
+                      {usuariosConCita.map((u) => {
+                        return <ChatCard key={u.id} usuario={u} />;
+                      })}
+                    </>
+                  </div>
+                </div>
+              </section>
             </>
-          </div>
-        </section>
+          ) : (
+            <Cargando />
+          )}
+        </>
       )}
     </>
   );

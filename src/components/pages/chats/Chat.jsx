@@ -94,62 +94,95 @@ const Chat = () => {
     }
   };
 
+  const generateMeet = () => {
+    console.log("HOLAAAA");
+    const { id, name, img } = user;
+    const from = user.id;
+    const to = params.userId;
+
+    // Add new message in Firestore
+    messagesRef.add({
+      text: `http://g.co/meet/${id}`,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      name,
+      img,
+      from,
+      to,
+    });
+    // Clear input field
+    setNewMessage("");
+    // Scroll down to the bottom of the list
+    bottomListRef.current.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <>
-      <Navbar />
       {!!user ? (
-        <div className={styles.chatSect}>
-          <div className={styles.encabezado}>
-            <div className={styles.contact}>Bienvenido al chat</div>
-            <div className={styles.line}></div>
-          </div>
-          <div className={styles.messages}>
-            <div className={styles.messagesContainer}>
-              <ul>
-                {messages
-                  ?.sort((first, second) =>
-                    first?.createdAt?.seconds <= second?.createdAt?.seconds
-                      ? -1
-                      : 1
-                  )
-                  ?.map((message) => (
-                    <>
-                      {(message.to === params.userId &&
-                        message.from === user.id) ||
-                      (message.to === user.id &&
-                        message.from === params.userId) ? (
-                        <li key={message.id}>
-                          <Message {...message} />
-                        </li>
-                      ) : (
-                        <div></div>
-                      )}
-                    </>
-                  ))}
-              </ul>
-              <div ref={bottomListRef} />
+        <>
+          <Navbar />
+          <div className={styles.chatSect}>
+            <div className={styles.encabezado}>
+              <div className={styles.contact}>Bienvenido al chat</div>
+              <div className={styles.line}></div>
             </div>
-          </div>
-          <div className={styles.barraInput}>
+            <div className={styles.messages}>
+              <div className={styles.messagesContainer}>
+                <ul>
+                  {messages
+                    ?.sort((first, second) =>
+                      first?.createdAt?.seconds <= second?.createdAt?.seconds
+                        ? -1
+                        : 1
+                    )
+                    ?.map((message) => (
+                      <>
+                        {(message.to === params.userId &&
+                          message.from === user.id) ||
+                        (message.to === user.id &&
+                          message.from === params.userId) ? (
+                          <li key={message.id}>
+                            <Message {...message} />
+                          </li>
+                        ) : (
+                          <div></div>
+                        )}
+                      </>
+                    ))}
+                </ul>
+                <div ref={bottomListRef} />
+              </div>
+            </div>
             <form onSubmit={handleOnSubmit} className={styles.form}>
-              <input
-                ref={inputRef}
-                type="text"
-                value={newMessage}
-                onChange={handleOnChange}
-                placeholder="Type your message here..."
-                className={styles.textInput}
-              />
-              <button
-                type="submit"
-                disabled={!newMessage}
-                className={styles.button}
-              >
-                Send
-              </button>
+              <div className={styles.barraInput}>
+                {user.role === "especialista" ? (
+                  <div
+                    className={styles.meetButton}
+                    onClick={generateMeet}
+                  ></div>
+                ) : (
+                  <div></div>
+                )}
+                <input
+                  ref={inputRef}
+                  type="text"
+                  value={newMessage}
+                  onChange={handleOnChange}
+                  placeholder="Escribe tu mensaje aquí..."
+                  className={
+                    user.role === "especialista"
+                      ? styles.textInput
+                      : styles.addmargin
+                  }
+                />
+                <button
+                  type="submit"
+                  disabled={!newMessage}
+                  className={styles.button}
+                ></button>
+              </div>
             </form>
           </div>
-        </div>
+        </>
       ) : (
         <Cargando />
       )}

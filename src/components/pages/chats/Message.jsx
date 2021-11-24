@@ -19,30 +19,49 @@ const Message = ({ createdAt = null, text = "", name = "", img = "" }) => {
   if (!text) return null;
 
   return (
-    <div className={styles.messageContainer}>
-      {Image ? (
-        <img
-          src={img}
-          alt="Avatar"
-          className="rounded-full mr-4"
-          width={45}
-          height={45}
-        />
-      ) : null}
-      <div>
-        <div className={styles.nameDate}>
-          {name ? <p className={styles.messageName}>{name}</p> : null}
-          {createdAt?.seconds ? (
-            <span className="text-gray-500 text-xs">
-              {formatDate(new Date(createdAt.seconds * 1000))}
-            </span>
-          ) : null}
-        </div>
-        <div className={styles.text}>
-          <p>{text}</p>
-        </div>
-      </div>
-    </div>
+    <>
+      {text.includes("http://g.co/meet/") ? (
+        <>
+          <div className={styles.messageContainer}>
+            <div className={styles.meetContainer}>
+              <a href={text} target="_blank">
+                <div className={styles.link}>
+                  {name} quiere iniciar una videollamada, haga click aquí para
+                  ingresar
+                </div>
+              </a>
+            </div>
+          </div>
+        </>
+      ) : (
+        <>
+          <div className={styles.messageContainer}>
+            {Image ? (
+              <img
+                src={img}
+                alt="Avatar"
+                className={styles.profilePhoto}
+                width={45}
+                height={45}
+              />
+            ) : null}
+            <div>
+              <div className={styles.nameDate}>
+                {name ? <p className={styles.messageName}>{name}</p> : null}
+                {createdAt?.seconds ? (
+                  <span className="text-gray-500 text-xs">
+                    {formatDate(new Date(createdAt.seconds * 1000))}
+                  </span>
+                ) : null}
+              </div>
+              <div className={styles.text}>
+                <p>{text}</p>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
+    </>
   );
 };
 
