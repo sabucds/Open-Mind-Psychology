@@ -179,28 +179,34 @@ const Agendar = () => {
     <Cargando />
   ) : (
     <>
-      <DatePicker
-        showTimeSelect
-        timeIntervals={60}
-        timeCaption="Time"
-        selected={selectedDate}
-        onChange={(date) => setSelectedDate(date)}
-        minDate={subDays(new Date(), -1)}
-        dateFormat="MMMM d, yyyy h:mm aa"
-        placeholderText="Seleccione una fecha y hora"
-        className="date-input"
-        id="date-input"
-      />
+      <Navbar />
       <br />
-      <input
-        type="text"
-        placeholder="Ingrese el motivo de la cita."
-        onChange={(e) => setReason(e.target.value)}
-      ></input>
-      <button type="button" onClick={handleClick}>
-        Reservar
-      </button>
-    </>
+      <br />
+      <br />
+      <br />
+      <br />
+        <DatePicker
+          showTimeSelect
+          timeIntervals={60}
+          timeCaption="Time"
+          selected={selectedDate}
+          onChange={(date) => setSelectedDate(date)}
+          minDate={subDays(new Date(), -1)}
+          dateFormat="MMMM d, yyyy h:mm aa"
+          placeholderText="Seleccione una fecha y hora"
+          className="date-input"
+          id="date-input"
+        />
+        <br />
+        <input
+          type="text"
+          placeholder="Ingrese el motivo de la cita."
+          onChange={(e) => setReason(e.target.value)}
+        ></input>
+        <button type="button" onClick={handleClick}>
+          Reservar
+        </button>
+      </>  
   );
 };
 

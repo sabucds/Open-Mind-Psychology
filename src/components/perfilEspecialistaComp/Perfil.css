@@ -78,7 +78,7 @@
   align-items: center;
 }
 
-.enviar-button {
+.enviar-button, .button-cita{
   font-size: 0.8em;
   cursor: pointer;
   padding: 0.8em 2.5em;
@@ -91,6 +91,7 @@
   text-align: center;
   display: inline-block;
 }
+
 
 .grupo-comentario{
   width: 100%;
