@@ -22,6 +22,7 @@ import ConfigRoute from "./ProtectedRoutes/ConfigRoute";
 import ClientRoute from "./ProtectedRoutes/ClientRoute";
 import NoAdminRoute from "./ProtectedRoutes/NoAdminRoute";
 import DetallesEspecialista from "./tarjetaEspecialista/DetallesEspecialista";
+import Agendar from "./pages/agendar/Agendar";
 
 function App() {
   return (
@@ -62,6 +63,8 @@ function App() {
               path="/especialistas/:characterId"
               component={DetallesEspecialista}
             />
+            <Route exact path={"/agendar/:characterId"} component={Agendar} />
+
             <Route path="*" component={Error404} />
           </Switch>
         </Router>

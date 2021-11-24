@@ -252,7 +252,7 @@ const Perfil = ({ user }) => {
 
   const getRanking = async () => {
     setLoadingRanking(true);
-    const userRef = bd.collection("users").doc(user.id);
+    const userRef = await bd.collection("users").doc(user.id);
     const userDoc = await userRef.get();
     setUserRanking(userDoc.data().ranking);
     setLoadingRanking(false);
@@ -288,6 +288,28 @@ const Perfil = ({ user }) => {
                 <p className="altText">No se especificó número de teléfono</p>
               )}
             </div>
+          </div>
+        </>
+      );
+    } else {
+      return null;
+    }
+  }
+
+  const handleAgenda = () => {
+    history.push(`/agendar/${user.id}`);
+  };
+
+  function agendarCita() {
+    if (
+      currentUser &&
+      currentUser.id !== user.id &&
+      currentUser.role === "usuario"
+    ) {
+      return (
+        <>
+          <div className="agendarCita" onClick={handleAgenda}>
+            <p>Agendar Cita</p>
           </div>
         </>
       );
@@ -424,18 +446,18 @@ const Perfil = ({ user }) => {
 
   const getComments = async () => {
     setLoadingComments(true);
-    const userRef = bd.collection("users").doc(user.id);
+    const userRef = await bd.collection("users").doc(user.id);
     const userDoc = await userRef.get();
     setComments(userDoc.data().feedback);
     setLoadingComments(false);
   };
 
-  useEffect(async () => {
-    await getComments();
+  useEffect(() => {
+    getComments();
   }, [refreshComments]);
 
-  useEffect(async () => {
-    await getRanking();
+  useEffect(() => {
+    getRanking();
   }, [refreshRanking]);
 
   function getStars(ranking) {
@@ -476,6 +498,7 @@ const Perfil = ({ user }) => {
               <img src={user.img} alt="Not found" className="imagen-user" />
               <div className="nombre-user">{user.name}</div>
               {validarEditar()}
+              {agendarCita()}
             </div>
 
             <div className="relleno">
