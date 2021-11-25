@@ -335,13 +335,19 @@ const ConfiguracionEsp = () => {
                   </div>
                   <div className="dispon-container">
                     <div className="titles-edit">Disponibilidad</div>
-
+                    <div className="texto-chikito">
+                      Aquí podrá ingresar sus horas de disponibilidad, el
+                      sistema se encargará de organizarla en bloques de 70
+                      minutos.
+                    </div>
+                    <br />
                     <div className="dispon-edit">
                       <div className="dispon-edit1">
                         <div className="titles-week">Lunes</div>
 
                         <div className="hours-container">
                           <input
+                            step="3600"
                             type="time"
                             className="input-time"
                             id="Monday-start"
@@ -349,6 +355,7 @@ const ConfiguracionEsp = () => {
                           />
                           <input
                             type="time"
+                            step="3600"
                             className="input-time"
                             id="Monday-end"
                             onChange={handleWeekDispChange}
@@ -360,12 +367,14 @@ const ConfiguracionEsp = () => {
 
                         <div className="hours-container">
                           <input
+                            step="3600"
                             type="time"
                             className="input-time"
                             id="Tuesday-start"
                             onChange={handleWeekDispChange}
                           />
                           <input
+                            step="3600"
                             type="time"
                             className="input-time"
                             id="Tuesday-end"
@@ -378,12 +387,14 @@ const ConfiguracionEsp = () => {
 
                         <div className="hours-container">
                           <input
+                            step="3600"
                             type="time"
                             className="input-time"
                             id="Wednesday-start"
                             onChange={handleWeekDispChange}
                           />
                           <input
+                            step="3600"
                             type="time"
                             className="input-time"
                             id="Wednesday-end"
@@ -396,6 +407,7 @@ const ConfiguracionEsp = () => {
 
                         <div className="hours-container">
                           <input
+                            step="3600"
                             type="time"
                             className="input-time"
                             id="Thursday-start"
@@ -403,6 +415,7 @@ const ConfiguracionEsp = () => {
                           />
 
                           <input
+                            step="3600"
                             type="time"
                             className="input-time"
                             id="Thursday-end"
@@ -415,12 +428,14 @@ const ConfiguracionEsp = () => {
 
                         <div className="hours-container">
                           <input
+                            step="3600"
                             type="time"
                             className="input-time"
                             id="Friday-start"
                             onChange={handleWeekDispChange}
                           />
                           <input
+                            step="3600"
                             type="time"
                             className="input-time"
                             id="Friday-end"
@@ -433,12 +448,14 @@ const ConfiguracionEsp = () => {
 
                         <div className="hours-container">
                           <input
+                            step="3600"
                             type="time"
                             className="input-time"
                             id="Saturday-start"
                             onChange={handleWeekDispChange}
                           />
                           <input
+                            step="3600"
                             type="time"
                             className="input-time"
                             id="Saturday-end"
@@ -451,12 +468,14 @@ const ConfiguracionEsp = () => {
 
                         <div className="hours-container">
                           <input
+                            step="3600"
                             type="time"
                             className="input-time"
                             id="Sunday-start"
                             onChange={handleWeekDispChange}
                           />
                           <input
+                            step="3600"
                             type="time"
                             className="input-time"
                             id="Sunday-end"
