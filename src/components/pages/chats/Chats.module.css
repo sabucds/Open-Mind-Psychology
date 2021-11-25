@@ -32,6 +32,7 @@
 }
 .encabezado {
   width: 100%;
+  height: max-content;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -207,4 +208,55 @@
   height: 100%;
   display: flex;
   justify-content: center;
+}
+
+@media screen and (max-width: 850px) {
+  .chats {
+    width: 80%;
+  }
+  .textInput {
+    width: 70%;
+  }
+  .meetButton {
+    margin-left: 10%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .link {
+    width: 100%;
+    word-break: break-all;
+    border-radius: 5px;
+  }
+  .meetContainer {
+    margin-bottom: 30px;
+  }
+  .messages {
+    padding: 0 20px;
+    margin-bottom: 100px;
+    margin-left: 0;
+    width: 100%;
+  }
+  .button {
+    height: 40px;
+    width: 10%;
+  }
+  .meetButton {
+    height: 40px;
+    width: 10%;
+    margin-left: 5%;
+  }
+  .textInput {
+    width: 70%;
+  }
+  .chats {
+    width: 90%;
+  }
+  .chat {
+    padding: 10px;
+  }
+  .addmargin {
+    width: 80%;
+    margin-left: 5%;
+  }
 }
