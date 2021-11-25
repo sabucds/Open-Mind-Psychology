@@ -309,6 +309,9 @@ const Perfil = ({ user }) => {
     ) {
       console.log(user);
       console.log(user.schedule);
+      console.log(
+        "aquí está el valor de start Monday: " + user.schedule.Monday.start
+      );
       return (
         <>
           <div className="button-cita" onClick={handleAgenda}>
