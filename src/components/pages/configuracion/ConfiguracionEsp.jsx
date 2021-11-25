@@ -144,14 +144,6 @@ const ConfiguracionEsp = () => {
     return false;
   }
 
-  function isSchedulethere(weekDisp) {
-    if (weekDisp !== []) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
   const handleSubmit = async (evt) => {
     console.log(country);
     evt.preventDefault();
@@ -328,7 +320,7 @@ const ConfiguracionEsp = () => {
                       className="input-nombre-edit"
                       placeholder="Nombre"
                       onChange={(e) => setName(e.target.value)}
-                      value={name}
+                      //                      value={name}
                     />
                   </div>
 
@@ -341,7 +333,7 @@ const ConfiguracionEsp = () => {
                       className="input-apellido-edit"
                       placeholder="Apellido"
                       onChange={(e) => setLname(e.target.value)}
-                      value={lname}
+                      //                      value={lname}
                     />
                   </div>
 
@@ -352,7 +344,7 @@ const ConfiguracionEsp = () => {
                       name="numero"
                       className="input-numero-edit"
                       onChange={setNumber}
-                      value={number}
+                      //                      value={number}
                     />
                   </div>
                   <div className="dispon-container">
@@ -374,7 +366,7 @@ const ConfiguracionEsp = () => {
                             className="input-time"
                             id="Monday-start"
                             onChange={handleWeekDispChange}
-                            value={weekDisp.Monday.start}
+                            //                            value={weekDisp.Monday.start}
                           />
                           <input
                             type="time"
@@ -382,7 +374,7 @@ const ConfiguracionEsp = () => {
                             className="input-time"
                             id="Monday-end"
                             onChange={handleWeekDispChange}
-                            value={weekDisp.Monday.end}
+                            //                            value={weekDisp.Monday.end}
                           />
                         </div>
                       </div>
@@ -396,7 +388,7 @@ const ConfiguracionEsp = () => {
                             className="input-time"
                             id="Tuesday-start"
                             onChange={handleWeekDispChange}
-                            value={weekDisp.Tuesday.start}
+                            //                            value={weekDisp.Tuesday.start}
                           />
                           <input
                             step="3600"
@@ -404,7 +396,7 @@ const ConfiguracionEsp = () => {
                             className="input-time"
                             id="Tuesday-end"
                             onChange={handleWeekDispChange}
-                            value={weekDisp.Tuesday.end}
+                            //                            value={weekDisp.Tuesday.end}
                           />
                         </div>
                       </div>
@@ -418,7 +410,7 @@ const ConfiguracionEsp = () => {
                             className="input-time"
                             id="Wednesday-start"
                             onChange={handleWeekDispChange}
-                            value={weekDisp.Wednesday.start}
+                            //                            value={weekDisp.Wednesday.start}
                           />
                           <input
                             step="3600"
@@ -426,7 +418,7 @@ const ConfiguracionEsp = () => {
                             className="input-time"
                             id="Wednesday-end"
                             onChange={handleWeekDispChange}
-                            value={weekDisp.Wednesday.end}
+                            //                            value={weekDisp.Wednesday.end}
                           />
                         </div>
                       </div>
@@ -440,7 +432,7 @@ const ConfiguracionEsp = () => {
                             className="input-time"
                             id="Thursday-start"
                             onChange={handleWeekDispChange}
-                            value={weekDisp.Thursday.start}
+                            //                            value={weekDisp.Thursday.start}
                           />
 
                           <input
@@ -449,7 +441,7 @@ const ConfiguracionEsp = () => {
                             className="input-time"
                             id="Thursday-end"
                             onChange={handleWeekDispChange}
-                            value={weekDisp.Thursday.end}
+                            //                            value={weekDisp.Thursday.end}
                           />
                         </div>
                       </div>
@@ -463,7 +455,7 @@ const ConfiguracionEsp = () => {
                             className="input-time"
                             id="Friday-start"
                             onChange={handleWeekDispChange}
-                            value={weekDisp.Friday.start}
+                            //                            value={weekDisp.Friday.start}
                           />
                           <input
                             step="3600"
@@ -471,7 +463,7 @@ const ConfiguracionEsp = () => {
                             className="input-time"
                             id="Friday-end"
                             onChange={handleWeekDispChange}
-                            value={weekDisp.Friday.end}
+                            //                            value={weekDisp.Friday.end}
                           />
                         </div>
                       </div>
@@ -485,7 +477,7 @@ const ConfiguracionEsp = () => {
                             className="input-time"
                             id="Saturday-start"
                             onChange={handleWeekDispChange}
-                            value={weekDisp.Saturday.start}
+                            //                            value={weekDisp.Saturday.start}
                           />
                           <input
                             step="3600"
@@ -493,7 +485,7 @@ const ConfiguracionEsp = () => {
                             className="input-time"
                             id="Saturday-end"
                             onChange={handleWeekDispChange}
-                            value={weekDisp.Saturday.end}
+                            //                            value={weekDisp.Saturday.end}
                           />
                         </div>
                       </div>
@@ -507,7 +499,7 @@ const ConfiguracionEsp = () => {
                             className="input-time"
                             id="Sunday-start"
                             onChange={handleWeekDispChange}
-                            value={weekDisp.Sunday.start}
+                            //                            value={weekDisp.Sunday.start}
                           />
                           <input
                             step="3600"
@@ -515,7 +507,7 @@ const ConfiguracionEsp = () => {
                             className="input-time"
                             id="Sunday-end"
                             onChange={handleWeekDispChange}
-                            value={weekDisp.Sunday.end}
+                            //                            value={weekDisp.Sunday.end}
                           />
                         </div>
                       </div>
