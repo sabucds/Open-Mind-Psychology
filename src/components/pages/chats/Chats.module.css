@@ -41,7 +41,6 @@
 
 .messages {
   margin-left: 15%;
-  margin-bottom: 100px;
   width: 70%;
 }
 
@@ -108,6 +107,7 @@
 }
 .messagesContainer {
   width: 100%;
+  /* padding-bottom: 20px; */
 }
 .messagesContainer ul {
   list-style: none;
@@ -215,6 +215,14 @@
   font-style: italic;
   font-size: 1.2em;
 }
+.stop {
+  height: 1px;
+  width: 100%;
+  margin-bottom: 80px;
+}
+.space {
+  height: 50px;
+}
 
 @media screen and (max-width: 850px) {
   .chats {
@@ -239,7 +247,7 @@
   }
   .messages {
     padding: 0 20px;
-    margin-bottom: 100px;
+    /* margin-bottom: 100px; */
     margin-left: 0;
     width: 100%;
   }
