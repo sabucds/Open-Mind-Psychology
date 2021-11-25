@@ -209,6 +209,12 @@
   display: flex;
   justify-content: center;
 }
+.barraInput p {
+  margin-left: auto;
+  margin-right: auto;
+  font-style: italic;
+  font-size: 1.2em;
+}
 
 @media screen and (max-width: 850px) {
   .chats {
@@ -258,5 +264,12 @@
   .addmargin {
     width: 80%;
     margin-left: 5%;
+  }
+  .barraInput p {
+    margin-left: 0;
+    margin-right: 0;
+    font-style: italic;
+    text-align: center;
+    font-size: 1.2em;
   }
 }

@@ -95,7 +95,6 @@ const Chat = () => {
   };
 
   const generateMeet = () => {
-    console.log("HOLAAAA");
     const { id, name, img } = user;
     const from = user.id;
     const to = params.userId;
@@ -152,35 +151,46 @@ const Chat = () => {
                 <div ref={bottomListRef} />
               </div>
             </div>
-            <form onSubmit={handleOnSubmit} className={styles.form}>
+            {messages.length === 0 && user.role === "usuario" ? (
               <div className={styles.barraInput}>
-                {user.role === "especialista" ? (
-                  <div
-                    className={styles.meetButton}
-                    onClick={generateMeet}
-                  ></div>
-                ) : (
-                  <div></div>
-                )}
-                <input
-                  ref={inputRef}
-                  type="text"
-                  value={newMessage}
-                  onChange={handleOnChange}
-                  placeholder="Escribe tu mensaje aquí..."
-                  className={
-                    user.role === "especialista"
-                      ? styles.textInput
-                      : styles.addmargin
-                  }
-                />
-                <button
-                  type="submit"
-                  disabled={!newMessage}
-                  className={styles.button}
-                ></button>
+                <p>
+                  ¡Podrás enviar mensajes cuando el especialista comience la
+                  conversación!
+                </p>
               </div>
-            </form>
+            ) : (
+              <>
+                <form onSubmit={handleOnSubmit} className={styles.form}>
+                  <div className={styles.barraInput}>
+                    {user.role === "especialista" ? (
+                      <div
+                        className={styles.meetButton}
+                        onClick={generateMeet}
+                      ></div>
+                    ) : (
+                      <div></div>
+                    )}
+                    <input
+                      ref={inputRef}
+                      type="text"
+                      value={newMessage}
+                      onChange={handleOnChange}
+                      placeholder="Escribe tu mensaje aquí..."
+                      className={
+                        user.role === "especialista"
+                          ? styles.textInput
+                          : styles.addmargin
+                      }
+                    />
+                    <button
+                      type="submit"
+                      disabled={!newMessage}
+                      className={styles.button}
+                    ></button>
+                  </div>
+                </form>
+              </>
+            )}
           </div>
         </>
       ) : (
