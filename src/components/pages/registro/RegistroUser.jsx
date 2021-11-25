@@ -253,7 +253,11 @@ const RegistroUser = () => {
                 </label>
                 <br />
 
-                <input type="checkbox" className="check" name="checkTermsConds" />
+                <input
+                  type="checkbox"
+                  className="check"
+                  name="checkTermsConds"
+                />
                 <label className="subtitulos" htmlFor="checkTermsConds">
                   Acepto los términos y condiciones.
                 </label>

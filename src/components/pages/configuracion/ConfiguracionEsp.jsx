@@ -71,6 +71,7 @@ const ConfiguracionEsp = () => {
 
   const handleUpload = (e) => {
     e.preventDefault();
+    setUpdating(true);
 
     // Esto es lo que agarra al archivo perse
     const file = e.target.files[0];
@@ -90,9 +91,11 @@ const ConfiguracionEsp = () => {
       function error(error) {
         console.error(error);
         alert("Hubo un error al subir la imagen, por favor, intente de nuevo.");
+        setUpdating(false);
       },
       function complete() {
         console.info("Carga finalizada");
+        setUpdating(false);
       }
     );
   };
@@ -507,7 +510,7 @@ const ConfiguracionEsp = () => {
                       id="perfil"
                       name="perfil"
                       type="file"
-                      accept=".png"
+                      accept="image/*"
                       className="input-foto-edit"
                       onChange={handlePicture}
                     />
