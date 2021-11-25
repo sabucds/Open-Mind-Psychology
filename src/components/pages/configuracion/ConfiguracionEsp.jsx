@@ -18,11 +18,18 @@ import CargandoDatos from "../../cargando/CargandoDatos";
 const ConfiguracionEsp = () => {
   const history = useHistory();
   const { user } = useContext(UserContext);
+  const {
+    name: userName,
+    phone,
+    country: countryInitialValue,
+    schedule,
+  } = user;
+  const [nameInitialValue, lastNameInitialValue] = user.name.split(" ");
   const [shown, setShown] = useState(false);
-  const [name, setName] = useState("");
-  const [lname, setLname] = useState("");
-  const [country, setCountry] = useState("");
-  const [number, setNumber] = useState("");
+  const [name, setName] = useState(nameInitialValue);
+  const [lname, setLname] = useState(lastNameInitialValue);
+  const [country, setCountry] = useState(countryInitialValue || "");
+  const [number, setNumber] = useState(phone || "");
   const [info, setInfo] = useState("");
   const [edu, setEdu] = useState("");
   //const [spec, setSpec] = useState("");
@@ -32,36 +39,46 @@ const ConfiguracionEsp = () => {
   const [updating, setUpdating] = useState(false);
 
   const [eImg, setEImg] = useState(false);
-  const [weekDisp, setWeekDisp] = useState({
-    Monday: {
-      start: "",
-      end: "",
-    },
-    Tuesday: {
-      start: "",
-      end: "",
-    },
-    Wednesday: {
-      start: "",
-      end: "",
-    },
-    Thursday: {
-      start: "",
-      end: "",
-    },
-    Friday: {
-      start: "",
-      end: "",
-    },
-    Saturday: {
-      start: "",
-      end: "",
-    },
-    Sunday: {
-      start: "",
-      end: "",
-    },
-  });
+
+  const scheduleHasNotBeenSet =
+    Array.isArray(schedule) && schedule.length === 0;
+
+  const [weekDisp, setWeekDisp] = useState(
+    scheduleHasNotBeenSet
+      ? {
+          // In case we do not have schedule, lets have this initial value
+          Monday: {
+            start: "",
+            end: "",
+          },
+          Tuesday: {
+            start: "",
+            end: "",
+          },
+          Wednesday: {
+            start: "",
+            end: "",
+          },
+          Thursday: {
+            start: "",
+            end: "",
+          },
+          Friday: {
+            start: "",
+            end: "",
+          },
+          Saturday: {
+            start: "",
+            end: "",
+          },
+          Sunday: {
+            start: "",
+            end: "",
+          },
+        }
+      : // Else, we have current schedule
+        schedule
+  );
 
   const switchShown = () => setShown(!shown);
   const handlePicture = (e) => {
@@ -125,6 +142,14 @@ const ConfiguracionEsp = () => {
       return true;
     }
     return false;
+  }
+
+  function isSchedulethere(weekDisp) {
+    if (weekDisp !== []) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   const handleSubmit = async (evt) => {
@@ -299,7 +324,7 @@ const ConfiguracionEsp = () => {
                     <input
                       id="nombre"
                       name="nombre"
-                      type="text"
+                      stype="text"
                       className="input-nombre-edit"
                       placeholder="Nombre"
                       onChange={(e) => setName(e.target.value)}
@@ -349,6 +374,7 @@ const ConfiguracionEsp = () => {
                             className="input-time"
                             id="Monday-start"
                             onChange={handleWeekDispChange}
+                            value={weekDisp.Monday.start}
                           />
                           <input
                             type="time"
@@ -481,6 +507,7 @@ const ConfiguracionEsp = () => {
                         </div>
                       </div>
                     </div>
+                    <div className="clean-esp-button"></div>
                   </div>
                   <div className="pais-edit">
                     <div className="titles-edit">País</div>
