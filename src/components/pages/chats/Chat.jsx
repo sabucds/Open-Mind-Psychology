@@ -148,8 +148,9 @@ const Chat = () => {
                       </>
                     ))}
                 </ul>
-                <div ref={bottomListRef} />
               </div>
+              <div className={styles.space}></div>
+              <div ref={bottomListRef} className={styles.stop}></div>
             </div>
             {messages.length === 0 && user.role === "usuario" ? (
               <div className={styles.barraInput}>
