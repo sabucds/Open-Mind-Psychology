@@ -308,8 +308,9 @@ const Perfil = ({ user }) => {
     ) {
       return (
         <>
-          <div className="agendarCita" onClick={handleAgenda}>
-            <p>Agendar Cita</p>
+          <div className="button-cita" onClick={handleAgenda}>
+            <h3 style={{ color: 'white' }}>Agendar Cita</h3>
+            {/* <p>Agendar Cita</p> */}
           </div>
         </>
       );
