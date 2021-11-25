@@ -18,18 +18,13 @@ import CargandoDatos from "../../cargando/CargandoDatos";
 const ConfiguracionEsp = () => {
   const history = useHistory();
   const { user } = useContext(UserContext);
-  const {
-    name: userName,
-    phone,
-    country: countryInitialValue,
-    schedule,
-  } = user;
+  const { schedule } = user;
   const [nameInitialValue, lastNameInitialValue] = user.name.split(" ");
   const [shown, setShown] = useState(false);
-  const [name, setName] = useState(nameInitialValue);
-  const [lname, setLname] = useState(lastNameInitialValue);
-  const [country, setCountry] = useState(countryInitialValue || "");
-  const [number, setNumber] = useState(phone || "");
+  const [name, setName] = useState("");
+  const [lname, setLname] = useState("");
+  const [country, setCountry] = useState("");
+  const [number, setNumber] = useState("");
   const [info, setInfo] = useState("");
   const [edu, setEdu] = useState("");
   //const [spec, setSpec] = useState("");
