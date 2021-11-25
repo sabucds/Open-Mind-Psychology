@@ -311,7 +311,7 @@ const Perfil = ({ user }) => {
       console.log(user.schedule);
       return (
         <>
-          <div className="button-cita" onClick={handleAgenda}>
+          <div className="cita-button" onClick={handleAgenda}>
             <h3 style={{ color: "white" }}>Agendar Cita</h3>
           </div>
         </>
@@ -500,7 +500,7 @@ const Perfil = ({ user }) => {
             <div className="encabezado1">
               <img src={user.img} alt="Not found" className="imagen-user" />
               <div className="enca2">
-                <div className="nombre-user">{user.name}</div>
+                <div className="nombre-user2">{user.name}</div>
                 {validarEditar()}
                 {agendarCita()}
               </div>
