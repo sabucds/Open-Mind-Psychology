@@ -265,6 +265,40 @@ const ConfiguracionEsp = () => {
     });
   };
 
+  const handleClean = (event) => {
+    user.schedule = {
+      // In case we do not have schedule, lets have this initial value
+      Monday: {
+        start: "",
+        end: "",
+      },
+      Tuesday: {
+        start: "",
+        end: "",
+      },
+      Wednesday: {
+        start: "",
+        end: "",
+      },
+      Thursday: {
+        start: "",
+        end: "",
+      },
+      Friday: {
+        start: "",
+        end: "",
+      },
+      Saturday: {
+        start: "",
+        end: "",
+      },
+      Sunday: {
+        start: "",
+        end: "",
+      },
+    };
+  };
+
   const handlePassChange = async () => {
     if (newPassword) {
       setUpdating(true);
@@ -512,7 +546,9 @@ const ConfiguracionEsp = () => {
                         </div>
                       </div>
                     </div>
-                    <div className="clean-esp-button"></div>
+                    <div className="clean-esp-button" onClick={handleClean}>
+                      Limpiar datos
+                    </div>
                   </div>
                   <div className="pais-edit">
                     <div className="titles-edit">País</div>

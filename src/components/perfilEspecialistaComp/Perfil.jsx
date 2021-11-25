@@ -241,11 +241,55 @@ const Perfil = ({ user }) => {
   const [refreshComments, setRefreshComments] = useState(0);
   const [loadingComments, setLoadingComments] = useState(false);
   const [comments, setComments] = useState([]);
+  const {
+    name: userName,
+    phone,
+    country: countryInitialValue,
+    schedule,
+  } = user;
   const [rating, setRating] = useState(0);
   const [userRanking, setUserRanking] = useState(0);
   const [refreshRanking, setRefreshRanking] = useState(0);
   const [loadingRanking, setLoadingRanking] = useState(false);
+  const scheduleHasNotBeenSet =
+    Array.isArray(schedule) && schedule.length === 0;
 
+  const [weekDisp, setWeekDisp] = useState(
+    scheduleHasNotBeenSet
+      ? {
+          // In case we do not have schedule, lets have this initial value
+          Monday: {
+            start: "",
+            end: "",
+          },
+          Tuesday: {
+            start: "",
+            end: "",
+          },
+          Wednesday: {
+            start: "",
+            end: "",
+          },
+          Thursday: {
+            start: "",
+            end: "",
+          },
+          Friday: {
+            start: "",
+            end: "",
+          },
+          Saturday: {
+            start: "",
+            end: "",
+          },
+          Sunday: {
+            start: "",
+            end: "",
+          },
+        }
+      : // Else, we have current schedule
+        schedule
+  );
   const handleConfig = () => {
     history.push("/config");
   };
