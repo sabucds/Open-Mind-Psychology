@@ -304,13 +304,15 @@ const Perfil = ({ user }) => {
     if (
       currentUser &&
       currentUser.id !== user.id &&
-      currentUser.role === "usuario"
+      currentUser.role === "usuario" &&
+      user.schedule.length !== 0
     ) {
+      console.log(user);
+      console.log(user.schedule);
       return (
         <>
           <div className="button-cita" onClick={handleAgenda}>
-            <h3 style={{ color: 'white' }}>Agendar Cita</h3>
-            {/* <p>Agendar Cita</p> */}
+            <h3 style={{ color: "white" }}>Agendar Cita</h3>
           </div>
         </>
       );
