@@ -252,7 +252,7 @@ const Perfil = ({ user }) => {
 
   const getRanking = async () => {
     setLoadingRanking(true);
-    const userRef = await bd.collection("users").doc(user.id);
+    const userRef = bd.collection("users").doc(user.id);
     const userDoc = await userRef.get();
     setUserRanking(userDoc.data().ranking);
     setLoadingRanking(false);

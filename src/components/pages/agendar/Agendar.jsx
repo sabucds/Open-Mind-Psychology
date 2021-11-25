@@ -28,8 +28,6 @@ const Agendar = () => {
   const [reserved, setReserved] = useState([]);
   const [loadingReserved, setLoadingReserved] = useState(false);
 
-  const [isOccupied, setIsOccupied] = useState(false);
-
   async function getEspecialista() {
     try {
       setLoading(true);
@@ -74,89 +72,80 @@ const Agendar = () => {
     }
   }
 
-  const validateDate = async () => {
-    for (const dateId in reserved) {
-      console.log("Test: " + reserved[dateId]);
-      if (selectedDate.getTime() === reserved[dateId].getTime()) {
-        console.log("entré aquí, debería settearse true");
-        setIsOccupied(true);
-        return isOccupied;
+  const validateInput = async () => {
+    // Esto agarra la hora y la colocar en un formato apropiado para la comparación (ej. 09:00 en lugar de 9:00 o 9:00:00, en formato de 24 hrs)
+    let string = await selectedDate.toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+
+    // Esto retorna la fecha seleccionada como día de la semana "Monday", "Tuesday", etc. De esa manera se encuentra tabulado el diccionario y se puede acceder a las keys
+    let day = new Intl.DateTimeFormat("en-US", {
+      weekday: "long",
+    }).format(selectedDate);
+
+    console.log(selectedDate);
+    console.log(day);
+    console.log(currentUser.id);
+    console.log(especialista.id);
+    console.log(reserved);
+
+    const schedule = await especialista.schedule; // nos traemos el horario del especialista
+
+    // Calculo el día de mañana actual, para evitar que reserve en las próximas 24hrs
+    let tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+
+    if (reason) {
+      for (const dateId in reserved) {
+        console.log("Test: " + reserved[dateId]);
+        if (selectedDate.getTime() === reserved[dateId].getTime()) {
+          setLoading(false);
+          alert("Esa fecha ya se encuentra reservada.");
+          return false;
+        }
       }
+      if (schedule[day].start && selectedDate > tomorrow) {
+        if (string >= schedule[day].start && string < schedule[day].end) {
+          // No hace falta restarle 1 a la hora final porque como son horas "enteras" (04:00, 05:00, 06:00...) con validar que sea menor al límite superior, ya basta
+          return true;
+        } else {
+          setLoading(false);
+          alert("El especialista no tiene disponibilidad ese día a esa hora.");
+          return false;
+        }
+      } else {
+        setLoading(false);
+        alert("El especialista no tiene disponibilidad en esa fecha.");
+        return false;
+      }
+    } else {
+      setLoading(false);
+      alert("Debe indicar la razón de la consulta.");
+      return false;
     }
   };
-
-  useEffect(() => {}, [setIsOccupied, isOccupied]);
 
   const handleClick = async (e) => {
     e.preventDefault();
 
     setLoading(true);
-    setIsOccupied(false);
-
     try {
-      // Esto agarra la hora y la colocar en un formato apropiado para la comparación (ej. 09:00 en lugar de 9:00 o 9:00:00, en formato de 24 hrs)
-      let string = await selectedDate.toLocaleTimeString([], {
-        hour: "2-digit",
-        minute: "2-digit",
-      });
-
-      // Esto retorna la fecha seleccionada como día de la semana "Monday", "Tuesday", etc. De esa manera se encuentra tabulado el diccionario y se puede acceder a las keys
-      let day = new Intl.DateTimeFormat("en-US", {
-        weekday: "long",
-      }).format(selectedDate);
-
-      console.log(selectedDate);
-      console.log(day);
-      console.log(currentUser.id);
-      console.log(especialista.id);
-      console.log(reserved);
-
-      const schedule = await especialista.schedule; // nos traemos el horario del especialista
-
-      // Calculo el día de mañana actual, para evitar que reserve en las próximas 24hrs
-      let tomorrow = new Date();
-      tomorrow.setDate(tomorrow.getDate() + 1);
-
-      // Calculamos los valores de los rangos de horas aceptables
-      let maxRange = parseInt(schedule[day].end) - 1;
-      let newString = parseInt(string);
-
-      await validateDate();
-      console.log(isOccupied);
-
-      if (reason) {
-        if (!isOccupied) {
-          if (schedule[day].start && selectedDate > tomorrow) {
-            if (string > schedule[day].start && newString <= maxRange) {
-              // Valida que la hora seleccionada esté dentro del rango correspondiente
-              await bd.collection("citas").add({
-                usuario: currentUser.id,
-                especialista: especialista.id,
-                date: selectedDate,
-                reason: reason,
-                status: "activo",
-              });
-              setLoading(false);
-              alert("Cita agendada exitosamente.");
-              // OJO aquí hace falta un history.push pero para fines de probar el código todavía no lo he colocado
-            } else {
-              setLoading(false);
-              alert(
-                "El especialista no tiene disponibilidad ese día a esa hora."
-              );
-            }
-          } else {
-            setLoading(false);
-            alert("El especialista no tiene disponibilidad en esa fecha.");
-          }
-        } else {
-          setLoading(false);
-          alert("Esa fecha ya se encuentra reservada.");
-        }
-      } else {
+      if (await validateInput()) {
+        // Valida que la hora seleccionada esté dentro del rango correspondiente
+        await bd.collection("citas").add({
+          usuario: currentUser.id,
+          especialista: especialista.id,
+          date: selectedDate,
+          reason: reason,
+          status: "activo",
+        });
         setLoading(false);
-        alert("Debe indicar la razón de la consulta.");
+        alert("Cita agendada exitosamente.");
+        history.push("/perfil");
+      } else {
       }
+      setLoading(false);
     } catch (e) {
       console.log(e);
       setLoading(false);
