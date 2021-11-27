@@ -95,6 +95,7 @@
 
 .symptomInputs button {
   color: white;
+  cursor:pointer;
 }
 
 .symptomInputs {
