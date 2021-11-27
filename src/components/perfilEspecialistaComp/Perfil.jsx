@@ -408,7 +408,7 @@ const Perfil = ({ user }) => {
   };
 
   function addNewComment() {
-    if (currentUser === null || currentUser.id === user.id) {
+    if (currentUser === null || currentUser.id === user.id || currentUser.role !== "usuario") {
       return null;
     } else {
       getIsPatient();

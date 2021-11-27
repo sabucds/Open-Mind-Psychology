@@ -1,6 +1,6 @@
 import React from "react";
 import "./ConfiguracionEsp.css";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { UserContext } from "../../../context/UserContext";
 import ReactFlagsSelect from "react-flags-select";
 import { useHistory } from "react-router-dom";
@@ -30,7 +30,6 @@ const ConfiguracionEsp = () => {
   const [picture, setPicture] = useState(false);
   const [saving, setSaving] = useState(false);
   const [updating, setUpdating] = useState(false);
-
   const [eImg, setEImg] = useState(false);
   const [weekDisp, setWeekDisp] = useState({
     Monday: {
@@ -62,6 +61,29 @@ const ConfiguracionEsp = () => {
       end: "",
     },
   });
+  const [symptomList, setSymptomList] = useState([]);
+  const [loadingSymptoms, setLoadingSymptoms] = useState(true);
+
+  async function getSymptoms() {
+    try {
+      setLoadingSymptoms(true);
+      const symptomsRef = bd.collection("symptoms");
+      const symptoms = await symptomsRef.get();
+      let symptomDocs = [];
+      symptoms.forEach((doc) => {
+        symptomDocs.push(doc.data());
+      });
+      setSymptomList(symptomDocs);
+      setLoadingSymptoms(false);
+    } catch (e) {
+      console.log(e);
+      setLoadingSymptoms(false);
+    }
+  }
+
+  useEffect(() => {
+    getSymptoms();
+  }, []);
 
   const switchShown = () => setShown(!shown);
   const handlePicture = (e) => {
@@ -501,7 +523,8 @@ const ConfiguracionEsp = () => {
 
                   <div className="esp-edit">
                     <div className="titles-edit">Especialidades</div>
-                    <Sintomas className="esp-select" />
+                    {loadingSymptoms ? <p className="altText">Cargando...</p> : 
+                    <Sintomas className="esp-select" symptomOptions={symptomList}/>}
                   </div>
 
                   <div className="perfil-edit">
