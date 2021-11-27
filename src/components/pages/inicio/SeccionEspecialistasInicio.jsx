@@ -64,7 +64,7 @@ const SeccionEspecialistasInicio = () => {
     getEspecialistas();
   }, []);
   return (
-    <section className="admin-1">
+    <section className="esp-sec">
       <div className="containerEspecialistasAdmin">
         {
           //si está cargando, muestra "Cargando..."; si no: si hay un error muestra el mensaje de error;
@@ -76,7 +76,7 @@ const SeccionEspecialistasInicio = () => {
               Error: {error.message}. Intente refrescar la página.
             </div>
           ) : Object.entries(especialistas).length !== 0 ? (
-            <div className="especialistaList-1">
+            <div className="especialistaInicioList">
               {desplegarEspecialistas(especialistas).map((key) => {
                 const especialista = especialistas[key];
                 return (

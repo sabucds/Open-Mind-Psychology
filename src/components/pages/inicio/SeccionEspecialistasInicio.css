@@ -1,4 +1,4 @@
-.admin-1 {
+.esp-sec {
   width: 100%;
   height: 100%;
   padding: 50px;
@@ -7,18 +7,7 @@
   flex-direction: column;
 }
 
-.introAdmin {
-  font-style: italic;
-  font-size: large;
-}
-
-.altText {
-  font-style: bolder;
-  font-size: larger;
-  color: rgba(0, 0, 0, 0.5);
-}
-
-.especialistaList-1 {
+.especialistaInicioList {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-gap: 1.5em;

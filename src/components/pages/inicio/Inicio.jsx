@@ -102,6 +102,33 @@ const Inicio = () => {
           <div className="how-works">Algunos de nuestros especialistas</div>
           <SeccionEspecialistasInicio />
         </div>
+
+        <div className="second-sect">
+          <div className="how-works">Testimonios</div>
+          <div className="testimony-container">
+            <div className="testimony-box">
+              <div className="speech-bubble">
+                <p className="testimony">"Open Mind Psychology es una fantástica aplicación web, fácil de usar y funcional. ¡La recomiendo!"</p>
+              </div>
+              <p className="test-author">- Liliana Nóbrega</p>
+            </div>
+
+            <div className="testimony-box">
+              <div className="speech-bubble">
+                <p className="testimony">"Open Mind Psychology es una fantástica aplicación web, fácil de usar y funcional. ¡La recomiendo!"</p>
+              </div>
+              <p className="test-author">- Liliana Nóbrega</p>
+            </div>
+
+            <div className="testimony-box">
+              <div className="speech-bubble">
+                <p className="testimony">"Open Mind Psychology es una fantástica aplicación web, fácil de usar y funcional. ¡La recomiendo!"</p>
+              </div>
+              <p className="test-author">- Liliana Nóbrega</p>
+            </div>
+            
+          </div>
+        </div>
       </section>
     </>
   );
