@@ -163,4 +163,13 @@
     width: 190px;
     text-align: center;
   }
+
+  .lista-especialidades {
+    display: block;
+    padding-left: 30px;
+  }
+
+  .lista-esp {
+    width: 100%;
+  }
 }

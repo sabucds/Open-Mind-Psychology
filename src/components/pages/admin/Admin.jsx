@@ -150,27 +150,36 @@ const Admin = () => {
         <div className="titulo">¡Bienvenido administrador!</div>
         <div className="containerEspecialidadesAdmin">
           <p className="introAdmin">
-            A continuación, podrá agregar más especialidades disponibles en la plataforma:
+            A continuación, podrá agregar más especialidades/síntomas, así como ver los ya disponibles en la plataforma:
           </p>
           <hr />
           <div className="symptomInputs">
-            <label htmlFor="label">Nombre del síntoma/especialidad</label>
-            <input type="text" name="label" className="inputsForm" placeholder="Ej. Depresión" onChange={(e)=>setLabel(e.target.value)} value={label}/>
-            <label htmlFor="value">Clave única del síntoma/especialidad</label>
-            <input type="text" name="value" className="inputsForm" placeholder="Ej. depresion" onChange={(e)=>{setValue(e.target.value)}} value={value}/>
+            <div>
+              <label htmlFor="label" >Nombre del síntoma/especialidad:</label>
+              <input type="text" name="label" className="inputsForm" placeholder="Ej. Depresión" onChange={(e)=>setLabel(e.target.value)} value={label}/>
+            </div>
+            <div>
+              <label htmlFor="value">Clave única del síntoma/especialidad:</label>
+              <input type="text" name="value" className="inputsForm" placeholder="Ej. depresion" onChange={(e)=>{setValue(e.target.value)}} value={value}/>
+            </div>
             <button type="button" onClick={handleAdd} disabled={loadingSymptoms} style={{ background: loadingSymptoms ? "#CCC" : "#EE9D6B" }} className="button-format">Añadir</button>
           </div>
           <div className="especialidades">
-            Síntomas/especialidades disponibles en la plataforma:
             {loadingSymptoms ? 
               <p className="altText">Cargando síntomas...</p> : 
               symptomList.length === 0 ? 
               <p className="altText">Aún no se han agregado síntomas</p> :
-              <ul className="lista-especialidades">
-                {symptomList.map((esp) => {
-                  return <li key={esp.value}>{esp.label}</li>;
-                })}
-             </ul>
+              <div className="sintomas-container">
+                <input type="checkbox" id="sintomas-desplegable"/>
+                <label htmlFor="sintomas-desplegable" id="sintomas-label">
+                  Síntomas/especialidades
+                </label>
+                <ul className="sintomas-lista">
+                    {symptomList.map((esp) => {
+                      return <li key={esp.value}><p>{esp.label}</p></li>;
+                    })}
+                </ul> 
+              </div>
             }
           </div>
         </div>

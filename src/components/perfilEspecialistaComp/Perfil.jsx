@@ -246,7 +246,28 @@ const Perfil = ({ user }) => {
   const [refreshRanking, setRefreshRanking] = useState(0);
   const [loadingRanking, setLoadingRanking] = useState(false);
   const [isPatient, setIsPatient] = useState(false);
-  
+  const [symptomList, setSymptomList] = useState([]);
+  const [loadingSymptoms, setLoadingSymptoms] = useState(true);
+
+
+  async function getSymptoms() {
+    try {
+      setLoadingSymptoms(true);
+      const symptomsRef = bd.collection("symptoms");
+      const symptoms = await symptomsRef.get();
+      let symptomDocs = [];
+      symptoms.forEach((doc) => {
+        symptomDocs.push(doc.data());
+      });
+      setSymptomList(symptomDocs);
+      setLoadingSymptoms(false);
+    } catch (e) {
+      console.log(e);
+      setLoadingSymptoms(false);
+    }
+  }
+
+
   const handleConfig = () => {
     history.push("/config");
   };
@@ -486,6 +507,10 @@ const Perfil = ({ user }) => {
     getRanking();
   }, [refreshRanking]);
 
+  useEffect(() => {
+    getSymptoms();
+  }, []);
+
   function getStars(ranking) {
     const percentage = (ranking * 100) / 5;
 
@@ -573,17 +598,17 @@ const Perfil = ({ user }) => {
                 </div>
                 <div className="line"></div>
                 <div className="text-info especialidades-perfil">
-                  {user.specialty.length !== 0 ? (
+                  {!loadingSymptoms ? (user.specialty.length !== 0 ? (
                     <ul className="lista-espe-perfil">
-                      {labelsList(user.specialty).map((esp) => {
+                      {labelsList(user.specialty, symptomList).map((esp) => {
                         return <li key={esp}>{esp}</li>;
-                      })}
+                      }, symptomList)}
                     </ul>
                   ) : (
                     <p className="altText">
                       No se especificaron especialidades
                     </p>
-                  )}
+                  )) : <p className="altText">Cargando especialidades...</p>}
                 </div>
               </div>
 

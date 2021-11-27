@@ -54,6 +54,63 @@
   cursor: pointer;
 }
 
+.sintomas-lista {
+  list-style-image: url("../../img/checkList.png");
+  padding-left: 30px;
+  display: none;
+}
+
+.sintomas-lista li {
+  margin-bottom: 8px;
+}
+
+.sintomas-container label:before {
+  content:"\025b8"; 
+  margin-right:4px;
+}
+
+#sintomas-desplegable {
+  position: absolute;
+	left: -1000em;
+}
+
+#sintomas-desplegable:checked ~ label:before { 
+  content:"\025be";
+}
+
+#sintomas-desplegable:checked ~ .sintomas-lista { 
+  display: block;
+}
+
+#sintomas-label {
+  cursor:pointer;
+  font-size: large;
+  margin-bottom: 30px;
+}
+
+.symptomInputs label, .especialidades label {
+  font-weight: normal;
+  margin-right: 10px;
+}
+
+.symptomInputs button {
+  color: white;
+}
+
+.symptomInputs {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+
+.containerEspecialistasAdmin {
+  padding-top: 60px;
+  margin-top: 60px;
+  border-top: 1px solid rgba(0, 0, 0, 0.25);
+}
+
 .admin {
   margin-top: 65px;
   width: 100%;
@@ -123,5 +180,26 @@ hr {
 @media only screen and (max-width: 380px) {
   .adminNavLogo {
     background-image: url(/src/components/img/logo-chiqui.jpg);
+  }
+
+  #sintomas-label {
+    font-size: medium;
+  }
+
+}
+
+@media screen and (max-width: 910px) {
+  .symptomInputs {
+    flex-direction: column;
+  }
+
+  .symptomInputs div {
+    margin-bottom: 30px;
+  }
+}
+
+@media screen and (min-width: 555px) {
+  #sintomas-label::after {
+    content: " disponibles en la plataforma";
   }
 }
