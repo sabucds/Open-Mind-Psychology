@@ -55,6 +55,19 @@
   color: #ee9d6bde;
 }
 
+.bottom-button {
+  cursor: pointer;
+  padding: 15px 30px;
+  color: white;
+  border-radius: 10px;
+  background-color: #ee9d6b;
+  width: fit-content;
+  min-width: 50px;
+  margin: auto;
+  margin-top: 30px;
+  box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+}
+
 .registra-link {
   text-decoration: none;
 }
@@ -154,6 +167,11 @@
   height: max-content;
 }
 
+.testimony-sect {
+  height: fit-content; 
+
+}
+
 .testimony-container {
   margin-top: 50px;
   width: 100%;
@@ -168,10 +186,10 @@
 .testimony {
   font-size: large;
   font-stretch: wider;
-  text-indent: 5px;
   font-style: italic;
   line-height: 180%;
   text-align: center;
+  color: white;
 }
 
 .test-author {
@@ -179,17 +197,30 @@
   font-weight: bolder;
   margin-right: 30px;
   font-size: large;
+  text-align: center;
+}
+
+.test-author span {
+  font-weight: normal;
+  font-size: 15px;
+  float: right;
+  text-align: center;
 }
 
 .speech-bubble {
 	position: relative;
-	background: #ee9d6b;
+	background:#ee9d6b;
 	border-radius: 1em;
   display: flex;
   justify-content: center;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+  box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
   margin-bottom: 20px;
   padding: 20px;
+  height: max-content;
+}
+
+.testim-title {
+  text-align: center;
 }
 
 .speech-bubble:after {
@@ -200,11 +231,18 @@
 	width: 0;
 	height: 0;
 	border: 13px solid transparent;
-	border-top-color: #ee9d6b;
+	border-top-color:#ee9d6b;
 	border-bottom: 0;
 	border-right: 0;
 	margin-left: -6.5px;
 	margin-bottom: -13px;
+}
+
+@media screen and (max-width: 850px) {
+  .testimony-container {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 @media screen and (max-width: 600px) {
@@ -246,5 +284,16 @@
   .steps {
     flex-direction: column;
     align-items: center;
+  }
+}
+
+@media screen and (max-width: 370px) {
+  .testimony-sect {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .testim-title {
+    padding: 0px 30px 0px 30px;
+    width: 100%;
   }
 }

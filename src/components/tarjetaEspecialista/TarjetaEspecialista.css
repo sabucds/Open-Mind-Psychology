@@ -23,7 +23,11 @@
   border-bottom-right-radius: 50% 50%;
   border-bottom-left-radius: 50% 50%;
 }
-
+.no-esp {
+  font-size: 14px;
+  text-align:center;
+  color: rgba(0,0,0,0.5);
+}
 .espInfo-1 {
   overflow: hidden;
   text-overflow: ellipsis;

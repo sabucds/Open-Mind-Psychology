@@ -123,15 +123,14 @@ const TarjetaEspecialista = (props) => {
       <div className="ranking-esp">{starCalc(props.especialista.ranking)}</div>
       <div className="lista-esp">
         <div className="especialidades-are">Áreas de atención</div>
-        {!loadingSymptoms ? props.especialista.specialty.length !== 0 ? (
+        {loadingSymptoms ? <pre className="altText">     Cargando...</pre> : 
+        props.especialista.specialty.length !== 0 ? (
           <ul className="lista-especialidades">
             {labelsList(props.especialista.specialty, symptomList).map((esp) => {
               return <li key={esp}>{esp}</li>;
             })}
           </ul>
-        ) : (
-          <div></div>
-        ) : <pre className="altText">     Cargando...</pre>}
+        ) : (<div className="no-esp">No se especificó.</div>)}
       </div>
     </div>
   );
