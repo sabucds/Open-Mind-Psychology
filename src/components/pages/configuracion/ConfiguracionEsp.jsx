@@ -18,6 +18,8 @@ import CargandoDatos from "../../cargando/CargandoDatos";
 const ConfiguracionEsp = () => {
   const history = useHistory();
   const { user } = useContext(UserContext);
+  const { schedule } = user;
+  const [nameInitialValue, lastNameInitialValue] = user.name.split(" ");
   const [shown, setShown] = useState(false);
   const [name, setName] = useState("");
   const [lname, setLname] = useState("");
@@ -32,36 +34,46 @@ const ConfiguracionEsp = () => {
   const [updating, setUpdating] = useState(false);
 
   const [eImg, setEImg] = useState(false);
-  const [weekDisp, setWeekDisp] = useState({
-    Monday: {
-      start: "",
-      end: "",
-    },
-    Tuesday: {
-      start: "",
-      end: "",
-    },
-    Wednesday: {
-      start: "",
-      end: "",
-    },
-    Thursday: {
-      start: "",
-      end: "",
-    },
-    Friday: {
-      start: "",
-      end: "",
-    },
-    Saturday: {
-      start: "",
-      end: "",
-    },
-    Sunday: {
-      start: "",
-      end: "",
-    },
-  });
+
+  const scheduleHasNotBeenSet =
+    Array.isArray(schedule) && schedule.length === 0;
+
+  const [weekDisp, setWeekDisp] = useState(
+    scheduleHasNotBeenSet
+      ? {
+          // In case we do not have schedule, lets have this initial value
+          Monday: {
+            start: "",
+            end: "",
+          },
+          Tuesday: {
+            start: "",
+            end: "",
+          },
+          Wednesday: {
+            start: "",
+            end: "",
+          },
+          Thursday: {
+            start: "",
+            end: "",
+          },
+          Friday: {
+            start: "",
+            end: "",
+          },
+          Saturday: {
+            start: "",
+            end: "",
+          },
+          Sunday: {
+            start: "",
+            end: "",
+          },
+        }
+      : // Else, we have current schedule
+        schedule
+  );
 
   const switchShown = () => setShown(!shown);
   const handlePicture = (e) => {
@@ -248,6 +260,40 @@ const ConfiguracionEsp = () => {
     });
   };
 
+  const handleClean = (event) => {
+    user.schedule = {
+      // In case we do not have schedule, lets have this initial value
+      Monday: {
+        start: "",
+        end: "",
+      },
+      Tuesday: {
+        start: "",
+        end: "",
+      },
+      Wednesday: {
+        start: "",
+        end: "",
+      },
+      Thursday: {
+        start: "",
+        end: "",
+      },
+      Friday: {
+        start: "",
+        end: "",
+      },
+      Saturday: {
+        start: "",
+        end: "",
+      },
+      Sunday: {
+        start: "",
+        end: "",
+      },
+    };
+  };
+
   const handlePassChange = async () => {
     if (newPassword) {
       setUpdating(true);
@@ -299,11 +345,11 @@ const ConfiguracionEsp = () => {
                     <input
                       id="nombre"
                       name="nombre"
-                      type="text"
+                      stype="text"
                       className="input-nombre-edit"
                       placeholder="Nombre"
                       onChange={(e) => setName(e.target.value)}
-                      value={name}
+                      //                      value={name}
                     />
                   </div>
 
@@ -316,7 +362,7 @@ const ConfiguracionEsp = () => {
                       className="input-apellido-edit"
                       placeholder="Apellido"
                       onChange={(e) => setLname(e.target.value)}
-                      value={lname}
+                      //                      value={lname}
                     />
                   </div>
 
@@ -327,28 +373,37 @@ const ConfiguracionEsp = () => {
                       name="numero"
                       className="input-numero-edit"
                       onChange={setNumber}
-                      value={number}
+                      //                      value={number}
                     />
                   </div>
                   <div className="dispon-container">
                     <div className="titles-edit">Disponibilidad</div>
-
+                    <div className="texto-chikito">
+                      Aquí podrá ingresar sus horas de disponibilidad, el
+                      sistema se encargará de organizarla en bloques de 70
+                      minutos.
+                    </div>
+                    <br />
                     <div className="dispon-edit">
                       <div className="dispon-edit1">
                         <div className="titles-week">Lunes</div>
 
                         <div className="hours-container">
                           <input
+                            step="3600"
                             type="time"
                             className="input-time"
                             id="Monday-start"
                             onChange={handleWeekDispChange}
+                            //                            value={weekDisp.Monday.start}
                           />
                           <input
                             type="time"
+                            step="3600"
                             className="input-time"
                             id="Monday-end"
                             onChange={handleWeekDispChange}
+                            //                            value={weekDisp.Monday.end}
                           />
                         </div>
                       </div>
@@ -357,16 +412,20 @@ const ConfiguracionEsp = () => {
 
                         <div className="hours-container">
                           <input
+                            step="3600"
                             type="time"
                             className="input-time"
                             id="Tuesday-start"
                             onChange={handleWeekDispChange}
+                            //                            value={weekDisp.Tuesday.start}
                           />
                           <input
+                            step="3600"
                             type="time"
                             className="input-time"
                             id="Tuesday-end"
                             onChange={handleWeekDispChange}
+                            //                            value={weekDisp.Tuesday.end}
                           />
                         </div>
                       </div>
@@ -375,16 +434,20 @@ const ConfiguracionEsp = () => {
 
                         <div className="hours-container">
                           <input
+                            step="3600"
                             type="time"
                             className="input-time"
                             id="Wednesday-start"
                             onChange={handleWeekDispChange}
+                            //                            value={weekDisp.Wednesday.start}
                           />
                           <input
+                            step="3600"
                             type="time"
                             className="input-time"
                             id="Wednesday-end"
                             onChange={handleWeekDispChange}
+                            //                            value={weekDisp.Wednesday.end}
                           />
                         </div>
                       </div>
@@ -393,17 +456,21 @@ const ConfiguracionEsp = () => {
 
                         <div className="hours-container">
                           <input
+                            step="3600"
                             type="time"
                             className="input-time"
                             id="Thursday-start"
                             onChange={handleWeekDispChange}
+                            //                            value={weekDisp.Thursday.start}
                           />
 
                           <input
+                            step="3600"
                             type="time"
                             className="input-time"
                             id="Thursday-end"
                             onChange={handleWeekDispChange}
+                            //                            value={weekDisp.Thursday.end}
                           />
                         </div>
                       </div>
@@ -412,16 +479,20 @@ const ConfiguracionEsp = () => {
 
                         <div className="hours-container">
                           <input
+                            step="3600"
                             type="time"
                             className="input-time"
                             id="Friday-start"
                             onChange={handleWeekDispChange}
+                            //                            value={weekDisp.Friday.start}
                           />
                           <input
+                            step="3600"
                             type="time"
                             className="input-time"
                             id="Friday-end"
                             onChange={handleWeekDispChange}
+                            //                            value={weekDisp.Friday.end}
                           />
                         </div>
                       </div>
@@ -430,16 +501,20 @@ const ConfiguracionEsp = () => {
 
                         <div className="hours-container">
                           <input
+                            step="3600"
                             type="time"
                             className="input-time"
                             id="Saturday-start"
                             onChange={handleWeekDispChange}
+                            //                            value={weekDisp.Saturday.start}
                           />
                           <input
+                            step="3600"
                             type="time"
                             className="input-time"
                             id="Saturday-end"
                             onChange={handleWeekDispChange}
+                            //                            value={weekDisp.Saturday.end}
                           />
                         </div>
                       </div>
@@ -448,19 +523,26 @@ const ConfiguracionEsp = () => {
 
                         <div className="hours-container">
                           <input
+                            step="3600"
                             type="time"
                             className="input-time"
                             id="Sunday-start"
                             onChange={handleWeekDispChange}
+                            //                            value={weekDisp.Sunday.start}
                           />
                           <input
+                            step="3600"
                             type="time"
                             className="input-time"
                             id="Sunday-end"
                             onChange={handleWeekDispChange}
+                            //                            value={weekDisp.Sunday.end}
                           />
                         </div>
                       </div>
+                    </div>
+                    <div className="clean-esp-button" onClick={handleClean}>
+                      Limpiar datos
                     </div>
                   </div>
                   <div className="pais-edit">
