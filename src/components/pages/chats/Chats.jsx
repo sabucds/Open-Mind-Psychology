@@ -18,8 +18,9 @@ const Chats = () => {
   const [refresh, setrefresh] = useState(0);
   const [listaLista, setlistaLista] = useState(false);
   const [desplegarCitas, setdesplegarCitas] = useState(false);
-  const [showArchived, setshowArchived] = useState(true);
-  const [anyArchived, setanyArchived] = useState(false);
+  const [showArchived, setshowArchived] = useState(false);
+  const [citasPasadas, setcitasPasadas] = useState(false);
+  const [citasHoy, setcitasHoy] = useState(false);
 
   let currentDate = new Date();
   let currentPlusOne = new Date();
@@ -47,8 +48,8 @@ const Chats = () => {
         currentPlusOne.setHours(citas[j].date.getHours() + 1);
         currentPlusOne.setMinutes(citas[j].date.getMinutes() + 10);
         if (
-          !(currentDate > citas[j].date && currentDate < currentPlusOne)
-          // user.role === "usuario"
+          !(currentDate > citas[j].date && currentDate < currentPlusOne) &&
+          usuariosConCita[index].today === "hoy"
         ) {
           usuariosConCita[index]["show"] = false;
         } else if (!usuariosConCita[index].show) {
@@ -70,8 +71,10 @@ const Chats = () => {
               if (!usuariosConCita.includes(usuarios[index])) {
                 if (currentDate.getDate() === citas[j].date.getDate()) {
                   usuarios[index]["today"] = "hoy";
-                } else if (currentDate > citas[j].date) {
+                  setcitasHoy(true);
+                } else if (currentDate.getDate() > citas[j].date.getDate()) {
                   usuarios[index]["today"] = "ayer";
+                  setcitasPasadas(true);
                 } else {
                   usuarios[index]["today"] = "manana";
                 }
@@ -103,8 +106,10 @@ const Chats = () => {
               if (!usuariosConCita.includes(usuarios[index])) {
                 if (currentDate.getDate() === citas[j].date.getDate()) {
                   usuarios[index]["today"] = "hoy";
+                  setcitasHoy(true);
                 } else if (currentDate.getDate() > citas[j].date.getDate()) {
                   usuarios[index]["today"] = "ayer";
+                  setcitasPasadas(true);
                 } else {
                   usuarios[index]["today"] = "manana";
                 }
@@ -219,7 +224,7 @@ const Chats = () => {
               <section className={styles.chatSect}>
                 <div className={styles.encabezado}>
                   <div className={styles.contact}>
-                    {showArchived ? <>Chats de hoy</> : <>Chats archivados</>}
+                    {showArchived ? <>Chats archivados</> : <>Chats de hoy</>}
                   </div>
                   <div className={styles.line}></div>
                   <div className={styles.someSpace}></div>
@@ -243,44 +248,52 @@ const Chats = () => {
                         <>
                           {showArchived ? (
                             <>
-                              {usuariosConCita.map((u) => {
-                                return (
-                                  <>
-                                    {u.today === "hoy" ? (
-                                      <ChatCard key={u.id} usuario={u} />
-                                    ) : (
-                                      <div></div>
-                                    )}
-                                  </>
-                                );
-                              })}
+                              {citasPasadas ? (
+                                <>
+                                  {usuariosConCita.map((u) => {
+                                    return (
+                                      <>
+                                        {u.today === "ayer" ? (
+                                          <>
+                                            <ChatCard key={u.id} usuario={u} />
+                                          </>
+                                        ) : (
+                                          <div></div>
+                                        )}
+                                      </>
+                                    );
+                                  })}
+                                </>
+                              ) : (
+                                <p>¡No tienes chats archivados!</p>
+                              )}
                             </>
                           ) : (
                             <>
-                              {usuariosConCita.map((u) => {
-                                return (
-                                  <>
-                                    {u.today === "ayer" ? (
+                              {citasHoy ? (
+                                <>
+                                  {usuariosConCita.map((u) => {
+                                    return (
                                       <>
-                                        {setanyArchived(true)}
-                                        <ChatCard key={u.id} usuario={u} />
+                                        {u.today === "hoy" ? (
+                                          <>
+                                            <ChatCard key={u.id} usuario={u} />
+                                          </>
+                                        ) : (
+                                          <div></div>
+                                        )}
                                       </>
-                                    ) : (
-                                      <div></div>
-                                    )}
-                                  </>
-                                );
-                              })}
-                              {!anyArchived ? (
-                                <div>¡Aun no tienes chats archivados!</div>
+                                    );
+                                  })}
+                                </>
                               ) : (
-                                <div></div>
+                                <p>¡No tienes citas para hoy!</p>
                               )}
                             </>
                           )}
                         </>
                       ) : (
-                        <p>¡No tienes citas para hoy!</p>
+                        <p></p>
                       )}
                     </>
                   </div>
