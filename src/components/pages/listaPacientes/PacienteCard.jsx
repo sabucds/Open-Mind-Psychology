@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 const PacienteCard = (props) => {
   const history = useHistory();
   function handleOpenProfile() {
-    history.push(`/especialistas/${props.usuario.id}`);
+    history.push(`/perfil`);
   }
 
   return (
