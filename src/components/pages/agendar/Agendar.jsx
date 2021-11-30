@@ -35,6 +35,7 @@ const Agendar = () => {
       const userDoc = await userRef.get();
       let user = userDoc.data();
       user.id = userDoc.id;
+
       if (componentMounted.current) {
         setEspecialista(user);
         setLoading(false);
@@ -179,6 +180,62 @@ const Agendar = () => {
         </div>
         <div className={styles.linea}></div>
         <br />
+        {/* <div className = {styles.caja}>
+          <div className = {styles.subtit}>Estos son los horarios disponibles de tu especialista:</div>
+          <br />
+          <div className={styles.user}>
+                <div className={styles.container}>
+                  <div className={styles.week}>Lunes</div>
+                  <div className={styles.horas}>
+                    {Object.values(especialista.schedule.Monday.start)} -{" "}
+                    {Object.values(especialista.schedule.Monday.end)}
+                  </div>
+                </div>
+                <div className={styles.container}>
+                  <div className={styles.week}>Martes</div>
+                  <div className={styles.horas}>
+                    {Object.values(especialista.schedule.Tuesday.start)} -{" "}
+                    {Object.values(especialista.schedule.Tuesday.end)}
+                  </div>
+                </div>
+                <div className={styles.container}>
+                  <div className={styles.week}>Miercoles</div>
+                  <div className={styles.horas}>
+                    {Object.values(especialista.schedule.Wednesday.start)} -{" "}
+                    {Object.values(especialista.schedule.Wednesday.end)}
+                  </div>
+                </div>
+                <div className={styles.container}>
+                  <div className={styles.week}>Jueves</div>
+                  <div className={styles.horas}>
+                    {Object.values(especialista.schedule.Thursday.start)} -{" "}
+                    {Object.values(especialista.schedule.Thursday.end)}
+                  </div>
+                </div>
+                <div className={styles.container}>
+                  <div className={styles.week}>Viernes</div>
+                  <div className={styles.horas}>
+                    {Object.values(especialista.schedule.Friday.start)} -{" "}
+                    {Object.values(especialista.schedule.Friday.end)}
+                  </div>
+                </div>
+                <div className={styles.container}>
+                  <div className={styles.week}>Sábado</div>
+                  <div className={styles.horas}>
+                    {Object.values(especialista.schedule.Saturday.start)} -{" "}
+                    {Object.values(especialista.schedule.Saturday.end)}
+                  </div>
+                </div>
+                <div className={styles.container}>
+                  <div className={styles.week}>Domingo</div>
+                  <div className={styles.horas}>
+                    {Object.values(especialista.schedule.Sunday.start)} -{" "}
+                    {Object.values(especialista.schedule.Sunday.end)}
+                  </div>
+                </div>
+              </div>
+              <br />
+            </div>  */}
 
         <div className={styles.caja}>
           <div className={styles.subtit}>

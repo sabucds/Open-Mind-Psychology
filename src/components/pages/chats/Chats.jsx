@@ -302,7 +302,7 @@ const Chats = () => {
                           )}
                         </>
                       ) : (
-                        <p></p>
+                        <p>¡Aún no tienes citas!</p>
                       )}
                     </>
                   </div>

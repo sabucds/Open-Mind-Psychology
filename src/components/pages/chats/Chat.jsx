@@ -17,13 +17,13 @@ const Chat = () => {
   const { user } = useContext(UserContext);
   const [mensajesSolo, setmensajesSolo] = useState([]);
   const [today, settoday] = useState([]);
-  const [terminada, setterminada] = useState(false);
+  const [terminada, setterminada] = useState([]);
   const [loading, setloading] = useState(false);
 
-  let horaTerminarCita = 500;
+  let horaTerminarCita = true;
 
   setInterval(() => {
-    if (!terminada) {
+    if (terminada.length === 0) {
       let horaActual = new Date();
       // console.log(horaTerminarCita);
       try {
@@ -31,10 +31,8 @@ const Chat = () => {
           horaActual.getHours() >= horaTerminarCita.getHours() &&
           horaActual.getMinutes() >= horaTerminarCita.getMinutes()
         ) {
-          console.log(horaActual.getMinutes());
-          console.log("Termina  ", horaTerminarCita.getMinutes());
           setloading(true);
-          setterminada(true);
+          terminada.push("1");
           setloading(false);
           // console.log(terminada);
         }
@@ -101,16 +99,14 @@ const Chat = () => {
     }
     for (let index = 0; index < today.length; index++) {
       if (today[index].from === user.id && user.role === "especialista") {
-        horaTerminarCita = new Date();
-        let dateFormat = new Date(today[index].createdAt.seconds * 1000);
-        horaTerminarCita.setHours(dateFormat.getHours() + 1);
+        horaTerminarCita = new Date(today[index].createdAt.seconds * 1000);
+        horaTerminarCita.setHours(horaTerminarCita.getHours() + 1);
       } else if (
         today[index].from === params.userId &&
         user.role === "usuario"
       ) {
-        horaTerminarCita = new Date();
-        let dateFormat = new Date(today[index].createdAt.seconds * 1000);
-        horaTerminarCita.setHours(dateFormat.getHours() + 1);
+        horaTerminarCita = new Date(today[index].createdAt.seconds * 1000);
+        horaTerminarCita.setHours(horaTerminarCita.getHours() + 1);
       }
     }
   }
@@ -211,7 +207,8 @@ const Chat = () => {
               <div className={styles.space}></div>
               <div ref={bottomListRef} className={styles.stop}></div>
             </div>
-            {(today.length === 0 && user.role === "usuario") || terminada ? (
+            {(today.length === 0 && user.role === "usuario") ||
+            terminada.length > 0 ? (
               <div className={styles.barraInput}>
                 {terminada ? (
                   <p>¡La cita ha terminado! Ya no puedes enviar mensajes</p>
