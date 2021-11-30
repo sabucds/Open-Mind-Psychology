@@ -139,6 +139,28 @@ const ConfiguracionEsp = () => {
     return false;
   }
 
+  function validHour(weekDisp) {
+    if (
+      parseInt(weekDisp.Monday.start.split(":")[0]) >
+        parseInt(weekDisp.Monday.end.split(":")[0]) ||
+      parseInt(weekDisp.Tuesday.start.split(":")[0]) >
+        parseInt(weekDisp.Tuesday.end.split(":")[0]) ||
+      parseInt(weekDisp.Wednesday.start.split(":")[0]) >
+        parseInt(weekDisp.Wednesday.end.split(":")[0]) ||
+      parseInt(weekDisp.Thursday.start.split(":")[0]) >
+        parseInt(weekDisp.Thursday.end.split(":")[0]) ||
+      parseInt(weekDisp.Friday.start.split(":")[0]) >
+        parseInt(weekDisp.Friday.end.split(":")[0]) ||
+      parseInt(weekDisp.Saturday.start.split(":")[0]) >
+        parseInt(weekDisp.Saturday.end.split(":")[0]) ||
+      parseInt(weekDisp.Sunday.start.split(":")[0]) >
+        parseInt(weekDisp.Sunday.end.split(":")[0])
+    ) {
+      return true;
+    }
+    return false;
+  }
+
   const handleSubmit = async (evt) => {
     console.log(country);
     evt.preventDefault();
@@ -178,11 +200,16 @@ const ConfiguracionEsp = () => {
       }
 
       if (weekDisp) {
-        if (isFirstBlank(weekDisp) || isSecondBlank(weekDisp)) {
+        if (
+          isFirstBlank(weekDisp) ||
+          isSecondBlank(weekDisp) ||
+          validHour(weekDisp)
+        ) {
           errorMessage += "Disponibilidad\n";
         } else {
           successMessage += "Disponibilidad\n";
-          await userDoc.update({ schedule: weekDisp });
+          console.log(weekDisp.Monday.start.split(":")[0]);
+          // await userDoc.update({ schedule: weekDisp });
           console.log(weekDisp);
         }
       }

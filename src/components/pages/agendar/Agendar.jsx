@@ -37,6 +37,7 @@ const Agendar = () => {
       const userDoc = await userRef.get();
       let user = userDoc.data();
       user.id = userDoc.id;
+
       if (componentMounted.current) {
         setEspecialista(user);
         setLoading(false);
@@ -180,13 +181,13 @@ const Agendar = () => {
   ) : (
     <>
       <Navbar />
-        <section className= {styles.sect}>
-          <div className={styles.encabezado}>
-              <div className={styles.TitleRegister}>¡Reserva ya tu cita!</div>
-          </div>
-          <div className={styles.linea}></div>
-          <br />
-          {/* <div className = {styles.caja}>
+      <section className={styles.sect}>
+        <div className={styles.encabezado}>
+          <div className={styles.TitleRegister}>¡Reserva ya tu cita!</div>
+        </div>
+        <div className={styles.linea}></div>
+        <br />
+        {/* <div className = {styles.caja}>
           <div className = {styles.subtit}>Estos son los horarios disponibles de tu especialista:</div>
           <br />
           <div className={styles.user}>
@@ -243,41 +244,46 @@ const Agendar = () => {
               <br />
             </div>  */}
 
-          <div className = {styles.caja}>
-            <div className = {styles.subtit}>Selecciona una fecha y hora para pautar tu sesión:</div>
-            <div className = {styles.dia}>
-              <div className = {styles.calendar}></div>
-                <DatePicker
-                  showTimeSelect
-                  timeIntervals={60}
-                  timeCaption="Time"
-                  selected={selectedDate}
-                  onChange={(date) => setSelectedDate(date)}
-                  minDate={subDays(new Date(), -1)}
-                  dateFormat="MMMM d, yyyy h:mm aa"
-                  placeholderText="Seleccione una fecha y hora"
-                  className={styles.input}
-                  id="date-input"
-                />
-            </div>
-            <div className = {styles.subtit}>Ingrese el motivo de la cita:</div>
-            <div className = {styles.mot}>
-              <div className = {styles.type}></div>
-              <input
-                type="text"
-                placeholder="Ingrese el motivo de la cita."
-                onChange={(e) => setReason(e.target.value)}
-                className = {styles.input}
-              ></input>
-            </div>
-            <div className = {styles.btn}>
-              <button type="button" onClick={handleClick} className = {styles.reserva}>
-                Reservar
-              </button>
-            </div>
+        <div className={styles.caja}>
+          <div className={styles.subtit}>
+            Selecciona una fecha y hora para pautar tu sesión:
           </div>
-
-        </section>
+          <div className={styles.dia}>
+            <div className={styles.calendar}></div>
+            <DatePicker
+              showTimeSelect
+              timeIntervals={60}
+              timeCaption="Time"
+              selected={selectedDate}
+              onChange={(date) => setSelectedDate(date)}
+              minDate={subDays(new Date(), -1)}
+              dateFormat="MMMM d, yyyy h:mm aa"
+              placeholderText="Seleccione una fecha y hora"
+              className={styles.input}
+              id="date-input"
+            />
+          </div>
+          <div className={styles.subtit}>Ingrese el motivo de la cita:</div>
+          <div className={styles.mot}>
+            <div className={styles.type}></div>
+            <input
+              type="text"
+              placeholder="Ingrese el motivo de la cita."
+              onChange={(e) => setReason(e.target.value)}
+              className={styles.input}
+            ></input>
+          </div>
+          <div className={styles.btn}>
+            <button
+              type="button"
+              onClick={handleClick}
+              className={styles.reserva}
+            >
+              Reservar
+            </button>
+          </div>
+        </div>
+      </section>
     </>
   );
 };

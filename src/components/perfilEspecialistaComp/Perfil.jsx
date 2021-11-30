@@ -241,12 +241,7 @@ const Perfil = ({ user }) => {
   const [refreshComments, setRefreshComments] = useState(0);
   const [loadingComments, setLoadingComments] = useState(false);
   const [comments, setComments] = useState([]);
-  const {
-    name: userName,
-    phone,
-    country: countryInitialValue,
-    schedule,
-  } = user;
+  const { schedule } = user;
   const [rating, setRating] = useState(0);
   const [userRanking, setUserRanking] = useState(0);
   const [refreshRanking, setRefreshRanking] = useState(0);
@@ -589,50 +584,50 @@ const Perfil = ({ user }) => {
                 <div className="schedule-container">
                   <div className="titles-week">Lunes</div>
                   <div className="horas">
-                    {Object.values(user.schedule.Monday.start)} -{" "}
-                    {Object.values(user.schedule.Monday.end)}
+                    {Object.values(weekDisp.Monday.start)} -{" "}
+                    {Object.values(weekDisp.Monday.end)}
                   </div>
                 </div>
                 <div className="schedule-container">
                   <div className="titles-week">Martes</div>
                   <div className="horas">
-                    {Object.values(user.schedule.Tuesday.start)} -{" "}
-                    {Object.values(user.schedule.Tuesday.end)}
+                    {Object.values(weekDisp.Tuesday.start)} -{" "}
+                    {Object.values(weekDisp.Tuesday.end)}
                   </div>
                 </div>
                 <div className="schedule-container">
                   <div className="titles-week">Miercoles</div>
                   <div className="horas">
-                    {Object.values(user.schedule.Wednesday.start)} -{" "}
-                    {Object.values(user.schedule.Wednesday.end)}
+                    {Object.values(weekDisp.Wednesday.start)} -{" "}
+                    {Object.values(weekDisp.Wednesday.end)}
                   </div>
                 </div>
                 <div className="schedule-container">
                   <div className="titles-week">Jueves</div>
                   <div className="horas">
-                    {Object.values(user.schedule.Thursday.start)} -{" "}
-                    {Object.values(user.schedule.Thursday.end)}
+                    {Object.values(weekDisp.Thursday.start)} -{" "}
+                    {Object.values(weekDisp.Thursday.end)}
                   </div>
                 </div>
                 <div className="schedule-container">
                   <div className="titles-week">Viernes</div>
                   <div className="horas">
-                    {Object.values(user.schedule.Friday.start)} -{" "}
-                    {Object.values(user.schedule.Friday.end)}
+                    {Object.values(weekDisp.Friday.start)} -{" "}
+                    {Object.values(weekDisp.Friday.end)}
                   </div>
                 </div>
                 <div className="schedule-container">
                   <div className="titles-week">Sábado</div>
                   <div className="horas">
-                    {Object.values(user.schedule.Saturday.start)} -{" "}
-                    {Object.values(user.schedule.Saturday.end)}
+                    {Object.values(weekDisp.Saturday.start)} -{" "}
+                    {Object.values(weekDisp.Saturday.end)}
                   </div>
                 </div>
                 <div className="schedule-container">
                   <div className="titles-week">Domingo</div>
                   <div className="horas">
-                    {Object.values(user.schedule.Sunday.start)} -{" "}
-                    {Object.values(user.schedule.Sunday.end)}
+                    {Object.values(weekDisp.Sunday.start)} -{" "}
+                    {Object.values(weekDisp.Sunday.end)}
                   </div>
                 </div>
               </div>
