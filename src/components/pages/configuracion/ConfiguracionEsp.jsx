@@ -18,51 +18,65 @@ import CargandoDatos from "../../cargando/CargandoDatos";
 const ConfiguracionEsp = () => {
   const history = useHistory();
   const { user } = useContext(UserContext);
+  const {
+    name: userName,
+    phone,
+    country: countryInitialValue,
+    schedule,
+  } = user;
+  const [nameInitialValue, lastNameInitialValue] = user.name.split(" ");
   const [shown, setShown] = useState(false);
-  const [name, setName] = useState("");
-  const [lname, setLname] = useState("");
-  const [country, setCountry] = useState("");
-  const [number, setNumber] = useState("");
+  const [name, setName] = useState(nameInitialValue);
+  const [lname, setLname] = useState(lastNameInitialValue);
+  const [country, setCountry] = useState(countryInitialValue || "");
+  const [number, setNumber] = useState(phone || "");
   const [info, setInfo] = useState("");
   const [edu, setEdu] = useState("");
-  //const [spec, setSpec] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [picture, setPicture] = useState(false);
   const [saving, setSaving] = useState(false);
   const [updating, setUpdating] = useState(false);
   const [eImg, setEImg] = useState(false);
-  const [weekDisp, setWeekDisp] = useState({
-    Monday: {
-      start: "",
-      end: "",
-    },
-    Tuesday: {
-      start: "",
-      end: "",
-    },
-    Wednesday: {
-      start: "",
-      end: "",
-    },
-    Thursday: {
-      start: "",
-      end: "",
-    },
-    Friday: {
-      start: "",
-      end: "",
-    },
-    Saturday: {
-      start: "",
-      end: "",
-    },
-    Sunday: {
-      start: "",
-      end: "",
-    },
-  });
   const [symptomList, setSymptomList] = useState([]);
   const [loadingSymptoms, setLoadingSymptoms] = useState(true);
+  const scheduleHasNotBeenSet =
+    Array.isArray(schedule) && schedule.length === 0;
+  const [weekDisp, setWeekDisp] = useState(
+    scheduleHasNotBeenSet
+      ? {
+          // In case we do not have schedule, lets have this initial value
+          Monday: {
+            start: "",
+            end: "",
+          },
+          Tuesday: {
+            start: "",
+            end: "",
+          },
+          Wednesday: {
+            start: "",
+            end: "",
+          },
+          Thursday: {
+            start: "",
+            end: "",
+          },
+          Friday: {
+            start: "",
+            end: "",
+          },
+          Saturday: {
+            start: "",
+            end: "",
+          },
+          Sunday: {
+            start: "",
+            end: "",
+          },
+        }
+      : // Else, we have current schedule
+        schedule
+  );
 
   async function getSymptoms() {
     try {
@@ -84,6 +98,9 @@ const ConfiguracionEsp = () => {
   useEffect(() => {
     getSymptoms();
   }, []);
+
+  
+  
 
   const switchShown = () => setShown(!shown);
   const handlePicture = (e) => {
@@ -150,6 +167,14 @@ const ConfiguracionEsp = () => {
       return true;
     }
     return false;
+  }
+
+  function isSchedulethere(weekDisp) {
+    if (weekDisp !== []) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   const handleSubmit = async (evt) => {
@@ -254,7 +279,6 @@ const ConfiguracionEsp = () => {
     setCountry(null);
     setInfo("");
     setEdu("");
-    //setSpec("");
   };
 
   const handleExit = () => {
@@ -324,7 +348,7 @@ const ConfiguracionEsp = () => {
                     <input
                       id="nombre"
                       name="nombre"
-                      type="text"
+                      stype="text"
                       className="input-nombre-edit"
                       placeholder="Nombre"
                       onChange={(e) => setName(e.target.value)}
@@ -357,20 +381,28 @@ const ConfiguracionEsp = () => {
                   </div>
                   <div className="dispon-container">
                     <div className="titles-edit">Disponibilidad</div>
-
+                    <div className="texto-chikito">
+                      Aquí podrá ingresar sus horas de disponibilidad, el
+                      sistema se encargará de organizarla en bloques de 70
+                      minutos.
+                    </div>
+                    <br />
                     <div className="dispon-edit">
                       <div className="dispon-edit1">
                         <div className="titles-week">Lunes</div>
 
                         <div className="hours-container">
                           <input
+                            step="3600"
                             type="time"
                             className="input-time"
                             id="Monday-start"
                             onChange={handleWeekDispChange}
+                            value={weekDisp.Monday.start}
                           />
                           <input
                             type="time"
+                            step="3600"
                             className="input-time"
                             id="Monday-end"
                             onChange={handleWeekDispChange}
@@ -382,12 +414,14 @@ const ConfiguracionEsp = () => {
 
                         <div className="hours-container">
                           <input
+                            step="3600"
                             type="time"
                             className="input-time"
                             id="Tuesday-start"
                             onChange={handleWeekDispChange}
                           />
                           <input
+                            step="3600"
                             type="time"
                             className="input-time"
                             id="Tuesday-end"
@@ -400,12 +434,14 @@ const ConfiguracionEsp = () => {
 
                         <div className="hours-container">
                           <input
+                            step="3600"
                             type="time"
                             className="input-time"
                             id="Wednesday-start"
                             onChange={handleWeekDispChange}
                           />
                           <input
+                            step="3600"
                             type="time"
                             className="input-time"
                             id="Wednesday-end"
@@ -418,6 +454,7 @@ const ConfiguracionEsp = () => {
 
                         <div className="hours-container">
                           <input
+                            step="3600"
                             type="time"
                             className="input-time"
                             id="Thursday-start"
@@ -425,6 +462,7 @@ const ConfiguracionEsp = () => {
                           />
 
                           <input
+                            step="3600"
                             type="time"
                             className="input-time"
                             id="Thursday-end"
@@ -437,12 +475,14 @@ const ConfiguracionEsp = () => {
 
                         <div className="hours-container">
                           <input
+                            step="3600"
                             type="time"
                             className="input-time"
                             id="Friday-start"
                             onChange={handleWeekDispChange}
                           />
                           <input
+                            step="3600"
                             type="time"
                             className="input-time"
                             id="Friday-end"
@@ -455,12 +495,14 @@ const ConfiguracionEsp = () => {
 
                         <div className="hours-container">
                           <input
+                            step="3600"
                             type="time"
                             className="input-time"
                             id="Saturday-start"
                             onChange={handleWeekDispChange}
                           />
                           <input
+                            step="3600"
                             type="time"
                             className="input-time"
                             id="Saturday-end"
@@ -473,12 +515,14 @@ const ConfiguracionEsp = () => {
 
                         <div className="hours-container">
                           <input
+                            step="3600"
                             type="time"
                             className="input-time"
                             id="Sunday-start"
                             onChange={handleWeekDispChange}
                           />
                           <input
+                            step="3600"
                             type="time"
                             className="input-time"
                             id="Sunday-end"
@@ -487,6 +531,7 @@ const ConfiguracionEsp = () => {
                         </div>
                       </div>
                     </div>
+                    <div className="clean-esp-button"></div>
                   </div>
                   <div className="pais-edit">
                     <div className="titles-edit">País</div>

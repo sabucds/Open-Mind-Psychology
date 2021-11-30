@@ -333,7 +333,7 @@ const Perfil = ({ user }) => {
       console.log(user.schedule);
       return (
         <>
-          <div className="button-cita" onClick={handleAgenda}>
+          <div className="cita-button" onClick={handleAgenda}>
             <h3 style={{ color: "white" }}>Agendar Cita</h3>
           </div>
         </>
@@ -547,9 +547,11 @@ const Perfil = ({ user }) => {
           <div className="todo-user">
             <div className="encabezado1">
               <img src={user.img} alt="Not found" className="imagen-user" />
-              <div className="nombre-user">{user.name}</div>
-              {validarEditar()}
-              {agendarCita()}
+              <div className="enca2">
+                <div className="nombre-user2">{user.name}</div>
+                {validarEditar()}
+                {agendarCita()}
+              </div>
             </div>
 
             <div className="relleno">
@@ -565,6 +567,7 @@ const Perfil = ({ user }) => {
                 </>
               ) : null}
               {validarNumCorreo()}
+
               <div className="line"></div>
               <div className="pais-user">
                 <div className="titles">País</div>
@@ -585,6 +588,58 @@ const Perfil = ({ user }) => {
                   ) : (
                     <span className={getStars(userRanking)}>★★★★★</span>
                   )}
+                </div>
+              </div>
+              <div className="line"></div>
+              <div className="schedule-user">
+                <div className="schedule-container">
+                  <div className="titles-week">Lunes</div>
+                  <div className="horas">
+                    {Object.values(user.schedule.Monday.start)} -{" "}
+                    {Object.values(user.schedule.Monday.end)}
+                  </div>
+                </div>
+                <div className="schedule-container">
+                  <div className="titles-week">Martes</div>
+                  <div className="horas">
+                    {Object.values(user.schedule.Tuesday.start)} -{" "}
+                    {Object.values(user.schedule.Tuesday.end)}
+                  </div>
+                </div>
+                <div className="schedule-container">
+                  <div className="titles-week">Miercoles</div>
+                  <div className="horas">
+                    {Object.values(user.schedule.Wednesday.start)} -{" "}
+                    {Object.values(user.schedule.Wednesday.end)}
+                  </div>
+                </div>
+                <div className="schedule-container">
+                  <div className="titles-week">Jueves</div>
+                  <div className="horas">
+                    {Object.values(user.schedule.Thursday.start)} -{" "}
+                    {Object.values(user.schedule.Thursday.end)}
+                  </div>
+                </div>
+                <div className="schedule-container">
+                  <div className="titles-week">Viernes</div>
+                  <div className="horas">
+                    {Object.values(user.schedule.Friday.start)} -{" "}
+                    {Object.values(user.schedule.Friday.end)}
+                  </div>
+                </div>
+                <div className="schedule-container">
+                  <div className="titles-week">Sábado</div>
+                  <div className="horas">
+                    {Object.values(user.schedule.Saturday.start)} -{" "}
+                    {Object.values(user.schedule.Saturday.end)}
+                  </div>
+                </div>
+                <div className="schedule-container">
+                  <div className="titles-week">Domingo</div>
+                  <div className="horas">
+                    {Object.values(user.schedule.Sunday.start)} -{" "}
+                    {Object.values(user.schedule.Sunday.end)}
+                  </div>
                 </div>
               </div>
               <div className="line"></div>

@@ -20,6 +20,7 @@
 }
 
 .titles-week {
+  text-align: center;
   color: #ee9d6b;
   margin-bottom: 10%;
 }
@@ -37,6 +38,13 @@
 
 .input-time {
   margin-bottom: 10%;
+  border-color: rgba(0, 0, 0, 0.185);
+  border-radius: 10px;
+  border-width: 1px;
+}
+
+.texto-chikito {
+  color: rgba(0, 0, 0, 0.541);
 }
 
 @media screen and (max-width: 1221px) {
