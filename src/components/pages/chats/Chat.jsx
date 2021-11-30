@@ -15,6 +15,7 @@ const Chat = () => {
   const params = useParams();
   const messagesRef = bd.collection("messages");
   const { user } = useContext(UserContext);
+  const [mensajesSolo, setmensajesSolo] = useState([]);
 
   function useFirestoreQuery(query) {
     const [docs, setDocs] = useState([]);
@@ -56,6 +57,16 @@ const Chat = () => {
   const messages = useFirestoreQuery(
     messagesRef.orderBy("createdAt", "desc").limit(10000)
   );
+  for (let index = 0; index < messages.length; index++) {
+    if (
+      ((messages[index].to === params.userId &&
+        messages[index].from === user.id) ||
+        (messages[index].to === user.id &&
+          messages[index].from === params.userId)) &&
+      !mensajesSolo.includes(messages[index])
+    )
+      mensajesSolo.push(messages[index]);
+  }
   const [newMessage, setNewMessage] = useState("");
 
   const inputRef = useRef();
@@ -152,7 +163,7 @@ const Chat = () => {
               <div className={styles.space}></div>
               <div ref={bottomListRef} className={styles.stop}></div>
             </div>
-            {messages.length === 0 && user.role === "usuario" ? (
+            {mensajesSolo.length === 0 && user.role === "usuario" ? (
               <div className={styles.barraInput}>
                 <p>
                   ¡Podrás enviar mensajes cuando el especialista comience la
