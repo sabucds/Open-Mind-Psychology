@@ -25,7 +25,7 @@ import DetallesEspecialista from "./tarjetaEspecialista/DetallesEspecialista";
 import Agendar from "./pages/agendar/Agendar";
 import Chats from "./pages/chats/Chats";
 import Chat from "./pages/chats/Chat";
-import Citas from "./pages/citas/Citas"
+import ListaPacientes from "./pages/listaPacientes/ListaPacientes"
 
 function App() {
   return (
@@ -70,7 +70,7 @@ function App() {
 
             <Route exact path="/chats" component={Chats} />
             <Route exact path="/chats/:userId" component={Chat} />
-            <Route exact path="/citas" component={Citas} />
+            <Route exact path="/listaPacientes" component={ListaPacientes} />
             <Route path="*" component={Error404} />
           </Switch>
         </Router>

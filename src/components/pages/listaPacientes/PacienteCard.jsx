@@ -1,7 +1,7 @@
-import styles from "./Citas.module.css"
+import styles from "./ListaPacientes.module.css"
 import { useHistory } from "react-router-dom";
 
-const CitaCard = (props) => {
+const PacienteCard = (props) => {
   const history = useHistory();
   function handleOpenProfile() {
     history.push(`/especialistas/${props.usuario.id}`);
@@ -34,4 +34,4 @@ const CitaCard = (props) => {
   );
 };
 
-export default CitaCard;
+export default PacienteCard;
