@@ -208,7 +208,7 @@ const ConfiguracionEsp = () => {
           errorMessage += "Disponibilidad\n";
         } else {
           successMessage += "Disponibilidad\n";
-          console.log(weekDisp.Monday.start.split(":")[0]);
+
           // await userDoc.update({ schedule: weekDisp });
           console.log(weekDisp);
         }
