@@ -26,6 +26,7 @@ import Agendar from "./pages/agendar/Agendar";
 import Chats from "./pages/chats/Chats";
 import Chat from "./pages/chats/Chat";
 import ListaPacientes from "./pages/listaPacientes/ListaPacientes"
+import HistorialPaciente from "./pages/listaPacientes/HistorialPaciente"
 
 function App() {
   return (
@@ -71,6 +72,7 @@ function App() {
             <Route exact path="/chats" component={Chats} />
             <Route exact path="/chats/:userId" component={Chat} />
             <Route exact path="/listaPacientes" component={ListaPacientes} />
+            <Route exact path="/historial/:userId" component={HistorialPaciente} />
             <Route path="*" component={Error404} />
           </Switch>
         </Router>
