@@ -14,7 +14,14 @@
   margin-top: 100px;
   width: 100%;
   height: 100%;
-  background-color: burlywood;
+}
+
+.sectBody {
+  width: 100%;
+  height: max-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .tit{
@@ -42,4 +49,67 @@
   flex-direction: column;
   align-items: center;
   margin-bottom: 30px;
+}
+
+.subt{
+  font-size: 1.2rem;
+  text-align: center;
+  padding-bottom: 0.5em;
+}
+
+.chat {
+  height: max-content;
+  width: 100%;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px;
+  align-items: center;
+}
+.chat:hover {
+  background-color: rgb(240, 240, 240);
+}
+
+.chats {
+  width: 50%;
+  height: max-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 20px;
+}
+
+.chats:first-child .chat {
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+.chats:last-child .chat {
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.nameDateCont {
+  display: flex;
+  align-items: center;
+}
+
+.profilePhoto {
+  border-radius: 50%;
+}
+
+.namep {
+  font-size: 1.5em;
+  margin-left: 20px;
+}
+.line2 {
+  width: 80%;
+  position: relative;
+  text-align: center;
+  border-top: 1px solid rgba(0, 0, 0, 0.19);
+  padding-bottom: 0px;
+}
+.date {
+  font-weight: lighter;
+  margin-left: 10px;
 }
