@@ -233,6 +233,9 @@
 .space {
   height: 50px;
 }
+.someSpace {
+  height: 30px;
+}
 
 @media screen and (max-width: 850px) {
   .chats {

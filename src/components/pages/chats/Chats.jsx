@@ -18,6 +18,9 @@ const Chats = () => {
   const [refresh, setrefresh] = useState(0);
   const [listaLista, setlistaLista] = useState(false);
   const [desplegarCitas, setdesplegarCitas] = useState(false);
+  const [showArchived, setshowArchived] = useState(true);
+  const [anyArchived, setanyArchived] = useState(false);
+
   let currentDate = new Date();
   let currentPlusOne = new Date();
 
@@ -44,8 +47,8 @@ const Chats = () => {
         currentPlusOne.setHours(citas[j].date.getHours() + 1);
         currentPlusOne.setMinutes(citas[j].date.getMinutes() + 10);
         if (
-          !(currentDate > citas[j].date && currentDate < currentPlusOne) &&
-          user.role === "usuario"
+          !(currentDate > citas[j].date && currentDate < currentPlusOne)
+          // user.role === "usuario"
         ) {
           usuariosConCita[index]["show"] = false;
         } else if (!usuariosConCita[index].show) {
@@ -65,6 +68,29 @@ const Chats = () => {
           for (let j = 0; j < citas.length; j++) {
             if (usuarios[index].id === citas[j].usuario) {
               if (!usuariosConCita.includes(usuarios[index])) {
+                if (currentDate.getDate() === citas[j].date.getDate()) {
+                  usuarios[index]["today"] = "hoy";
+                } else if (currentDate > citas[j].date) {
+                  usuarios[index]["today"] = "ayer";
+                } else {
+                  usuarios[index]["today"] = "manana";
+                }
+                usuarios[index]["show"] = true;
+                if (
+                  citas[j].especialista === usuarios[index].id ||
+                  citas[j].usuario === usuarios[index].id
+                ) {
+                  usuarios[index]["date"] =
+                    "Fecha de la cita: " +
+                    citas[j].date.getDate() +
+                    "/" +
+                    (citas[j].date.getMonth() + 1) +
+                    "  Hora: " +
+                    citas[j].date.getHours() +
+                    ":" +
+                    citas[j].date.getMinutes() +
+                    "0";
+                }
                 usuariosConCita.push(usuarios[index]);
               }
             }
@@ -75,6 +101,28 @@ const Chats = () => {
           for (let j = 0; j < citas.length; j++) {
             if (usuarios[index].id === citas[j].especialista) {
               if (!usuariosConCita.includes(usuarios[index])) {
+                if (currentDate.getDate() === citas[j].date.getDate()) {
+                  usuarios[index]["today"] = "hoy";
+                } else if (currentDate.getDate() > citas[j].date.getDate()) {
+                  usuarios[index]["today"] = "ayer";
+                } else {
+                  usuarios[index]["today"] = "manana";
+                }
+                if (
+                  citas[j].especialista === usuarios[index].id ||
+                  citas[j].usuario === usuarios[index].id
+                ) {
+                  usuarios[index]["date"] =
+                    "Fecha de la cita: " +
+                    citas[j].date.getDate() +
+                    "/" +
+                    (citas[j].date.getMonth() + 1) +
+                    "  Hora: " +
+                    citas[j].date.getHours() +
+                    ":" +
+                    citas[j].date.getMinutes() +
+                    "0";
+                }
                 usuariosConCita.push(usuarios[index]);
               }
             }
@@ -82,26 +130,7 @@ const Chats = () => {
         }
       }
     }
-    for (let index = 0; index < usuariosConCita.length; index++) {
-      usuariosConCita[index]["show"] = true;
-      for (let j = 0; j < citas.length; j++) {
-        if (
-          citas[j].especialista === usuariosConCita[index].id ||
-          citas[j].usuario === usuariosConCita[index].id
-        ) {
-          usuariosConCita[index]["date"] =
-            "Fecha de la cita: " +
-            citas[j].date.getDate() +
-            "/" +
-            (citas[j].date.getMonth() + 1) +
-            "  Hora: " +
-            citas[j].date.getHours() +
-            ":" +
-            citas[j].date.getMinutes() +
-            "0";
-        }
-      }
-    }
+
     setlistaLista(true);
   }
 
@@ -132,7 +161,7 @@ const Chats = () => {
                 let docc = doc.data();
                 let dateFormat = new Date(doc.data().date.seconds * 1000);
                 docc["date"] = dateFormat;
-                if (currentDate.getDate() == docc.date.getDate()) {
+                if (!citas.includes(docc)) {
                   citas.push(docc);
                 }
               });
@@ -150,7 +179,7 @@ const Chats = () => {
                 let docc = doc.data();
                 let dateFormat = new Date(doc.data().date.seconds * 1000);
                 docc["date"] = dateFormat;
-                if (currentDate.getDate() == docc.date.getDate()) {
+                if (!citas.includes(docc)) {
                   citas.push(docc);
                 }
               });
@@ -189,8 +218,21 @@ const Chats = () => {
               <Navbar />
               <section className={styles.chatSect}>
                 <div className={styles.encabezado}>
-                  <div className={styles.contact}>Chats de hoy</div>
+                  <div className={styles.contact}>
+                    {showArchived ? <>Chats de hoy</> : <>Chats archivados</>}
+                  </div>
                   <div className={styles.line}></div>
+                  <div className={styles.someSpace}></div>
+                  <label className="searchRanking">
+                    Ver chats archivados
+                    <input
+                      type="checkbox"
+                      className="checkRanking"
+                      name="checkRanking"
+                      onChange={() => setshowArchived(!showArchived)}
+                    />
+                    <span class="checkmark"></span>
+                  </label>
                 </div>
                 <div className={styles.chatsSect}>
                   <div
@@ -199,9 +241,43 @@ const Chats = () => {
                     <>
                       {desplegarCitas && usuariosConCita.length !== 0 ? (
                         <>
-                          {usuariosConCita.map((u) => {
-                            return <ChatCard key={u.id} usuario={u} />;
-                          })}
+                          {showArchived ? (
+                            <>
+                              {usuariosConCita.map((u) => {
+                                return (
+                                  <>
+                                    {u.today === "hoy" ? (
+                                      <ChatCard key={u.id} usuario={u} />
+                                    ) : (
+                                      <div></div>
+                                    )}
+                                  </>
+                                );
+                              })}
+                            </>
+                          ) : (
+                            <>
+                              {usuariosConCita.map((u) => {
+                                return (
+                                  <>
+                                    {u.today === "ayer" ? (
+                                      <>
+                                        {setanyArchived(true)}
+                                        <ChatCard key={u.id} usuario={u} />
+                                      </>
+                                    ) : (
+                                      <div></div>
+                                    )}
+                                  </>
+                                );
+                              })}
+                              {!anyArchived ? (
+                                <div>¡Aun no tienes chats archivados!</div>
+                              ) : (
+                                <div></div>
+                              )}
+                            </>
+                          )}
                         </>
                       ) : (
                         <p>¡No tienes citas para hoy!</p>
