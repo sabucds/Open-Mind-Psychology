@@ -1,0 +1,45 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+*:focus {
+  outline: none;
+}
+
+.sect{
+  margin-top: 100px;
+  width: 100%;
+  height: 100%;
+  background-color: burlywood;
+}
+
+.tit{
+  font-style: normal;
+  font-weight: normal;
+  font-size: 2.25rem;
+  text-align: center;
+  color: #ee9d6b;
+  padding-bottom: 0.5em;
+}
+
+.line {
+  box-shadow: 0 0.125rem 0.25rem 0 rgba(0, 0, 0, 0.2),
+    0 0.1875rem 0.625rem 0 rgba(0, 0, 0, 0.19);
+  width: 80%;
+  position: relative;
+  text-align: center;
+  border-top: 2px solid #ee9d6b;
+  padding-bottom: 0px;
+}
+.encabezado {
+  width: 100%;
+  height: max-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 30px;
+}
