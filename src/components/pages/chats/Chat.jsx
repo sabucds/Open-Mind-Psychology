@@ -80,36 +80,38 @@ const Chat = () => {
   const messages = useFirestoreQuery(
     messagesRef.orderBy("createdAt", "desc").limit(10000)
   );
-  let currentDate = new Date();
-  for (let index = 0; index < messages.length; index++) {
-    let dateFormat = new Date(messages[index].createdAt.seconds * 1000);
-    try {
-      if (
-        ((messages[index].to === params.userId &&
-          messages[index].from === user.id) ||
-          (messages[index].to === user.id &&
-            messages[index].from === params.userId)) &&
-        !mensajesSolo.includes(messages[index])
-      ) {
-        mensajesSolo.push(messages[index]);
+  try {
+    let currentDate = new Date();
+    for (let index = 0; index < messages.length; index++) {
+      let dateFormat = new Date(messages[index].createdAt.seconds * 1000);
+      try {
+        if (
+          ((messages[index].to === params.userId &&
+            messages[index].from === user.id) ||
+            (messages[index].to === user.id &&
+              messages[index].from === params.userId)) &&
+          !mensajesSolo.includes(messages[index])
+        ) {
+          mensajesSolo.push(messages[index]);
+        }
+      } catch {}
+      if (currentDate.getDate() === dateFormat.getDate()) {
+        today.push(messages[index]);
       }
-    } catch {}
-    if (currentDate.getDate() === dateFormat.getDate()) {
-      today.push(messages[index]);
-    }
-    for (let index = 0; index < today.length; index++) {
-      if (today[index].from === user.id && user.role === "especialista") {
-        horaTerminarCita = new Date(today[index].createdAt.seconds * 1000);
-        horaTerminarCita.setHours(horaTerminarCita.getHours() + 1);
-      } else if (
-        today[index].from === params.userId &&
-        user.role === "usuario"
-      ) {
-        horaTerminarCita = new Date(today[index].createdAt.seconds * 1000);
-        horaTerminarCita.setHours(horaTerminarCita.getHours() + 1);
+      for (let index = 0; index < today.length; index++) {
+        if (today[index].from === user.id && user.role === "especialista") {
+          horaTerminarCita = new Date(today[index].createdAt.seconds * 1000);
+          horaTerminarCita.setHours(horaTerminarCita.getHours() + 1);
+        } else if (
+          today[index].from === params.userId &&
+          user.role === "usuario"
+        ) {
+          horaTerminarCita = new Date(today[index].createdAt.seconds * 1000);
+          horaTerminarCita.setHours(horaTerminarCita.getHours() + 1);
+        }
       }
     }
-  }
+  } catch {}
   const [newMessage, setNewMessage] = useState("");
 
   const inputRef = useRef();
@@ -153,11 +155,12 @@ const Chat = () => {
     const { id, name, img } = user;
     const from = user.id;
     const to = params.userId;
+    let current = new Date();
 
     // Add new message in Firestore
     messagesRef.add({
       text: `http://g.co/meet/${id}`,
-      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      createdAt: current,
       name,
       img,
       from,

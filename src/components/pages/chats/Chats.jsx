@@ -69,10 +69,17 @@ const Chats = () => {
           for (let j = 0; j < citas.length; j++) {
             if (usuarios[index].id === citas[j].usuario) {
               if (!usuariosConCita.includes(usuarios[index])) {
-                if (currentDate.getDate() === citas[j].date.getDate()) {
+                if (
+                  currentDate.getDate() === citas[j].date.getDate() &&
+                  currentDate.getMonth() === citas[j].date.getMonth()
+                ) {
                   usuarios[index]["today"] = "hoy";
                   setcitasHoy(true);
-                } else if (currentDate.getDate() > citas[j].date.getDate()) {
+                } else if (
+                  (currentDate.getDate() > citas[j].date.getDate() &&
+                    currentDate.getMonth() === citas[j].date.getMonth()) ||
+                  currentDate.getMonth() > citas[j].date.getMonth()
+                ) {
                   usuarios[index]["today"] = "ayer";
                   setcitasPasadas(true);
                 } else {
@@ -104,10 +111,17 @@ const Chats = () => {
           for (let j = 0; j < citas.length; j++) {
             if (usuarios[index].id === citas[j].especialista) {
               if (!usuariosConCita.includes(usuarios[index])) {
-                if (currentDate.getDate() === citas[j].date.getDate()) {
+                if (
+                  currentDate.getDate() === citas[j].date.getDate() &&
+                  currentDate.getMonth() === citas[j].date.getMonth()
+                ) {
                   usuarios[index]["today"] = "hoy";
                   setcitasHoy(true);
-                } else if (currentDate.getDate() > citas[j].date.getDate()) {
+                } else if (
+                  (currentDate.getDate() > citas[j].date.getDate() &&
+                    currentDate.getMonth() === citas[j].date.getMonth()) ||
+                  currentDate.getMonth() > citas[j].date.getMonth()
+                ) {
                   usuarios[index]["today"] = "ayer";
                   setcitasPasadas(true);
                 } else {
