@@ -209,7 +209,7 @@ const ConfiguracionEsp = () => {
         } else {
           successMessage += "Disponibilidad\n";
 
-          // await userDoc.update({ schedule: weekDisp });
+          await userDoc.update({ schedule: weekDisp });
           console.log(weekDisp);
         }
       }
