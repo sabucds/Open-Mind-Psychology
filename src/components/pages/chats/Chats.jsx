@@ -68,20 +68,24 @@ const Chats = () => {
         for (let index = 0; index < usuarios.length; index++) {
           for (let j = 0; j < citas.length; j++) {
             if (usuarios[index].id === citas[j].usuario) {
-              if (!usuariosConCita.includes(usuarios[index])) {
+              if (
+                (currentDate.getDate() === citas[j].date.getDate() &&
+                  currentDate.getMonth() === citas[j].date.getMonth()) ||
+                (currentDate.getDate() > citas[j].date.getDate() &&
+                  currentDate.getMonth() === citas[j].date.getMonth()) ||
+                currentDate.getMonth() > citas[j].date.getMonth()
+              ) {
                 if (
                   currentDate.getDate() === citas[j].date.getDate() &&
                   currentDate.getMonth() === citas[j].date.getMonth()
                 ) {
                   usuarios[index]["today"] = "hoy";
-                  setcitasHoy(true);
                 } else if (
                   (currentDate.getDate() > citas[j].date.getDate() &&
                     currentDate.getMonth() === citas[j].date.getMonth()) ||
                   currentDate.getMonth() > citas[j].date.getMonth()
                 ) {
                   usuarios[index]["today"] = "ayer";
-                  setcitasPasadas(true);
                 } else {
                   usuarios[index]["today"] = "manana";
                 }
@@ -101,7 +105,17 @@ const Chats = () => {
                     citas[j].date.getMinutes() +
                     "0";
                 }
-                usuariosConCita.push(usuarios[index]);
+                let existe = false;
+                usuariosConCita.forEach(function (obj) {
+                  console.log(obj.id);
+                  console.log(usuarios[index].id);
+                  if (obj.id === usuarios[index].id) {
+                    existe = true;
+                  }
+                });
+                if (!existe) {
+                  usuariosConCita.push(usuarios[index]);
+                }
               }
             }
           }
@@ -110,20 +124,24 @@ const Chats = () => {
         for (let index = 0; index < usuarios.length; index++) {
           for (let j = 0; j < citas.length; j++) {
             if (usuarios[index].id === citas[j].especialista) {
-              if (!usuariosConCita.includes(usuarios[index])) {
+              if (
+                (currentDate.getDate() === citas[j].date.getDate() &&
+                  currentDate.getMonth() === citas[j].date.getMonth()) ||
+                (currentDate.getDate() > citas[j].date.getDate() &&
+                  currentDate.getMonth() === citas[j].date.getMonth()) ||
+                currentDate.getMonth() > citas[j].date.getMonth()
+              ) {
                 if (
                   currentDate.getDate() === citas[j].date.getDate() &&
                   currentDate.getMonth() === citas[j].date.getMonth()
                 ) {
                   usuarios[index]["today"] = "hoy";
-                  setcitasHoy(true);
                 } else if (
                   (currentDate.getDate() > citas[j].date.getDate() &&
                     currentDate.getMonth() === citas[j].date.getMonth()) ||
                   currentDate.getMonth() > citas[j].date.getMonth()
                 ) {
                   usuarios[index]["today"] = "ayer";
-                  setcitasPasadas(true);
                 } else {
                   usuarios[index]["today"] = "manana";
                 }
@@ -142,12 +160,31 @@ const Chats = () => {
                     citas[j].date.getMinutes() +
                     "0";
                 }
-                usuariosConCita.push(usuarios[index]);
+                let existe = false;
+                usuariosConCita.forEach(function (obj) {
+                  if (obj.id === usuarios[index].id) {
+                    console.log(obj.id);
+                    console.log(usuarios[index].id);
+                    console.log(obj.date);
+                    console.log(usuarios[index].date);
+                    existe = true;
+                  }
+                });
+                if (!existe) {
+                  usuariosConCita.push(usuarios[index]);
+                }
               }
             }
           }
         }
       }
+    }
+    for (let index = 0; index < usuariosConCita.length; index++) {
+      if (usuariosConCita[index].today === "hoy" && !citasHoy) {
+        setcitasHoy(true);
+      }
+      if (usuariosConCita[index].today === "ayer" && !citasPasadas)
+        setcitasPasadas(true);
     }
 
     setlistaLista(true);
@@ -223,6 +260,7 @@ const Chats = () => {
   }
 
   useEffect(() => {
+    console.log("LECTURA A FIREBASE");
     getCitas();
   }, []);
 

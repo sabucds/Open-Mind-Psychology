@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import PropTypes from "prop-types";
 import { bd } from "../../../utils/firebaseConfig";
-import firebase from "firebase/app";
 import { UserContext } from "../../../context/UserContext";
 import { useContext } from "react";
 // Components
@@ -34,7 +33,6 @@ const Chat = () => {
           setloading(true);
           terminada.push("1");
           setloading(false);
-          // console.log(terminada);
         }
       } catch {}
     }
@@ -78,7 +76,7 @@ const Chat = () => {
     return docs;
   }
   const messages = useFirestoreQuery(
-    messagesRef.orderBy("createdAt", "desc").limit(10000)
+    messagesRef.orderBy("createdAt", "desc").limit(1000)
   );
   try {
     let currentDate = new Date();
