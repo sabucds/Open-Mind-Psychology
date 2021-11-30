@@ -56,16 +56,9 @@
 }
 
 .bottom-button {
-  cursor: pointer;
-  padding: 15px 30px;
-  color: white;
-  border-radius: 10px;
-  background-color: #ee9d6b;
   width: fit-content;
   min-width: 50px;
   margin: auto;
-  margin-top: 30px;
-  box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
 }
 
 .registra-link {
@@ -236,6 +229,23 @@
 	border-right: 0;
 	margin-left: -6.5px;
 	margin-bottom: -13px;
+}
+
+.inicio-footer {
+  width: 100%;
+  height: 100px;
+  background-image: url(../../img/Fondo\ Banner\ 1.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer-msg {
+  color: rgba(255,255,255,0.75);
+  font-size: small;
 }
 
 @media screen and (max-width: 850px) {

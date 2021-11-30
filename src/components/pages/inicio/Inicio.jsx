@@ -131,9 +131,13 @@ const Inicio = () => {
               <p className="test-author">- Marianna Meléndez<br/><span>(usuario de OMP)</span></p>
             </div>
           </div>
-          <NavLink className="registra-link" to="/SelectReg">
-            <div className="bottom-button">Regístrate aquí</div>
-          </NavLink>
+        </div>
+        <div className="inicio-footer">
+          {!!user ? <div className="footer-msg">OMP, 2021</div> :
+            <NavLink className="registra-link" to="/SelectReg">
+              <div className="registra-button bottom-button">Regístrate aquí</div>
+            </NavLink>
+          }
         </div>
       </section>
     </>
