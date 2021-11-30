@@ -13,10 +13,13 @@ import DatePicker from "react-datepicker";
 import subDays from "date-fns/subDays";
 import "react-datepicker/dist/react-datepicker.css";
 
+import PayPal from "./Paypal";
+
 const Agendar = () => {
   const history = useHistory();
   const currentUser = useContext(UserContext).user;
 
+  const [checkout, setCheckout] = useState(false);
   const [loading, setLoading] = useState(false);
   const [especialista, setEspecialista] = useState(null);
   const [error, setError] = useState(null);
@@ -98,7 +101,7 @@ const Agendar = () => {
 
     if (reason) {
       for (const dateId in reserved) {
-        console.log("Test: " + reserved[dateId]);
+        console.log("Fecha:" + reserved[dateId]);
         if (selectedDate.getTime() === reserved[dateId].getTime()) {
           setLoading(false);
           alert("Esa fecha ya se encuentra reservada.");
@@ -133,16 +136,7 @@ const Agendar = () => {
     try {
       if (await validateInput()) {
         // Valida que la hora seleccionada esté dentro del rango correspondiente
-        await bd.collection("citas").add({
-          usuario: currentUser.id,
-          especialista: especialista.id,
-          date: selectedDate,
-          reason: reason,
-          status: "activo",
-        });
-        setLoading(false);
-        alert("Cita agendada exitosamente.");
-        history.push("/perfil");
+        setCheckout(true);
       } else {
       }
       setLoading(false);
@@ -170,7 +164,7 @@ const Agendar = () => {
     loadingReserved &&
     especialista.schedule.length === 0 ? (
     <Cargando />
-  ) : (
+  ) : !checkout ? (
     <>
       <Navbar />
       <section className={styles.sect}>
@@ -197,6 +191,7 @@ const Agendar = () => {
               placeholderText="Seleccione una fecha y hora"
               className={styles.input}
               id="date-input"
+              autoComplete="off"
             />
           </div>
           <div className={styles.subtit}>Ingrese el motivo de la cita:</div>
@@ -207,6 +202,7 @@ const Agendar = () => {
               placeholder="Ingrese el motivo de la cita."
               onChange={(e) => setReason(e.target.value)}
               className={styles.input}
+              autoComplete="off"
             ></input>
           </div>
           <div className={styles.btn}>
@@ -221,6 +217,13 @@ const Agendar = () => {
         </div>
       </section>
     </>
+  ) : (
+    <PayPal
+      currentUser={currentUser}
+      especialista={especialista}
+      selectedDate={selectedDate}
+      reason={reason}
+    />
   );
 };
 

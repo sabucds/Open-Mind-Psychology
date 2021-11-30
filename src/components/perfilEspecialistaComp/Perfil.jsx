@@ -308,7 +308,6 @@ const Perfil = ({ user }) => {
       user.schedule.length !== 0
     ) {
       console.log(user);
-      console.log(user.schedule);
       return (
         <>
           <div className="cita-button" onClick={handleAgenda}>
