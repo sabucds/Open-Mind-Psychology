@@ -17,6 +17,30 @@ const Chat = () => {
   const { user } = useContext(UserContext);
   const [mensajesSolo, setmensajesSolo] = useState([]);
   const [today, settoday] = useState([]);
+  const [terminada, setterminada] = useState(false);
+  const [loading, setloading] = useState(false);
+
+  let horaTerminarCita = 500;
+
+  setInterval(() => {
+    if (!terminada) {
+      let horaActual = new Date();
+      // console.log(horaTerminarCita);
+      try {
+        if (
+          horaActual.getHours() >= horaTerminarCita.getHours() &&
+          horaActual.getMinutes() >= horaTerminarCita.getMinutes()
+        ) {
+          console.log(horaActual.getMinutes());
+          console.log("Termina  ", horaTerminarCita.getMinutes());
+          setloading(true);
+          setterminada(true);
+          setloading(false);
+          // console.log(terminada);
+        }
+      } catch {}
+    }
+  }, 1000);
 
   function useFirestoreQuery(query) {
     const [docs, setDocs] = useState([]);
@@ -74,6 +98,20 @@ const Chat = () => {
     } catch {}
     if (currentDate.getDate() === dateFormat.getDate()) {
       today.push(messages[index]);
+    }
+    for (let index = 0; index < today.length; index++) {
+      if (today[index].from === user.id && user.role === "especialista") {
+        horaTerminarCita = new Date();
+        let dateFormat = new Date(today[index].createdAt.seconds * 1000);
+        horaTerminarCita.setHours(dateFormat.getHours() + 1);
+      } else if (
+        today[index].from === params.userId &&
+        user.role === "usuario"
+      ) {
+        horaTerminarCita = new Date();
+        let dateFormat = new Date(today[index].createdAt.seconds * 1000);
+        horaTerminarCita.setHours(dateFormat.getHours() + 1);
+      }
     }
   }
   const [newMessage, setNewMessage] = useState("");
@@ -137,9 +175,9 @@ const Chat = () => {
 
   return (
     <>
-      {!!user ? (
+      <Navbar />
+      {!!user && !loading ? (
         <>
-          <Navbar />
           <div className={styles.chatSect}>
             <div className={styles.encabezado}>
               <div className={styles.contact}>Bienvenido al chat</div>
@@ -173,12 +211,16 @@ const Chat = () => {
               <div className={styles.space}></div>
               <div ref={bottomListRef} className={styles.stop}></div>
             </div>
-            {today.length === 0 && user.role === "usuario" ? (
+            {(today.length === 0 && user.role === "usuario") || terminada ? (
               <div className={styles.barraInput}>
-                <p>
-                  ¡Podrás enviar mensajes cuando el especialista comience la
-                  conversación!
-                </p>
+                {terminada ? (
+                  <p>¡La cita ha terminado! Ya no puedes enviar mensajes</p>
+                ) : (
+                  <p>
+                    ¡Podrás enviar mensajes cuando el especialista comience la
+                    conversación!
+                  </p>
+                )}
               </div>
             ) : (
               <>

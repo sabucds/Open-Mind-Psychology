@@ -241,7 +241,16 @@ const Chats = () => {
                 </div>
                 <div className={styles.chatsSect}>
                   <div
-                    className={usuariosConCita.length !== 0 ? styles.chats : ""}
+                    className={
+                      (usuariosConCita.length !== 0 &&
+                        citasHoy &&
+                        !showArchived) ||
+                      (usuariosConCita.length !== 0 &&
+                        citasPasadas &&
+                        showArchived)
+                        ? styles.chats
+                        : ""
+                    }
                   >
                     <>
                       {desplegarCitas && usuariosConCita.length !== 0 ? (

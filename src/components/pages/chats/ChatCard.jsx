@@ -8,7 +8,7 @@ const ChatCard = (props) => {
   }
 
   function handleNothing() {
-    alert("Aun no es hora de tu cita");
+    alert("No es hora de tu cita");
   }
 
   return (
