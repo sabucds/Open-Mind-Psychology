@@ -4,7 +4,8 @@ import { UserContext } from "../../../context/UserContext";
 import Perfil from "../../perfilEspecialistaComp/Perfil";
 
 const PerfilEspecialista = () => {
-  return Perfil(useContext(UserContext));
+  console.log(useContext(UserContext).user);
+  return <Perfil user={useContext(UserContext).user} />;
 };
 
 export default PerfilEspecialista;

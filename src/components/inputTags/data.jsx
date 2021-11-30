@@ -22,7 +22,7 @@ export const symptomOptions = [
   { value: "antisocial", label: "Trastorno antisocial"},
   { value: "atencion", label: "Trastorno de déficit de atención e hiperactividad"},
   { value: "despersonalizacion", label: "Trastorno de despersonalización"},
-  { value: "multiple", label: "Trastorno de identidad disociativo o múltiples personalidades"},
+  { value: "multiple", label: "Trastorno de identidad disociativo"},
   { value: "panico", label: "Trastorno de pánico"},
   { value: "bordeline", label: "Trastorno límite de la personalidad" },
   { value: "ocd", label: "Trastorno obsesivo-compulsivo"},

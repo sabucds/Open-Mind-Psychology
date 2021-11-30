@@ -18,11 +18,18 @@ import CargandoDatos from "../../cargando/CargandoDatos";
 const ConfiguracionEsp = () => {
   const history = useHistory();
   const { user } = useContext(UserContext);
-  const [shown, setShown] = React.useState(false);
-  const [name, setName] = useState("");
-  const [lname, setLname] = useState("");
-  const [country, setCountry] = useState("");
-  const [number, setNumber] = useState("");
+  const {
+    name: userName,
+    phone,
+    country: countryInitialValue,
+    schedule,
+  } = user;
+  const [nameInitialValue, lastNameInitialValue] = user.name.split(" ");
+  const [shown, setShown] = useState(false);
+  const [name, setName] = useState(nameInitialValue);
+  const [lname, setLname] = useState(lastNameInitialValue);
+  const [country, setCountry] = useState(countryInitialValue || "");
+  const [number, setNumber] = useState(phone || "");
   const [info, setInfo] = useState("");
   const [edu, setEdu] = useState("");
   //const [spec, setSpec] = useState("");
@@ -32,6 +39,46 @@ const ConfiguracionEsp = () => {
   const [updating, setUpdating] = useState(false);
 
   const [eImg, setEImg] = useState(false);
+
+  const scheduleHasNotBeenSet =
+    Array.isArray(schedule) && schedule.length === 0;
+
+  const [weekDisp, setWeekDisp] = useState(
+    scheduleHasNotBeenSet
+      ? {
+          // In case we do not have schedule, lets have this initial value
+          Monday: {
+            start: "",
+            end: "",
+          },
+          Tuesday: {
+            start: "",
+            end: "",
+          },
+          Wednesday: {
+            start: "",
+            end: "",
+          },
+          Thursday: {
+            start: "",
+            end: "",
+          },
+          Friday: {
+            start: "",
+            end: "",
+          },
+          Saturday: {
+            start: "",
+            end: "",
+          },
+          Sunday: {
+            start: "",
+            end: "",
+          },
+        }
+      : // Else, we have current schedule
+        schedule
+  );
 
   const switchShown = () => setShown(!shown);
   const handlePicture = (e) => {
@@ -70,6 +117,44 @@ const ConfiguracionEsp = () => {
     );
   };
 
+  function isFirstBlank(weekDisp) {
+    if (
+      (weekDisp.Monday.start.length >= 1 && weekDisp.Monday.end === "") ||
+      (weekDisp.Tuesday.start.length >= 1 && weekDisp.Tuesday.end === "") ||
+      (weekDisp.Wednesday.start.length >= 1 && weekDisp.Wednesday.end === "") ||
+      (weekDisp.Thursday.start.length >= 1 && weekDisp.Thursday.end === "") ||
+      (weekDisp.Friday.start.length >= 1 && weekDisp.Friday.end === "") ||
+      (weekDisp.Saturday.start.length >= 1 && weekDisp.Saturday.end === "") ||
+      (weekDisp.Sunday.start.length >= 1 && weekDisp.Sunday.end === "")
+    ) {
+      return true;
+    }
+    return false;
+  }
+
+  function isSecondBlank(weekDisp) {
+    if (
+      (weekDisp.Monday.end.length >= 1 && weekDisp.Monday.start === "") ||
+      (weekDisp.Tuesday.end.length >= 1 && weekDisp.Tuesday.start === "") ||
+      (weekDisp.Wednesday.end.length >= 1 && weekDisp.Wednesday.start === "") ||
+      (weekDisp.Thursday.end.length >= 1 && weekDisp.Thursday.start === "") ||
+      (weekDisp.Friday.end.length >= 1 && weekDisp.Friday.start === "") ||
+      (weekDisp.Saturday.end.length >= 1 && weekDisp.Saturday.start === "") ||
+      (weekDisp.Sunday.end.length >= 1 && weekDisp.Sunday.start === "")
+    ) {
+      return true;
+    }
+    return false;
+  }
+
+  function isSchedulethere(weekDisp) {
+    if (weekDisp !== []) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   const handleSubmit = async (evt) => {
     console.log(country);
     evt.preventDefault();
@@ -86,6 +171,7 @@ const ConfiguracionEsp = () => {
           let oldName = user.name.split(" ");
           const newName = name + " " + oldName[1];
           await userDoc.update({ name: newName });
+          user.name = newName;
           successMessage += "Nombre\n";
         } else {
           errorMessage += "Nombre\n";
@@ -96,6 +182,7 @@ const ConfiguracionEsp = () => {
           let oldName = user.name.split(" ");
           const newName = oldName[0] + " " + lname;
           await userDoc.update({ name: newName });
+          user.name = newName;
           successMessage += "Apellido\n";
         } else {
           errorMessage += "Apellido\n";
@@ -104,6 +191,16 @@ const ConfiguracionEsp = () => {
       if (country) {
         await userDoc.update({ country: country });
         successMessage += "País\n";
+      }
+
+      if (weekDisp) {
+        if (isFirstBlank(weekDisp) || isSecondBlank(weekDisp)) {
+          errorMessage += "Disponibilidad\n";
+        } else {
+          successMessage += "Disponibilidad\n";
+          await userDoc.update({ schedule: weekDisp });
+          console.log(weekDisp);
+        }
       }
       if (number) {
         if (isValidPhoneNumber) {
@@ -168,6 +265,17 @@ const ConfiguracionEsp = () => {
     window.location.reload();
   };
 
+  const handleWeekDispChange = (event) => {
+    const { id, value } = event.target;
+    const [day, key] = id.split("-");
+    setWeekDisp((prev) => {
+      const newWeekDisp = { ...prev };
+      newWeekDisp[day][key] = value;
+
+      return newWeekDisp;
+    });
+  };
+
   const handlePassChange = async () => {
     if (newPassword) {
       setUpdating(true);
@@ -219,7 +327,7 @@ const ConfiguracionEsp = () => {
                     <input
                       id="nombre"
                       name="nombre"
-                      type="text"
+                      stype="text"
                       className="input-nombre-edit"
                       placeholder="Nombre"
                       onChange={(e) => setName(e.target.value)}
@@ -250,7 +358,160 @@ const ConfiguracionEsp = () => {
                       value={number}
                     />
                   </div>
+                  <div className="dispon-container">
+                    <div className="titles-edit">Disponibilidad</div>
+                    <div className="texto-chikito">
+                      Aquí podrá ingresar sus horas de disponibilidad, el
+                      sistema se encargará de organizarla en bloques de 70
+                      minutos.
+                    </div>
+                    <br />
+                    <div className="dispon-edit">
+                      <div className="dispon-edit1">
+                        <div className="titles-week">Lunes</div>
 
+                        <div className="hours-container">
+                          <input
+                            step="3600"
+                            type="time"
+                            className="input-time"
+                            id="Monday-start"
+                            onChange={handleWeekDispChange}
+                            value={weekDisp.Monday.start}
+                          />
+                          <input
+                            type="time"
+                            step="3600"
+                            className="input-time"
+                            id="Monday-end"
+                            onChange={handleWeekDispChange}
+                          />
+                        </div>
+                      </div>
+                      <div className="dispon-edit1">
+                        <div className="titles-week">Martes</div>
+
+                        <div className="hours-container">
+                          <input
+                            step="3600"
+                            type="time"
+                            className="input-time"
+                            id="Tuesday-start"
+                            onChange={handleWeekDispChange}
+                          />
+                          <input
+                            step="3600"
+                            type="time"
+                            className="input-time"
+                            id="Tuesday-end"
+                            onChange={handleWeekDispChange}
+                          />
+                        </div>
+                      </div>
+                      <div className="dispon-edit1">
+                        <div className="titles-week">Miercoles</div>
+
+                        <div className="hours-container">
+                          <input
+                            step="3600"
+                            type="time"
+                            className="input-time"
+                            id="Wednesday-start"
+                            onChange={handleWeekDispChange}
+                          />
+                          <input
+                            step="3600"
+                            type="time"
+                            className="input-time"
+                            id="Wednesday-end"
+                            onChange={handleWeekDispChange}
+                          />
+                        </div>
+                      </div>
+                      <div className="dispon-edit1">
+                        <div className="titles-week">Jueves</div>
+
+                        <div className="hours-container">
+                          <input
+                            step="3600"
+                            type="time"
+                            className="input-time"
+                            id="Thursday-start"
+                            onChange={handleWeekDispChange}
+                          />
+
+                          <input
+                            step="3600"
+                            type="time"
+                            className="input-time"
+                            id="Thursday-end"
+                            onChange={handleWeekDispChange}
+                          />
+                        </div>
+                      </div>
+                      <div className="dispon-edit1">
+                        <div className="titles-week">Viernes</div>
+
+                        <div className="hours-container">
+                          <input
+                            step="3600"
+                            type="time"
+                            className="input-time"
+                            id="Friday-start"
+                            onChange={handleWeekDispChange}
+                          />
+                          <input
+                            step="3600"
+                            type="time"
+                            className="input-time"
+                            id="Friday-end"
+                            onChange={handleWeekDispChange}
+                          />
+                        </div>
+                      </div>
+                      <div className="dispon-edit1">
+                        <div className="titles-week">Sábado</div>
+
+                        <div className="hours-container">
+                          <input
+                            step="3600"
+                            type="time"
+                            className="input-time"
+                            id="Saturday-start"
+                            onChange={handleWeekDispChange}
+                          />
+                          <input
+                            step="3600"
+                            type="time"
+                            className="input-time"
+                            id="Saturday-end"
+                            onChange={handleWeekDispChange}
+                          />
+                        </div>
+                      </div>
+                      <div className="dispon-edit1">
+                        <div className="titles-week">Domingo</div>
+
+                        <div className="hours-container">
+                          <input
+                            step="3600"
+                            type="time"
+                            className="input-time"
+                            id="Sunday-start"
+                            onChange={handleWeekDispChange}
+                          />
+                          <input
+                            step="3600"
+                            type="time"
+                            className="input-time"
+                            id="Sunday-end"
+                            onChange={handleWeekDispChange}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div className="clean-esp-button"></div>
+                  </div>
                   <div className="pais-edit">
                     <div className="titles-edit">País</div>
                     <ReactFlagsSelect
@@ -344,18 +605,18 @@ const ConfiguracionEsp = () => {
                       className="input-contra-edit"
                       value={newPassword}
                     />
+                    <button className="password-button" onClick={switchShown}>
+                      {shown ? (
+                        <div className="ocultar"></div>
+                      ) : (
+                        <div className="mostrar"></div>
+                      )}
+                    </button>
                   </div>
                 </div>
               </div>
 
               <div className="cuadro3">
-                <button className="password-button" onClick={switchShown}>
-                  {shown ? (
-                    <div className="ocultar"></div>
-                  ) : (
-                    <div className="mostrar"></div>
-                  )}
-                </button>
                 <br />
                 <button
                   className="config-button"

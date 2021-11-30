@@ -1,41 +1,55 @@
 import Perfil from "../perfilEspecialistaComp/Perfil";
 import { useParams } from "react-router-dom";
 import { bd } from "../../utils/firebaseConfig";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Cargando from "../cargando/Cargando";
 
 const DetallesEspecialista = () => {
   const [loading, setLoading] = useState(false);
-  const [especialistas, setEspecialistas] = useState({});
+  const [especialista, setEspecialista] = useState(null);
+  const [error, setError] = useState(null);
   const params = useParams();
+  const componentMounted = useRef(true);
 
-  async function getEspecialistas() {
+  async function getEspecialista() {
     try {
       setLoading(true);
-      const usersRef = bd.collection("users");
-      const users = await usersRef.get();
-      let especialistaDocs = {};
-      let docData;
-      let docId;
-      users.forEach((doc) => {
-        docData = doc.data();
-        docId = doc.id;
-        if (params.characterId === docId) {
-          especialistaDocs["user"] = docData;
-          especialistaDocs["user"]["id"] = docId;
-        }
-      });
-      setEspecialistas(especialistaDocs);
-      setLoading(false);
+      const userRef = await bd.collection("users").doc(params.characterId);
+      const userDoc = await userRef.get();
+      let user = userDoc.data();
+      user.id = userDoc.id;
+      if (componentMounted.current) {
+        setEspecialista(user);
+        setLoading(false);
+      }
     } catch (e) {
       console.log(e);
-      setLoading(false);
+      if (componentMounted.current) {
+        setError(e.message);
+        setLoading(false);
+      }
     }
   }
+
   useEffect(() => {
-    getEspecialistas();
+    getEspecialista();
+    return () => {
+      componentMounted.current = false;
+    };
   }, []);
-  return loading ? <Cargando /> : Perfil(especialistas);
+
+  return loading && !especialista && !error ? (
+    <Cargando />
+  ) : especialista ? (
+    <Perfil user={especialista} />
+  ) : (
+    <>
+      <div className="titulo">
+        Hubo un error al intentar cargar el especialista.
+      </div>
+      <div className="errorMsg404">{error}</div>
+    </>
+  );
 };
 
 export default DetallesEspecialista;

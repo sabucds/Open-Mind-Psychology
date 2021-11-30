@@ -50,7 +50,7 @@ export default function UserContextProvider({ children }) {
               phone: loggedUser.phoneNumber,
               country: "",
               info: "",
-              specialty: [],
+              specialty: "",
               education: "",
               schedule: [],
               feedback: [],

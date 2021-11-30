@@ -63,7 +63,7 @@ const Especialistas = () => {
   async function getEspecialistas() {
     try {
       setLoading(true);
-      const usersRef = await bd.collection("users");
+      const usersRef = bd.collection("users");
       const users = await usersRef.get();
       let especialistaDocs = {};
       let docData;

@@ -93,6 +93,7 @@ const Configuracion = () => {
           let oldName = user.name.split(" ");
           const newName = name + " " + oldName[1];
           await userDoc.update({ name: newName });
+          user.name = newName;
           successMessage += "Nombre\n";
         } else {
           errorMessage += "Nombre\n";
@@ -103,6 +104,7 @@ const Configuracion = () => {
           let oldName = user.name.split(" ");
           const newName = oldName[0] + " " + lname;
           await userDoc.update({ name: newName });
+          user.name = newName;
           successMessage += "Apellido\n";
         } else {
           errorMessage += "Apellido\n";
@@ -311,18 +313,18 @@ const Configuracion = () => {
                       className="input-contra-edit"
                       value={newPassword}
                     />
+                    <button className="password-button" onClick={switchShown}>
+                      {shown ? (
+                        <div className="ocultar"></div>
+                      ) : (
+                        <div className="mostrar"></div>
+                      )}
+                    </button>
                   </div>
                 </div>
               </div>
 
               <div className="cuadro3">
-                <button className="password-button" onClick={switchShown}>
-                  {shown ? (
-                    <div className="ocultar"></div>
-                  ) : (
-                    <div className="mostrar"></div>
-                  )}
-                </button>
                 <br />
                 <button
                   className="config-button"

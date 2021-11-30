@@ -33,7 +33,7 @@ const CredUpload = () => {
         function error(error) {
           console.error(error);
           alert(
-            "Hubo un error al subir el archivo, por favor, intente de nuevo. Solo subir archivos pdf"
+            "Hubo un error al subir el archivo, por favor, intente de nuevo. Sólo suba archivos pdf."
           );
         },
         function complete() {

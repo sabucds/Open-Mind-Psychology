@@ -133,7 +133,8 @@
 }
 
 .line {
-  border: 1px solid #ee9d6b;
+  background-color: #ee9d6b;
+  border: 0.5px solid #ee9d6b;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
@@ -166,6 +167,7 @@
     justify-content: space-between;
     margin-bottom: 30px;
   }
+
   .nombre-user {
     line-height: normal;
     margin-left: 0;
@@ -238,5 +240,12 @@
 @media screen and (max-width: 600px) {
   .main-RegistroUser {
     padding: 30px 20px;
+  }
+  .about-user {
+    text-align: center;
+  }
+  .titles {
+    width: 100%;
+    justify-content: center;
   }
 }
