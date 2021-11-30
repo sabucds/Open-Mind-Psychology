@@ -12,6 +12,15 @@
   color: #ee9d6b;
   padding-bottom: 0.5em;
 }
+
+.nameDateCont {
+  display: flex;
+  align-items: center;
+}
+
+.date {
+  font-weight: lighter;
+}
 .line {
   box-shadow: 0 0.125rem 0.25rem 0 rgba(0, 0, 0, 0.2),
     0 0.1875rem 0.625rem 0 rgba(0, 0, 0, 0.19);
@@ -185,6 +194,7 @@
   width: 100%;
   cursor: pointer;
   display: flex;
+  justify-content: space-between;
   padding: 10px 20px;
   align-items: center;
 }
@@ -222,6 +232,9 @@
 }
 .space {
   height: 50px;
+}
+.someSpace {
+  height: 30px;
 }
 
 @media screen and (max-width: 850px) {
