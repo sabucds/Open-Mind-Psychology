@@ -584,50 +584,43 @@ const Perfil = ({ user }) => {
                 <div className="schedule-container">
                   <div className="titles-week">Lunes</div>
                   <div className="horas">
-                    {Object.values(weekDisp.Monday.start)} -{" "}
-                    {Object.values(weekDisp.Monday.end)}
+                    {weekDisp.Monday.start} - {weekDisp.Monday.end}
                   </div>
                 </div>
                 <div className="schedule-container">
                   <div className="titles-week">Martes</div>
                   <div className="horas">
-                    {Object.values(weekDisp.Tuesday.start)} -{" "}
-                    {Object.values(weekDisp.Tuesday.end)}
+                    {weekDisp.Tuesday.start} - {weekDisp.Tuesday.end}
                   </div>
                 </div>
                 <div className="schedule-container">
                   <div className="titles-week">Miercoles</div>
                   <div className="horas">
-                    {Object.values(weekDisp.Wednesday.start)} -{" "}
-                    {Object.values(weekDisp.Wednesday.end)}
+                    {weekDisp.Wednesday.start} - {weekDisp.Wednesday.end}
                   </div>
                 </div>
                 <div className="schedule-container">
                   <div className="titles-week">Jueves</div>
                   <div className="horas">
-                    {Object.values(weekDisp.Thursday.start)} -{" "}
-                    {Object.values(weekDisp.Thursday.end)}
+                    {weekDisp.Thursday.start} - {weekDisp.Thursday.end}
                   </div>
                 </div>
                 <div className="schedule-container">
                   <div className="titles-week">Viernes</div>
                   <div className="horas">
-                    {Object.values(weekDisp.Friday.start)} -{" "}
-                    {Object.values(weekDisp.Friday.end)}
+                    {weekDisp.Friday.start} - {weekDisp.Friday.end}
                   </div>
                 </div>
                 <div className="schedule-container">
                   <div className="titles-week">Sábado</div>
                   <div className="horas">
-                    {Object.values(weekDisp.Saturday.start)} -{" "}
-                    {Object.values(weekDisp.Saturday.end)}
+                    {weekDisp.Saturday.start} - {weekDisp.Saturday.end}
                   </div>
                 </div>
                 <div className="schedule-container">
                   <div className="titles-week">Domingo</div>
                   <div className="horas">
-                    {Object.values(weekDisp.Sunday.start)} -{" "}
-                    {Object.values(weekDisp.Sunday.end)}
+                    {weekDisp.Sunday.start} - {weekDisp.Sunday.end}
                   </div>
                 </div>
               </div>
