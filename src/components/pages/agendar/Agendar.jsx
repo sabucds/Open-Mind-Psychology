@@ -21,7 +21,7 @@ const Agendar = () => {
 
   const [checkout, setCheckout] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [especialista, setEspecialista] = useState(null);
+  const [especialista, setEspecialista] = useState(0);
   const [error, setError] = useState(null);
   const params = useParams();
   const componentMounted = useRef(true);
@@ -31,6 +31,50 @@ const Agendar = () => {
   const [reserved, setReserved] = useState([]);
   const [loadingReserved, setLoadingReserved] = useState(false);
 
+  const [isOccupied, setIsOccupied] = useState(false);
+
+  const { schedule } = especialista;
+
+  const scheduleHasNotBeenSet =
+    Array.isArray(schedule) && schedule.length === 0;
+
+  const [weekDisp, setWeekDisp] = useState(
+    scheduleHasNotBeenSet
+      ? {
+          // In case we do not have schedule, lets have this initial value
+          Monday: {
+            start: "",
+            end: "",
+          },
+          Tuesday: {
+            start: "",
+            end: "",
+          },
+          Wednesday: {
+            start: "",
+            end: "",
+          },
+          Thursday: {
+            start: "",
+            end: "",
+          },
+          Friday: {
+            start: "",
+            end: "",
+          },
+          Saturday: {
+            start: "",
+            end: "",
+          },
+          Sunday: {
+            start: "",
+            end: "",
+          },
+        }
+      : // Else, we have current schedule
+        schedule
+  );
+
   async function getEspecialista() {
     try {
       setLoading(true);
@@ -38,6 +82,7 @@ const Agendar = () => {
       const userDoc = await userRef.get();
       let user = userDoc.data();
       user.id = userDoc.id;
+
       if (componentMounted.current) {
         setEspecialista(user);
         setLoading(false);
@@ -173,7 +218,58 @@ const Agendar = () => {
         </div>
         <div className={styles.linea}></div>
         <br />
-
+        <div className={styles.caja}>
+          <div className={styles.subtit}>
+            Estos son los horarios disponibles de tu especialista:
+          </div>
+          <br />
+          <div className={styles.user}>
+            <div className={styles.container}>
+              <div className={styles.week}>Lunes</div>
+              <div className={styles.horas}>
+                {weekDisp.Monday.start} - {weekDisp.Monday.end}
+              </div>
+            </div>
+            <div className={styles.container}>
+              <div className={styles.week}>Martes</div>
+              <div className={styles.horas}>
+                {weekDisp.Tuesday.start} - {weekDisp.Tuesday.end}
+              </div>
+            </div>
+            <div className={styles.container}>
+              <div className={styles.week}>Miercoles</div>
+              <div className={styles.horas}>
+                {weekDisp.Wednesday.start} - {weekDisp.Wednesday.end}
+              </div>
+            </div>
+            <div className={styles.container}>
+              <div className={styles.week}>Jueves</div>
+              <div className={styles.horas}>
+                {weekDisp.Thursday.start} - {weekDisp.Thursday.end}
+              </div>
+            </div>
+            <div className={styles.container}>
+              <div className={styles.week}>Viernes</div>
+              <div className={styles.horas}>
+                {weekDisp.Friday.start} - {weekDisp.Friday.end}
+              </div>
+            </div>
+            <div className={styles.container}>
+              <div className={styles.week}>Sábado</div>
+              <div className={styles.horas}>
+                {weekDisp.Saturday.start} - {weekDisp.Saturday.end}
+              </div>
+            </div>
+            <div className={styles.container}>
+              <div className={styles.week}>Domingo</div>
+              <div className={styles.horas}>
+                {weekDisp.Sunday.start} - {weekDisp.Sunday.end}
+              </div>
+            </div>
+          </div>
+          <br />
+        </div>{" "}
+        */
         <div className={styles.caja}>
           <div className={styles.subtit}>
             Selecciona una fecha y hora para pautar tu sesión:
@@ -191,7 +287,6 @@ const Agendar = () => {
               placeholderText="Seleccione una fecha y hora"
               className={styles.input}
               id="date-input"
-              autoComplete="off"
             />
           </div>
           <div className={styles.subtit}>Ingrese el motivo de la cita:</div>

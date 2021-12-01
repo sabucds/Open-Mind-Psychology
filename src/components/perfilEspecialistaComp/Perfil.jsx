@@ -241,6 +241,7 @@ const Perfil = ({ user }) => {
   const [refreshComments, setRefreshComments] = useState(0);
   const [loadingComments, setLoadingComments] = useState(false);
   const [comments, setComments] = useState([]);
+  const { schedule } = user;
   const [rating, setRating] = useState(0);
   const [userRanking, setUserRanking] = useState(0);
   const [refreshRanking, setRefreshRanking] = useState(0);
@@ -248,7 +249,6 @@ const Perfil = ({ user }) => {
   const [isPatient, setIsPatient] = useState(false);
   const [symptomList, setSymptomList] = useState([]);
   const [loadingSymptoms, setLoadingSymptoms] = useState(true);
-
 
   async function getSymptoms() {
     try {
@@ -267,7 +267,45 @@ const Perfil = ({ user }) => {
     }
   }
 
+  const scheduleHasNotBeenSet =
+    Array.isArray(schedule) && schedule.length === 0;
 
+  const [weekDisp, setWeekDisp] = useState(
+    scheduleHasNotBeenSet
+      ? {
+          // In case we do not have schedule, lets have this initial value
+          Monday: {
+            start: "",
+            end: "",
+          },
+          Tuesday: {
+            start: "",
+            end: "",
+          },
+          Wednesday: {
+            start: "",
+            end: "",
+          },
+          Thursday: {
+            start: "",
+            end: "",
+          },
+          Friday: {
+            start: "",
+            end: "",
+          },
+          Saturday: {
+            start: "",
+            end: "",
+          },
+          Sunday: {
+            start: "",
+            end: "",
+          },
+        }
+      : // Else, we have current schedule
+        schedule
+  );
   const handleConfig = () => {
     history.push("/config");
   };
@@ -407,7 +445,11 @@ const Perfil = ({ user }) => {
   };
 
   function addNewComment() {
-    if (currentUser === null || currentUser.id === user.id || currentUser.role !== "usuario") {
+    if (
+      currentUser === null ||
+      currentUser.id === user.id ||
+      currentUser.role !== "usuario"
+    ) {
       return null;
     } else {
       getIsPatient();
@@ -491,9 +533,11 @@ const Perfil = ({ user }) => {
     let today = new Date();
     let found;
     found = Object.keys(consultations).find((id) => {
-      return (consultations[id]['especialista'] == user.id 
-      && consultations[id]['usuario'] == currentUser.id 
-      && consultations[id]['date'] < today);
+      return (
+        consultations[id]["especialista"] == user.id &&
+        consultations[id]["usuario"] == currentUser.id &&
+        consultations[id]["date"] < today
+      );
     });
     setIsPatient(Boolean(found));
   }
@@ -594,50 +638,43 @@ const Perfil = ({ user }) => {
                 <div className="schedule-container">
                   <div className="titles-week">Lunes</div>
                   <div className="horas">
-                    {Object.values(user.schedule.Monday.start)} -{" "}
-                    {Object.values(user.schedule.Monday.end)}
+                    {weekDisp.Monday.start} - {weekDisp.Monday.end}
                   </div>
                 </div>
                 <div className="schedule-container">
                   <div className="titles-week">Martes</div>
                   <div className="horas">
-                    {Object.values(user.schedule.Tuesday.start)} -{" "}
-                    {Object.values(user.schedule.Tuesday.end)}
+                    {weekDisp.Tuesday.start} - {weekDisp.Tuesday.end}
                   </div>
                 </div>
                 <div className="schedule-container">
                   <div className="titles-week">Miercoles</div>
                   <div className="horas">
-                    {Object.values(user.schedule.Wednesday.start)} -{" "}
-                    {Object.values(user.schedule.Wednesday.end)}
+                    {weekDisp.Wednesday.start} - {weekDisp.Wednesday.end}
                   </div>
                 </div>
                 <div className="schedule-container">
                   <div className="titles-week">Jueves</div>
                   <div className="horas">
-                    {Object.values(user.schedule.Thursday.start)} -{" "}
-                    {Object.values(user.schedule.Thursday.end)}
+                    {weekDisp.Thursday.start} - {weekDisp.Thursday.end}
                   </div>
                 </div>
                 <div className="schedule-container">
                   <div className="titles-week">Viernes</div>
                   <div className="horas">
-                    {Object.values(user.schedule.Friday.start)} -{" "}
-                    {Object.values(user.schedule.Friday.end)}
+                    {weekDisp.Friday.start} - {weekDisp.Friday.end}
                   </div>
                 </div>
                 <div className="schedule-container">
                   <div className="titles-week">Sábado</div>
                   <div className="horas">
-                    {Object.values(user.schedule.Saturday.start)} -{" "}
-                    {Object.values(user.schedule.Saturday.end)}
+                    {weekDisp.Saturday.start} - {weekDisp.Saturday.end}
                   </div>
                 </div>
                 <div className="schedule-container">
                   <div className="titles-week">Domingo</div>
                   <div className="horas">
-                    {Object.values(user.schedule.Sunday.start)} -{" "}
-                    {Object.values(user.schedule.Sunday.end)}
+                    {weekDisp.Sunday.start} - {weekDisp.Sunday.end}
                   </div>
                 </div>
               </div>
@@ -652,17 +689,21 @@ const Perfil = ({ user }) => {
                 </div>
                 <div className="line"></div>
                 <div className="text-info especialidades-perfil">
-                  {!loadingSymptoms ? (user.specialty.length !== 0 ? (
-                    <ul className="lista-espe-perfil">
-                      {labelsList(user.specialty, symptomList).map((esp) => {
-                        return <li key={esp}>{esp}</li>;
-                      }, symptomList)}
-                    </ul>
+                  {!loadingSymptoms ? (
+                    user.specialty.length !== 0 ? (
+                      <ul className="lista-espe-perfil">
+                        {labelsList(user.specialty, symptomList).map((esp) => {
+                          return <li key={esp}>{esp}</li>;
+                        }, symptomList)}
+                      </ul>
+                    ) : (
+                      <p className="altText">
+                        No se especificaron especialidades
+                      </p>
+                    )
                   ) : (
-                    <p className="altText">
-                      No se especificaron especialidades
-                    </p>
-                  )) : <p className="altText">Cargando especialidades...</p>}
+                    <p className="altText">Cargando especialidades...</p>
+                  )}
                 </div>
               </div>
 
