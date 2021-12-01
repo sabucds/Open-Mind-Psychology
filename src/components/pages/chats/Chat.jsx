@@ -21,22 +21,22 @@ const Chat = () => {
 
   let horaTerminarCita = true;
 
-  setInterval(() => {
-    if (terminada.length === 0) {
-      let horaActual = new Date();
-      // console.log(horaTerminarCita);
-      try {
-        if (
-          horaActual.getHours() >= horaTerminarCita.getHours() &&
-          horaActual.getMinutes() >= horaTerminarCita.getMinutes()
-        ) {
-          setloading(true);
-          terminada.push("1");
-          setloading(false);
-        }
-      } catch {}
-    }
-  }, 1000);
+  // setInterval(() => {
+  //   if (terminada.length === 0) {
+  //     let horaActual = new Date();
+  //     // console.log(horaTerminarCita);
+  //     try {
+  //       if (
+  //         horaActual.getHours() >= horaTerminarCita.getHours() &&
+  //         horaActual.getMinutes() >= horaTerminarCita.getMinutes()
+  //       ) {
+  //         setloading(true);
+  //         terminada.push("1");
+  //         setloading(false);
+  //       }
+  //     } catch {}
+  //   }
+  // }, 1000);
 
   function useFirestoreQuery(query) {
     const [docs, setDocs] = useState([]);

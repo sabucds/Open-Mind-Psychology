@@ -14,7 +14,7 @@
   border-bottom: 1px solid #ee9d6b6e;
 }
 
-.especialistaInicioList {
+.especialistaList-1 {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-gap: 1.5em;

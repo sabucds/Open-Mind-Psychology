@@ -95,6 +95,7 @@ const Agendar = () => {
   async function getCitas() {
     try {
       setLoadingReserved(true);
+      console.log("LECTURA_AGENDAR");
       const citasRef = bd.collection("citas");
       const citas = await citasRef.get();
       let citasDocs = {};
@@ -193,11 +194,11 @@ const Agendar = () => {
     return () => {
       componentMounted.current = false;
     };
-  }, [especialista]);
+  }, []);
 
   useEffect(() => {
     getCitas();
-  }, [loadingReserved]);
+  }, []);
 
   return loading &&
     !!especialista &&
@@ -219,7 +220,7 @@ const Agendar = () => {
             Estos son los horarios disponibles de tu especialista:
           </div>
           <br />
-          <div className={styles.user}>
+          {/* <div className={styles.user}>
             <div className={styles.container}>
               <div className={styles.week}>Lunes</div>
               <div className={styles.horas}>
@@ -262,7 +263,7 @@ const Agendar = () => {
                 {weekDisp.Sunday.start} - {weekDisp.Sunday.end}
               </div>
             </div>
-          </div>
+          </div> */}
           <br />
         </div>{" "}
         <div className={styles.caja}>
@@ -282,6 +283,7 @@ const Agendar = () => {
               placeholderText="Seleccione una fecha y hora"
               className={styles.input}
               id="date-input"
+              autoComplete="off"
             />
           </div>
           <div className={styles.subtit}>Ingrese el motivo de la cita:</div>
