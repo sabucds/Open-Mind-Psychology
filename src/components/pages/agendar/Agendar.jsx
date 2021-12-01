@@ -7,7 +7,6 @@ import Cargando from "../../cargando/Cargando";
 import { UserContext } from "../../../context/UserContext";
 
 import React from "react";
-import { useHistory } from "react-router-dom";
 import styles from "./Agendar.module.css";
 import DatePicker from "react-datepicker";
 import subDays from "date-fns/subDays";
@@ -16,7 +15,6 @@ import "react-datepicker/dist/react-datepicker.css";
 import PayPal from "./Paypal";
 
 const Agendar = () => {
-  const history = useHistory();
   const currentUser = useContext(UserContext).user;
 
   const [checkout, setCheckout] = useState(false);
@@ -30,8 +28,6 @@ const Agendar = () => {
   const [reason, setReason] = useState(null);
   const [reserved, setReserved] = useState([]);
   const [loadingReserved, setLoadingReserved] = useState(false);
-
-  const [isOccupied, setIsOccupied] = useState(false);
 
   const { schedule } = especialista;
 

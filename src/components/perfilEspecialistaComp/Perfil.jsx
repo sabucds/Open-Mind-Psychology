@@ -367,7 +367,6 @@ const Perfil = ({ user }) => {
       currentUser.role === "usuario" &&
       user.schedule.length !== 0
     ) {
-      console.log(user);
       return (
         <>
           <div className="cita-button" onClick={handleAgenda}>

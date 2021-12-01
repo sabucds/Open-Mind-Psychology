@@ -4,6 +4,8 @@ import { Route, Redirect } from "react-router-dom";
 
 import Cargando from "../cargando/Cargando";
 
+// Ruta para especial para los visitantes, solo ellos podrán acceder a esta
+
 const VisitorRoute = ({ component: View, ...args }) => {
   const { user, loading } = useContext(UserContext);
   const isLoggedIn = !!user;
@@ -27,22 +29,4 @@ const VisitorRoute = ({ component: View, ...args }) => {
     />
   );
 };
-
-// const VisitorRoute = ({ component: View, ...args }) => {
-//   const { user } = useContext(UserContext);
-//   const isLoggedIn = !!user;
-
-//   if (!isLoggedIn) {
-//     return <Route {...args} render={() => <View />} />;
-//   }
-//   return (
-//     <Route
-//       {...args}
-//       render={({ location }) => (
-//         <Redirect to={{ pathname: "/perfil", state: { from: location } }} />
-//       )}
-//     />
-//   );
-// };
-
 export default VisitorRoute;

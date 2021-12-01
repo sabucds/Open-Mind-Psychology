@@ -22,6 +22,9 @@ import VisitorRoute from "./ProtectedRoutes/VisitorRoute";
 import ConfigRoute from "./ProtectedRoutes/ConfigRoute";
 import ClientRoute from "./ProtectedRoutes/ClientRoute";
 import NoAdminRoute from "./ProtectedRoutes/NoAdminRoute";
+import UserRoute from "./ProtectedRoutes/UserRoute";
+import EspRoute from "./ProtectedRoutes/EspRoute";
+
 import DetallesEspecialista from "./tarjetaEspecialista/DetallesEspecialista";
 import Agendar from "./pages/agendar/Agendar";
 import Chats from "./pages/chats/Chats";
@@ -63,18 +66,22 @@ function App() {
               component={CredUpload}
             />
             <ClientRoute exact path="/config" component={ConfigRoute} />
-            <Route
+            <NoAdminRoute
               exact
               path="/especialistas/:characterId"
               component={DetallesEspecialista}
             />
-            <Route exact path={"/agendar/:characterId"} component={Agendar} />
+            <UserRoute
+              exact
+              path={"/agendar/:characterId"}
+              component={Agendar}
+            />
 
-            <Route exact path="/chats" component={Chats} />
-            <Route exact path="/chats/:userId" component={Chat} />
-            <Route exact path="/citas" component={Citas} />
+            <ClientRoute exact path="/chats" component={Chats} />
+            <ClientRoute exact path="/chats/:userId" component={Chat} />
+            <ClientRoute exact path="/citas" component={Citas} />
             <Route exact path="/listaPacientes" component={ListaPacientes} />
-            <Route
+            <EspRoute
               exact
               path="/historial/:userId"
               component={HistorialPaciente}

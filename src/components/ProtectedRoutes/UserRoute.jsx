@@ -3,7 +3,7 @@ import { UserContext } from "../../context/UserContext";
 import { Route, Redirect } from "react-router-dom";
 import Cargando from "../cargando/Cargando";
 
-const EspRoute = ({ component: View, ...args }) => {
+const UserRoute = ({ component: View, ...args }) => {
   const { user, loading } = useContext(UserContext);
   const isLoggedIn = !!user;
 
@@ -16,8 +16,8 @@ const EspRoute = ({ component: View, ...args }) => {
         !loading ? (
           // Verificamos que esté logged in
           isLoggedIn ? (
-            // Verificamos que sea igual especialista para mostrarle la página, de lo contrario, redirigirlo a su perfil
-            user.role === "especialista" ? (
+            // Verificamos que sea igual usuario para mostrarle la página, de lo contrario, redirigirlo a su perfil
+            user.role === "usuario" ? (
               <View />
             ) : (
               <Redirect
@@ -37,4 +37,4 @@ const EspRoute = ({ component: View, ...args }) => {
   );
 };
 
-export default EspRoute;
+export default UserRoute;
