@@ -10,7 +10,7 @@ const firebaseConfig = {
   storageBucket: "omp-backup-87170.appspot.com",
   messagingSenderId: "531668604823",
   appId: "1:531668604823:web:4ff1063d8eb75af39656d2",
-  measurementId: "G-7RLG8LFMCN",
+  measurementId: "G-7RLG8LFMCN"
 };
 
 export const app = initializeApp(firebaseConfig);

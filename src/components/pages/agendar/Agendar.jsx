@@ -229,7 +229,7 @@ const Agendar = ({ especialista }) => {
             Estos son los horarios disponibles de tu especialista:
           </div>
           <br />
-          <div className={styles.user}>
+          {/* <div className={styles.user}>
             <div className={styles.container}>
               <div className={styles.week}>Lunes</div>
               <div className={styles.horas}>
@@ -272,7 +272,7 @@ const Agendar = ({ especialista }) => {
                 {weekDisp.Sunday.start} - {weekDisp.Sunday.end}
               </div>
             </div>
-          </div>
+          </div> */}
           <br />
         </div>{" "}
         <div className={styles.caja}>
