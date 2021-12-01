@@ -7,6 +7,7 @@ import { useContext } from "react";
 import { UserContext } from "../../../context/UserContext";
 import DatePicker from "react-datepicker";
 import Cargando from "../../cargando/Cargando";
+import Cita from "./Cita";
 
 const Citas = () => {
   const [nombre, setNombre] = useState("");
@@ -43,7 +44,7 @@ const Citas = () => {
     for (let index = 1; index < citasval.length; index++) {
       let current = citasval[index];
       let j = index - 1;
-      while (j > -1 && current.date >= citasval[j].date) {
+      while (j > -1 && current.date.toDate().valueOf() >= citasval[j].date.toDate().valueOf()) {
         citaIds[j + 1] = citasval[j].id;
         citasval[j + 1] = citasval[j];
         j--;
@@ -206,10 +207,7 @@ const Citas = () => {
   return (
   <>
     <Navbar />
-    <section className="consulta-section">
-      
-      
-      
+    <section className="consulta-section">      
       <div className="search-box-citas">  
         <div className="TitleRegister">Citas Agendadas</div>
         <br />
@@ -265,7 +263,7 @@ const Citas = () => {
         </div>
       </div>
       <hr />
-      {/*NO ME FUNCIONA AYUDA
+      {
         loading && !error ? <Cargando /> : error ? 
         <div className="altText">
               Error: {error.message}. <br></br>
@@ -286,12 +284,7 @@ const Citas = () => {
                 var cita = consultas[key];
                 console.log(cita);
                 return (
-                  <div className="consulta" id={key}>
-                    <div className="info-consultas date-info"><span>{cita.date.toDate().getDate() + "/" + (cita.toDate().getMonth()+1)}</span></div>
-                    <div className="info-consultas hour-info"><span>{cita.date.toDate().getHours() + ":" + cita.date.toDate().getMinutes()+ "0"}</span></div>
-                    <div className="info-consultas name-info"><span>{isEspecialista ? cita.usuario : cita.especialista}</span></div>
-                    <div className="info-consultas reason-info"><div><span>{cita.reason}</span></div></div>
-                  </div>
+                  <Cita key={key} cita={cita} />
                 )
               }
               ) 
@@ -300,7 +293,7 @@ const Citas = () => {
         </div> : search && !esVacio ? 
           <div className="altText">
           No se consiguieron consultas que coincidieran con la búsqueda.
-        </div> :
+        </div> : consultas && Object.entries(consultas).length !== 0 ?
         <div className="consultas-container">
           <div className="consultas-header">
             <div className="info-consultas date-info">Fecha</div>
@@ -313,19 +306,18 @@ const Citas = () => {
                 var cita = consultas[key];
                 console.log(cita);
                 return (
-                  <div className="consulta" id={key}>
-                    <div className="info-consultas date-info"><span>{cita.date.toDate().getDate() + "/" + (cita.toDate().getMonth()+1)}</span></div>
-                    <div className="info-consultas hour-info"><span>{cita.date.toDate().getHours() + ":" + cita.date.toDate().getMinutes()+ "0"}</span></div>
-                    <div className="info-consultas name-info"><span>{isEspecialista ? cita.usuario : cita.especialista}</span></div>
-                    <div className="info-consultas reason-info"><div><span>{cita.reason}</span></div></div>
-                  </div>
+                  <Cita key={key} cita={cita} isEspecialista={isEspecialista} />
                 )
               }
-              ) 
+              )  
             }           
           </div>
-        </div>*/
-        
+        </div>
+        : <div className="altText">
+        No se consiguieron consultas.
+      </div>
+
+        /*
         loading ? <Cargando/> :
         <div className="consultas-container">
           <div className="consultas-header">
@@ -444,7 +436,7 @@ const Citas = () => {
               consectetur adipiscing elit.</span></div></div>
             </div>
           </div>
-        </div>
+        </div>*/
       }
     </section>
   </>
