@@ -100,6 +100,7 @@ const Agendar = () => {
   async function getCitas() {
     try {
       setLoadingReserved(true);
+      console.log("LECTURA_AGENDAR");
       const citasRef = bd.collection("citas");
       console.log("LLAMO A FIREBASE 2")
       const citas = await citasRef.get();
@@ -199,11 +200,11 @@ const Agendar = () => {
     return () => {
       componentMounted.current = false;
     };
-  }, [especialista]);
+  }, []);
 
   useEffect(() => {
     getCitas();
-  }, [loadingReserved]);
+  }, []);
 
   return loading &&
     !!especialista &&
@@ -288,6 +289,7 @@ const Agendar = () => {
               placeholderText="Seleccione una fecha y hora"
               className={styles.input}
               id="date-input"
+              autoComplete="off"
             />
           </div>
           <div className={styles.subtit}>Ingrese el motivo de la cita:</div>
