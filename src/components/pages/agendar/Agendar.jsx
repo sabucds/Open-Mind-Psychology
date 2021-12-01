@@ -1,8 +1,5 @@
 import { bd } from "../../../utils/firebaseConfig";
-import { useParams } from "react-router-dom";
-import { useContext, useState, useEffect, useRef } from "react";
-import "../../Navbar/Navbar.css";
-import Navbar from "../../Navbar/Navbar";
+import { useContext, useState, useEffect } from "react";
 import Cargando from "../../cargando/Cargando";
 import { UserContext } from "../../../context/UserContext";
 
@@ -14,21 +11,16 @@ import "react-datepicker/dist/react-datepicker.css";
 
 import PayPal from "./Paypal";
 
-const Agendar = () => {
+const Agendar = ({ especialista }) => {
   const currentUser = useContext(UserContext).user;
-
   const [checkout, setCheckout] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [especialista, setEspecialista] = useState(0);
   const [error, setError] = useState(null);
-  const params = useParams();
-  const componentMounted = useRef(true);
 
   const [selectedDate, setSelectedDate] = useState(null);
   const [reason, setReason] = useState(null);
   const [reserved, setReserved] = useState([]);
   const [loadingReserved, setLoadingReserved] = useState(false);
-
   const { schedule } = especialista;
 
   const scheduleHasNotBeenSet =
@@ -71,42 +63,26 @@ const Agendar = () => {
         schedule
   );
 
-  async function getEspecialista() {
-    try {
-      setLoading(true);
-      const userRef = bd.collection("users").doc(params.characterId);
-      const userDoc = await userRef.get();
-      let user = userDoc.data();
-      user.id = userDoc.id;
-
-      if (componentMounted.current) {
-        setEspecialista(user);
-        setLoading(false);
-      }
-    } catch (e) {
-      console.log(e);
-      if (componentMounted.current) {
-        setError(e.message);
-        setLoading(false);
-      }
-    }
-  }
-
   async function getCitas() {
     try {
       setLoadingReserved(true);
-      console.log("LECTURA_AGENDAR");
       const citasRef = bd.collection("citas");
       const citas = await citasRef.get();
       let citasDocs = {};
       let docData;
       let docId;
+
+      let tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
+
       citas.forEach((doc) => {
         docData = doc.data();
         docId = doc.id;
         if (docData.especialista === especialista.id) {
           let dateFormat = new Date(docData.date.seconds * 1000); // por mil porque sino te pone 1970 :clown_emoji:
-          citasDocs[docId] = dateFormat;
+          if (dateFormat >= tomorrow) {
+            citasDocs[docId] = dateFormat;
+          }
         }
       });
       setReserved(citasDocs);
@@ -120,6 +96,7 @@ const Agendar = () => {
   const validateInput = async () => {
     // Esto agarra la hora y la colocar en un formato apropiado para la comparación (ej. 09:00 en lugar de 9:00 o 9:00:00, en formato de 24 hrs)
     let string = await selectedDate.toLocaleTimeString([], {
+      hour12: false,
       hour: "2-digit",
       minute: "2-digit",
     });
@@ -189,27 +166,57 @@ const Agendar = () => {
     }
   };
 
-  useEffect(() => {
-    getEspecialista();
-    return () => {
-      componentMounted.current = false;
+  function desplegarCitas(reserved) {
+    var arr = [];
+    const optionsTime = {
+      hour12: false,
+      hour: "2-digit",
+      minute: "2-digit",
     };
-  }, []);
+    const options = {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    };
+    let string;
+    for (const dateId in reserved) {
+      string =
+        reserved[dateId].toLocaleDateString("en-GB", options) +
+        " " +
+        reserved[dateId].toLocaleTimeString("en-GB", optionsTime);
+      arr.push(string);
+    }
+    return arr;
+  }
 
   useEffect(() => {
     getCitas();
   }, []);
 
   return loading &&
-    !!especialista &&
     !error &&
     loadingReserved &&
     especialista.schedule.length === 0 ? (
     <Cargando />
   ) : !checkout ? (
     <>
-      <Navbar />
       <section className={styles.sect}>
+        {desplegarCitas(reserved).length === 0 ? (
+          <></>
+        ) : (
+          <>
+            <div className="CitaList">
+              <p>Bloques no disponibles para agendar</p>
+              {desplegarCitas(reserved).map((key) => {
+                return (
+                  <li className="cita" key={key}>
+                    {key}
+                  </li>
+                );
+              })}
+            </div>
+          </>
+        )}
         <div className={styles.encabezado}>
           <div className={styles.TitleRegister}>¡Reserva ya tu cita!</div>
         </div>
@@ -220,7 +227,7 @@ const Agendar = () => {
             Estos son los horarios disponibles de tu especialista:
           </div>
           <br />
-          {/* <div className={styles.user}>
+          <div className={styles.user}>
             <div className={styles.container}>
               <div className={styles.week}>Lunes</div>
               <div className={styles.horas}>
@@ -263,7 +270,7 @@ const Agendar = () => {
                 {weekDisp.Sunday.start} - {weekDisp.Sunday.end}
               </div>
             </div>
-          </div> */}
+          </div>{" "}
           <br />
         </div>{" "}
         <div className={styles.caja}>
@@ -274,14 +281,15 @@ const Agendar = () => {
             <div className={styles.calendar}></div>
             <DatePicker
               showTimeSelect
-              timeIntervals={60}
-              timeCaption="Time"
+              timeCaption="Hora"
               selected={selectedDate}
               onChange={(date) => setSelectedDate(date)}
               minDate={subDays(new Date(), -1)}
-              dateFormat="MMMM d, yyyy h:mm aa"
               placeholderText="Seleccione una fecha y hora"
               className={styles.input}
+              timeIntervals={60}
+              dateFormat="MMMM d, yyyy HH:mm" // HH:mm formato 24hrs
+              timeFormat="HH:00" //y que los minutos, sin importar el input, sean 00
               id="date-input"
               autoComplete="off"
             />
