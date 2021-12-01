@@ -102,6 +102,43 @@ const Inicio = () => {
           <div className="how-works">Algunos de nuestros especialistas</div>
           <SeccionEspecialistasInicio />
         </div>
+
+        <div className="second-sect testimony-sect">
+          <div className="testim-title how-works">¡Estás en buenas manos!</div>
+          <div className="testimony-container">
+            <div className="testimony-box">
+              <div className="speech-bubble">
+                <p className="testimony">"OMP ha sabido crear una gran herramienta que facilita la conexión entre paciente y psicólogo. 
+                Gran servicio."</p>
+              </div>
+              <p className="test-author">- María López<br/><span>(usuario de OMP)</span></p>
+            </div>
+
+            <div className="testimony-box">
+              <div className="speech-bubble">
+                <p className="testimony">"Desde que empecé a utilizar OMP ha sido mucho más llevadero 
+                mi día a día, puedo hablar con mi psicólogo de confianza en un horario flexible desde 
+                mi hogar, lo que ha ayudado bastante mi ansiedad social."</p>
+              </div>
+              <p className="test-author">- Ana Tovar<br/><span>(usuario de OMP)</span></p>
+            </div>
+
+            <div className="testimony-box">
+              <div className="speech-bubble">
+                <p className="testimony">"Me encanta Open Mind Psychology ya que tiene todo lo que 
+                busco en un lugar acogedor y que me brinda calma."</p>
+              </div>
+              <p className="test-author">- Marianna Meléndez<br/><span>(usuario de OMP)</span></p>
+            </div>
+          </div>
+        </div>
+        <div className="inicio-footer">
+          {!!user ? <div className="footer-msg">OMP, 2021</div> :
+            <NavLink className="registra-link" to="/SelectReg">
+              <div className="registra-button bottom-button">Regístrate aquí</div>
+            </NavLink>
+          }
+        </div>
       </section>
     </>
   );

@@ -53,7 +53,7 @@ const RegistroUser = () => {
     e.preventDefault();
 
     const { nombre, apellido, email } = values;
-    if (isValidPhoneNumber(number) && validInputs(nombre, apellido, email)) {
+    if (number && isValidPhoneNumber(number) && validInputs(nombre, apellido, email)) {
       try {
         const response = await auth.createUserWithEmailAndPassword(
           values.email,

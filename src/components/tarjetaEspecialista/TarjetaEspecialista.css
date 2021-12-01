@@ -23,7 +23,11 @@
   border-bottom-right-radius: 50% 50%;
   border-bottom-left-radius: 50% 50%;
 }
-
+.no-esp {
+  font-size: 14px;
+  text-align:center;
+  color: rgba(0,0,0,0.5);
+}
 .espInfo-1 {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -47,19 +51,17 @@
   overflow-x: hidden;
 }
 ::-webkit-scrollbar {
-  background-color: #fff;
+  background-color: transparent;
   width: 16px;
 }
 .lista-esp::-webkit-scrollbar {
   width: 12px;
 }
 
-/* background of the scrollbar except button or resizer */
 ::-webkit-scrollbar-track {
-  background-color: #fff;
+  background-color: transparent;
 }
 
-/* scrollbar itself */
 ::-webkit-scrollbar-thumb {
   background-color: #babac0;
   border-radius: 16px;
@@ -69,7 +71,6 @@
   border-radius: 12px;
 }
 
-/* set button(top and bottom of the scrollbar) */
 ::-webkit-scrollbar-button {
   display: none;
 }
@@ -165,5 +166,14 @@
   .espInfo-1 {
     width: 190px;
     text-align: center;
+  }
+
+  .lista-especialidades {
+    display: block;
+    padding-left: 30px;
+  }
+
+  .lista-esp {
+    width: 100%;
   }
 }

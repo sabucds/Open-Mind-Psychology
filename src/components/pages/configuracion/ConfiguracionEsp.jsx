@@ -1,6 +1,6 @@
 import React from "react";
 import "./ConfiguracionEsp.css";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { UserContext } from "../../../context/UserContext";
 import ReactFlagsSelect from "react-flags-select";
 import { useHistory } from "react-router-dom";
@@ -32,17 +32,15 @@ const ConfiguracionEsp = () => {
   const [number, setNumber] = useState(phone || "");
   const [info, setInfo] = useState("");
   const [edu, setEdu] = useState("");
-  //const [spec, setSpec] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [picture, setPicture] = useState(false);
   const [saving, setSaving] = useState(false);
   const [updating, setUpdating] = useState(false);
-
   const [eImg, setEImg] = useState(false);
-
+  const [symptomList, setSymptomList] = useState([]);
+  const [loadingSymptoms, setLoadingSymptoms] = useState(true);
   const scheduleHasNotBeenSet =
     Array.isArray(schedule) && schedule.length === 0;
-
   const [weekDisp, setWeekDisp] = useState(
     scheduleHasNotBeenSet
       ? {
@@ -79,6 +77,30 @@ const ConfiguracionEsp = () => {
       : // Else, we have current schedule
         schedule
   );
+
+  async function getSymptoms() {
+    try {
+      setLoadingSymptoms(true);
+      const symptomsRef = bd.collection("symptoms");
+      const symptoms = await symptomsRef.get();
+      let symptomDocs = [];
+      symptoms.forEach((doc) => {
+        symptomDocs.push(doc.data());
+      });
+      setSymptomList(symptomDocs);
+      setLoadingSymptoms(false);
+    } catch (e) {
+      console.log(e);
+      setLoadingSymptoms(false);
+    }
+  }
+
+  useEffect(() => {
+    getSymptoms();
+  }, []);
+
+  
+  
 
   const switchShown = () => setShown(!shown);
   const handlePicture = (e) => {
@@ -257,7 +279,6 @@ const ConfiguracionEsp = () => {
     setCountry(null);
     setInfo("");
     setEdu("");
-    //setSpec("");
   };
 
   const handleExit = () => {
@@ -547,7 +568,8 @@ const ConfiguracionEsp = () => {
 
                   <div className="esp-edit">
                     <div className="titles-edit">Especialidades</div>
-                    <Sintomas className="esp-select" />
+                    {loadingSymptoms ? <p className="altText">Cargando...</p> : 
+                    <Sintomas className="esp-select" symptomOptions={symptomList}/>}
                   </div>
 
                   <div className="perfil-edit">

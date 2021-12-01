@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { symptomOptions } from "./data";
 import { default as ReactSelect } from "react-select";
 import { components } from "react-select";
 import styles from "./InputTags.module.css";
@@ -49,7 +48,7 @@ export default class Sintomas extends Component {
         //data-content="Please select account(s)"
       >
         <ReactSelect
-          options={symptomOptions}
+          options={this.props.symptomOptions}
           isMulti
           closeMenuOnSelect={false}
           hideSelectedOptions={false}

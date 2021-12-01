@@ -245,6 +245,28 @@ const Perfil = ({ user }) => {
   const [userRanking, setUserRanking] = useState(0);
   const [refreshRanking, setRefreshRanking] = useState(0);
   const [loadingRanking, setLoadingRanking] = useState(false);
+  const [isPatient, setIsPatient] = useState(false);
+  const [symptomList, setSymptomList] = useState([]);
+  const [loadingSymptoms, setLoadingSymptoms] = useState(true);
+
+
+  async function getSymptoms() {
+    try {
+      setLoadingSymptoms(true);
+      const symptomsRef = bd.collection("symptoms");
+      const symptoms = await symptomsRef.get();
+      let symptomDocs = [];
+      symptoms.forEach((doc) => {
+        symptomDocs.push(doc.data());
+      });
+      setSymptomList(symptomDocs);
+      setLoadingSymptoms(false);
+    } catch (e) {
+      console.log(e);
+      setLoadingSymptoms(false);
+    }
+  }
+
 
   const handleConfig = () => {
     history.push("/config");
@@ -385,74 +407,96 @@ const Perfil = ({ user }) => {
   };
 
   function addNewComment() {
-    if (currentUser === null || currentUser.id === user.id) {
+    if (currentUser === null || currentUser.id === user.id || currentUser.role !== "usuario") {
       return null;
     } else {
-      return (
-        <>
-          <div className="review-card">
-            <div className="titles">
-              Escribir una reseña de este especialista{" "}
-            </div>
-            <div className="line"></div>
-            <br />
-            <br />
-            <div className="caja">
-              <textarea
-                name="review"
-                disabled={loadingComments}
-                placeholder="¡Escribe tu reseña aquí!"
-                className="review-input"
-                onChange={(e) => {
-                  setComment(e.target.value);
-                }}
-                value={comment}
-              />
-              <div className="caja-review">
-                <div className="caja-rating">
-                  <label htmlFor="rating" className="text-comment">
-                    Clasificación:{" "}
-                  </label>
-                  <div className="stars">
-                    <input
-                      className="rating-input"
-                      type="number"
-                      disabled={loadingComments}
-                      name="rating"
-                      value={Number(rating)}
-                      onChange={handleNumChange}
-                      min="0"
-                      max="5"
-                      step="0.5"
-                    />
-                    <span className="star">★</span>
-                    <span className="rating-text">/</span>
-                    <span className="stars-container star-100">★★★★★</span>
-                  </div>
-                </div>
-                <button
-                  className="enviar-button"
-                  onClick={addComment}
+      getIsPatient();
+      if (isPatient) {
+        return (
+          <>
+            <div className="review-card">
+              <div className="titles">
+                Escribir una reseña de este especialista{" "}
+              </div>
+              <div className="line"></div>
+              <br />
+              <br />
+              <div className="caja">
+                <textarea
+                  name="review"
                   disabled={loadingComments}
-                  style={{ background: loadingComments ? "#CCC" : "#EE9D6B" }}
-                >
-                  Enviar
-                </button>
+                  placeholder="¡Escribe tu reseña aquí!"
+                  className="review-input"
+                  onChange={(e) => {
+                    setComment(e.target.value);
+                  }}
+                  value={comment}
+                />
+                <div className="caja-review">
+                  <div className="caja-rating">
+                    <label htmlFor="rating" className="text-comment">
+                      Clasificación:{" "}
+                    </label>
+                    <div className="stars">
+                      <input
+                        className="rating-input"
+                        type="number"
+                        disabled={loadingComments}
+                        name="rating"
+                        value={Number(rating)}
+                        onChange={handleNumChange}
+                        min="0"
+                        max="5"
+                        step="0.5"
+                      />
+                      <span className="star">★</span>
+                      <span className="rating-text">/</span>
+                      <span className="stars-container star-100">★★★★★</span>
+                    </div>
+                  </div>
+                  <button
+                    className="enviar-button"
+                    onClick={addComment}
+                    disabled={loadingComments}
+                    style={{ background: loadingComments ? "#CCC" : "#EE9D6B" }}
+                  >
+                    Enviar
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-        </>
-      );
+          </>
+        );
+      } else {
+        return null;
+      }
     }
   }
 
   const getComments = async () => {
     setLoadingComments(true);
-    const userRef = await bd.collection("users").doc(user.id);
+    const userRef = bd.collection("users").doc(user.id);
     const userDoc = await userRef.get();
     setComments(userDoc.data().feedback);
     setLoadingComments(false);
   };
+
+  async function getIsPatient() {
+    const consultationsRef = bd.collection("citas");
+    const consultationsDoc = await consultationsRef.get();
+    var consultations = {};
+    consultationsDoc.forEach((consultation) => {
+      consultations[consultation.id] = consultation.data();
+    });
+    let today = new Date();
+    let found;
+    found = Object.keys(consultations).find((id) => {
+      return (consultations[id]['especialista'] == user.id 
+      && consultations[id]['usuario'] == currentUser.id 
+      && consultations[id]['date'] < today);
+    });
+    setIsPatient(Boolean(found));
+  }
 
   useEffect(() => {
     getComments();
@@ -461,6 +505,10 @@ const Perfil = ({ user }) => {
   useEffect(() => {
     getRanking();
   }, [refreshRanking]);
+
+  useEffect(() => {
+    getSymptoms();
+  }, []);
 
   function getStars(ranking) {
     const percentage = (ranking * 100) / 5;
@@ -604,17 +652,17 @@ const Perfil = ({ user }) => {
                 </div>
                 <div className="line"></div>
                 <div className="text-info especialidades-perfil">
-                  {user.specialty.length !== 0 ? (
+                  {!loadingSymptoms ? (user.specialty.length !== 0 ? (
                     <ul className="lista-espe-perfil">
-                      {labelsList(user.specialty).map((esp) => {
+                      {labelsList(user.specialty, symptomList).map((esp) => {
                         return <li key={esp}>{esp}</li>;
-                      })}
+                      }, symptomList)}
                     </ul>
                   ) : (
                     <p className="altText">
                       No se especificaron especialidades
                     </p>
-                  )}
+                  )) : <p className="altText">Cargando especialidades...</p>}
                 </div>
               </div>
 

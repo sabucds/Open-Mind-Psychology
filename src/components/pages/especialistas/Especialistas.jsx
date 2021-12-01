@@ -22,6 +22,29 @@ const Especialistas = () => {
   const [esVacio, setEsVacio] = useState(false);
   const [refresh, setRefresh] = useState(0);
   const [espId, setEspId] = useState([]);
+  const [symptomList, setSymptomList] = useState([]);
+  const [loadingSymptoms, setLoadingSymptoms] = useState(true);
+
+  async function getSymptoms() {
+    try {
+      setLoadingSymptoms(true);
+      const symptomsRef = bd.collection("symptoms");
+      const symptoms = await symptomsRef.get();
+      let symptomDocs = [];
+      symptoms.forEach((doc) => {
+        symptomDocs.push(doc.data());
+      });
+      setSymptomList(symptomDocs);
+      setLoadingSymptoms(false);
+    } catch (e) {
+      console.log(e);
+      setLoadingSymptoms(false);
+    }
+  }
+
+  useEffect(() => {
+    getSymptoms();
+  }, []);
 
   function rankingSort() {
     var especialistasval = Object.values(especialistas);
@@ -117,7 +140,7 @@ const Especialistas = () => {
 
   const getSearchResults = () => {
     setLoading(true);
-    Object.keys(especialistas).forEach((id, i) => {
+    Object.keys(especialistas).forEach((id) => {
       if (searchResults.includes(id) && !filterEspecialista(id)) {
         const x = searchResults.indexOf(id);
         searchResults.splice(x, 1);
@@ -174,7 +197,9 @@ const Especialistas = () => {
               </div>
               <div className="filterInputs">
                 <div className="searchSymptom">
-                  <Sintomas />
+                  {loadingSymptoms ? <p className="altText">Cargando...</p> :
+                  <Sintomas symptomOptions={symptomList}/>
+                  }
                 </div>
                 <label className="searchRanking">
                   Buscar por ranking
