@@ -10,6 +10,7 @@ import labelsList from "../inputTags/labelsList";
 
 import React from "react";
 import { useHistory } from "react-router-dom";
+import Agendar from "../pages/agendar/Agendar";
 
 const Perfil = ({ user }) => {
   const countries = {
@@ -250,6 +251,8 @@ const Perfil = ({ user }) => {
   const [symptomList, setSymptomList] = useState([]);
   const [loadingSymptoms, setLoadingSymptoms] = useState(true);
 
+  const [agenda, setAgenda] = useState(false);
+
   async function getSymptoms() {
     try {
       setLoadingSymptoms(true);
@@ -357,7 +360,7 @@ const Perfil = ({ user }) => {
   }
 
   const handleAgenda = () => {
-    history.push(`/agendar/${user.id}`);
+    setAgenda(true);
   };
 
   function agendarCita() {
@@ -586,191 +589,200 @@ const Perfil = ({ user }) => {
     <>
       <Navbar />
       {!!user ? (
-        <section className="main-RegistroUser">
-          <div className="todo-user">
-            <div className="encabezado1">
-              <img src={user.img} alt="Not found" className="imagen-user" />
-              <div className="enca2">
-                <div className="nombre-user2">{user.name}</div>
-                {validarEditar()}
-                {agendarCita()}
+        !agenda ? (
+          <section className="main-RegistroUser">
+            <div className="todo-user">
+              <div className="encabezado1">
+                <img src={user.img} alt="Not found" className="imagen-user" />
+                <div className="enca2">
+                  <div className="nombre-user2">{user.name}</div>
+                  {validarEditar()}
+                  {agendarCita()}
+                </div>
               </div>
-            </div>
 
-            <div className="relleno">
-              {user.status === "standby" ? (
-                <>
-                  <div className="correo-user">
-                    <div className="sub estado-perfil">
-                      ¡La evaluación de sus credenciales sigue en pie, mientras
-                      tanto, puede ir configurando su perfil!
+              <div className="relleno">
+                {user.status === "standby" ? (
+                  <>
+                    <div className="correo-user">
+                      <div className="sub estado-perfil">
+                        ¡La evaluación de sus credenciales sigue en pie,
+                        mientras tanto, puede ir configurando su perfil!
+                      </div>
+                    </div>
+                    <div className="line"></div>
+                  </>
+                ) : null}
+                {validarNumCorreo()}
+
+                <div className="line"></div>
+                <div className="pais-user">
+                  <div className="titles">País</div>
+                  <div className="sub">
+                    {user.country ? (
+                      countries[user.country]
+                    ) : (
+                      <p className="altText">No se especificó país</p>
+                    )}
+                  </div>
+                </div>
+                <div className="line"></div>
+                <div className="ranking-user">
+                  <div className="titles">Ranking</div>
+                  <div className="sub">
+                    {loadingRanking ? (
+                      <span className="altText">Cargando...</span>
+                    ) : (
+                      <span className={getStars(userRanking)}>★★★★★</span>
+                    )}
+                  </div>
+                </div>
+                <div className="line"></div>
+                <div className="schedule-user">
+                  <div className="schedule-container">
+                    <div className="titles-week">Lunes</div>
+                    <div className="horas">
+                      {weekDisp.Monday.start} - {weekDisp.Monday.end}
                     </div>
                   </div>
-                  <div className="line"></div>
-                </>
-              ) : null}
-              {validarNumCorreo()}
-
-              <div className="line"></div>
-              <div className="pais-user">
-                <div className="titles">País</div>
-                <div className="sub">
-                  {user.country ? (
-                    countries[user.country]
-                  ) : (
-                    <p className="altText">No se especificó país</p>
-                  )}
-                </div>
-              </div>
-              <div className="line"></div>
-              <div className="ranking-user">
-                <div className="titles">Ranking</div>
-                <div className="sub">
-                  {loadingRanking ? (
-                    <span className="altText">Cargando...</span>
-                  ) : (
-                    <span className={getStars(userRanking)}>★★★★★</span>
-                  )}
-                </div>
-              </div>
-              <div className="line"></div>
-              <div className="schedule-user">
-                <div className="schedule-container">
-                  <div className="titles-week">Lunes</div>
-                  <div className="horas">
-                    {weekDisp.Monday.start} - {weekDisp.Monday.end}
+                  <div className="schedule-container">
+                    <div className="titles-week">Martes</div>
+                    <div className="horas">
+                      {weekDisp.Tuesday.start} - {weekDisp.Tuesday.end}
+                    </div>
                   </div>
-                </div>
-                <div className="schedule-container">
-                  <div className="titles-week">Martes</div>
-                  <div className="horas">
-                    {weekDisp.Tuesday.start} - {weekDisp.Tuesday.end}
+                  <div className="schedule-container">
+                    <div className="titles-week">Miercoles</div>
+                    <div className="horas">
+                      {weekDisp.Wednesday.start} - {weekDisp.Wednesday.end}
+                    </div>
                   </div>
-                </div>
-                <div className="schedule-container">
-                  <div className="titles-week">Miercoles</div>
-                  <div className="horas">
-                    {weekDisp.Wednesday.start} - {weekDisp.Wednesday.end}
+                  <div className="schedule-container">
+                    <div className="titles-week">Jueves</div>
+                    <div className="horas">
+                      {weekDisp.Thursday.start} - {weekDisp.Thursday.end}
+                    </div>
                   </div>
-                </div>
-                <div className="schedule-container">
-                  <div className="titles-week">Jueves</div>
-                  <div className="horas">
-                    {weekDisp.Thursday.start} - {weekDisp.Thursday.end}
+                  <div className="schedule-container">
+                    <div className="titles-week">Viernes</div>
+                    <div className="horas">
+                      {weekDisp.Friday.start} - {weekDisp.Friday.end}
+                    </div>
                   </div>
-                </div>
-                <div className="schedule-container">
-                  <div className="titles-week">Viernes</div>
-                  <div className="horas">
-                    {weekDisp.Friday.start} - {weekDisp.Friday.end}
+                  <div className="schedule-container">
+                    <div className="titles-week">Sábado</div>
+                    <div className="horas">
+                      {weekDisp.Saturday.start} - {weekDisp.Saturday.end}
+                    </div>
                   </div>
-                </div>
-                <div className="schedule-container">
-                  <div className="titles-week">Sábado</div>
-                  <div className="horas">
-                    {weekDisp.Saturday.start} - {weekDisp.Saturday.end}
+                  <div className="schedule-container">
+                    <div className="titles-week">Domingo</div>
+                    <div className="horas">
+                      {weekDisp.Sunday.start} - {weekDisp.Sunday.end}
+                    </div>
                   </div>
-                </div>
-                <div className="schedule-container">
-                  <div className="titles-week">Domingo</div>
-                  <div className="horas">
-                    {weekDisp.Sunday.start} - {weekDisp.Sunday.end}
-                  </div>
-                </div>
-              </div>
-              <div className="line"></div>
-            </div>
-            <div className="info-edu">
-              <div className="edu-box">
-                <div className="titles" id="titles-ed1">
-                  Áreas de
-                  <br />
-                  atención
                 </div>
                 <div className="line"></div>
-                <div className="text-info especialidades-perfil">
-                  {!loadingSymptoms ? (
-                    user.specialty.length !== 0 ? (
-                      <ul className="lista-espe-perfil">
-                        {labelsList(user.specialty, symptomList).map((esp) => {
-                          return <li key={esp}>{esp}</li>;
-                        }, symptomList)}
-                      </ul>
+              </div>
+              <div className="info-edu">
+                <div className="edu-box">
+                  <div className="titles" id="titles-ed1">
+                    Áreas de
+                    <br />
+                    atención
+                  </div>
+                  <div className="line"></div>
+                  <div className="text-info especialidades-perfil">
+                    {!loadingSymptoms ? (
+                      user.specialty.length !== 0 ? (
+                        <ul className="lista-espe-perfil">
+                          {labelsList(user.specialty, symptomList).map(
+                            (esp) => {
+                              return <li key={esp}>{esp}</li>;
+                            },
+                            symptomList
+                          )}
+                        </ul>
+                      ) : (
+                        <p className="altText">
+                          No se especificaron especialidades
+                        </p>
+                      )
+                    ) : (
+                      <p className="altText">Cargando especialidades...</p>
+                    )}
+                  </div>
+                </div>
+
+                <div className="edu-box">
+                  <div className="titles" id="titles-ed">
+                    Formación Académica
+                  </div>
+                  <div className="line"></div>
+                  <div className="text-info">
+                    {user.education ? (
+                      user.education
                     ) : (
                       <p className="altText">
-                        No se especificaron especialidades
+                        No se especificó información sobre su educación
                       </p>
-                    )
-                  ) : (
-                    <p className="altText">Cargando especialidades...</p>
-                  )}
-                </div>
-              </div>
-
-              <div className="edu-box">
-                <div className="titles" id="titles-ed">
-                  Formación Académica
-                </div>
-                <div className="line"></div>
-                <div className="text-info">
-                  {user.education ? (
-                    user.education
-                  ) : (
-                    <p className="altText">
-                      No se especificó información sobre su educación
-                    </p>
-                  )}
-                </div>
-              </div>
-            </div>
-            <div className="about-user">
-              <div className="info">
-                <div className="titles">Sobre mí</div>
-                <div className="line"></div>
-
-                <div className="text-info">
-                  {user.info ? (
-                    user.info
-                  ) : (
-                    <p className="altText">No se especificó una descripción</p>
-                  )}
-                </div>
-              </div>
-            </div>
-            {addNewComment()}
-
-            <div className="all-comments">
-              <div className="titles">Sección de comentarios</div>
-              <div className="line"></div>
-              <br />
-              <br />
-              <div className="grupo-comentario">
-                {loadingComments ? (
-                  <div className="altText">Cargando comentarios...</div>
-                ) : comments.length > 0 ? (
-                  comments.map((review) => {
-                    return (
-                      <div className="comment">
-                        <div className="commenter">{review.authorName}</div>
-                        <div className="line"></div>
-                        <span className="text-comment">Clasificación: </span>
-                        <div className={getStars(review.rating)}>★★★★★</div>
-                        <div className="text-comment">
-                          <p>{review.review}</p>
-                        </div>
-                        <br />
-                      </div>
-                    );
-                  })
-                ) : (
-                  <div className="altText">
-                    Este especialista aún no tiene comentarios.
+                    )}
                   </div>
-                )}
+                </div>
+              </div>
+              <div className="about-user">
+                <div className="info">
+                  <div className="titles">Sobre mí</div>
+                  <div className="line"></div>
+
+                  <div className="text-info">
+                    {user.info ? (
+                      user.info
+                    ) : (
+                      <p className="altText">
+                        No se especificó una descripción
+                      </p>
+                    )}
+                  </div>
+                </div>
+              </div>
+              {addNewComment()}
+
+              <div className="all-comments">
+                <div className="titles">Sección de comentarios</div>
+                <div className="line"></div>
+                <br />
+                <br />
+                <div className="grupo-comentario">
+                  {loadingComments ? (
+                    <div className="altText">Cargando comentarios...</div>
+                  ) : comments.length > 0 ? (
+                    comments.map((review) => {
+                      return (
+                        <div className="comment">
+                          <div className="commenter">{review.authorName}</div>
+                          <div className="line"></div>
+                          <span className="text-comment">Clasificación: </span>
+                          <div className={getStars(review.rating)}>★★★★★</div>
+                          <div className="text-comment">
+                            <p>{review.review}</p>
+                          </div>
+                          <br />
+                        </div>
+                      );
+                    })
+                  ) : (
+                    <div className="altText">
+                      Este especialista aún no tiene comentarios.
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
+        ) : (
+          <Agendar especialista={user} />
+        )
       ) : (
         <Cargando />
       )}
