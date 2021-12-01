@@ -14,6 +14,7 @@ const HistorialPaciente = () => {
     const params = useParams();
     const { user } = useContext(UserContext);
     console.log(params)
+
     return ( 
     <>
       <Navbar />

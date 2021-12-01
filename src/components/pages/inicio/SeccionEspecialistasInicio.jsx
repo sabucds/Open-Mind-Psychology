@@ -76,7 +76,7 @@ const SeccionEspecialistasInicio = () => {
               Error: {error.message}. Intente refrescar la página.
             </div>
           ) : Object.entries(especialistas).length !== 0 ? (
-            <div className="especialistaInicioList">
+            <div className="especialistaList-1">
               {desplegarEspecialistas(especialistas).map((key) => {
                 const especialista = especialistas[key];
                 return (

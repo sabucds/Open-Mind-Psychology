@@ -79,6 +79,7 @@ const Agendar = () => {
     try {
       setLoading(true);
       const userRef = bd.collection("users").doc(params.characterId);
+      console.log("LLAMO A FIREBASE 1")
       const userDoc = await userRef.get();
       let user = userDoc.data();
       user.id = userDoc.id;
@@ -100,6 +101,7 @@ const Agendar = () => {
     try {
       setLoadingReserved(true);
       const citasRef = bd.collection("citas");
+      console.log("LLAMO A FIREBASE 2")
       const citas = await citasRef.get();
       let citasDocs = {};
       let docData;
@@ -223,7 +225,7 @@ const Agendar = () => {
             Estos son los horarios disponibles de tu especialista:
           </div>
           <br />
-          <div className={styles.user}>
+          {/* <div className={styles.user}>
             <div className={styles.container}>
               <div className={styles.week}>Lunes</div>
               <div className={styles.horas}>
@@ -266,7 +268,7 @@ const Agendar = () => {
                 {weekDisp.Sunday.start} - {weekDisp.Sunday.end}
               </div>
             </div>
-          </div>
+          </div> */}
           <br />
         </div>{" "}
         <div className={styles.caja}>
