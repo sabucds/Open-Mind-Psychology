@@ -9,11 +9,13 @@ import Navbar from "../../Navbar/Navbar";
 import Cargando from "../../cargando/Cargando";
 import { useParams } from "react-router-dom";
 import styles from "./ListaPacientes.module.css";
+import TextEditor from "./TextEditor";
 
 const HistorialPaciente = () => {
   const params = useParams();
   const { user } = useContext(UserContext);
   const [user2, setUser] = useState([]);
+  const [dataSave, setdataSave] = useState();
 
   async function getUserInfo() {
     try {
@@ -29,23 +31,42 @@ const HistorialPaciente = () => {
     getUserInfo();
   }, []);
 
-  // const  getHistorialPacientes = () => {
-  //   try {
-  //     // UseContext
-  //     const userId = "";
-  //     const params = { userId: "1" };
-  //     const pacienteId = params.userId;
-  //     // Historial de pacientes del especialista actual
-  //     const historialPacientesDelEspecialista = bd
-  //       .collection("historialPacientes")
-  //       .doc(userId);
-  //     const historialPacienteX = historialPacientesDelEspecialista
-  //       .collection("avances")
-  //       .where("pacienteId", "==", pacienteId);
-  //   } catch (error) {}
-  // };
+  const onSave = () => {
+    try {
+      const avance = {
+        pacienteId: params.userId,
+        entry: dataSave,
+      };
 
-  console.log(user);
+      const historialPacientesDelEspecialista = bd
+        .collection("historialPacientes")
+        .doc(user.id);
+
+      const historialPacienteActual = historialPacientesDelEspecialista
+        .collection("avances")
+        .add(avance);
+
+      alert("¡Entrada guardada exitósamente!");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const getHistorialPacientes = () => {
+    try {
+      // UseContext
+      const userId = "";
+      const pacienteId = params.userId;
+      // Historial de pacientes del especialista actual
+      const historialPacientesDelEspecialista = bd
+        .collection("historialPacientes")
+        .doc(userId);
+      const historialPacienteX = historialPacientesDelEspecialista
+        .collection("avances")
+        .where("pacienteId", "==", pacienteId);
+    } catch (error) {}
+  };
+
   return (
     <>
       <Navbar />
@@ -56,38 +77,16 @@ const HistorialPaciente = () => {
         </div>
         <div className={styles.sectBody}>
           <div className={styles.tit2}>Crear nueva incidencia:</div>
-
-          <form className={styles.formI}>
-            <div className={styles.incidencias}>
-              <div className={styles.subt2}>Avances:</div>
-
-              <textarea
-                name="avance"
-                id="avance"
-                className={styles.input}
-              ></textarea>
+          <div className={styles.boxI}>
+            <div className={styles.editor}>
+              <TextEditor
+                handleTextChange={(editorText) => setdataSave(editorText)}
+              />
             </div>
-
-            <div className={styles.incidencias}>
-              <div className={styles.subt2}>Tratamiento:</div>
-
-              <textarea
-                name="tratamiento"
-                id="tratamiento"
-                className={styles.input}
-              ></textarea>
-            </div>
-
-            <div className={styles.incidencias}>
-              <div className={styles.subt2}>Datos relevantes:</div>
-
-              <textarea
-                name="datos"
-                id="datos"
-                className={styles.input}
-              ></textarea>
-            </div>
-          </form>
+          </div>
+          <div className={styles.buttonS} onClick={onSave}>
+            Guardar historia
+          </div>
         </div>
         <br />
         <br />

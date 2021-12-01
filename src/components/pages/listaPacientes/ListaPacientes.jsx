@@ -7,6 +7,7 @@ import { bd } from "../../../utils/firebaseConfig";
 import { useState, useEffect } from "react";
 import styles from "./ListaPacientes.module.css";
 import PacienteCard from "./PacienteCard";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
 const ListaPacientes = () => {
   const { user } = useContext(UserContext);
@@ -15,7 +16,7 @@ const ListaPacientes = () => {
   //lista de personas con las que user tendra chat
   const [usuariosConCita, setusuariosConCita] = useState([]);
   const [usuarios, setusuarios] = useState([]);
-  
+
   const [desplegarCitas, setdesplegarCitas] = useState(false);
   const [refresh, setrefresh] = useState(0);
   const [listaLista, setlistaLista] = useState(false);
@@ -207,35 +208,32 @@ const ListaPacientes = () => {
     getCitas();
   }, []);
 
-  return ( 
-  <>
-    <Navbar />
+  return (
+    <>
+      <Navbar />
       <section className={styles.sect}>
-        <div className = {styles.encabezado}>
+        <div className={styles.encabezado}>
           <div className={styles.tit}> Lista de Pacientes: </div>
           <div className={styles.line}></div>
         </div>
         <div className={styles.sectBody}>
-          <div
-            className={usuariosConCita.length !== 0 ? styles.chats : ""}
-          >
+          <div className={usuariosConCita.length !== 0 ? styles.chats : ""}>
             <>
               {desplegarCitas && usuariosConCita.length !== 0 ? (
                 <>
                   {usuariosConCita.map((u) => {
-                    return (
-                        <PacienteCard key={u.id} usuario={u} />
-                    );
+                    return <PacienteCard key={u.id} usuario={u} />;
                   })}
                 </>
               ) : (
-                  <div className = {styles.subt}>¡No tienes citas para hoy!</div>
+                <div className={styles.subt}>¡No tienes citas para hoy!</div>
               )}
             </>
           </div>
         </div>
       </section>
-  </>
-)};
+    </>
+  );
+};
 
 export default ListaPacientes;

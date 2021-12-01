@@ -16,6 +16,26 @@
   height: 100%;
 }
 
+.editor {
+  width: 900px;
+  margin-top: 20px;
+  margin-bottom: 60px;
+  background-color: white;
+  border: 10px;
+  border-color: black;
+}
+
+.boxI {
+  width: 1000px;
+  border-radius: 20px;
+
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .sectBody {
   width: 100%;
   height: max-content;
@@ -40,6 +60,21 @@
   text-align: center;
   color: #ee9d6b;
   padding-bottom: 0.5em;
+}
+
+.buttonS {
+  color: white;
+  border-radius: 10px;
+  padding-left: 2px;
+  padding-right: 2px;
+  margin-top: 20px;
+  padding-top: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+  background-color: #ee9d6b;
+  width: 140px;
+  height: 40px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
 }
 
 .line {
