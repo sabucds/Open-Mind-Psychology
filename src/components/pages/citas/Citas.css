@@ -1,0 +1,96 @@
+.consulta-section {
+    margin-top: 65px;
+    width: 100%;
+    height: calc(100vh - 65px);
+    padding: 50px;
+    background-image: url("../../img/Plants.png"), url("../../img/Top-Leaves.png");
+    background-position: bottom left, top right;
+    background-repeat: no-repeat;
+    background-size: 25%, 25%;
+}
+.calendario-citas{
+    font-style: italic;
+    color: rgba(0, 0, 0, 0.85);
+    padding-left: 1em;
+    border-radius: 5px;
+    margin-top: 5px;
+    width: 20em;
+    height: 2.75em;
+    border-width: 0.01em;
+    border-color: rgba(0, 0, 0, 0.185);
+}
+.consultas-container {
+    width: 80%;
+    height: fit-content;
+    min-height: 100px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 1em;
+    background-color: white;
+    margin:auto;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+}
+.consultas-header {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    height: 50px;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: #ee9d6b;
+    border-radius: 1em 1em 0 0;
+}
+.consultas-header .info-consultas {
+    color: white;
+    font-style: italic;
+}
+.consulta {
+    height: 75px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    background-color: white;
+}
+.consulta:last-child {
+    border-radius: 0 0 1em 1em;
+}
+.info-consultas {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.date-info {
+    width: 15%;
+    height: 80%;
+}
+.hour-info {
+    width: 15%;
+    height: 80%;
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+}
+.name-info {
+    width: 30%;
+    height: 80%;
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+}
+.reason-info {
+    width: 40%;
+    height: 100%;
+    line-height: normal;
+}
+.consulta .reason-info {
+    display: block;
+    padding-top: 10px;
+    padding-left: none;
+}
+.consulta .reason-info div {
+    height: 80%;
+    overflow-y: scroll;
+    overflow: overlay;
+}

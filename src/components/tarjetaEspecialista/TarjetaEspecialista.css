@@ -51,7 +51,7 @@
   overflow-x: hidden;
 }
 ::-webkit-scrollbar {
-  background-color: #fff;
+  background-color: transparent;
   width: 16px;
 }
 .lista-esp::-webkit-scrollbar {
@@ -59,7 +59,7 @@
 }
 
 ::-webkit-scrollbar-track {
-  background-color: #fff;
+  background-color: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
