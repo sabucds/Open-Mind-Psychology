@@ -165,8 +165,8 @@ const Especialistas = () => {
       setSearch(true);
       getSearchResults();
       searchResults.length > 0 ? setResults(true) : setResults(false);
-      setLoading(false);
     }
+    setLoading(false);
   };
 
   useEffect(() => {

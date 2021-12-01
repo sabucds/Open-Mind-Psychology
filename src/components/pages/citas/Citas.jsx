@@ -23,86 +23,16 @@ const Citas = () => {
   const [esVacio, setEsVacio] = useState(false);
   const [results, setResults] = useState(false);
   const [search, setSearch] = useState(false);
+  const [error, setError] = useState(null);
 
-  console.log("se rendereó");
+
   useEffect(() => {
     if (!!user) {
       setIsEspecialista(user.role === "especialista")
     }
-    console.log("USEEFFECT");
-    console.log(user);
-    getUsers();
-
-    getConsultas();
-
-
-    console.log("use effect users");
-    console.log(users);
-    getSearchResults();
-    console.log("use effect search results");
-    console.log(searchResults);
   }, [user]);
 
-  async function getUsers () {
-    try {
-      setLoading(true);
-      const usersRef = bd.collection("users");
-      const usersGet = await usersRef.get();
-      let userDocs = {};
-      let docData;
-      let docId;
-      console.log("getUsers");
-      console.log(users.empty);
-      usersGet.forEach((doc) => {
-        docData = doc.data();
-        docId = doc.id;
-        userDocs[docId] = docData;
-        userDocs[docId]["id"] = docId;
-      });
-      console.log("users:");
-      console.log(userDocs);
-      setUsers(userDocs);
-      console.log("luego de seteo:");
-      console.log(users);
-      setLoading(false);
-    } catch (e) {
-      console.log(e.message);
-      setLoading(false);
-    }
-  }
-
-  async function getConsultas() {
-    try {
-      const citasRef = bd.collection("citas");
-      const citas = await citasRef.get();
-      let citaDocs = {};
-      let docData;
-      let docId;
-      console.log("getConsultas");
-      console.log(citas.empty);
-      citas.forEach((doc) => {
-        docData = doc.data();
-        docId = doc.id;
-        if ( (isEspecialista && user && docData.especialista === user.id) || (!isEspecialista && user && docData.usuario === user.id) ){
-          citaDocs[docId] = docData;
-          citaDocs[docId]["id"] = docId;
-        }
-      });
-      console.log("citas:");
-      console.log(citaDocs);
-      setConsultas(citaDocs);
-      console.log(consultas);
-      if (citaIds.length === 0) {
-        setCitaIds(Object.keys(citaDocs));
-        if (citaIds.length !== 0) {
-          dateSort(); //se ordenan las citas del especialista por fecha, si es que tiene especialistas
-        }
-      }
-    } catch (e) {
-      console.log(e.message);
-    }
-  }
-
+  
   function dateSort() {
     var citasval = Object.values(consultas);
     for (let index = 1; index < citasval.length; index++) {
@@ -118,58 +48,7 @@ const Citas = () => {
     }
   }
 
-  function filterCita (id){
-    var isValid = true;
-    const cita = consultas[id];
-    if (nombre) {
-      (isEspecialista ? 
-        isValid = isValid && (users[cita.usuario].name.toLowerCase().includes(nombre.toLowerCase())) :
-        isValid = isValid && (users[cita.especialista].name.toLowerCase().includes(nombre.toLowerCase()))
-      )
-    }
-    if (filterDate && selectedDate) {
-      isValid = isValid && cita.date.toDate().setHours(0,0,0,0).valueOf() === selectedDate.setHours(0,0,0,0).valueOf();
-    }
-    return isValid;
-  }
-
-  const getSearchResults = async () => {
-    setLoading(true);
-    setSearchResults([]);
-    console.log(loading);
-    await getConsultas();
-    console.log("getSearchResults");
-    console.log(consultas);
-    Object.keys(consultas).forEach((id) => {
-      console.log("loop id", id);
-      if (filterCita(id) && !searchResults.includes(id)) {
-        searchResults.push(id);
-        console.log("push a searchResults de ", id);
-      } 
-    });
-    console.log(searchResults);
-    setRefresh(refresh+1);
-    setLoading(false);
-  };
-
-  const handleSearch = () => {
-    console.log("buscar!");
-    setEsVacio(false);
-    setLoading(true);
-    console.log("getSearchResults");
-    console.log(searchResults);
-    setCitaIds(Object.keys(consultas));
-    dateSort();
-    setSearch(true);
-    getSearchResults();
-    console.log("resultados:");
-    console.log(searchResults);
-    console.log(searchResults.length);
-    searchResults.length > 0 ? setResults(true): setResults(false);
-    setLoading(false);
-  };
-
-  async function desplegarCitas(citas, resultadosId) {
+  function desplegarCitas(citas, resultadosId) {
     var arr = [];
     if (resultadosId === 1) {
       for (let index = 0; index < citas.length; index++) {
@@ -191,7 +70,119 @@ const Citas = () => {
     }
   }
 
+  async function getUsers () {
+    try {
+      setLoading(true);
+      const usersRef = bd.collection("users");
+      const usersGet = await usersRef.get();
+      let userDocs = {};
+      let docData;
+      let docId;
+      usersGet.forEach((doc) => {
+        docData = doc.data();
+        docId = doc.id;
+        userDocs[docId] = docData;
+        userDocs[docId]["id"] = docId;
+      });
+      setUsers(userDocs);
+      console.log("users:");
+      console.log(users);
+      setLoading(false);
+    } catch (e) {
+      console.log(e.message);
+      setError(e);
+      setLoading(false);
+    }
+  }
 
+  async function getConsultas() {
+    try {
+      setLoading(true);
+      const citasRef = bd.collection("citas");
+      const citas = await citasRef.get();
+      let citaDocs = {};
+      let docData;
+      let docId;
+      citas.forEach((doc) => {
+        docData = doc.data();
+        docId = doc.id;
+        if ( (isEspecialista && user && docData.especialista === user.id) || (!isEspecialista && user && docData.usuario === user.id) ){
+          citaDocs[docId] = docData;
+          citaDocs[docId]["id"] = docId;
+        }
+      });
+      setConsultas(citaDocs);
+      console.log("consultas:");
+      console.log(consultas);
+      if (citaIds.length === 0) {
+        setCitaIds(Object.keys(citaDocs));
+        if (citaIds.length !== 0) {
+          dateSort(); //se ordenan las citas del especialista por fecha, si es que tiene especialistas
+        }
+      }
+      setLoading(false);
+    } catch (e) {
+      console.log(e.message);
+      setError(e);
+      setLoading(false);
+    }
+  }
+
+  const filterCita = (id) => {
+    var isValid = true;
+    const cita = consultas[id];
+    if (nombre) {
+      (isEspecialista ? 
+        isValid = isValid && (users[cita.usuario].name.toLowerCase().includes(nombre.toLowerCase())) :
+        isValid = isValid && (users[cita.especialista].name.toLowerCase().includes(nombre.toLowerCase()))
+      )
+    }
+    if (filterDate && selectedDate) {
+      isValid = isValid && cita.date.toDate().setHours(0,0,0,0).valueOf() === selectedDate.setHours(0,0,0,0).valueOf();
+    }
+    if (nombre === "" && !filterDate){
+      setEsVacio(true);
+    }
+    return isValid;
+  }
+
+  const getSearchResults = async () => {
+    setLoading(true);
+    Object.keys(consultas).forEach((id) => {
+      if (searchResults.includes(id) && !filterCita(id)) {
+        const x = searchResults.indexOf(id);
+        searchResults.splice(x, 1);
+      } else if (filterCita(id)) {
+        if (!searchResults.includes(id)) {
+          searchResults.push(id);
+        }
+      } 
+    });
+    console.log("resultados:");
+    console.log(searchResults);
+  };
+
+  const handleSearch = () => {
+    console.log("buscar!");
+    setEsVacio(false);
+    setLoading(true);
+    setRefresh(refresh +1);
+
+    setCitaIds(Object.keys(consultas));
+    dateSort();
+    
+    if (!error) {
+      setSearch(true);
+      getSearchResults();
+      searchResults.length > 0 ? setResults(true): setResults(false);
+    }
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    getConsultas();
+    getUsers();
+  }, [refresh]);
 
   return (
   <>
@@ -253,7 +244,14 @@ const Citas = () => {
       </div>
       <hr />
       {
-        loading ? <Cargando /> : results && !esVacio ?
+        loading && !error ? <Cargando /> : error ? 
+        <div className="altText">
+              Error: {error.message}. <br></br>
+              <span className="refreshLink" onClick={() => setError(false)}>
+                Intente refrescar la página.
+              </span>
+            </div>
+        : results && !esVacio ?
         <div className="consultas-container">
           <div className="consultas-header">
             <div className="info-consultas date-info">Fecha</div>
@@ -262,12 +260,13 @@ const Citas = () => {
             <div className="info-consultas reason-info">Descripción</div>
           </div>
           <div className="consultas">
-          {desplegarCitas(citaIds, searchResults).map( (key) => {
-                const cita = consultas[key];
+          {desplegarCitas(citaIds, searchResults).map((key) => {
+                var cita = consultas[key];
+                console.log(cita);
                 return (
                   <div className="consulta" id={key}>
-                    <div className="info-consultas date-info"><span>{cita.date.getDate() + "/" + (cita.date.getMonth()+1)}</span></div>
-                    <div className="info-consultas hour-info"><span>{cita.date.getHours() + ":" + cita.date.getMinutes()+ "0"}</span></div>
+                    <div className="info-consultas date-info"><span>{cita.date.toDate().getDate() + "/" + (cita.toDate().getMonth()+1)}</span></div>
+                    <div className="info-consultas hour-info"><span>{cita.date.toDate().getHours() + ":" + cita.date.toDate().getMinutes()+ "0"}</span></div>
                     <div className="info-consultas name-info"><span>{isEspecialista ? cita.usuario : cita.especialista}</span></div>
                     <div className="info-consultas reason-info"><div><span>{cita.reason}</span></div></div>
                   </div>
@@ -281,28 +280,29 @@ const Citas = () => {
           No se consiguieron consultas que coincidieran con la búsqueda.
         </div> :
         <div className="consultas-container">
-        <div className="consultas-header">
-          <div className="info-consultas date-info">Fecha</div>
-          <div className="info-consultas hour-info">Hora</div>
-          <div className="info-consultas name-info">{isEspecialista ? "Paciente" : "Especialista"}</div>
-          <div className="info-consultas reason-info">Descripción</div>
+          <div className="consultas-header">
+            <div className="info-consultas date-info">Fecha</div>
+            <div className="info-consultas hour-info">Hora</div>
+            <div className="info-consultas name-info">{isEspecialista ? "Paciente" : "Especialista"}</div>
+            <div className="info-consultas reason-info">Descripción</div>
+          </div>
+          <div className="consultas">
+          {desplegarCitas(citaIds, 1).map((key) => {
+                var cita = consultas[key];
+                console.log(cita);
+                return (
+                  <div className="consulta" id={key}>
+                    <div className="info-consultas date-info"><span>{cita.date.toDate().getDate() + "/" + (cita.toDate().getMonth()+1)}</span></div>
+                    <div className="info-consultas hour-info"><span>{cita.date.toDate().getHours() + ":" + cita.date.toDate().getMinutes()+ "0"}</span></div>
+                    <div className="info-consultas name-info"><span>{isEspecialista ? cita.usuario : cita.especialista}</span></div>
+                    <div className="info-consultas reason-info"><div><span>{cita.reason}</span></div></div>
+                  </div>
+                )
+              }
+              ) 
+            }           
+          </div>
         </div>
-        <div className="consultas">
-        {desplegarCitas(citaIds, 1).map( (key) => {
-              const cita = consultas[key];
-              return (
-                <div className="consulta" id={key}>
-                  <div className="info-consultas date-info"><span>{cita.date.getDate() + "/" + (cita.date.getMonth()+1)}</span></div>
-                  <div className="info-consultas hour-info"><span>{cita.date.getHours() + ":" + cita.date.getMinutes()+ "0"}</span></div>
-                  <div className="info-consultas name-info"><span>{isEspecialista ? cita.usuario : cita.especialista}</span></div>
-                  <div className="info-consultas reason-info"><div><span>{cita.reason}</span></div></div>
-                </div>
-              )
-            }
-            ) 
-          }           
-        </div>
-      </div>
       }
     </section>
   </>
@@ -332,7 +332,13 @@ const Citas = () => {
               <div className="info-consultas reason-info"><div><span>Lorem ipsum dolor sit amet, 
               consectetur adipiscing elit.</span></div></div>
             </div>
-*/
+
+
+
+
+
+
+            */
 
 
 export default Citas;
