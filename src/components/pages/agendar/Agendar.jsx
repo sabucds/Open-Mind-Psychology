@@ -28,6 +28,7 @@ const Agendar = () => {
 
   const [selectedDate, setSelectedDate] = useState(null);
   const [reason, setReason] = useState(null);
+  const [reserved, setReserved] = useState([]);
   const [loadingReserved, setLoadingReserved] = useState(false);
 
   const [isOccupied, setIsOccupied] = useState(false);
@@ -112,8 +113,8 @@ const Agendar = () => {
           citasDocs[docId] = dateFormat;
         }
       });
+      setReserved(citasDocs);
       setLoadingReserved(false);
-      return citasDocs;
     } catch (e) {
       setError(e);
       setLoadingReserved(false);
@@ -121,8 +122,6 @@ const Agendar = () => {
   }
 
   const validateInput = async () => {
-    // Colección de citas
-    let reserved = await getCitas();
     // Esto agarra la hora y la colocar en un formato apropiado para la comparación (ej. 09:00 en lugar de 9:00 o 9:00:00, en formato de 24 hrs)
     let string = await selectedDate.toLocaleTimeString([], {
       hour: "2-digit",
@@ -184,6 +183,7 @@ const Agendar = () => {
       if (await validateInput()) {
         // Valida que la hora seleccionada esté dentro del rango correspondiente
         setCheckout(true);
+      } else {
       }
       setLoading(false);
     } catch (e) {
@@ -198,11 +198,16 @@ const Agendar = () => {
     return () => {
       componentMounted.current = false;
     };
-  }, [especialista]);
+  }, []);
+
+  useEffect(() => {
+    getCitas();
+  }, []);
 
   return loading &&
     !!especialista &&
     !error &&
+    loadingReserved &&
     especialista.schedule.length === 0 ? (
     <Cargando />
   ) : !checkout ? (
@@ -215,7 +220,7 @@ const Agendar = () => {
         <div className={styles.linea}></div>
         <br />
         <div className={styles.caja}>
-          {/* <div className={styles.subtit}>
+          <div className={styles.subtit}>
             Estos son los horarios disponibles de tu especialista:
           </div>
           <br />
@@ -262,7 +267,7 @@ const Agendar = () => {
                 {weekDisp.Sunday.start} - {weekDisp.Sunday.end}
               </div>
             </div>
-          </div> */}
+          </div>
           <br />
         </div>{" "}
         <div className={styles.caja}>
