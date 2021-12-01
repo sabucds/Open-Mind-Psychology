@@ -1,67 +1,91 @@
 import { bd } from "../../../utils/firebaseConfig";
-import { useParams } from "react-router-dom";
-import { useContext, useState, useEffect, useRef } from "react";
-import "../../Navbar/Navbar.css";
-import Navbar from "../../Navbar/Navbar";
+import { useContext, useState, useEffect } from "react";
 import Cargando from "../../cargando/Cargando";
 import { UserContext } from "../../../context/UserContext";
 
 import React from "react";
-import { useHistory } from "react-router-dom";
 import styles from "./Agendar.module.css";
 import DatePicker from "react-datepicker";
 import subDays from "date-fns/subDays";
 import "react-datepicker/dist/react-datepicker.css";
 
-const Agendar = () => {
-  const history = useHistory();
-  const currentUser = useContext(UserContext).user;
+import PayPal from "./Paypal";
 
+const Agendar = ({ especialista }) => {
+  const currentUser = useContext(UserContext).user;
+  const [checkout, setCheckout] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [especialista, setEspecialista] = useState(null);
   const [error, setError] = useState(null);
-  const params = useParams();
-  const componentMounted = useRef(true);
 
   const [selectedDate, setSelectedDate] = useState(null);
   const [reason, setReason] = useState(null);
   const [reserved, setReserved] = useState([]);
   const [loadingReserved, setLoadingReserved] = useState(false);
+  const { schedule } = especialista;
 
-  async function getEspecialista() {
-    try {
-      setLoading(true);
-      const userRef = bd.collection("users").doc(params.characterId);
-      const userDoc = await userRef.get();
-      let user = userDoc.data();
-      user.id = userDoc.id;
-      if (componentMounted.current) {
-        setEspecialista(user);
-        setLoading(false);
-      }
-    } catch (e) {
-      console.log(e);
-      if (componentMounted.current) {
-        setError(e.message);
-        setLoading(false);
-      }
-    }
-  }
+  const [searchResults] = useState([]);
+
+  const scheduleHasNotBeenSet =
+    Array.isArray(schedule) && schedule.length === 0;
+
+  const [weekDisp, setWeekDisp] = useState(
+    scheduleHasNotBeenSet
+      ? {
+          // In case we do not have schedule, lets have this initial value
+          Monday: {
+            start: "",
+            end: "",
+          },
+          Tuesday: {
+            start: "",
+            end: "",
+          },
+          Wednesday: {
+            start: "",
+            end: "",
+          },
+          Thursday: {
+            start: "",
+            end: "",
+          },
+          Friday: {
+            start: "",
+            end: "",
+          },
+          Saturday: {
+            start: "",
+            end: "",
+          },
+          Sunday: {
+            start: "",
+            end: "",
+          },
+        }
+      : // Else, we have current schedule
+        schedule
+  );
 
   async function getCitas() {
     try {
       setLoadingReserved(true);
       const citasRef = bd.collection("citas");
+      console.log("llamando")
       const citas = await citasRef.get();
       let citasDocs = {};
       let docData;
       let docId;
+
+      let tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
+
       citas.forEach((doc) => {
         docData = doc.data();
         docId = doc.id;
         if (docData.especialista === especialista.id) {
           let dateFormat = new Date(docData.date.seconds * 1000); // por mil porque sino te pone 1970 :clown_emoji:
-          citasDocs[docId] = dateFormat;
+          if (dateFormat >= tomorrow) {
+            citasDocs[docId] = dateFormat;
+          }
         }
       });
       setReserved(citasDocs);
@@ -75,6 +99,7 @@ const Agendar = () => {
   const validateInput = async () => {
     // Esto agarra la hora y la colocar en un formato apropiado para la comparación (ej. 09:00 en lugar de 9:00 o 9:00:00, en formato de 24 hrs)
     let string = await selectedDate.toLocaleTimeString([], {
+      hour12: false,
       hour: "2-digit",
       minute: "2-digit",
     });
@@ -98,7 +123,7 @@ const Agendar = () => {
 
     if (reason) {
       for (const dateId in reserved) {
-        console.log("Test: " + reserved[dateId]);
+        console.log("Fecha:" + reserved[dateId]);
         if (selectedDate.getTime() === reserved[dateId].getTime()) {
           setLoading(false);
           alert("Esa fecha ya se encuentra reservada.");
@@ -133,16 +158,7 @@ const Agendar = () => {
     try {
       if (await validateInput()) {
         // Valida que la hora seleccionada esté dentro del rango correspondiente
-        await bd.collection("citas").add({
-          usuario: currentUser.id,
-          especialista: especialista.id,
-          date: selectedDate,
-          reason: reason,
-          status: "activo",
-        });
-        setLoading(false);
-        alert("Cita agendada exitosamente.");
-        history.push("/perfil");
+        setCheckout(true);
       } else {
       }
       setLoading(false);
@@ -153,33 +169,117 @@ const Agendar = () => {
     }
   };
 
-  useEffect(() => {
-    getEspecialista();
-    return () => {
-      componentMounted.current = false;
+  function desplegarCitas(reserved) {
+    var arr = [];
+    const optionsTime = {
+      hour12: false,
+      hour: "2-digit",
+      minute: "2-digit",
     };
-  }, [especialista]);
+    const options = {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    };
+    let string;
+    for (const dateId in reserved) {
+      string =
+        reserved[dateId].toLocaleDateString("en-GB", options) +
+        " " +
+        reserved[dateId].toLocaleTimeString("en-GB", optionsTime);
+      arr.push(string);
+    }
+    return arr;
+  }
 
   useEffect(() => {
     getCitas();
-  }, [loadingReserved]);
+  }, []);
 
   return loading &&
-    !!especialista &&
     !error &&
     loadingReserved &&
     especialista.schedule.length === 0 ? (
     <Cargando />
-  ) : (
+  ) : !checkout ? (
     <>
-      <Navbar />
       <section className={styles.sect}>
         <div className={styles.encabezado}>
           <div className={styles.TitleRegister}>¡Reserva ya tu cita!</div>
         </div>
         <div className={styles.linea}></div>
         <br />
+        
+          {desplegarCitas(reserved).length === 0 ? (
+            <></>
+          ) : (
+            <>
+            <div className = {styles.caja2}>
+              <div className="CitaList">
+                <p>Bloques no disponibles para agendar</p>
+                {desplegarCitas(reserved).map((key) => {
+                  return (
+                    <li className="cita" key={key}>
+                      {key}
+                    </li>
+                  );
+                })}
+              </div>
+              </div>
+            </>
+          )}
 
+        <div className={styles.caja}>
+          <div className={styles.subtit}>
+            Estos son los horarios disponibles de tu especialista:
+          </div>
+          <br />
+          <div className={styles.user}>
+            <div className={styles.container}>
+              <div className={styles.week}>Lunes</div>
+              <div className={styles.horas}>
+                {weekDisp.Monday.start} - {weekDisp.Monday.end}
+              </div>
+            </div>
+            <div className={styles.container}>
+              <div className={styles.week}>Martes</div>
+              <div className={styles.horas}>
+                {weekDisp.Tuesday.start} - {weekDisp.Tuesday.end}
+              </div>
+            </div>
+            <div className={styles.container}>
+              <div className={styles.week}>Miercoles</div>
+              <div className={styles.horas}>
+                {weekDisp.Wednesday.start} - {weekDisp.Wednesday.end}
+              </div>
+            </div>
+            <div className={styles.container}>
+              <div className={styles.week}>Jueves</div>
+              <div className={styles.horas}>
+                {weekDisp.Thursday.start} - {weekDisp.Thursday.end}
+              </div>
+            </div>
+            <div className={styles.container}>
+              <div className={styles.week}>Viernes</div>
+              <div className={styles.horas}>
+                {weekDisp.Friday.start} - {weekDisp.Friday.end}
+              </div>
+            </div>
+            <div className={styles.container}>
+              <div className={styles.week}>Sábado</div>
+              <div className={styles.horas}>
+                {weekDisp.Saturday.start} - {weekDisp.Saturday.end}
+              </div>
+            </div>
+            <div className={styles.container}>
+              <div className={styles.week}>Domingo</div>
+              <div className={styles.horas}>
+                {weekDisp.Sunday.start} - {weekDisp.Sunday.end}
+              </div>
+            </div>
+          </div>
+          <br />
+        </div>{" "}
         <div className={styles.caja}>
           <div className={styles.subtit}>
             Selecciona una fecha y hora para pautar tu sesión:
@@ -188,15 +288,17 @@ const Agendar = () => {
             <div className={styles.calendar}></div>
             <DatePicker
               showTimeSelect
-              timeIntervals={60}
-              timeCaption="Time"
+              timeCaption="Hora"
               selected={selectedDate}
               onChange={(date) => setSelectedDate(date)}
               minDate={subDays(new Date(), -1)}
-              dateFormat="MMMM d, yyyy h:mm aa"
               placeholderText="Seleccione una fecha y hora"
               className={styles.input}
+              timeIntervals={60}
+              dateFormat="MMMM d, yyyy HH:mm" // HH:mm formato 24hrs
+              timeFormat="HH:00" //y que los minutos, sin importar el input, sean 00
               id="date-input"
+              autoComplete="off"
             />
           </div>
           <div className={styles.subtit}>Ingrese el motivo de la cita:</div>
@@ -207,6 +309,7 @@ const Agendar = () => {
               placeholder="Ingrese el motivo de la cita."
               onChange={(e) => setReason(e.target.value)}
               className={styles.input}
+              autoComplete="off"
             ></input>
           </div>
           <div className={styles.btn}>
@@ -221,6 +324,13 @@ const Agendar = () => {
         </div>
       </section>
     </>
+  ) : (
+    <PayPal
+      currentUser={currentUser}
+      especialista={especialista}
+      selectedDate={selectedDate}
+      reason={reason}
+    />
   );
 };
 

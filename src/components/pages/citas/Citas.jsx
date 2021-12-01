@@ -17,8 +17,8 @@ const Citas = () => {
   const [isEspecialista, setIsEspecialista] = useState(false);
   const [consultas, setConsultas] = useState({});
   const [citaIds, setCitaIds] = useState([]);
-  const [users, setUsers] = useState({});
-  const [searchResults,setSearchResults] = useState([]);
+  //const [users, setUsers] = useState({});
+  const [searchResults] = useState([]);
   const [refresh, setRefresh] = useState(0);
   const [esVacio, setEsVacio] = useState(false);
   const [results, setResults] = useState(false);
@@ -27,13 +27,18 @@ const Citas = () => {
 
 
   useEffect(() => {
+    console.log("Use effect User");
     if (!!user) {
-      setIsEspecialista(user.role === "especialista")
+      setIsEspecialista(user.role === "especialista");
+      console.log(isEspecialista);
+      getConsultas();
     }
+    
   }, [user]);
 
   
   function dateSort() {
+    console.log("dateSort()");
     var citasval = Object.values(consultas);
     for (let index = 1; index < citasval.length; index++) {
       let current = citasval[index];
@@ -49,6 +54,8 @@ const Citas = () => {
   }
 
   function desplegarCitas(citas, resultadosId) {
+    console.log("desplegarCitas");
+
     var arr = [];
     if (resultadosId === 1) {
       for (let index = 0; index < citas.length; index++) {
@@ -70,35 +77,37 @@ const Citas = () => {
     }
   }
 
-  async function getUsers () {
+  async function getUser (id) {
+    console.log("getUser");
     try {
       setLoading(true);
-      const usersRef = bd.collection("users");
-      const usersGet = await usersRef.get();
-      let userDocs = {};
-      let docData;
-      let docId;
-      usersGet.forEach((doc) => {
-        docData = doc.data();
-        docId = doc.id;
-        userDocs[docId] = docData;
-        userDocs[docId]["id"] = docId;
-      });
-      setUsers(userDocs);
-      console.log("users:");
-      console.log(users);
+      const userRef = bd.collection("users").doc(id);
+      console.log("bd");
+      const userDoc = await userRef.get();
+      console.log(userDoc);
+      
+      let newUser = userDoc.data();
+      newUser["id"] = userDoc.id;
+
+      console.log("user:");
+      console.log(newUser);
       setLoading(false);
+      return newUser;
+
     } catch (e) {
       console.log(e.message);
       setError(e);
       setLoading(false);
+      return null;
     }
   }
 
   async function getConsultas() {
+    console.log("getConsultas");
     try {
       setLoading(true);
       const citasRef = bd.collection("citas");
+      console.log("bd");
       const citas = await citasRef.get();
       let citaDocs = {};
       let docData;
@@ -106,7 +115,7 @@ const Citas = () => {
       citas.forEach((doc) => {
         docData = doc.data();
         docId = doc.id;
-        if ( (isEspecialista && user && docData.especialista === user.id) || (!isEspecialista && user && docData.usuario === user.id) ){
+        if ( (isEspecialista && user && docData['especialista'] === user.id) || (!isEspecialista && user && docData['usuario'] === user.id) ){
           citaDocs[docId] = docData;
           citaDocs[docId]["id"] = docId;
         }
@@ -121,6 +130,7 @@ const Citas = () => {
         }
       }
       setLoading(false);
+      console.log(consultas);
     } catch (e) {
       console.log(e.message);
       setError(e);
@@ -129,13 +139,19 @@ const Citas = () => {
   }
 
   const filterCita = (id) => {
+    console.log("filterCita");
+
     var isValid = true;
     const cita = consultas[id];
     if (nombre) {
-      (isEspecialista ? 
-        isValid = isValid && (users[cita.usuario].name.toLowerCase().includes(nombre.toLowerCase())) :
-        isValid = isValid && (users[cita.especialista].name.toLowerCase().includes(nombre.toLowerCase()))
-      )
+      if (isEspecialista) {
+        let newUser = getUser(cita.usuario);
+        isValid = isValid && (newUser && newUser.name.toLowerCase().includes(nombre.toLowerCase()))
+      } else {
+        let newUser = getUser(cita.especialista);
+        isValid = isValid && (newUser && newUser.name.toLowerCase().includes(nombre.toLowerCase()))
+      }
+        
     }
     if (filterDate && selectedDate) {
       isValid = isValid && cita.date.toDate().setHours(0,0,0,0).valueOf() === selectedDate.setHours(0,0,0,0).valueOf();
@@ -147,6 +163,8 @@ const Citas = () => {
   }
 
   const getSearchResults = async () => {
+    console.log("getSearchResults");
+
     setLoading(true);
     Object.keys(consultas).forEach((id) => {
       if (searchResults.includes(id) && !filterCita(id)) {
@@ -163,7 +181,8 @@ const Citas = () => {
   };
 
   const handleSearch = () => {
-    console.log("buscar!");
+    console.log("handleSearch");
+
     setEsVacio(false);
     setLoading(true);
     setRefresh(refresh +1);
@@ -180,20 +199,23 @@ const Citas = () => {
   };
 
   useEffect(() => {
+    console.log("use effect refresh");
     getConsultas();
-    getUsers();
   }, [refresh]);
 
   return (
   <>
     <Navbar />
     <section className="consulta-section">
-      <div className="titles">Citas Agendadas</div>
-      <br />
-      <div className="search-box">  
-        <div className="busqueda-sect">  
-          <div className="searchInputs">
-            <div className="byNameInputs" id="by-name-inputs">
+      
+      
+      
+      <div className="search-box-citas">  
+        <div className="TitleRegister">Citas Agendadas</div>
+        <br />
+        <div className="busqueda-sect busqueda-citas">  
+          <div className="searchInputsCitas">
+            <div className="byNameInputsCitas">
               <input
                 type="text"
                 className="inputsForm"
@@ -204,7 +226,7 @@ const Citas = () => {
               />
             </div>
           </div>
-          <div className="filterInputs">
+          <div className="filterCitas">
             <DatePicker
                 selected={selectedDate}
                 onChange={(date) => setSelectedDate(date)}
@@ -243,7 +265,7 @@ const Citas = () => {
         </div>
       </div>
       <hr />
-      {
+      {/*NO ME FUNCIONA AYUDA
         loading && !error ? <Cargando /> : error ? 
         <div className="altText">
               Error: {error.message}. <br></br>
@@ -301,6 +323,126 @@ const Citas = () => {
               }
               ) 
             }           
+          </div>
+        </div>*/
+        
+        loading ? <Cargando/> :
+        <div className="consultas-container">
+          <div className="consultas-header">
+            <div className="info-consultas date-info">Fecha</div>
+            <div className="info-consultas hour-info">Hora</div>
+            <div className="info-consultas name-info">{isEspecialista ? "Paciente" : "Especialista"}</div>
+            <div className="info-consultas reason-info">Descripción</div>
+          </div>
+          <div className="consultas">
+            <div className="consulta">
+              <div className="info-consultas date-info"><span>30/12</span></div>
+              <div className="info-consultas hour-info"><span>23:50</span></div>
+              <div className="info-consultas name-info"><span>Liliana Especialista</span></div>
+              <div className="info-consultas reason-info"><div><span>Lorem ipsum dolor sit amet, 
+              consectetur adipiscing elit. Suspendisse tempus, magna sed porttitor laoreet, 
+              risus nunc hendrerit tellus, ut rutrum arcu ipsum vitae ex. Ut ullamcorper 
+              rutrum metus id mollis. Aliquam porta volutpat massa a suscipit. 
+              Nulla in massa id metus fermentum varius. Donec vitae accumsan mi. 
+              Nulla facilisi. Nullam bibendum semper quam, a dictum magna tristique et. 
+              Maecenas id est lacinia, commodo turpis vel, facilisis turpis.</span></div></div>
+            </div>
+
+            <div className="consulta">
+              <div className="info-consultas date-info"><span>30/12</span></div>
+              <div className="info-consultas hour-info"><span>23:50</span></div>
+              <div className="info-consultas name-info"><span>Liliana Especialista</span></div>
+              <div className="info-consultas reason-info"><div><span>Lorem ipsum dolor sit amet, 
+              consectetur adipiscing elit.</span></div></div>
+            </div>
+
+            <div className="consulta">
+              <div className="info-consultas date-info"><span>30/12</span></div>
+              <div className="info-consultas hour-info"><span>23:50</span></div>
+              <div className="info-consultas name-info"><span>Liliana Especialista</span></div>
+              <div className="info-consultas reason-info"><div><span>Lorem ipsum dolor sit amet, 
+              consectetur adipiscing elit.</span></div></div>
+            </div>
+
+            <div className="consulta">
+              <div className="info-consultas date-info"><span>30/12</span></div>
+              <div className="info-consultas hour-info"><span>23:50</span></div>
+              <div className="info-consultas name-info"><span>Liliana Especialista</span></div>
+              <div className="info-consultas reason-info"><div><span>Lorem ipsum dolor sit amet, 
+              consectetur adipiscing elit.</span></div></div>
+            </div>
+
+            <div className="consulta">
+              <div className="info-consultas date-info"><span>30/12</span></div>
+              <div className="info-consultas hour-info"><span>23:50</span></div>
+              <div className="info-consultas name-info"><span>Liliana Especialista</span></div>
+              <div className="info-consultas reason-info"><div><span>Lorem ipsum dolor sit amet, 
+              consectetur adipiscing elit.</span></div></div>
+            </div>
+
+            <div className="consulta">
+              <div className="info-consultas date-info"><span>30/12</span></div>
+              <div className="info-consultas hour-info"><span>23:50</span></div>
+              <div className="info-consultas name-info"><span>Liliana Especialista</span></div>
+              <div className="info-consultas reason-info"><div><span>Lorem ipsum dolor sit amet, 
+              consectetur adipiscing elit.</span></div></div>
+            </div>
+
+            <div className="consulta">
+              <div className="info-consultas date-info"><span>30/12</span></div>
+              <div className="info-consultas hour-info"><span>23:50</span></div>
+              <div className="info-consultas name-info"><span>Liliana Especialista</span></div>
+              <div className="info-consultas reason-info"><div><span>Lorem ipsum dolor sit amet, 
+              consectetur adipiscing elit.</span></div></div>
+            </div>
+
+            <div className="consulta">
+              <div className="info-consultas date-info"><span>30/12</span></div>
+              <div className="info-consultas hour-info"><span>23:50</span></div>
+              <div className="info-consultas name-info"><span>Liliana Especialista</span></div>
+              <div className="info-consultas reason-info"><div><span>Lorem ipsum dolor sit amet, 
+              consectetur adipiscing elit.</span></div></div>
+            </div>
+
+            <div className="consulta">
+              <div className="info-consultas date-info"><span>30/12</span></div>
+              <div className="info-consultas hour-info"><span>23:50</span></div>
+              <div className="info-consultas name-info"><span>Liliana Especialista</span></div>
+              <div className="info-consultas reason-info"><div><span>Lorem ipsum dolor sit amet, 
+              consectetur adipiscing elit.</span></div></div>
+            </div>
+
+            <div className="consulta">
+              <div className="info-consultas date-info"><span>30/12</span></div>
+              <div className="info-consultas hour-info"><span>23:50</span></div>
+              <div className="info-consultas name-info"><span>Liliana Especialista</span></div>
+              <div className="info-consultas reason-info"><div><span>Lorem ipsum dolor sit amet, 
+              consectetur adipiscing elit.</span></div></div>
+            </div>
+
+            <div className="consulta">
+              <div className="info-consultas date-info"><span>30/12</span></div>
+              <div className="info-consultas hour-info"><span>23:50</span></div>
+              <div className="info-consultas name-info"><span>Liliana Especialista</span></div>
+              <div className="info-consultas reason-info"><div><span>Lorem ipsum dolor sit amet, 
+              consectetur adipiscing elit.</span></div></div>
+            </div>
+
+            <div className="consulta">
+              <div className="info-consultas date-info"><span>30/12</span></div>
+              <div className="info-consultas hour-info"><span>23:50</span></div>
+              <div className="info-consultas name-info"><span>Liliana Especialista</span></div>
+              <div className="info-consultas reason-info"><div><span>Lorem ipsum dolor sit amet, 
+              consectetur adipiscing elit.</span></div></div>
+            </div>
+
+            <div className="consulta">
+              <div className="info-consultas date-info"><span>30/12</span></div>
+              <div className="info-consultas hour-info"><span>23:50</span></div>
+              <div className="info-consultas name-info"><span>Liliana Especialista</span></div>
+              <div className="info-consultas reason-info"><div><span>Lorem ipsum dolor sit amet, 
+              consectetur adipiscing elit.</span></div></div>
+            </div>
           </div>
         </div>
       }
