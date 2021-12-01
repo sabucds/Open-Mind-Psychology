@@ -52,7 +52,12 @@ const Chats = () => {
           usuariosConCita[index].today === "hoy"
         ) {
           usuariosConCita[index]["show"] = false;
-        } else if (!usuariosConCita[index].show) {
+        } else if (
+          !usuariosConCita[index].show &&
+          usuariosConCita[index].today === "hoy" &&
+          currentDate > citas[j].date &&
+          currentDate < currentPlusOne
+        ) {
           setLoading(true);
           usuariosConCita[index]["show"] = true;
           setLoading(false);
@@ -107,8 +112,6 @@ const Chats = () => {
                 }
                 let existe = false;
                 usuariosConCita.forEach(function (obj) {
-                  console.log(obj.id);
-                  console.log(usuarios[index].id);
                   if (obj.id === usuarios[index].id) {
                     existe = true;
                   }
@@ -163,10 +166,6 @@ const Chats = () => {
                 let existe = false;
                 usuariosConCita.forEach(function (obj) {
                   if (obj.id === usuarios[index].id) {
-                    console.log(obj.id);
-                    console.log(usuarios[index].id);
-                    console.log(obj.date);
-                    console.log(usuarios[index].date);
                     existe = true;
                   }
                 });
@@ -260,7 +259,6 @@ const Chats = () => {
   }
 
   useEffect(() => {
-    console.log("LECTURA A FIREBASE");
     getCitas();
   }, []);
 
