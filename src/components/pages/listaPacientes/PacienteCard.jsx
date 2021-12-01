@@ -26,8 +26,6 @@ const PacienteCard = (props) => {
           ) : null}
           <div className={styles.namep}>{props.usuario.name}</div>
         </div>
-        
-        <div className={styles.date}>{props.usuario.date}</div>
       </div>
       <div className={styles.line2}></div>
     </>

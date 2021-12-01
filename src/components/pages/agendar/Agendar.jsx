@@ -79,7 +79,6 @@ const Agendar = () => {
     try {
       setLoading(true);
       const userRef = bd.collection("users").doc(params.characterId);
-      console.log("LLAMO A FIREBASE 1")
       const userDoc = await userRef.get();
       let user = userDoc.data();
       user.id = userDoc.id;
@@ -102,7 +101,6 @@ const Agendar = () => {
       setLoadingReserved(true);
       console.log("LECTURA_AGENDAR");
       const citasRef = bd.collection("citas");
-      console.log("LLAMO A FIREBASE 2")
       const citas = await citasRef.get();
       let citasDocs = {};
       let docData;

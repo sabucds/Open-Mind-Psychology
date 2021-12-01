@@ -13,14 +13,32 @@ import styles from "./ListaPacientes.module.css";
 const HistorialPaciente = () => {
     const params = useParams();
     const { user } = useContext(UserContext);
-    console.log(params)
+    const [user2, setUser] = useState([]);
 
+    async function getUserInfo(){
+        try{
+            const usersQuery = await bd
+            .collection("users")
+            .doc(params.userId)
+            .get()
+            const user2 = usersQuery.data()
+            user2.id = usersQuery.id
+            setUser(user2)
+        }catch (error){
+            console.log("Error getting documents: ", error);
+        }
+    }
+    useEffect(()=>{
+        getUserInfo()
+    },[])
+
+    console.log(user)
     return ( 
     <>
       <Navbar />
         <section className={styles.sect}>
           <div>Historia del Paciente</div>
-          <p>este es el user id: {params.userId}</p>
+          <p>{user2.name}</p>
 
         </section>
     </>
