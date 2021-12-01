@@ -42,25 +42,29 @@ const Chats = () => {
 
   setInterval(() => {
     currentDate = new Date();
-
     for (let index = 0; index < usuariosConCita.length; index++) {
       for (let j = 0; j < citas.length; j++) {
         currentPlusOne.setHours(citas[j].date.getHours() + 1);
-        currentPlusOne.setMinutes(citas[j].date.getMinutes() + 10);
+        // currentPlusOne.setMinutes(citas[j].date.getMinutes() + 10);
         if (
-          !(currentDate > citas[j].date && currentDate < currentPlusOne) &&
+          (usuariosConCita[index].id === citas[j].especialista ||
+            usuariosConCita[index].id === citas[j].usuario) &&
           usuariosConCita[index].today === "hoy"
         ) {
-          usuariosConCita[index]["show"] = false;
-        } else if (
-          !usuariosConCita[index].show &&
-          usuariosConCita[index].today === "hoy" &&
-          currentDate > citas[j].date &&
-          currentDate < currentPlusOne
-        ) {
-          setLoading(true);
-          usuariosConCita[index]["show"] = true;
-          setLoading(false);
+          if (
+            !usuariosConCita[index].show &&
+            currentDate > citas[j].date &&
+            currentDate < currentPlusOne
+          ) {
+            setLoading(true);
+            usuariosConCita[index]["show"] = true;
+            setLoading(false);
+          } else if (
+            usuariosConCita[index].show &&
+            !(currentDate > citas[j].date && currentDate < currentPlusOne)
+          ) {
+            usuariosConCita[index]["show"] = false;
+          }
         }
       }
     }
@@ -84,17 +88,21 @@ const Chats = () => {
                   currentDate.getDate() === citas[j].date.getDate() &&
                   currentDate.getMonth() === citas[j].date.getMonth()
                 ) {
+                  console.log(citas[j].date);
+                  console.log(currentDate);
                   usuarios[index]["today"] = "hoy";
+                  usuarios[index]["show"] = false;
                 } else if (
                   (currentDate.getDate() > citas[j].date.getDate() &&
                     currentDate.getMonth() === citas[j].date.getMonth()) ||
                   currentDate.getMonth() > citas[j].date.getMonth()
                 ) {
                   usuarios[index]["today"] = "ayer";
+                  usuarios[index]["show"] = true;
                 } else {
                   usuarios[index]["today"] = "manana";
                 }
-                usuarios[index]["show"] = true;
+
                 if (
                   citas[j].especialista === usuarios[index].id ||
                   citas[j].usuario === usuarios[index].id
@@ -139,12 +147,14 @@ const Chats = () => {
                   currentDate.getMonth() === citas[j].date.getMonth()
                 ) {
                   usuarios[index]["today"] = "hoy";
+                  usuarios[index]["show"] = false;
                 } else if (
                   (currentDate.getDate() > citas[j].date.getDate() &&
                     currentDate.getMonth() === citas[j].date.getMonth()) ||
                   currentDate.getMonth() > citas[j].date.getMonth()
                 ) {
                   usuarios[index]["today"] = "ayer";
+                  usuarios[index]["show"] = true;
                 } else {
                   usuarios[index]["today"] = "manana";
                 }
