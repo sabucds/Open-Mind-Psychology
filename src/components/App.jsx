@@ -14,6 +14,7 @@ import UserContextProvider from "../context/UserContext";
 import CredUpload from "./pages/registro/CredUpload";
 import Error404 from "./pages/error404/Error404";
 import "./cargando/Cargando";
+import Citas from "./pages/citas/Citas"
 
 import PrivateRoute from "./ProtectedRoutes/PrivateRoute";
 import ProfileRoute from "./ProtectedRoutes/ProfileRoute";
@@ -69,6 +70,7 @@ function App() {
 
             <Route exact path="/chats" component={Chats} />
             <Route exact path="/chats/:userId" component={Chat} />
+            <Route exact path="/citas" component={Citas} />
             <Route path="*" component={Error404} />
           </Switch>
         </Router>

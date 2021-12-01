@@ -64,8 +64,8 @@ const SeccionEspecialistasInicio = () => {
     getEspecialistas();
   }, []);
   return (
-    <section className="admin-1">
-      <div className="containerEspecialistasAdmin">
+    <section className="esp-sec">
+      <div className="containerEspecialistasInicio">
         {
           //si está cargando, muestra "Cargando..."; si no: si hay un error muestra el mensaje de error;
           //si no: si hay especialistas que mostrar se muestran y si no, muestra "No hay especialistas nuevos."

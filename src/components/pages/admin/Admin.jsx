@@ -11,6 +11,58 @@ const Admin = () => {
   const [especialistas, setEspecialistas] = useState({});
   const [error, setError] = useState(null);
   const [refresh, setRefresh] = useState(0);
+  const [loadingSymptoms, setLoadingSymptoms] = useState(true);
+  const [symptomList, setSymptomList] = useState([]);
+  const [refreshSymptoms, setRefreshSymptoms] = useState(0);
+  const [label, setLabel] = useState("");
+  const [value, setValue] = useState("");
+
+  async function getSymptoms() {
+    try {
+      setLoadingSymptoms(true);
+      const symptomsRef = bd.collection("symptoms");
+      const symptoms = await symptomsRef.get();
+      let symptomDocs = [];
+      symptoms.forEach((doc) => {
+        symptomDocs.push(doc.data());
+      });
+      setSymptomList(symptomDocs);
+      setLoadingSymptoms(false);
+    } catch (e) {
+      console.log(e);
+      setLoadingSymptoms(false);
+    }
+  }
+
+  useEffect(() => {
+    getSymptoms();
+  }, [refreshSymptoms])  //cambios en refreshSymptoms harán que se llame getSymptoms
+
+  function handleAdd() {
+    setLoadingSymptoms(true);
+    if (value && label) {
+      if(!symptomList.some((symptomObj) => (symptomObj.value === value))) {
+        bd.collection("symptoms").add({value: value, label: label})
+        .then(() => {
+          setLoadingSymptoms(false);
+          setRefreshSymptoms(refreshSymptoms+1);
+          setValue("");
+          setLabel("");
+        })
+        .catch(() => {
+          setLoadingSymptoms(false);
+          alert("El síntoma no pudo ser agregado.");
+        });
+      } else {
+        setLoadingSymptoms(false);
+        alert("La clave introducida no es única.");
+      }
+    } else {
+      alert("Rellene ambos campos para añadir un nuevo síntoma.");
+      setLoadingSymptoms(false);
+    }
+    
+  }
 
   async function getEspecialistas() {
     try {
@@ -96,6 +148,42 @@ const Admin = () => {
 
       <section className="admin">
         <div className="titulo">¡Bienvenido administrador!</div>
+        <div className="containerEspecialidadesAdmin">
+          <p className="introAdmin">
+            A continuación, podrá agregar más especialidades/síntomas, así como ver los ya disponibles en la plataforma:
+          </p>
+          <hr />
+          <div className="symptomInputs">
+            <div>
+              <label htmlFor="label" >Nombre del síntoma/especialidad:</label>
+              <input type="text" name="label" className="inputsForm" placeholder="Ej. Depresión" onChange={(e)=>setLabel(e.target.value)} value={label}/>
+            </div>
+            <div>
+              <label htmlFor="value">Clave única del síntoma/especialidad:</label>
+              <input type="text" name="value" className="inputsForm" placeholder="Ej. depresion" onChange={(e)=>{setValue(e.target.value)}} value={value}/>
+            </div>
+            <button type="button" onClick={handleAdd} disabled={loadingSymptoms} style={{ background: loadingSymptoms ? "#CCC" : "#EE9D6B" }} className="button-format">Añadir</button>
+          </div>
+          <div className="especialidades">
+            {loadingSymptoms ? 
+              <p className="altText">Cargando síntomas...</p> : 
+              symptomList.length === 0 ? 
+              <p className="altText">Aún no se han agregado síntomas</p> :
+              <div className="sintomas-container">
+                <input type="checkbox" id="sintomas-desplegable"/>
+                <label htmlFor="sintomas-desplegable" id="sintomas-label">
+                  Síntomas/especialidades
+                </label>
+                <ul className="sintomas-lista">
+                    {symptomList.map((esp) => {
+                      return <li key={esp.value}><p>{esp.label}</p></li>;
+                    })}
+                </ul> 
+              </div>
+            }
+          </div>
+        </div>
+       <br /><br />
         <div className="containerEspecialistasAdmin">
           <p className="introAdmin">
             Se le presentarán los candidatos postulados, considere su decisión:

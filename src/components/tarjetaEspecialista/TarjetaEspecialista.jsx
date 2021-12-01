@@ -2,9 +2,35 @@ import React from "react";
 import "./TarjetaEspecialista.css";
 import { useHistory } from "react-router-dom";
 import labelsList from "../inputTags/labelsList";
+import { useState, useEffect } from 'react';
+import { bd } from "../../utils/firebaseConfig";
 
 const TarjetaEspecialista = (props) => {
   const history = useHistory();
+  const [symptomList, setSymptomList] = useState([]);
+  const [loadingSymptoms, setLoadingSymptoms] = useState(true);
+
+  useEffect(() => {
+    getSymptoms();
+  }, []);
+
+  async function getSymptoms() {
+    try {
+      setLoadingSymptoms(true);
+      const symptomsRef = bd.collection("symptoms");
+      const symptoms = await symptomsRef.get();
+      let symptomDocs = [];
+      symptoms.forEach((doc) => {
+        symptomDocs.push(doc.data());
+      });
+      setSymptomList(symptomDocs);
+      setLoadingSymptoms(false);
+    } catch (e) {
+      console.log(e);
+      setLoadingSymptoms(false);
+    }
+  }
+
   function handleClick() {
     history.push(`/especialistas/${props.especialista.id}`);
   }
@@ -97,15 +123,14 @@ const TarjetaEspecialista = (props) => {
       <div className="ranking-esp">{starCalc(props.especialista.ranking)}</div>
       <div className="lista-esp">
         <div className="especialidades-are">Áreas de atención</div>
-        {props.especialista.specialty.length !== 0 ? (
+        {loadingSymptoms ? <pre className="altText">     Cargando...</pre> : 
+        props.especialista.specialty.length !== 0 ? (
           <ul className="lista-especialidades">
-            {labelsList(props.especialista.specialty).map((esp) => {
+            {labelsList(props.especialista.specialty, symptomList).map((esp) => {
               return <li key={esp}>{esp}</li>;
             })}
           </ul>
-        ) : (
-          <div></div>
-        )}
+        ) : (<div className="no-esp">No se especificó.</div>)}
       </div>
     </div>
   );

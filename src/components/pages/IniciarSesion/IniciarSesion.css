@@ -118,6 +118,7 @@ label {
   text-decoration: none;
   text-align: center;
   height: 2.7em;
+  cursor: pointer;
 }
 
 .register-button {

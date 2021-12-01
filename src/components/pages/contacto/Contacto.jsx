@@ -14,7 +14,7 @@ const Contacto = () => {
   const [contactMensaje, setContactMensaje] = useState("");
   const [loading, setLoading] = useState(false);
 
-  function validInputs(name, lname, email, userInput, isPhoneNumber) {
+  function validInputs(name, lname, email, userInput) {
     //esta función será usada para validar inputs del usuario en el formulario de contacto y el de registro.
     let isValid = !(
       !name ||
@@ -26,9 +26,6 @@ const Contacto = () => {
       !validator.isEmail(email)
     );
     //Si cualquiera de las condiciones de adentro del paréntesis exterior se cumple, alguno de los campos es inválidos. Por tanto, para saber si lo introducido es válido, se retorna la negación del resultado de las validaciones de invalidez.
-    if (isPhoneNumber) {
-      //aquí hace falta la validación del teléfono. luego dentro de este mismo if puede hacerse return (isValidPhone && isValid)
-    }
     return isValid;
   }
 
@@ -41,8 +38,7 @@ const Contacto = () => {
         contactNombre,
         contactApellido,
         contactCorreo,
-        contactMensaje,
-        false
+        contactMensaje
       )
     ) {
       bd.collection("contacts")

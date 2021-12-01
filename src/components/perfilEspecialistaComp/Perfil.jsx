@@ -256,7 +256,6 @@ const Perfil = ({ user }) => {
   async function getSymptoms() {
     try {
       setLoadingSymptoms(true);
-      console.log("ESTOY LLAMANDO GET SYMPTOMS");
       const symptomsRef = bd.collection("symptoms");
       const symptoms = await symptomsRef.get();
       let symptomDocs = [];
@@ -525,7 +524,6 @@ const Perfil = ({ user }) => {
   const getComments = async () => {
     setLoadingComments(true);
     const userRef = bd.collection("users").doc(user.id);
-    console.log("llamo para traer los comentarios");
     const userDoc = await userRef.get();
     setComments(userDoc.data().feedback);
     setLoadingComments(false);
@@ -534,7 +532,6 @@ const Perfil = ({ user }) => {
   async function getIsPatient() {
     if (currentUser !== null) {
       const consultationsRef = bd.collection("citas");
-      console.log("llamo para ver si es paciente");
       const consultationsDoc = await consultationsRef.get();
       var consultations = {};
       consultationsDoc.forEach((consultation) => {
