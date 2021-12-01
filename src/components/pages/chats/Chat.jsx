@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import PropTypes from "prop-types";
 import { bd } from "../../../utils/firebaseConfig";
-import firebase from "firebase/app";
 import { UserContext } from "../../../context/UserContext";
 import { useContext } from "react";
 // Components
@@ -15,6 +14,7 @@ const Chat = () => {
   const params = useParams();
   const messagesRef = bd.collection("messages");
   const { user } = useContext(UserContext);
+  const [today] = useState([]);
 
   function useFirestoreQuery(query) {
     const [docs, setDocs] = useState([]);
@@ -54,8 +54,19 @@ const Chat = () => {
     return docs;
   }
   const messages = useFirestoreQuery(
-    messagesRef.orderBy("createdAt", "desc").limit(10000)
+    messagesRef.orderBy("createdAt", "desc").limit(1000)
   );
+
+  try {
+    let currentDate = new Date();
+    for (let index = 0; index < messages.length; index++) {
+      let dateFormat = new Date(messages[index].createdAt.seconds * 1000);
+      if (currentDate.getDate() === dateFormat.getDate()) {
+        today.push(messages[index]);
+      }
+    }
+  } catch {}
+
   const [newMessage, setNewMessage] = useState("");
 
   const inputRef = useRef();
@@ -73,15 +84,16 @@ const Chat = () => {
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    const { id, name, img } = user;
+    const { name, img } = user;
     const from = user.id;
     const to = params.userId;
     const trimmedMessage = newMessage.trim();
+    let current = new Date();
     if (trimmedMessage) {
       // Add new message in Firestore
       messagesRef.add({
         text: trimmedMessage,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        createdAt: current,
         name,
         img,
         from,
@@ -98,11 +110,12 @@ const Chat = () => {
     const { id, name, img } = user;
     const from = user.id;
     const to = params.userId;
+    let current = new Date();
 
     // Add new message in Firestore
     messagesRef.add({
       text: `http://g.co/meet/${id}`,
-      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      createdAt: current,
       name,
       img,
       from,
@@ -116,9 +129,9 @@ const Chat = () => {
 
   return (
     <>
+      <Navbar />
       {!!user ? (
         <>
-          <Navbar />
           <div className={styles.chatSect}>
             <div className={styles.encabezado}>
               <div className={styles.contact}>Bienvenido al chat</div>
@@ -152,7 +165,7 @@ const Chat = () => {
               <div className={styles.space}></div>
               <div ref={bottomListRef} className={styles.stop}></div>
             </div>
-            {messages.length === 0 && user.role === "usuario" ? (
+            {today.length === 0 && user.role === "usuario" ? (
               <div className={styles.barraInput}>
                 <p>
                   ¡Podrás enviar mensajes cuando el especialista comience la

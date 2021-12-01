@@ -18,18 +18,13 @@ import CargandoDatos from "../../cargando/CargandoDatos";
 const ConfiguracionEsp = () => {
   const history = useHistory();
   const { user } = useContext(UserContext);
-  const {
-    name: userName,
-    phone,
-    country: countryInitialValue,
-    schedule,
-  } = user;
+  const { schedule } = user;
   const [nameInitialValue, lastNameInitialValue] = user.name.split(" ");
   const [shown, setShown] = useState(false);
-  const [name, setName] = useState(nameInitialValue);
-  const [lname, setLname] = useState(lastNameInitialValue);
-  const [country, setCountry] = useState(countryInitialValue || "");
-  const [number, setNumber] = useState(phone || "");
+  const [name, setName] = useState("");
+  const [lname, setLname] = useState("");
+  const [country, setCountry] = useState("");
+  const [number, setNumber] = useState("");
   const [info, setInfo] = useState("");
   const [edu, setEdu] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -169,12 +164,26 @@ const ConfiguracionEsp = () => {
     return false;
   }
 
-  function isSchedulethere(weekDisp) {
-    if (weekDisp !== []) {
+  function validHour(weekDisp) {
+    if (
+      parseInt(weekDisp.Monday.start.split(":")[0]) >
+        parseInt(weekDisp.Monday.end.split(":")[0]) ||
+      parseInt(weekDisp.Tuesday.start.split(":")[0]) >
+        parseInt(weekDisp.Tuesday.end.split(":")[0]) ||
+      parseInt(weekDisp.Wednesday.start.split(":")[0]) >
+        parseInt(weekDisp.Wednesday.end.split(":")[0]) ||
+      parseInt(weekDisp.Thursday.start.split(":")[0]) >
+        parseInt(weekDisp.Thursday.end.split(":")[0]) ||
+      parseInt(weekDisp.Friday.start.split(":")[0]) >
+        parseInt(weekDisp.Friday.end.split(":")[0]) ||
+      parseInt(weekDisp.Saturday.start.split(":")[0]) >
+        parseInt(weekDisp.Saturday.end.split(":")[0]) ||
+      parseInt(weekDisp.Sunday.start.split(":")[0]) >
+        parseInt(weekDisp.Sunday.end.split(":")[0])
+    ) {
       return true;
-    } else {
-      return false;
     }
+    return false;
   }
 
   const handleSubmit = async (evt) => {
@@ -216,10 +225,15 @@ const ConfiguracionEsp = () => {
       }
 
       if (weekDisp) {
-        if (isFirstBlank(weekDisp) || isSecondBlank(weekDisp)) {
+        if (
+          isFirstBlank(weekDisp) ||
+          isSecondBlank(weekDisp) ||
+          validHour(weekDisp)
+        ) {
           errorMessage += "Disponibilidad\n";
         } else {
           successMessage += "Disponibilidad\n";
+
           await userDoc.update({ schedule: weekDisp });
           console.log(weekDisp);
         }
@@ -297,6 +311,40 @@ const ConfiguracionEsp = () => {
     });
   };
 
+  const handleClean = (event) => {
+    user.schedule = {
+      // In case we do not have schedule, lets have this initial value
+      Monday: {
+        start: "",
+        end: "",
+      },
+      Tuesday: {
+        start: "",
+        end: "",
+      },
+      Wednesday: {
+        start: "",
+        end: "",
+      },
+      Thursday: {
+        start: "",
+        end: "",
+      },
+      Friday: {
+        start: "",
+        end: "",
+      },
+      Saturday: {
+        start: "",
+        end: "",
+      },
+      Sunday: {
+        start: "",
+        end: "",
+      },
+    };
+  };
+
   const handlePassChange = async () => {
     if (newPassword) {
       setUpdating(true);
@@ -352,7 +400,7 @@ const ConfiguracionEsp = () => {
                       className="input-nombre-edit"
                       placeholder="Nombre"
                       onChange={(e) => setName(e.target.value)}
-                      value={name}
+                      //                      value={name}
                     />
                   </div>
 
@@ -365,7 +413,7 @@ const ConfiguracionEsp = () => {
                       className="input-apellido-edit"
                       placeholder="Apellido"
                       onChange={(e) => setLname(e.target.value)}
-                      value={lname}
+                      //                      value={lname}
                     />
                   </div>
 
@@ -376,7 +424,7 @@ const ConfiguracionEsp = () => {
                       name="numero"
                       className="input-numero-edit"
                       onChange={setNumber}
-                      value={number}
+                      //                      value={number}
                     />
                   </div>
                   <div className="dispon-container">
@@ -398,7 +446,7 @@ const ConfiguracionEsp = () => {
                             className="input-time"
                             id="Monday-start"
                             onChange={handleWeekDispChange}
-                            value={weekDisp.Monday.start}
+                            //                            value={weekDisp.Monday.start}
                           />
                           <input
                             type="time"
@@ -406,6 +454,7 @@ const ConfiguracionEsp = () => {
                             className="input-time"
                             id="Monday-end"
                             onChange={handleWeekDispChange}
+                            //                            value={weekDisp.Monday.end}
                           />
                         </div>
                       </div>
@@ -419,6 +468,7 @@ const ConfiguracionEsp = () => {
                             className="input-time"
                             id="Tuesday-start"
                             onChange={handleWeekDispChange}
+                            //                            value={weekDisp.Tuesday.start}
                           />
                           <input
                             step="3600"
@@ -426,6 +476,7 @@ const ConfiguracionEsp = () => {
                             className="input-time"
                             id="Tuesday-end"
                             onChange={handleWeekDispChange}
+                            //                            value={weekDisp.Tuesday.end}
                           />
                         </div>
                       </div>
@@ -439,6 +490,7 @@ const ConfiguracionEsp = () => {
                             className="input-time"
                             id="Wednesday-start"
                             onChange={handleWeekDispChange}
+                            //                            value={weekDisp.Wednesday.start}
                           />
                           <input
                             step="3600"
@@ -446,6 +498,7 @@ const ConfiguracionEsp = () => {
                             className="input-time"
                             id="Wednesday-end"
                             onChange={handleWeekDispChange}
+                            //                            value={weekDisp.Wednesday.end}
                           />
                         </div>
                       </div>
@@ -459,6 +512,7 @@ const ConfiguracionEsp = () => {
                             className="input-time"
                             id="Thursday-start"
                             onChange={handleWeekDispChange}
+                            //                            value={weekDisp.Thursday.start}
                           />
 
                           <input
@@ -467,6 +521,7 @@ const ConfiguracionEsp = () => {
                             className="input-time"
                             id="Thursday-end"
                             onChange={handleWeekDispChange}
+                            //                            value={weekDisp.Thursday.end}
                           />
                         </div>
                       </div>
@@ -480,6 +535,7 @@ const ConfiguracionEsp = () => {
                             className="input-time"
                             id="Friday-start"
                             onChange={handleWeekDispChange}
+                            //                            value={weekDisp.Friday.start}
                           />
                           <input
                             step="3600"
@@ -487,6 +543,7 @@ const ConfiguracionEsp = () => {
                             className="input-time"
                             id="Friday-end"
                             onChange={handleWeekDispChange}
+                            //                            value={weekDisp.Friday.end}
                           />
                         </div>
                       </div>
@@ -500,6 +557,7 @@ const ConfiguracionEsp = () => {
                             className="input-time"
                             id="Saturday-start"
                             onChange={handleWeekDispChange}
+                            //                            value={weekDisp.Saturday.start}
                           />
                           <input
                             step="3600"
@@ -507,6 +565,7 @@ const ConfiguracionEsp = () => {
                             className="input-time"
                             id="Saturday-end"
                             onChange={handleWeekDispChange}
+                            //                            value={weekDisp.Saturday.end}
                           />
                         </div>
                       </div>
@@ -520,6 +579,7 @@ const ConfiguracionEsp = () => {
                             className="input-time"
                             id="Sunday-start"
                             onChange={handleWeekDispChange}
+                            //                            value={weekDisp.Sunday.start}
                           />
                           <input
                             step="3600"
@@ -527,11 +587,14 @@ const ConfiguracionEsp = () => {
                             className="input-time"
                             id="Sunday-end"
                             onChange={handleWeekDispChange}
+                            //                            value={weekDisp.Sunday.end}
                           />
                         </div>
                       </div>
                     </div>
-                    <div className="clean-esp-button"></div>
+                    <div className="clean-esp-button" onClick={handleClean}>
+                      Limpiar datos
+                    </div>
                   </div>
                   <div className="pais-edit">
                     <div className="titles-edit">País</div>
