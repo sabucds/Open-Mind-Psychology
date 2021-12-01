@@ -4,13 +4,13 @@ import "firebase/storage";
 import "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAPILS0hg2JsuR4i6Nh4irnNp5MkC5RNgo",
-  authDomain: "omp-backup-87170.firebaseapp.com",
-  projectId: "omp-backup-87170",
-  storageBucket: "omp-backup-87170.appspot.com",
-  messagingSenderId: "531668604823",
-  appId: "1:531668604823:web:4ff1063d8eb75af39656d2",
-  measurementId: "G-7RLG8LFMCN",
+  apiKey: "AIzaSyBSa1XiU98HUQ_djMPvF5LR1qR5r8eJGeg",
+  authDomain: "open-mind-psychology.firebaseapp.com",
+  projectId: "open-mind-psychology",
+  storageBucket: "open-mind-psychology.appspot.com",
+  messagingSenderId: "254563273480",
+  appId: "1:254563273480:web:f65a4e00111684a79a7abd",
+  measurementId: "G-J02R8L5J4H",
 };
 
 export const app = initializeApp(firebaseConfig);
