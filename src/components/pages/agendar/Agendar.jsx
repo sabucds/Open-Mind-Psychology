@@ -269,7 +269,6 @@ const Agendar = () => {
           </div>
           <br />
         </div>{" "}
-        */
         <div className={styles.caja}>
           <div className={styles.subtit}>
             Selecciona una fecha y hora para pautar tu sesión:

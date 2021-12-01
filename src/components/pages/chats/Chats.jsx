@@ -18,8 +18,9 @@ const Chats = () => {
   const [refresh, setrefresh] = useState(0);
   const [listaLista, setlistaLista] = useState(false);
   const [desplegarCitas, setdesplegarCitas] = useState(false);
-  const [showArchived, setshowArchived] = useState(true);
-  const [anyArchived, setanyArchived] = useState(false);
+  const [showArchived, setshowArchived] = useState(false);
+  const [citasPasadas, setcitasPasadas] = useState(false);
+  const [citasHoy, setcitasHoy] = useState(false);
 
   let currentDate = new Date();
   let currentPlusOne = new Date();
@@ -47,8 +48,8 @@ const Chats = () => {
         currentPlusOne.setHours(citas[j].date.getHours() + 1);
         currentPlusOne.setMinutes(citas[j].date.getMinutes() + 10);
         if (
-          !(currentDate > citas[j].date && currentDate < currentPlusOne)
-          // user.role === "usuario"
+          !(currentDate > citas[j].date && currentDate < currentPlusOne) &&
+          usuariosConCita[index].today === "hoy"
         ) {
           usuariosConCita[index]["show"] = false;
         } else if (!usuariosConCita[index].show) {
@@ -67,10 +68,23 @@ const Chats = () => {
         for (let index = 0; index < usuarios.length; index++) {
           for (let j = 0; j < citas.length; j++) {
             if (usuarios[index].id === citas[j].usuario) {
-              if (!usuariosConCita.includes(usuarios[index])) {
-                if (currentDate.getDate() === citas[j].date.getDate()) {
+              if (
+                (currentDate.getDate() === citas[j].date.getDate() &&
+                  currentDate.getMonth() === citas[j].date.getMonth()) ||
+                (currentDate.getDate() > citas[j].date.getDate() &&
+                  currentDate.getMonth() === citas[j].date.getMonth()) ||
+                currentDate.getMonth() > citas[j].date.getMonth()
+              ) {
+                if (
+                  currentDate.getDate() === citas[j].date.getDate() &&
+                  currentDate.getMonth() === citas[j].date.getMonth()
+                ) {
                   usuarios[index]["today"] = "hoy";
-                } else if (currentDate > citas[j].date) {
+                } else if (
+                  (currentDate.getDate() > citas[j].date.getDate() &&
+                    currentDate.getMonth() === citas[j].date.getMonth()) ||
+                  currentDate.getMonth() > citas[j].date.getMonth()
+                ) {
                   usuarios[index]["today"] = "ayer";
                 } else {
                   usuarios[index]["today"] = "manana";
@@ -91,7 +105,17 @@ const Chats = () => {
                     citas[j].date.getMinutes() +
                     "0";
                 }
-                usuariosConCita.push(usuarios[index]);
+                let existe = false;
+                usuariosConCita.forEach(function (obj) {
+                  console.log(obj.id);
+                  console.log(usuarios[index].id);
+                  if (obj.id === usuarios[index].id) {
+                    existe = true;
+                  }
+                });
+                if (!existe) {
+                  usuariosConCita.push(usuarios[index]);
+                }
               }
             }
           }
@@ -100,10 +124,23 @@ const Chats = () => {
         for (let index = 0; index < usuarios.length; index++) {
           for (let j = 0; j < citas.length; j++) {
             if (usuarios[index].id === citas[j].especialista) {
-              if (!usuariosConCita.includes(usuarios[index])) {
-                if (currentDate.getDate() === citas[j].date.getDate()) {
+              if (
+                (currentDate.getDate() === citas[j].date.getDate() &&
+                  currentDate.getMonth() === citas[j].date.getMonth()) ||
+                (currentDate.getDate() > citas[j].date.getDate() &&
+                  currentDate.getMonth() === citas[j].date.getMonth()) ||
+                currentDate.getMonth() > citas[j].date.getMonth()
+              ) {
+                if (
+                  currentDate.getDate() === citas[j].date.getDate() &&
+                  currentDate.getMonth() === citas[j].date.getMonth()
+                ) {
                   usuarios[index]["today"] = "hoy";
-                } else if (currentDate.getDate() > citas[j].date.getDate()) {
+                } else if (
+                  (currentDate.getDate() > citas[j].date.getDate() &&
+                    currentDate.getMonth() === citas[j].date.getMonth()) ||
+                  currentDate.getMonth() > citas[j].date.getMonth()
+                ) {
                   usuarios[index]["today"] = "ayer";
                 } else {
                   usuarios[index]["today"] = "manana";
@@ -123,12 +160,31 @@ const Chats = () => {
                     citas[j].date.getMinutes() +
                     "0";
                 }
-                usuariosConCita.push(usuarios[index]);
+                let existe = false;
+                usuariosConCita.forEach(function (obj) {
+                  if (obj.id === usuarios[index].id) {
+                    console.log(obj.id);
+                    console.log(usuarios[index].id);
+                    console.log(obj.date);
+                    console.log(usuarios[index].date);
+                    existe = true;
+                  }
+                });
+                if (!existe) {
+                  usuariosConCita.push(usuarios[index]);
+                }
               }
             }
           }
         }
       }
+    }
+    for (let index = 0; index < usuariosConCita.length; index++) {
+      if (usuariosConCita[index].today === "hoy" && !citasHoy) {
+        setcitasHoy(true);
+      }
+      if (usuariosConCita[index].today === "ayer" && !citasPasadas)
+        setcitasPasadas(true);
     }
 
     setlistaLista(true);
@@ -204,6 +260,7 @@ const Chats = () => {
   }
 
   useEffect(() => {
+    console.log("LECTURA A FIREBASE");
     getCitas();
   }, []);
 
@@ -219,7 +276,7 @@ const Chats = () => {
               <section className={styles.chatSect}>
                 <div className={styles.encabezado}>
                   <div className={styles.contact}>
-                    {showArchived ? <>Chats de hoy</> : <>Chats archivados</>}
+                    {showArchived ? <>Chats archivados</> : <>Chats de hoy</>}
                   </div>
                   <div className={styles.line}></div>
                   <div className={styles.someSpace}></div>
@@ -236,51 +293,68 @@ const Chats = () => {
                 </div>
                 <div className={styles.chatsSect}>
                   <div
-                    className={usuariosConCita.length !== 0 ? styles.chats : ""}
+                    className={
+                      (usuariosConCita.length !== 0 &&
+                        citasHoy &&
+                        !showArchived) ||
+                      (usuariosConCita.length !== 0 &&
+                        citasPasadas &&
+                        showArchived)
+                        ? styles.chats
+                        : ""
+                    }
                   >
                     <>
                       {desplegarCitas && usuariosConCita.length !== 0 ? (
                         <>
                           {showArchived ? (
                             <>
-                              {usuariosConCita.map((u) => {
-                                return (
-                                  <>
-                                    {u.today === "hoy" ? (
-                                      <ChatCard key={u.id} usuario={u} />
-                                    ) : (
-                                      <div></div>
-                                    )}
-                                  </>
-                                );
-                              })}
+                              {citasPasadas ? (
+                                <>
+                                  {usuariosConCita.map((u) => {
+                                    return (
+                                      <>
+                                        {u.today === "ayer" ? (
+                                          <>
+                                            <ChatCard key={u.id} usuario={u} />
+                                          </>
+                                        ) : (
+                                          <div></div>
+                                        )}
+                                      </>
+                                    );
+                                  })}
+                                </>
+                              ) : (
+                                <p>¡No tienes chats archivados!</p>
+                              )}
                             </>
                           ) : (
                             <>
-                              {usuariosConCita.map((u) => {
-                                return (
-                                  <>
-                                    {u.today === "ayer" ? (
+                              {citasHoy ? (
+                                <>
+                                  {usuariosConCita.map((u) => {
+                                    return (
                                       <>
-                                        {setanyArchived(true)}
-                                        <ChatCard key={u.id} usuario={u} />
+                                        {u.today === "hoy" ? (
+                                          <>
+                                            <ChatCard key={u.id} usuario={u} />
+                                          </>
+                                        ) : (
+                                          <div></div>
+                                        )}
                                       </>
-                                    ) : (
-                                      <div></div>
-                                    )}
-                                  </>
-                                );
-                              })}
-                              {!anyArchived ? (
-                                <div>¡Aun no tienes chats archivados!</div>
+                                    );
+                                  })}
+                                </>
                               ) : (
-                                <div></div>
+                                <p>¡No tienes citas para hoy!</p>
                               )}
                             </>
                           )}
                         </>
                       ) : (
-                        <p>¡No tienes citas para hoy!</p>
+                        <p>¡Aún no tienes citas!</p>
                       )}
                     </>
                   </div>

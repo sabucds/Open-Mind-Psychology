@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import PropTypes from "prop-types";
 import { bd } from "../../../utils/firebaseConfig";
-import firebase from "firebase/app";
 import { UserContext } from "../../../context/UserContext";
 import { useContext } from "react";
 // Components
@@ -17,6 +16,27 @@ const Chat = () => {
   const { user } = useContext(UserContext);
   const [mensajesSolo, setmensajesSolo] = useState([]);
   const [today, settoday] = useState([]);
+  const [terminada, setterminada] = useState([]);
+  const [loading, setloading] = useState(false);
+
+  let horaTerminarCita = true;
+
+  setInterval(() => {
+    if (terminada.length === 0) {
+      let horaActual = new Date();
+      // console.log(horaTerminarCita);
+      try {
+        if (
+          horaActual.getHours() >= horaTerminarCita.getHours() &&
+          horaActual.getMinutes() >= horaTerminarCita.getMinutes()
+        ) {
+          setloading(true);
+          terminada.push("1");
+          setloading(false);
+        }
+      } catch {}
+    }
+  }, 1000);
 
   function useFirestoreQuery(query) {
     const [docs, setDocs] = useState([]);
@@ -56,26 +76,40 @@ const Chat = () => {
     return docs;
   }
   const messages = useFirestoreQuery(
-    messagesRef.orderBy("createdAt", "desc").limit(10000)
+    messagesRef.orderBy("createdAt", "desc").limit(1000)
   );
-  let currentDate = new Date();
-  for (let index = 0; index < messages.length; index++) {
-    let dateFormat = new Date(messages[index].createdAt.seconds * 1000);
-    try {
-      if (
-        ((messages[index].to === params.userId &&
-          messages[index].from === user.id) ||
-          (messages[index].to === user.id &&
-            messages[index].from === params.userId)) &&
-        !mensajesSolo.includes(messages[index])
-      ) {
-        mensajesSolo.push(messages[index]);
+  try {
+    let currentDate = new Date();
+    for (let index = 0; index < messages.length; index++) {
+      let dateFormat = new Date(messages[index].createdAt.seconds * 1000);
+      try {
+        if (
+          ((messages[index].to === params.userId &&
+            messages[index].from === user.id) ||
+            (messages[index].to === user.id &&
+              messages[index].from === params.userId)) &&
+          !mensajesSolo.includes(messages[index])
+        ) {
+          mensajesSolo.push(messages[index]);
+        }
+      } catch {}
+      if (currentDate.getDate() === dateFormat.getDate()) {
+        today.push(messages[index]);
       }
-    } catch {}
-    if (currentDate.getDate() === dateFormat.getDate()) {
-      today.push(messages[index]);
+      for (let index = 0; index < today.length; index++) {
+        if (today[index].from === user.id && user.role === "especialista") {
+          horaTerminarCita = new Date(today[index].createdAt.seconds * 1000);
+          horaTerminarCita.setHours(horaTerminarCita.getHours() + 1);
+        } else if (
+          today[index].from === params.userId &&
+          user.role === "usuario"
+        ) {
+          horaTerminarCita = new Date(today[index].createdAt.seconds * 1000);
+          horaTerminarCita.setHours(horaTerminarCita.getHours() + 1);
+        }
+      }
     }
-  }
+  } catch {}
   const [newMessage, setNewMessage] = useState("");
 
   const inputRef = useRef();
@@ -119,11 +153,12 @@ const Chat = () => {
     const { id, name, img } = user;
     const from = user.id;
     const to = params.userId;
+    let current = new Date();
 
     // Add new message in Firestore
     messagesRef.add({
       text: `http://g.co/meet/${id}`,
-      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      createdAt: current,
       name,
       img,
       from,
@@ -137,9 +172,9 @@ const Chat = () => {
 
   return (
     <>
-      {!!user ? (
+      <Navbar />
+      {!!user && !loading ? (
         <>
-          <Navbar />
           <div className={styles.chatSect}>
             <div className={styles.encabezado}>
               <div className={styles.contact}>Bienvenido al chat</div>
@@ -173,12 +208,17 @@ const Chat = () => {
               <div className={styles.space}></div>
               <div ref={bottomListRef} className={styles.stop}></div>
             </div>
-            {today.length === 0 && user.role === "usuario" ? (
+            {(today.length === 0 && user.role === "usuario") ||
+            terminada.length > 0 ? (
               <div className={styles.barraInput}>
-                <p>
-                  ¡Podrás enviar mensajes cuando el especialista comience la
-                  conversación!
-                </p>
+                {terminada ? (
+                  <p>¡La cita ha terminado! Ya no puedes enviar mensajes</p>
+                ) : (
+                  <p>
+                    ¡Podrás enviar mensajes cuando el especialista comience la
+                    conversación!
+                  </p>
+                )}
               </div>
             ) : (
               <>
