@@ -14,7 +14,7 @@ import UserContextProvider from "../context/UserContext";
 import CredUpload from "./pages/registro/CredUpload";
 import Error404 from "./pages/error404/Error404";
 import "./cargando/Cargando";
-import Citas from "./pages/citas/Citas"
+import Citas from "./pages/citas/Citas";
 
 import PrivateRoute from "./ProtectedRoutes/PrivateRoute";
 import ProfileRoute from "./ProtectedRoutes/ProfileRoute";
@@ -26,6 +26,8 @@ import DetallesEspecialista from "./tarjetaEspecialista/DetallesEspecialista";
 import Agendar from "./pages/agendar/Agendar";
 import Chats from "./pages/chats/Chats";
 import Chat from "./pages/chats/Chat";
+import ListaPacientes from "./pages/listaPacientes/ListaPacientes";
+import HistorialPaciente from "./pages/listaPacientes/HistorialPaciente";
 
 function App() {
   return (
@@ -71,6 +73,12 @@ function App() {
             <Route exact path="/chats" component={Chats} />
             <Route exact path="/chats/:userId" component={Chat} />
             <Route exact path="/citas" component={Citas} />
+            <Route exact path="/listaPacientes" component={ListaPacientes} />
+            <Route
+              exact
+              path="/historial/:userId"
+              component={HistorialPaciente}
+            />
             <Route path="*" component={Error404} />
           </Switch>
         </Router>
