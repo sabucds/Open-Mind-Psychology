@@ -94,9 +94,6 @@ const ConfiguracionEsp = () => {
     getSymptoms();
   }, []);
 
-  
-  
-
   const switchShown = () => setShown(!shown);
   const handlePicture = (e) => {
     setEImg(e);
@@ -631,8 +628,14 @@ const ConfiguracionEsp = () => {
 
                   <div className="esp-edit">
                     <div className="titles-edit">Especialidades</div>
-                    {loadingSymptoms ? <p className="altText">Cargando...</p> : 
-                    <Sintomas className="esp-select" symptomOptions={symptomList}/>}
+                    {loadingSymptoms ? (
+                      <p className="altText">Cargando...</p>
+                    ) : (
+                      <Sintomas
+                        className="esp-select"
+                        symptomOptions={symptomList}
+                      />
+                    )}
                   </div>
 
                   <div className="perfil-edit">

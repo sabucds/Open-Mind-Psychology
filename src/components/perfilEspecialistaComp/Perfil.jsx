@@ -273,38 +273,22 @@ const Perfil = ({ user }) => {
   const scheduleHasNotBeenSet =
     Array.isArray(schedule) && schedule.length === 0;
 
-  const comparingSchedule = {
-    // In case we do not have schedule, lets have this initial value
-    Monday: {
-      start: "",
-      end: "",
-    },
-    Tuesday: {
-      start: "",
-      end: "",
-    },
-    Wednesday: {
-      start: "",
-      end: "",
-    },
-    Thursday: {
-      start: "",
-      end: "",
-    },
-    Friday: {
-      start: "",
-      end: "",
-    },
-    Saturday: {
-      start: "",
-      end: "",
-    },
-    Sunday: {
-      start: "",
-      end: "",
-    },
+  const isNotEmptySchedule = (schedule) => {
+    console.log(schedule);
+    if (
+      (schedule.Monday.start && schedule.Monday.end) ||
+      (schedule.Tuesday.start && schedule.Tuesday.end) ||
+      (schedule.Wednesday.start && schedule.Wednesday.end) ||
+      (schedule.Thursday.start && schedule.Thursday.end) ||
+      (schedule.Friday.start && schedule.Friday.end) ||
+      (schedule.Saturday.start && schedule.Saturday.end) ||
+      (schedule.Sunday.start && schedule.Sunday.end)
+    ) {
+      return true;
+    } else {
+      return false;
+    }
   };
-
   const [weekDisp, setWeekDisp] = useState(
     scheduleHasNotBeenSet
       ? {
@@ -401,8 +385,8 @@ const Perfil = ({ user }) => {
       currentUser &&
       currentUser.id !== user.id &&
       currentUser.role === "usuario" &&
-      !scheduleHasNotBeenSet &&
-      user.schedule !== comparingSchedule
+      user.schedule.length !== 0 &&
+      isNotEmptySchedule(user.schedule)
     ) {
       return (
         <>
@@ -566,6 +550,7 @@ const Perfil = ({ user }) => {
   async function getIsPatient() {
     if (currentUser !== null) {
       const consultationsRef = bd.collection("citas");
+      console.log("llamo para ver si es paciente");
       const consultationsDoc = await consultationsRef.get();
       var consultations = {};
       consultationsDoc.forEach((consultation) => {
@@ -678,49 +663,47 @@ const Perfil = ({ user }) => {
                   </div>
                 </div>
                 <div className="line"></div>
-                <div className="container1">
-                  <div className="user">
-                    <div className="contenedorDias">
-                      <div className="week">Lunes</div>
-                      <div className="horas">
-                        {weekDisp.Monday.start} - {weekDisp.Monday.end}
-                      </div>
+                <div className="schedule-user">
+                  <div className="schedule-container">
+                    <div className="titles-week">Lunes</div>
+                    <div className="horas">
+                      {weekDisp.Monday.start} - {weekDisp.Monday.end}
                     </div>
-                    <div className="contenedorDias">
-                      <div className="week">Martes</div>
-                      <div className="horas">
-                        {weekDisp.Tuesday.start} - {weekDisp.Tuesday.end}
-                      </div>
+                  </div>
+                  <div className="schedule-container">
+                    <div className="titles-week">Martes</div>
+                    <div className="horas">
+                      {weekDisp.Tuesday.start} - {weekDisp.Tuesday.end}
                     </div>
-                    <div className="contenedorDias">
-                      <div className="week">Miercoles</div>
-                      <div className="horas">
-                        {weekDisp.Wednesday.start} - {weekDisp.Wednesday.end}
-                      </div>
+                  </div>
+                  <div className="schedule-container">
+                    <div className="titles-week">Miercoles</div>
+                    <div className="horas">
+                      {weekDisp.Wednesday.start} - {weekDisp.Wednesday.end}
                     </div>
-                    <div className="contenedorDias">
-                      <div className="week">Jueves</div>
-                      <div className="horas">
-                        {weekDisp.Thursday.start} - {weekDisp.Thursday.end}
-                      </div>
+                  </div>
+                  <div className="schedule-container">
+                    <div className="titles-week">Jueves</div>
+                    <div className="horas">
+                      {weekDisp.Thursday.start} - {weekDisp.Thursday.end}
                     </div>
-                    <div className="contenedorDias">
-                      <div className="week">Viernes</div>
-                      <div className="horas">
-                        {weekDisp.Friday.start} - {weekDisp.Friday.end}
-                      </div>
+                  </div>
+                  <div className="schedule-container">
+                    <div className="titles-week">Viernes</div>
+                    <div className="horas">
+                      {weekDisp.Friday.start} - {weekDisp.Friday.end}
                     </div>
-                    <div className="contenedorDias">
-                      <div className="week">Sábado</div>
-                      <div className="horas">
-                        {weekDisp.Saturday.start} - {weekDisp.Saturday.end}
-                      </div>
+                  </div>
+                  <div className="schedule-container">
+                    <div className="titles-week">Sábado</div>
+                    <div className="horas">
+                      {weekDisp.Saturday.start} - {weekDisp.Saturday.end}
                     </div>
-                    <div className="contenedorDias">
-                      <div className="week">Domingo</div>
-                      <div className="horas">
-                        {weekDisp.Sunday.start} - {weekDisp.Sunday.end}
-                      </div>
+                  </div>
+                  <div className="schedule-container">
+                    <div className="titles-week">Domingo</div>
+                    <div className="horas">
+                      {weekDisp.Sunday.start} - {weekDisp.Sunday.end}
                     </div>
                   </div>
                 </div>
