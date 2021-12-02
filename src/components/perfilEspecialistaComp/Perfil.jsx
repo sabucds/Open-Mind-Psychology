@@ -574,10 +574,11 @@ const Perfil = ({ user }) => {
       let today = new Date();
       let found;
       found = Object.keys(consultations).find((id) => {
+        let dateF = new Date(consultations[id]["date"].seconds * 1000);
         return (
           consultations[id]["especialista"] === user.id &&
           consultations[id]["usuario"] === currentUser.id &&
-          consultations[id]["date"] < today
+          dateF.valueOf() < today.valueOf()
         );
       });
       setIsPatient(Boolean(found));
@@ -693,7 +694,7 @@ const Perfil = ({ user }) => {
                       </div>
                     </div>
                     <div className="contenedorDias">
-                      <div className="week">Miercoles</div>
+                      <div className="week">Miércoles</div>
                       <div className="horas">
                         {weekDisp.Wednesday.start} - {weekDisp.Wednesday.end}
                       </div>

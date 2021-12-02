@@ -19,6 +19,8 @@ import "react-phone-number-input/style.css";
 import "./RegistroUser.css";
 
 const RegistroUser = () => {
+  const [isEighteen, setIsEighteen] = useState(false);
+  const [agreed, setAgreed] = useState(false);
   const { createUser, type } = useContext(UserContext);
   const [values, setValues] = useState({
     nombre: "",
@@ -57,6 +59,7 @@ const RegistroUser = () => {
       number &&
       isValidPhoneNumber(number) &&
       validInputs(nombre, apellido, email)
+      && agreed && isEighteen
     ) {
       try {
         const response = await auth.createUserWithEmailAndPassword(
@@ -112,7 +115,7 @@ const RegistroUser = () => {
         );
       }
     } else {
-      alert("Uno de los campos está vacío o es inválido.");
+      alert("Alguno de los campos está vacío o es inválido.");
     }
   };
 
@@ -252,7 +255,7 @@ const RegistroUser = () => {
                   className="inputsForm registro-2"
                 />
                 <br />
-                <input type="checkbox" className="check" name="check18" />
+                <input type="checkbox" className="check" name="check18" onChange={()=>{setIsEighteen(!isEighteen)}}/>
                 <label className="subtitulos" htmlFor="check18">
                   Confirmo tener 18 años o más.
                 </label>
@@ -262,6 +265,7 @@ const RegistroUser = () => {
                   type="checkbox"
                   className="check"
                   name="checkTermsConds"
+                  onChange={()=>{setAgreed(!agreed)}}
                 />
                 <label className="subtitulos" htmlFor="checkTermsConds">
                   Acepto los términos y condiciones.

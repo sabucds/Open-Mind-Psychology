@@ -229,7 +229,7 @@ const Agendar = ({ especialista }) => {
                 </div>
               </div>
               <div className={styles.contenedorDias}>
-                <div className={styles.week}>Miercoles</div>
+                <div className={styles.week}>Miércoles</div>
                 <div className={styles.horas}>
                   {weekDisp.Wednesday.start} - {weekDisp.Wednesday.end}
                 </div>
