@@ -7,7 +7,7 @@ import { useContext } from "react";
 import { UserContext } from "../../../context/UserContext";
 import DatePicker from "react-datepicker";
 import Cargando from "../../cargando/Cargando";
-import Cita from "./Cita";
+import { useHistory } from "react-router-dom";
 
 const Citas = () => {
   const [nombre, setNombre] = useState("");
@@ -18,7 +18,6 @@ const Citas = () => {
   const [isEspecialista, setIsEspecialista] = useState(false);
   const [consultas, setConsultas] = useState({});
   const [citaIds, setCitaIds] = useState([]);
-  //const [users, setUsers] = useState({});
   const [searchResults] = useState([]);
   const [listNames] = useState({});
   const [refresh, setRefresh] = useState(0);
@@ -26,6 +25,7 @@ const Citas = () => {
   const [results, setResults] = useState(false);
   const [search, setSearch] = useState(false);
   const [error, setError] = useState(null);
+  const history = useHistory();
 
   useEffect(() => {
     if (!!user) {
@@ -39,7 +39,7 @@ const Citas = () => {
     for (let index = 1; index < citasval.length; index++) {
       let current = citasval[index];
       let j = index - 1;
-      while (j > -1 && current.date < citasval[j].date) {
+      while (j > -1 && current.date.seconds >= citasval[j].date.seconds) {
         citaIds[j + 1] = citasval[j].id;
         citasval[j + 1] = citasval[j];
         j--;
@@ -93,13 +93,11 @@ const Citas = () => {
           consultas[docId]["id"] = docId;
         }
       });
-      // setConsultas(citaDocs);
 
       if (citaIds.length === 0) {
         for (let index = 0; index < Object.keys(citaDocs).length; index++) {
           citaIds.push(Object.keys(citaDocs)[index]);
         }
-        // setCitaIds(Object.keys(citaDocs));
       }
 
       await bd
@@ -129,24 +127,33 @@ const Citas = () => {
   }
 
   const filterCita = (cita) => {
-    var isValid = false;
+    var isValid = true;
 
     if (nombre) {
       try {
+        var nombreCita;
         if (user.role === "especialista") {
-          const nombreCita = listNames[cita.usuario];
-          isValid = nombreCita.includes(nombre.toLowerCase());
+          nombreCita = listNames[cita.usuario];
         } else {
-          const nombreCita = listNames[cita.especialista];
-          isValid = nombreCita.includes(nombre.toLowerCase());
+          nombreCita = listNames[cita.especialista];
         }
-      } catch {}
+        if (nombreCita){
+          isValid = (nombreCita.toLowerCase()).includes(nombre.toLowerCase());
+        } else {
+          isValid = false;
+        }
+      } catch (e) {
+        console.log("Error al validar nombres: ", e.message);
+      }
     }
     if (filterDate && selectedDate) {
+      let dateF = new Date(cita.date.seconds * 1000);
+      console.log(dateF);
+      console.log(selectedDate);
+
       isValid =
         isValid &&
-        cita.date.toDate().setHours(0, 0, 0, 0).valueOf() ===
-          selectedDate.setHours(0, 0, 0, 0).valueOf();
+        dateF.setHours(0,0,0,0).valueOf()===selectedDate.setHours(0,0,0,0).valueOf();
     }
     if (nombre === "" && !filterDate) {
       setEsVacio(true);
@@ -180,7 +187,6 @@ const Citas = () => {
       }
     }
 
-    // setCitaIds(Object.keys(consultas));
     dateSort();
 
     if (!error) {
@@ -285,8 +291,10 @@ const Citas = () => {
                   var cita = consultas[key];
 
                   let dateF = new Date(cita.date.seconds * 1000);
+                  let today = new Date();
+
                   return (
-                    <div className="consulta" id={key}>
+                    <div className={dateF.valueOf() > today.valueOf() ? "consulta" : "consulta cons-pasada"} id={key}>
                       <div className="info-consultas date-info">
                         <span>
                           {dateF.getDate() + "/" + (dateF.getMonth() + 1)}
@@ -318,7 +326,7 @@ const Citas = () => {
             <div className="altText">
               No se consiguieron consultas que coincidieran con la búsqueda.
             </div>
-          ) : (
+          ) : (citaIds.length > 0) ? (
             <div className="consultas-container">
               <div className="consultas-header">
                 <div className="info-consultas date-info">Fecha</div>
@@ -332,8 +340,16 @@ const Citas = () => {
                 {desplegarCitas(citaIds, 1).map((key) => {
                   var cita = consultas[key];
                   let dateF = new Date(cita.date.seconds * 1000);
+                  let today = new Date();
                   return (
-                    <div className="consulta" id={key}>
+                    <div className={dateF.valueOf() > today.valueOf() ? 
+                      "consulta" : "consulta cons-pasada"} 
+                      id={key}
+                      onClick={isEspecialista ? 
+                          ()=>{history.push(`/historial/${cita.usuario}`)} : 
+                          ()=>{history.push(`/especialistas/${cita.especialista}`)}}
+                        title={isEspecialista ? "Click para ir a la historia de este paciente." : 
+                        "Click para ir al perfil de este especialista."}>
                       <div className="info-consultas date-info">
                         <span>
                           {dateF.getDate() + "/" + (dateF.getMonth() + 1)}
@@ -360,6 +376,10 @@ const Citas = () => {
                   );
                 })}
               </div>
+            </div>
+          ) : (
+            <div className="altText">
+              No tiene consultas.
             </div>
           )
         }
