@@ -44,7 +44,7 @@ export default function PayPal({
             reason: reason,
             status: "activo",
           });
-          history.push("/perfil");
+          history.push("/citas");
           alert("¡Se ha agendado la cita exitosamente!");
         },
         onError: (err) => {
