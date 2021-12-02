@@ -264,6 +264,11 @@
     margin: 0;
   }
 
+  .container1{
+    width: 100%;
+    justify-content:flex-start;
+  }
+
   .nombre-user2{
     font-size: 27px;
     margin-left: -2px;
