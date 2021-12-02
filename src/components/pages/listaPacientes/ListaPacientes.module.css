@@ -28,12 +28,30 @@
 .boxI {
   width: 1000px;
   border-radius: 20px;
-
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
-
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.entries{
+  width: 100%;
+  height: max-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.box{
+  border-radius: 20px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+  width: 60%;
+  padding: 10px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
 .sectBody {
@@ -87,6 +105,18 @@
   border-top: 2px solid #ee9d6b;
   padding-bottom: 0px;
 }
+
+.line3 {
+  box-shadow: 0 0.125rem 0.25rem 0 rgba(0, 0, 0, 0.2),
+    0 0.1875rem 0.625rem 0 rgba(0, 0, 0, 0.19);
+  width: 100%;
+  text-align: center;
+  border-top: 1px solid #ee9d6b;
+  background-color: #ee9d6b;
+  padding-bottom: 0px;
+  margin-bottom: 15px;
+}
+
 .encabezado {
   width: 100%;
   height: max-content;
@@ -103,7 +133,15 @@
   width: 100%;
   margin-bottom: 2%;
 }
-
+.tit3 {
+  font-weight: lighter;
+  margin-top: 10px;
+  font-size: 1.5em;
+  text-align: center;
+  color: #ee9d6b;
+  width: 100%;
+  margin-bottom: 2%;
+}
 .subt {
   font-size: 1.2rem;
   text-align: center;
@@ -112,6 +150,14 @@
 .subt2 {
   color: rgb(39, 38, 38);
   font-size: 1.2rem;
+}
+
+.subt3{
+  font-size: 1.2rem;
+  text-align: center;
+  padding-bottom: 0.5em;
+  word-break: break-all;
+  width: 100%;
 }
 
 .input {
@@ -183,4 +229,18 @@
   text-align: center;
   border-top: 1px solid rgba(0, 0, 0, 0.19);
   padding-bottom: 0px;
+}
+@media screen and (max-width: 850px) {
+  .boxI {
+    width: 90%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .box {
+    width: 90%;
+  }
+  .boxI {
+    width: 90%;
+  }
 }

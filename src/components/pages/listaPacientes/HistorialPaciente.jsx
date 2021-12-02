@@ -19,77 +19,76 @@ const HistorialPaciente = () => {
 
   const [dataSave, setdataSave] = useState();
   const [refreshEntry, setrefreshEntry] = useState(0);
-  const [historialPacienteX, sethistorialPacienteX] = useState("");
+  const [historialPacienteX, sethistorialPacienteX] = useState([]);
+  const [pacienteId, setpacienteId] = useState("");
+  
 
   async function getUserInfo() {
+    setLoadingEntries(true)
     try {
       const usersQuery = await bd.collection("users").doc(params.userId).get();
-      const user2 = usersQuery.data();
-      user2.id = usersQuery.id;
-      setUser(user2);
+      // usersQuery["id"] = params.userId
+      if (!user2.includes(usersQuery.data())){
+        user2.push(usersQuery.data())
+        user2[0]["id"] = params.userId
+      }
+      console.log(user2[0]["id"])
+      console.log(user.id)
+      const historialPacientesDelEspecialista = await bd.collection("historialPacientes").doc(user.id);
+      const prueba = await historialPacientesDelEspecialista.collection("avances").where("pacienteId", "==", user2[0].id).get().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          let docc = doc.data();
+          if (!historialPacienteX.includes(docc)) {
+            historialPacienteX.push(docc);
+          }
+        });
+      })
+      .catch((error) => {
+        console.log("Error getting documents: ", error);
+        setLoadingEntries(false)
+      });
     } catch (error) {
       console.log("Error getting documents: ", error);
+      setLoadingEntries(false)
     }
+    setLoadingEntries(false)
   }
-  useEffect(() => {
-    getUserInfo();
-  }, []);
 
-  const onSave = () => {
+  const onSave = async () => {
+    setLoadingEntries(true)
     try {
       const avance = {
         pacienteId: params.userId,
         entry: dataSave,
       };
 
-      const historialPacientesDelEspecialista = bd
+      const historialPacientesDelEspecialista = await bd
         .collection("historialPacientes")
         .doc(user.id);
 
       const historialPacienteActual = historialPacientesDelEspecialista
         .collection("avances")
         .add(avance);
-
+        historialPacienteX.push(avance)
       alert("¡Entrada guardada exitósamente!");
     } catch (error) {
       console.error(error);
+      setLoadingEntries(false)
     }
+    setLoadingEntries(false)
   };
+  
 
-  const getHistorialPacientes = () => {
-    setLoadingEntries(true);
-    try {
-      // UseContext
-      const userId = null;
-      const pacienteId = params.userId;
-      // Historial de pacientes del especialista actual
-      const historialPacientesDelEspecialista = bd
-        .collection("historialPacientes")
-        .doc(userId);
-      sethistorialPacienteX(
-        historialPacientesDelEspecialista
-          .collection("avances")
-          .where("pacienteId", "==", pacienteId)
-      );
-      console.log(pacienteId);
-    } catch (error) {
-      console.log("Error getting documents: ", error);
-    }
-    setLoadingEntries(false);
-  };
-
-  // useEffect(() => {
-  // getHistorialPacientes();
-  // }, []);
-
-  console.log("historia" + { historialPacienteX });
+  useEffect(() => {
+    getUserInfo();
+  }, []);
 
   return (
-    <>
-      <Navbar />
+    <><Navbar />
+    {user2.length > 0 && !loadingEntries ?(
       <section className={styles.sect}>
         <div className={styles.encabezado}>
-          <div className={styles.tit}> Historia de {user2.name} </div>
+          <div className={styles.tit}> Historia de {user2[0].name} </div>
           <div className={styles.line}></div>
         </div>
         <div className={styles.sectBody}>
@@ -98,6 +97,7 @@ const HistorialPaciente = () => {
             <div className={styles.editor}>
               <TextEditor
                 handleTextChange={(editorText) => setdataSave(editorText)}
+                className = {styles.boxI}
               />
             </div>
           </div>
@@ -108,8 +108,19 @@ const HistorialPaciente = () => {
             <div className={styles.entries}>
               {loadingEntries ? (
                 <div className="altText">Cargando comentarios...</div>
-              ) : historialPacienteX > 0 ? (
-                <div>bbbbb</div>
+              ) : historialPacienteX.length > 0 ? (
+                historialPacienteX.map((review) => {
+                  return (
+                    <div className={styles.box}>
+                      <div className = {styles.tit3}>Avance: </div>
+                      <div className={styles.line3}></div>
+                      <div className="text-comment">
+                        <p className = {styles.subt3}>{review.entry.replace("<p>","").replace("</p>","")}</p>
+                      </div>
+                      <br />
+                    </div>
+                  );
+                })
               ) : (
                 <div className="altText">
                   Este paciente aún no tiene incidencias.
@@ -121,6 +132,9 @@ const HistorialPaciente = () => {
         <br />
         <br />
       </section>
+      ) : (
+        <Cargando />
+      )}
     </>
   );
 };
