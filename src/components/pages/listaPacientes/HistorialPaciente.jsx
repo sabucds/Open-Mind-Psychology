@@ -68,17 +68,17 @@ const HistorialPaciente = () => {
           .collection("avances")
           .where("pacienteId", "==", pacienteId)
       );
-      console.log(historialPacienteX);
+      console.log("historia1"+{historialPacienteX});
     } catch (error) {
       console.log("Error getting documents: ", error);
     }
   };
 
-  useEffect(() => {
-    getHistorialPacientes();
-  }, [refreshEntry]);
+  // useEffect(() => {
+  // getHistorialPacientes();
+  // }, []);
 
-  console.log(historialPacienteX);
+  console.log("historia"+{historialPacienteX});
 
   return (
     <>
