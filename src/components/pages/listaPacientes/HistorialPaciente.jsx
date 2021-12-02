@@ -16,6 +16,8 @@ const HistorialPaciente = () => {
   const { user } = useContext(UserContext);
   const [user2, setUser] = useState([]);
   const [dataSave, setdataSave] = useState();
+  const [refreshEntry, setrefreshEntry] = useState(0);
+  const [historialPacienteX, sethistorialPacienteX] = useState("");
 
   async function getUserInfo() {
     try {
@@ -55,17 +57,28 @@ const HistorialPaciente = () => {
   const getHistorialPacientes = () => {
     try {
       // UseContext
-      const userId = "";
+      const userId = user.id;
       const pacienteId = params.userId;
       // Historial de pacientes del especialista actual
       const historialPacientesDelEspecialista = bd
         .collection("historialPacientes")
         .doc(userId);
-      const historialPacienteX = historialPacientesDelEspecialista
-        .collection("avances")
-        .where("pacienteId", "==", pacienteId);
-    } catch (error) {}
+      sethistorialPacienteX(
+        historialPacientesDelEspecialista
+          .collection("avances")
+          .where("pacienteId", "==", pacienteId)
+      );
+      console.log(historialPacienteX);
+    } catch (error) {
+      console.log("Error getting documents: ", error);
+    }
   };
+
+  useEffect(() => {
+    getHistorialPacientes();
+  }, [refreshEntry]);
+
+  console.log(historialPacienteX);
 
   return (
     <>
@@ -87,6 +100,7 @@ const HistorialPaciente = () => {
           <div className={styles.buttonS} onClick={onSave}>
             Guardar historia
           </div>
+          <div className={styles.entries}>{historialPacienteX}</div>
         </div>
         <br />
         <br />
