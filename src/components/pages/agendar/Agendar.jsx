@@ -69,6 +69,7 @@ const Agendar = ({ especialista }) => {
     try {
       setLoadingReserved(true);
       const citasRef = bd.collection("citas");
+      console.log("llamando");
       const citas = await citasRef.get();
       let citasDocs = {};
       let docData;
@@ -229,7 +230,7 @@ const Agendar = ({ especialista }) => {
             Estos son los horarios disponibles de tu especialista:
           </div>
           <br />
-          {/* <div className={styles.user}>
+          <div className={styles.user}>
             <div className={styles.container}>
               <div className={styles.week}>Lunes</div>
               <div className={styles.horas}>
@@ -272,7 +273,58 @@ const Agendar = ({ especialista }) => {
                 {weekDisp.Sunday.start} - {weekDisp.Sunday.end}
               </div>
             </div>
-          </div> */}
+          </div>
+          <br />
+        </div>{" "}
+        <div className={styles.caja}>
+          <div className={styles.subtit}>
+            Estos son los horarios disponibles de tu especialista:
+          </div>
+          <br />
+          <div className={styles.user}>
+            <div className={styles.container}>
+              <div className={styles.week}>Lunes</div>
+              <div className={styles.horas}>
+                {weekDisp.Monday.start} - {weekDisp.Monday.end}
+              </div>
+            </div>
+            <div className={styles.container}>
+              <div className={styles.week}>Martes</div>
+              <div className={styles.horas}>
+                {weekDisp.Tuesday.start} - {weekDisp.Tuesday.end}
+              </div>
+            </div>
+            <div className={styles.container}>
+              <div className={styles.week}>Miercoles</div>
+              <div className={styles.horas}>
+                {weekDisp.Wednesday.start} - {weekDisp.Wednesday.end}
+              </div>
+            </div>
+            <div className={styles.container}>
+              <div className={styles.week}>Jueves</div>
+              <div className={styles.horas}>
+                {weekDisp.Thursday.start} - {weekDisp.Thursday.end}
+              </div>
+            </div>
+            <div className={styles.container}>
+              <div className={styles.week}>Viernes</div>
+              <div className={styles.horas}>
+                {weekDisp.Friday.start} - {weekDisp.Friday.end}
+              </div>
+            </div>
+            <div className={styles.container}>
+              <div className={styles.week}>Sábado</div>
+              <div className={styles.horas}>
+                {weekDisp.Saturday.start} - {weekDisp.Saturday.end}
+              </div>
+            </div>
+            <div className={styles.container}>
+              <div className={styles.week}>Domingo</div>
+              <div className={styles.horas}>
+                {weekDisp.Sunday.start} - {weekDisp.Sunday.end}
+              </div>
+            </div>
+          </div>
           <br />
         </div>{" "}
         <div className={styles.caja}>

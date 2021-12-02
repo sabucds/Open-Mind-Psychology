@@ -532,23 +532,24 @@ const Perfil = ({ user }) => {
   };
 
   async function getIsPatient() {
-    const consultationsRef = bd.collection("citas");
-    console.log("llamo para ver si es paciente");
-    const consultationsDoc = await consultationsRef.get();
-    var consultations = {};
-    consultationsDoc.forEach((consultation) => {
-      consultations[consultation.id] = consultation.data();
-    });
-    let today = new Date();
-    let found;
-    found = Object.keys(consultations).find((id) => {
-      return (
-        consultations[id]["especialista"] == user.id &&
-        consultations[id]["usuario"] == currentUser.id &&
-        consultations[id]["date"] < today
-      );
-    });
-    setIsPatient(Boolean(found));
+    if (currentUser !== null) {
+      const consultationsRef = bd.collection("citas");
+      const consultationsDoc = await consultationsRef.get();
+      var consultations = {};
+      consultationsDoc.forEach((consultation) => {
+        consultations[consultation.id] = consultation.data();
+      });
+      let today = new Date();
+      let found;
+      found = Object.keys(consultations).find((id) => {
+        return (
+          consultations[id]["especialista"] == user.id &&
+          consultations[id]["usuario"] == currentUser.id &&
+          consultations[id]["date"] < today
+        );
+      });
+      setIsPatient(Boolean(found));
+    }
   }
 
   useEffect(() => {
