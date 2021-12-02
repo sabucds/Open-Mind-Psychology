@@ -42,14 +42,17 @@ label {
 
 .bottom-main {
   display: flex;
+  margin-right: auto;
+  margin-left: auto;
+  width: max-content;
 }
 
 .inicio-box {
   display: flex;
   justify-content: center;
-  margin-left: 160px;
-  width: 50em;
+  width: max-content;
   height: 24.5625em;
+  margin-right: 50px;
 }
 
 .inicio-sesion {
@@ -217,7 +220,6 @@ label {
     width: 100%;
     height: max-content;
     margin-bottom: 20px;
-    margin-left:0px;
   }
   .inicio-sesion {
     width: 100%;
@@ -285,6 +287,7 @@ label {
     width: 100%;
     height: max-content;
     margin-bottom: 20px;
+    margin-right: 0;
   }
   .inicio-sesion {
     width: 100%;
