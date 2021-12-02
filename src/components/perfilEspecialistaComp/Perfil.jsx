@@ -273,6 +273,38 @@ const Perfil = ({ user }) => {
   const scheduleHasNotBeenSet =
     Array.isArray(schedule) && schedule.length === 0;
 
+  const comparingSchedule = {
+    // In case we do not have schedule, lets have this initial value
+    Monday: {
+      start: "",
+      end: "",
+    },
+    Tuesday: {
+      start: "",
+      end: "",
+    },
+    Wednesday: {
+      start: "",
+      end: "",
+    },
+    Thursday: {
+      start: "",
+      end: "",
+    },
+    Friday: {
+      start: "",
+      end: "",
+    },
+    Saturday: {
+      start: "",
+      end: "",
+    },
+    Sunday: {
+      start: "",
+      end: "",
+    },
+  };
+
   const [weekDisp, setWeekDisp] = useState(
     scheduleHasNotBeenSet
       ? {
@@ -369,7 +401,8 @@ const Perfil = ({ user }) => {
       currentUser &&
       currentUser.id !== user.id &&
       currentUser.role === "usuario" &&
-      user.schedule.length !== 0
+      !scheduleHasNotBeenSet &&
+      user.schedule !== comparingSchedule
     ) {
       return (
         <>
