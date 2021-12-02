@@ -15,6 +15,8 @@ const HistorialPaciente = () => {
   const params = useParams();
   const { user } = useContext(UserContext);
   const [user2, setUser] = useState([]);
+  const [loadingEntries, setLoadingEntries] = useState(false);
+
   const [dataSave, setdataSave] = useState();
   const [refreshEntry, setrefreshEntry] = useState(0);
   const [historialPacienteX, sethistorialPacienteX] = useState("");
@@ -55,9 +57,10 @@ const HistorialPaciente = () => {
   };
 
   const getHistorialPacientes = () => {
+    setLoadingEntries(true);
     try {
       // UseContext
-      const userId = user.id;
+      const userId = null;
       const pacienteId = params.userId;
       // Historial de pacientes del especialista actual
       const historialPacientesDelEspecialista = bd
@@ -68,10 +71,11 @@ const HistorialPaciente = () => {
           .collection("avances")
           .where("pacienteId", "==", pacienteId)
       );
-      console.log(historialPacienteX);
+      console.log(pacienteId);
     } catch (error) {
       console.log("Error getting documents: ", error);
     }
+    setLoadingEntries(false);
   };
 
   useEffect(() => {
@@ -98,9 +102,21 @@ const HistorialPaciente = () => {
             </div>
           </div>
           <div className={styles.buttonS} onClick={onSave}>
-            Guardar historia
+            Guardar entrada
           </div>
-          <div className={styles.entries}>{historialPacienteX}</div>
+          <div className="grupo-comentario">
+            <div className={styles.entries}>
+              {loadingEntries ? (
+                <div className="altText">Cargando comentarios...</div>
+              ) : historialPacienteX > 0 ? (
+                <div>bbbbb</div>
+              ) : (
+                <div className="altText">
+                  Este paciente aún no tiene incidencias.
+                </div>
+              )}
+            </div>
+          </div>
         </div>
         <br />
         <br />

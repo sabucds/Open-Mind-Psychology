@@ -63,6 +63,7 @@
 }
 
 .buttonS {
+  cursor: pointer;
   color: white;
   border-radius: 10px;
   padding-left: 2px;
