@@ -47,6 +47,22 @@
   color: rgba(0, 0, 0, 0.541);
 }
 
+.clean-esp-button {
+  border-radius: 10px;
+  color: white;
+  text-align: center;
+  width: 120px;
+  padding: 3px;
+  margin-top: 3px;
+  cursor: pointer;
+  background-color: #ee9d6b;
+  filter: brightness(1);
+}
+
+.clean-esp-button:hover {
+  filter: brightness(1.05);
+}
+
 @media screen and (max-width: 1221px) {
   .esp-edit {
     flex-direction: column;

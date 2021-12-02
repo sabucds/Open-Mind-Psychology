@@ -123,25 +123,30 @@ const Agendar = ({ especialista }) => {
 
     if (reason) {
       for (const dateId in reserved) {
-        console.log("Fecha:" + reserved[dateId]);
         if (selectedDate.getTime() === reserved[dateId].getTime()) {
           setLoading(false);
           alert("Esa fecha ya se encuentra reservada.");
           return false;
         }
       }
-      if (schedule[day].start && selectedDate > tomorrow) {
-        if (string >= schedule[day].start && string < schedule[day].end) {
-          // No hace falta restarle 1 a la hora final porque como son horas "enteras" (04:00, 05:00, 06:00...) con validar que sea menor al límite superior, ya basta
-          return true;
+      if (selectedDate > tomorrow) {
+        if (schedule[day].start) {
+          if (string >= schedule[day].start && string < schedule[day].end) {
+            // No hace falta restarle 1 a la hora final porque como son horas "enteras" (04:00, 05:00, 06:00...) con validar que sea menor al límite superior, ya basta
+            return true;
+          } else {
+            setLoading(false);
+            alert("El especialista no tiene disponibilidad ese día a esa hora.");
+            return false;
+          }
         } else {
           setLoading(false);
-          alert("El especialista no tiene disponibilidad ese día a esa hora.");
+          alert("El especialista no tiene disponibilidad en esa fecha.");
           return false;
         }
       } else {
         setLoading(false);
-        alert("El especialista no tiene disponibilidad en esa fecha.");
+        alert("Solo puede agendar citas con más de 24 horas de antelación.");
         return false;
       }
     } else {
@@ -228,7 +233,7 @@ const Agendar = ({ especialista }) => {
                 </div>
               </div>
               <div className={styles.contenedorDias}>
-                <div className={styles.week}>Miercoles</div>
+                <div className={styles.week}>Miércoles</div>
                 <div className={styles.horas}>
                   {weekDisp.Wednesday.start} - {weekDisp.Wednesday.end}
                 </div>

@@ -96,6 +96,10 @@
   align-items: center;
 }
 
+.review-card .line {
+  margin-bottom: 15px;
+}
+
 .enviar-button {
   font-size: 0.8em;
   cursor: pointer;

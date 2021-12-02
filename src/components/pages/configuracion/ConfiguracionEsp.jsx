@@ -19,7 +19,6 @@ const ConfiguracionEsp = () => {
   const history = useHistory();
   const { user } = useContext(UserContext);
   const { schedule } = user;
-  const [nameInitialValue, lastNameInitialValue] = user.name.split(" ");
   const [shown, setShown] = useState(false);
   const [name, setName] = useState("");
   const [lname, setLname] = useState("");
@@ -39,7 +38,6 @@ const ConfiguracionEsp = () => {
   const [weekDisp, setWeekDisp] = useState(
     scheduleHasNotBeenSet
       ? {
-          // In case we do not have schedule, lets have this initial value
           Monday: {
             start: "",
             end: "",
@@ -69,8 +67,7 @@ const ConfiguracionEsp = () => {
             end: "",
           },
         }
-      : // Else, we have current schedule
-        schedule
+      : schedule
   );
 
   async function getSymptoms() {
@@ -310,7 +307,6 @@ const ConfiguracionEsp = () => {
 
   const handleClean = (event) => {
     user.schedule = {
-      // In case we do not have schedule, lets have this initial value
       Monday: {
         start: "",
         end: "",
@@ -428,7 +424,7 @@ const ConfiguracionEsp = () => {
                     <div className="titles-edit">Disponibilidad</div>
                     <div className="texto-chikito">
                       Aquí podrá ingresar sus horas de disponibilidad, el
-                      sistema se encargará de organizarla en bloques de 70
+                      sistema se encargará de organizarla en bloques de 60
                       minutos.
                     </div>
                     <br />
@@ -451,7 +447,7 @@ const ConfiguracionEsp = () => {
                             className="input-time"
                             id="Monday-end"
                             onChange={handleWeekDispChange}
-                            //                            value={weekDisp.Monday.end}
+                            //                         value={weekDisp.Monday.end}
                           />
                         </div>
                       </div>
@@ -478,7 +474,7 @@ const ConfiguracionEsp = () => {
                         </div>
                       </div>
                       <div className="dispon-edit1">
-                        <div className="titles-week">Miercoles</div>
+                        <div className="titles-week">Miércoles</div>
 
                         <div className="hours-container">
                           <input
