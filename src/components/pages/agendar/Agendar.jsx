@@ -23,6 +23,8 @@ const Agendar = ({ especialista }) => {
   const [loadingReserved, setLoadingReserved] = useState(false);
   const { schedule } = especialista;
 
+  const [searchResults] = useState([]);
+
   const scheduleHasNotBeenSet =
     Array.isArray(schedule) && schedule.length === 0;
 
@@ -67,7 +69,7 @@ const Agendar = ({ especialista }) => {
     try {
       setLoadingReserved(true);
       const citasRef = bd.collection("citas");
-      console.log("llamando");
+      console.log("llamando")
       const citas = await citasRef.get();
       let citasDocs = {};
       let docData;
@@ -109,6 +111,11 @@ const Agendar = ({ especialista }) => {
 
     console.log(selectedDate);
     console.log(day);
+    console.log(currentUser.id);
+    console.log(especialista.id);
+    console.log(reserved);
+
+    const schedule = await especialista.schedule; // nos traemos el horario del especialista
 
     // Calculo el día de mañana actual, para evitar que reserve en las próximas 24hrs
     let tomorrow = new Date();
@@ -116,6 +123,7 @@ const Agendar = ({ especialista }) => {
 
     if (reason) {
       for (const dateId in reserved) {
+        console.log("Fecha:" + reserved[dateId]);
         if (selectedDate.getTime() === reserved[dateId].getTime()) {
           setLoading(false);
           alert("Esa fecha ya se encuentra reservada.");
@@ -163,8 +171,6 @@ const Agendar = ({ especialista }) => {
 
   function desplegarCitas(reserved) {
     var arr = [];
-    var tempArr = [];
-
     const optionsTime = {
       hour12: false,
       hour: "2-digit",
@@ -176,22 +182,13 @@ const Agendar = ({ especialista }) => {
       day: "numeric",
     };
     let string;
-
     for (const dateId in reserved) {
-      tempArr.push(reserved[dateId].getTime());
-    }
-    tempArr.sort();
-
-    tempArr.forEach(function (item) {
-      let value = new Date(item);
       string =
-        value.toLocaleDateString("en-GB", options) +
+        reserved[dateId].toLocaleDateString("en-GB", options) +
         " " +
-        value.toLocaleTimeString("en-GB", optionsTime);
-
+        reserved[dateId].toLocaleTimeString("en-GB", optionsTime);
       arr.push(string);
-    });
-
+    }
     return arr;
   }
 
@@ -212,129 +209,126 @@ const Agendar = ({ especialista }) => {
         </div>
         <div className={styles.linea}></div>
         <br />
-        <div className={styles.caja}>
+
+        <div className={styles.cajita}>
           <div className={styles.subtit}>
             Estos son los horarios disponibles de tu especialista:
           </div>
-          <br />
-          <div className={styles.user}>
-            <div className={styles.container}>
-              <div className={styles.week}>Lunes</div>
-              <div className={styles.horas}>
-                {weekDisp.Monday.start} - {weekDisp.Monday.end}
+          <div className={styles.container1}>
+            <div className={styles.user}>
+              <div className={styles.contenedorDias}>
+                <div className={styles.week}>Lunes</div>
+                <div className={styles.horas}>
+                  {weekDisp.Monday.start} - {weekDisp.Monday.end}
+                </div>
+              </div>
+              <div className={styles.contenedorDias}>
+                <div className={styles.week}>Martes</div>
+                <div className={styles.horas}>
+                  {weekDisp.Tuesday.start} - {weekDisp.Tuesday.end}
+                </div>
+              </div>
+              <div className={styles.contenedorDias}>
+                <div className={styles.week}>Miercoles</div>
+                <div className={styles.horas}>
+                  {weekDisp.Wednesday.start} - {weekDisp.Wednesday.end}
+                </div>
+              </div>
+              <div className={styles.contenedorDias}>
+                <div className={styles.week}>Jueves</div>
+                <div className={styles.horas}>
+                  {weekDisp.Thursday.start} - {weekDisp.Thursday.end}
+                </div>
+              </div>
+              <div className={styles.contenedorDias}>
+                <div className={styles.week}>Viernes</div>
+                <div className={styles.horas}>
+                  {weekDisp.Friday.start} - {weekDisp.Friday.end}
+                </div>
+              </div>
+              <div className={styles.contenedorDias}>
+                <div className={styles.week}>Sábado</div>
+                <div className={styles.horas}>
+                  {weekDisp.Saturday.start} - {weekDisp.Saturday.end}
+                </div>
+              </div>
+              <div className={styles.contenedorDias}>
+                <div className={styles.week}>Domingo</div>
+                <div className={styles.horas}>
+                  {weekDisp.Sunday.start} - {weekDisp.Sunday.end}
+                </div>
               </div>
             </div>
-            <div className={styles.container}>
-              <div className={styles.week}>Martes</div>
-              <div className={styles.horas}>
-                {weekDisp.Tuesday.start} - {weekDisp.Tuesday.end}
-              </div>
-            </div>
-            <div className={styles.container}>
-              <div className={styles.week}>Miercoles</div>
-              <div className={styles.horas}>
-                {weekDisp.Wednesday.start} - {weekDisp.Wednesday.end}
-              </div>
-            </div>
-            <div className={styles.container}>
-              <div className={styles.week}>Jueves</div>
-              <div className={styles.horas}>
-                {weekDisp.Thursday.start} - {weekDisp.Thursday.end}
-              </div>
-            </div>
-            <div className={styles.container}>
-              <div className={styles.week}>Viernes</div>
-              <div className={styles.horas}>
-                {weekDisp.Friday.start} - {weekDisp.Friday.end}
-              </div>
-            </div>
-            <div className={styles.container}>
-              <div className={styles.week}>Sábado</div>
-              <div className={styles.horas}>
-                {weekDisp.Saturday.start} - {weekDisp.Saturday.end}
-              </div>
-            </div>
-            <div className={styles.container}>
-              <div className={styles.week}>Domingo</div>
-              <div className={styles.horas}>
-                {weekDisp.Sunday.start} - {weekDisp.Sunday.end}
-              </div>
-            </div>
-          </div>
-          <br />
-        </div>{" "}
-        <div className={styles.caja}>
-          <div className={styles.subtit}>
-            Selecciona una fecha y hora para pautar tu sesión:
-          </div>
-          <div className={styles.dia}>
-            <div className={styles.calendar}></div>
-            <DatePicker
-              showTimeSelect
-              timeCaption="Hora"
-              selected={selectedDate}
-              onChange={(date) => setSelectedDate(date)}
-              minDate={subDays(new Date(), -1)}
-              placeholderText="Seleccione una fecha y hora"
-              className={styles.input}
-              timeIntervals={60}
-              dateFormat="MMMM d, yyyy HH:mm" // HH:mm formato 24hrs
-              timeFormat="HH:00" //y que los minutos, sin importar el input, sean 00
-              id="date-input"
-              autoComplete="off"
-            />
-          </div>
-          <div className={styles.subtit}>Ingrese el motivo de la cita:</div>
-          <div className={styles.mot}>
-            <div className={styles.type}></div>
-            <input
-              type="text"
-              placeholder="Ingrese el motivo de la cita."
-              onChange={(e) => setReason(e.target.value)}
-              className={styles.input}
-              autoComplete="off"
-            ></input>
           </div>
         </div>{" "}
         <div className={styles.cajita}>
           <div className={styles.caja4}>
-            {desplegarCitas(reserved).length === 0 ? (
-              <>
-                <div className={styles.ayuda}></div>
-              </>
-            ) : (
-              <>
-                <div className={styles.caja2}>
-                  <div className={styles.citaList}>
-                    <div className={styles.subtit}>
-                      Bloques no disponibles para agendar
-                    </div>
-                    <div className={styles.linea}></div>
-                    <br />
-                    <div className={styles.citasbox}>
-                      {desplegarCitas(reserved).map((key) => {
-                        return (
-                          <li className={styles.cita} key={key}>
-                            {key}
-                          </li>
-                        );
-                      })}
-                    </div>
-                  </div>
-                </div>
-              </>
-            )}
-            
+          {desplegarCitas(reserved).length === 0 ? (
+            <>
+            <div className={styles.ayuda}></div>
+            </>
+          ) : (
+            <>
+            <div className = {styles.caja2}>
+              <div className={styles.citaList}>
+                <div className = {styles.subtit}>Bloques no disponibles para agendar</div>
+                <div className={styles.linea}></div>
+                <br />
+                <div className={styles.citasbox}>
+                {desplegarCitas(reserved).map((key) => {
+                  return (
+                    <li className={styles.cita} key={key}>
+                      {key}
+                    </li>
+                  );
+                })}</div>
               </div>
-              <div className={styles.btn}>
-                <button
-                  type="button"
-                  onClick={handleClick}
-                  className={styles.reserva}
-                >
-                  Reservar
-                </button>
               </div>
+            </>
+          )}
+          <div className = {styles.caja3}>
+            <div className={styles.subtit}>
+              Selecciona una fecha y hora para pautar tu sesión:
+            </div>
+            <div className={styles.dia}>
+              <div className={styles.calendar}></div>
+              <DatePicker
+                showTimeSelect
+                timeCaption="Hora"
+                selected={selectedDate}
+                onChange={(date) => setSelectedDate(date)}
+                minDate={subDays(new Date(), -1)}
+                placeholderText="Seleccione una fecha y hora"
+                className={styles.input}
+                timeIntervals={60}
+                dateFormat="MMMM d, yyyy HH:mm" // HH:mm formato 24hrs
+                timeFormat="HH:00" //y que los minutos, sin importar el input, sean 00
+                id="date-input"
+                autoComplete="off"
+              />
+            </div>
+            <div className={styles.subtit}>Ingrese el motivo de la cita:</div>
+            <div className={styles.mot}>
+              <div className={styles.type}></div>
+              <input
+                type="text"
+                placeholder="Ingrese el motivo de la cita."
+                onChange={(e) => setReason(e.target.value)}
+                className={styles.input}
+                autoComplete="off"
+              ></input>
+            </div>
+            <div className={styles.btn}>
+              <button
+                type="button"
+                onClick={handleClick}
+                className={styles.reserva}
+              >
+                Reservar
+              </button>
+            </div>
+          </div>
+          </div>
         </div>
       </section>
     </>
@@ -349,3 +343,4 @@ const Agendar = ({ especialista }) => {
 };
 
 export default Agendar;
+
