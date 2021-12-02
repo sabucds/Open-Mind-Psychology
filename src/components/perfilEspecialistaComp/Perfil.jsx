@@ -256,6 +256,7 @@ const Perfil = ({ user }) => {
   async function getSymptoms() {
     try {
       setLoadingSymptoms(true);
+      console.log("ESTOY LLAMANDO GET SYMPTOMS");
       const symptomsRef = bd.collection("symptoms");
       const symptoms = await symptomsRef.get();
       let symptomDocs = [];
@@ -265,7 +266,6 @@ const Perfil = ({ user }) => {
       setSymptomList(symptomDocs);
       setLoadingSymptoms(false);
     } catch (e) {
-      console.log(e);
       setLoadingSymptoms(false);
     }
   }
@@ -316,6 +316,7 @@ const Perfil = ({ user }) => {
   const getRanking = async () => {
     setLoadingRanking(true);
     const userRef = bd.collection("users").doc(user.id);
+    console.log("ESTOY LLAMANDO A RANKING");
     const userDoc = await userRef.get();
     setUserRanking(userDoc.data().ranking);
     setLoadingRanking(false);
@@ -384,14 +385,16 @@ const Perfil = ({ user }) => {
 
   const recalculateRanking = async () => {
     const userRef = bd.collection("users").doc(user.id);
+    console.log("llamo para recalcular el ranking");
     const userDoc = await userRef.get();
     const feedback = userDoc.data().feedback;
     var total = 0;
     feedback.forEach((review) => (total = total + Number(review.rating)));
-    console.log(total);
+    // console.log(total);
     let ranking = total / feedback.length;
-    console.log(ranking);
+    // console.log(ranking);
     await bd.collection("users").doc(user.id).update({ ranking: ranking });
+    console.log("llamo para acomodar el ranking al nuevo");
     setRefreshRanking(refreshRanking + 1);
   };
 
@@ -422,12 +425,14 @@ const Perfil = ({ user }) => {
             .indexOf(currentUser.id);
           comments[commentIndex] = newComment;
           const profileUser = bd.collection("users").doc(user.id);
+          console.log("ESTOY LLAMANDO GET COMMENTS");
           await profileUser.update({ feedback: comments });
           await recalculateRanking();
           setRefreshComments(refreshComments + 1);
         }
       } else {
         const profileUser = bd.collection("users").doc(user.id);
+        console.log("llamo en añadir comentario");
         await profileUser.update({
           feedback: firebase.firestore.FieldValue.arrayUnion(newComment),
         });
@@ -454,7 +459,6 @@ const Perfil = ({ user }) => {
     ) {
       return null;
     } else {
-      getIsPatient();
       if (isPatient) {
         return (
           <>
@@ -520,28 +524,32 @@ const Perfil = ({ user }) => {
   const getComments = async () => {
     setLoadingComments(true);
     const userRef = bd.collection("users").doc(user.id);
+    console.log("llamo para traer los comentarios");
     const userDoc = await userRef.get();
     setComments(userDoc.data().feedback);
     setLoadingComments(false);
   };
 
   async function getIsPatient() {
-    const consultationsRef = bd.collection("citas");
-    const consultationsDoc = await consultationsRef.get();
-    var consultations = {};
-    consultationsDoc.forEach((consultation) => {
-      consultations[consultation.id] = consultation.data();
-    });
-    let today = new Date();
-    let found;
-    found = Object.keys(consultations).find((id) => {
-      return (
-        consultations[id]["especialista"] == user.id &&
-        consultations[id]["usuario"] == currentUser.id &&
-        consultations[id]["date"] < today
-      );
-    });
-    setIsPatient(Boolean(found));
+    if (currentUser !== null) {
+      const consultationsRef = bd.collection("citas");
+      console.log("llamo para ver si es paciente");
+      const consultationsDoc = await consultationsRef.get();
+      var consultations = {};
+      consultationsDoc.forEach((consultation) => {
+        consultations[consultation.id] = consultation.data();
+      });
+      let today = new Date();
+      let found;
+      found = Object.keys(consultations).find((id) => {
+        return (
+          consultations[id]["especialista"] === user.id &&
+          consultations[id]["usuario"] === currentUser.id &&
+          consultations[id]["date"] < today
+        );
+      });
+      setIsPatient(Boolean(found));
+    }
   }
 
   useEffect(() => {
@@ -554,6 +562,7 @@ const Perfil = ({ user }) => {
 
   useEffect(() => {
     getSymptoms();
+    getIsPatient();
   }, []);
 
   function getStars(ranking) {

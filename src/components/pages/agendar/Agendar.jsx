@@ -67,6 +67,7 @@ const Agendar = ({ especialista }) => {
     try {
       setLoadingReserved(true);
       const citasRef = bd.collection("citas");
+      console.log("llamando");
       const citas = await citasRef.get();
       let citasDocs = {};
       let docData;
@@ -108,11 +109,6 @@ const Agendar = ({ especialista }) => {
 
     console.log(selectedDate);
     console.log(day);
-    console.log(currentUser.id);
-    console.log(especialista.id);
-    console.log(reserved);
-
-    const schedule = await especialista.schedule; // nos traemos el horario del especialista
 
     // Calculo el día de mañana actual, para evitar que reserve en las próximas 24hrs
     let tomorrow = new Date();
@@ -120,7 +116,6 @@ const Agendar = ({ especialista }) => {
 
     if (reason) {
       for (const dateId in reserved) {
-        console.log("Fecha:" + reserved[dateId]);
         if (selectedDate.getTime() === reserved[dateId].getTime()) {
           setLoading(false);
           alert("Esa fecha ya se encuentra reservada.");
@@ -168,6 +163,8 @@ const Agendar = ({ especialista }) => {
 
   function desplegarCitas(reserved) {
     var arr = [];
+    var tempArr = [];
+
     const optionsTime = {
       hour12: false,
       hour: "2-digit",
@@ -179,13 +176,22 @@ const Agendar = ({ especialista }) => {
       day: "numeric",
     };
     let string;
+
     for (const dateId in reserved) {
-      string =
-        reserved[dateId].toLocaleDateString("en-GB", options) +
-        " " +
-        reserved[dateId].toLocaleTimeString("en-GB", optionsTime);
-      arr.push(string);
+      tempArr.push(reserved[dateId].getTime());
     }
+    tempArr.sort();
+
+    tempArr.forEach(function (item) {
+      let value = new Date(item);
+      string =
+        value.toLocaleDateString("en-GB", options) +
+        " " +
+        value.toLocaleTimeString("en-GB", optionsTime);
+
+      arr.push(string);
+    });
+
     return arr;
   }
 
@@ -201,27 +207,29 @@ const Agendar = ({ especialista }) => {
   ) : !checkout ? (
     <>
       <section className={styles.sect}>
-        {desplegarCitas(reserved).length === 0 ? (
-          <></>
-        ) : (
-          <>
-            <div className="CitaList">
-              <p>Bloques no disponibles para agendar</p>
-              {desplegarCitas(reserved).map((key) => {
-                return (
-                  <li className="cita" key={key}>
-                    {key}
-                  </li>
-                );
-              })}
-            </div>
-          </>
-        )}
         <div className={styles.encabezado}>
           <div className={styles.TitleRegister}>¡Reserva ya tu cita!</div>
         </div>
         <div className={styles.linea}></div>
         <br />
+        {desplegarCitas(reserved).length === 0 ? (
+          <></>
+        ) : (
+          <>
+            <div className={styles.caja2}>
+              <div className="CitaList">
+                <p>Bloques no disponibles para agendar</p>
+                {desplegarCitas(reserved).map((key) => {
+                  return (
+                    <li className="cita" key={key}>
+                      {key}
+                    </li>
+                  );
+                })}
+              </div>
+            </div>
+          </>
+        )}
         <div className={styles.caja}>
           <div className={styles.subtit}>
             Estos son los horarios disponibles de tu especialista:

@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { bd } from "../../utils/firebaseConfig";
 import { useState, useEffect, useRef } from "react";
 import Cargando from "../cargando/Cargando";
+import Error404 from "../pages/error404/Error404";
 
 const DetallesEspecialista = () => {
   const [loading, setLoading] = useState(false);
@@ -40,15 +41,10 @@ const DetallesEspecialista = () => {
 
   return loading && !especialista && !error ? (
     <Cargando />
-  ) : especialista ? (
+  ) : especialista && especialista.status === "aceptado" ? (
     <Perfil user={especialista} />
   ) : (
-    <>
-      <div className="titulo">
-        Hubo un error al intentar cargar el especialista.
-      </div>
-      <div className="errorMsg404">{error}</div>
-    </>
+    <Error404 />
   );
 };
 

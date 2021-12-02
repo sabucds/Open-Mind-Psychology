@@ -11,6 +11,7 @@ export default function PayPal({
 }) {
   const history = useHistory();
   const paypal = useRef();
+
   useEffect(() => {
     window.paypal
       .Buttons({
@@ -35,13 +36,8 @@ export default function PayPal({
           });
         },
         onApprove: async (data, actions) => {
-          await actions.order.capture().then(function (details) {
-            alert(
-              "Transacción completada por: " +
-                details.payer.name.given_name +
-                "\n¡Se ha agendado la cita exitosamente!"
-            );
-          });
+          const order = await actions.order.capture();
+          console.log(order);
           await bd.collection("citas").add({
             usuario: currentUser.id,
             especialista: especialista.id,
@@ -50,6 +46,7 @@ export default function PayPal({
             status: "activo",
           });
           history.push("/perfil");
+          alert("¡Se ha agendado la cita exitosamente!");
         },
         onError: (err) => {
           console.log(err);

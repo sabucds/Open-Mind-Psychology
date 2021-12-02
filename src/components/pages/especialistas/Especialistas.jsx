@@ -29,6 +29,7 @@ const Especialistas = () => {
     try {
       setLoadingSymptoms(true);
       const symptomsRef = bd.collection("symptoms");
+      console.log("llamo a firebase en get symptoms")
       const symptoms = await symptomsRef.get();
       let symptomDocs = [];
       symptoms.forEach((doc) => {
@@ -87,6 +88,7 @@ const Especialistas = () => {
     try {
       setLoading(true);
       const usersRef = bd.collection("users");
+      console.log("llamo a firebase para traer los especialistas")
       const users = await usersRef.get();
       let especialistaDocs = {};
       let docData;

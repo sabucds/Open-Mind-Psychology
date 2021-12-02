@@ -46,34 +46,42 @@ const CredUpload = () => {
 
     return (
       <>
-        {!!user ? (
-          <section className="main-FileUp">
-            <div className="title-updiv">
-              <h3 className="title-up">
-                ¡Ya casi estas listo!
-                <br />
-                Solo nos falta obtener tus credenciales (.pdf)
-              </h3>
-            </div>
-            <form className="form-up">
-              {uploading ? (
-                <h1 className="title-up">Subiendo archivo...</h1>
-              ) : (
-                <div
-                  className="file-wrapper"
-                  data-text="Selecciona el archivo a escoger:"
-                >
-                  <input
-                    name="userfile"
-                    type="file"
-                    accept="application/pdf"
-                    onChange={handleUpload}
-                  ></input>
+        {!loading ? (
+          !!user ? (
+            user.role === "especialista" && user.status === "standby" ? (
+              <section className="main-FileUp">
+                <div className="title-updiv">
+                  <h3 className="title-up">
+                    ¡Ya casi estas listo!
+                    <br />
+                    Solo nos falta obtener tus credenciales (.pdf)
+                  </h3>
                 </div>
-              )}
-            </form>
-            <div className="img-form"></div>
-          </section>
+                <form className="form-up">
+                  {uploading ? (
+                    <h1 className="title-up">Subiendo archivo...</h1>
+                  ) : (
+                    <div
+                      className="file-wrapper"
+                      data-text="Selecciona el archivo a escoger:"
+                    >
+                      <input
+                        name="userfile"
+                        type="file"
+                        accept="application/pdf"
+                        onChange={handleUpload}
+                      ></input>
+                    </div>
+                  )}
+                </form>
+                <div className="img-form"></div>
+              </section>
+            ) : (
+              history.push("/perfil")
+            )
+          ) : (
+            history.push("/iniciar")
+          )
         ) : (
           <Cargando />
         )}

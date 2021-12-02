@@ -53,7 +53,11 @@ const RegistroUser = () => {
     e.preventDefault();
 
     const { nombre, apellido, email } = values;
-    if (number && isValidPhoneNumber(number) && validInputs(nombre, apellido, email)) {
+    if (
+      number &&
+      isValidPhoneNumber(number) &&
+      validInputs(nombre, apellido, email)
+    ) {
       try {
         const response = await auth.createUserWithEmailAndPassword(
           values.email,
@@ -98,6 +102,7 @@ const RegistroUser = () => {
             },
             response.user.uid
           );
+
           history.push("/perfil");
         }
       } catch (e) {

@@ -71,12 +71,6 @@ function App() {
               path="/especialistas/:characterId"
               component={DetallesEspecialista}
             />
-            <UserRoute
-              exact
-              path={"/agendar/:characterId"}
-              component={Agendar}
-            />
-
             <ClientRoute exact path="/chats" component={Chats} />
             <ClientRoute exact path="/chats/:userId" component={Chat} />
             <ClientRoute exact path="/citas" component={Citas} />
