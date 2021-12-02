@@ -428,7 +428,7 @@ const ConfiguracionEsp = () => {
                     <div className="titles-edit">Disponibilidad</div>
                     <div className="texto-chikito">
                       Aquí podrá ingresar sus horas de disponibilidad, el
-                      sistema se encargará de organizarla en bloques de 70
+                      sistema se encargará de organizarla en bloques de 60
                       minutos.
                     </div>
                     <br />

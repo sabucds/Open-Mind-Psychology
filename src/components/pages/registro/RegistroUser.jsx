@@ -111,7 +111,7 @@ const RegistroUser = () => {
       } catch (e) {
         console.log(e);
         alert(
-          "Hubo un error al enviar el formulario, verifique que los campos sean válidos."
+          "Hubo un error al enviar el formulario, verifique que los campos sean válidos y que el correo no haya sido usado antes."
         );
       }
     } else {

@@ -294,7 +294,14 @@ const Citas = () => {
                   let today = new Date();
 
                   return (
-                    <div className={dateF.valueOf() > today.valueOf() ? "consulta" : "consulta cons-pasada"} id={key}>
+                    <div className={dateF.valueOf() > today.valueOf() ? 
+                      "consulta" : "consulta cons-pasada"} 
+                      id={key}
+                      onClick={isEspecialista ? 
+                          ()=>{history.push(`/historial/${cita.usuario}`)} : 
+                          ()=>{history.push(`/especialistas/${cita.especialista}`)}}
+                        title={isEspecialista ? "Click para ir a la historia de este paciente." : 
+                        "Click para ir al perfil de este especialista."}>
                       <div className="info-consultas date-info">
                         <span>
                           {dateF.getDate() + "/" + (dateF.getMonth() + 1)}
@@ -339,8 +346,10 @@ const Citas = () => {
               <div className="consultas">
                 {desplegarCitas(citaIds, 1).map((key) => {
                   var cita = consultas[key];
+
                   let dateF = new Date(cita.date.seconds * 1000);
                   let today = new Date();
+
                   return (
                     <div className={dateF.valueOf() > today.valueOf() ? 
                       "consulta" : "consulta cons-pasada"} 

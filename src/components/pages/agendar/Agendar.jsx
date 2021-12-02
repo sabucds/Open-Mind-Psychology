@@ -129,18 +129,24 @@ const Agendar = ({ especialista }) => {
           return false;
         }
       }
-      if (schedule[day].start && selectedDate > tomorrow) {
-        if (string >= schedule[day].start && string < schedule[day].end) {
-          // No hace falta restarle 1 a la hora final porque como son horas "enteras" (04:00, 05:00, 06:00...) con validar que sea menor al límite superior, ya basta
-          return true;
+      if (selectedDate > tomorrow) {
+        if (schedule[day].start) {
+          if (string >= schedule[day].start && string < schedule[day].end) {
+            // No hace falta restarle 1 a la hora final porque como son horas "enteras" (04:00, 05:00, 06:00...) con validar que sea menor al límite superior, ya basta
+            return true;
+          } else {
+            setLoading(false);
+            alert("El especialista no tiene disponibilidad ese día a esa hora.");
+            return false;
+          }
         } else {
           setLoading(false);
-          alert("El especialista no tiene disponibilidad ese día a esa hora.");
+          alert("El especialista no tiene disponibilidad en esa fecha.");
           return false;
         }
       } else {
         setLoading(false);
-        alert("El especialista no tiene disponibilidad en esa fecha.");
+        alert("Solo puede agendar citas con más de 24 horas de antelación.");
         return false;
       }
     } else {
