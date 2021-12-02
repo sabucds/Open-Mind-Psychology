@@ -136,7 +136,9 @@ const Agendar = ({ especialista }) => {
             return true;
           } else {
             setLoading(false);
-            alert("El especialista no tiene disponibilidad ese día a esa hora.");
+            alert(
+              "El especialista no tiene disponibilidad ese día a esa hora."
+            );
             return false;
           }
         } else {

@@ -137,8 +137,8 @@ const Citas = () => {
         } else {
           nombreCita = listNames[cita.especialista];
         }
-        if (nombreCita){
-          isValid = (nombreCita.toLowerCase()).includes(nombre.toLowerCase());
+        if (nombreCita) {
+          isValid = nombreCita.toLowerCase().includes(nombre.toLowerCase());
         } else {
           isValid = false;
         }
@@ -153,7 +153,8 @@ const Citas = () => {
 
       isValid =
         isValid &&
-        dateF.setHours(0,0,0,0).valueOf()===selectedDate.setHours(0,0,0,0).valueOf();
+        dateF.setHours(0, 0, 0, 0).valueOf() ===
+          selectedDate.setHours(0, 0, 0, 0).valueOf();
     }
     if (nombre === "" && !filterDate) {
       setEsVacio(true);
@@ -266,132 +267,156 @@ const Citas = () => {
           </div>
         </div>
         <hr />
-        {
-          loading && !error && citaIds.length === 0 ? (
-            <Cargando />
-          ) : error ? (
-            <div className="altText">
-              Error: {error.message}. <br></br>
-              <span className="refreshLink" onClick={() => setError(false)}>
-                Intente refrescar la página.
-              </span>
-            </div>
-          ) : results && !esVacio ? (
-            <div className="consultas-container">
-              <div className="consultas-header">
-                <div className="info-consultas date-info">Fecha</div>
-                <div className="info-consultas hour-info">Hora</div>
-                <div className="info-consultas name-info">
-                  {isEspecialista ? "Paciente" : "Especialista"}
-                </div>
-                <div className="info-consultas reason-info">Descripción</div>
+        {loading && !error && citaIds.length === 0 ? (
+          <Cargando />
+        ) : error ? (
+          <div className="altText">
+            Error: {error.message}. <br></br>
+            <span className="refreshLink" onClick={() => setError(false)}>
+              Intente refrescar la página.
+            </span>
+          </div>
+        ) : results && !esVacio ? (
+          <div className="consultas-container">
+            <div className="consultas-header">
+              <div className="info-consultas date-info">Fecha</div>
+              <div className="info-consultas hour-info">Hora</div>
+              <div className="info-consultas name-info">
+                {isEspecialista ? "Paciente" : "Especialista"}
               </div>
-              <div className="consultas">
-                {desplegarCitas(citaIds, searchResults).map((key) => {
-                  var cita = consultas[key];
+              <div className="info-consultas reason-info">Descripción</div>
+            </div>
+            <div className="consultas">
+              {desplegarCitas(citaIds, searchResults).map((key) => {
+                var cita = consultas[key];
 
-                  let dateF = new Date(cita.date.seconds * 1000);
-                  let today = new Date();
+                let dateF = new Date(cita.date.seconds * 1000);
+                let today = new Date();
 
-                  return (
-                    <div className={dateF.valueOf() > today.valueOf() ? 
-                      "consulta" : "consulta cons-pasada"} 
-                      id={key}
-                      onClick={isEspecialista ? 
-                          ()=>{history.push(`/historial/${cita.usuario}`)} : 
-                          ()=>{history.push(`/especialistas/${cita.especialista}`)}}
-                        title={isEspecialista ? "Click para ir a la historia de este paciente." : 
-                        "Click para ir al perfil de este especialista."}>
-                      <div className="info-consultas date-info">
-                        <span>
-                          {dateF.getDate() + "/" + (dateF.getMonth() + 1)}
-                        </span>
-                      </div>
-                      <div className="info-consultas hour-info">
-                        <span>
-                          {dateF.getHours() + ":" + dateF.getMinutes() + "0"}
-                        </span>
-                      </div>
-                      <div className="info-consultas name-info">
-                        <span>
-                          {isEspecialista
-                            ? listNames[cita.usuario]
-                            : listNames[cita.especialista]}
-                        </span>
-                      </div>
-                      <div className="info-consultas reason-info">
-                        <div>
-                          <span>{cita.reason}</span>
-                        </div>
+                return (
+                  <div
+                    className={
+                      dateF.valueOf() > today.valueOf()
+                        ? "consulta"
+                        : "consulta cons-pasada"
+                    }
+                    id={key}
+                    onClick={
+                      isEspecialista
+                        ? () => {
+                            history.push(`/historial/${cita.usuario}`);
+                          }
+                        : () => {
+                            history.push(`/especialistas/${cita.especialista}`);
+                          }
+                    }
+                    title={
+                      isEspecialista
+                        ? "Click para ir a la historia de este paciente."
+                        : "Click para ir al perfil de este especialista."
+                    }
+                  >
+                    <div className="info-consultas date-info">
+                      <span>
+                        {dateF.getDate() + "/" + (dateF.getMonth() + 1)}
+                      </span>
+                    </div>
+                    <div className="info-consultas hour-info">
+                      <span>
+                        {dateF.getHours() + ":" + dateF.getMinutes() + "0"}
+                      </span>
+                    </div>
+                    <div className="info-consultas name-info">
+                      <span>
+                        {isEspecialista
+                          ? listNames[cita.usuario]
+                          : listNames[cita.especialista]}
+                      </span>
+                    </div>
+                    <div className="info-consultas reason-info">
+                      <div>
+                        <span>{cita.reason}</span>
                       </div>
                     </div>
-                  );
-                })}
-              </div>
+                  </div>
+                );
+              })}
             </div>
-          ) : search && !esVacio ? (
-            <div className="altText">
-              No se consiguieron consultas que coincidieran con la búsqueda.
-            </div>
-          ) : (citaIds.length > 0) ? (
-            <div className="consultas-container">
-              <div className="consultas-header">
-                <div className="info-consultas date-info">Fecha</div>
-                <div className="info-consultas hour-info">Hora</div>
-                <div className="info-consultas name-info">
-                  {isEspecialista ? "Paciente" : "Especialista"}
-                </div>
-                <div className="info-consultas reason-info">Descripción</div>
+          </div>
+        ) : search && !esVacio ? (
+          <div className="altText">
+            No se consiguieron consultas que coincidieran con la búsqueda.
+          </div>
+        ) : citaIds.length > 0 ? (
+          <div className="consultas-container">
+            <div className="consultas-header">
+              <div className="info-consultas date-info">Fecha</div>
+              <div className="info-consultas hour-info">Hora</div>
+              <div className="info-consultas name-info">
+                {isEspecialista ? "Paciente" : "Especialista"}
               </div>
-              <div className="consultas">
-                {desplegarCitas(citaIds, 1).map((key) => {
-                  var cita = consultas[key];
+              <div className="info-consultas reason-info">Descripción</div>
+            </div>
+            <div className="consultas">
+              {desplegarCitas(citaIds, 1).map((key) => {
+                var cita = consultas[key];
 
-                  let dateF = new Date(cita.date.seconds * 1000);
-                  let today = new Date();
+                let dateF = new Date(cita.date.seconds * 1000);
+                let today = new Date();
 
-                  return (
-                    <div className={dateF.valueOf() > today.valueOf() ? 
-                      "consulta" : "consulta cons-pasada"} 
-                      id={key}
-                      onClick={isEspecialista ? 
-                          ()=>{history.push(`/historial/${cita.usuario}`)} : 
-                          ()=>{history.push(`/especialistas/${cita.especialista}`)}}
-                        title={isEspecialista ? "Click para ir a la historia de este paciente." : 
-                        "Click para ir al perfil de este especialista."}>
-                      <div className="info-consultas date-info">
-                        <span>
-                          {dateF.getDate() + "/" + (dateF.getMonth() + 1)}
-                        </span>
-                      </div>
-                      <div className="info-consultas hour-info">
-                        <span>
-                          {dateF.getHours() + ":" + dateF.getMinutes() + "0"}
-                        </span>
-                      </div>
-                      <div className="info-consultas name-info">
-                        <span>
-                          {isEspecialista
-                            ? listNames[cita.usuario]
-                            : listNames[cita.especialista]}
-                        </span>
-                      </div>
-                      <div className="info-consultas reason-info">
-                        <div>
-                          <span>{cita.reason}</span>
-                        </div>
+                return (
+                  <div
+                    className={
+                      dateF.valueOf() > today.valueOf()
+                        ? "consulta"
+                        : "consulta cons-pasada"
+                    }
+                    id={key}
+                    onClick={
+                      isEspecialista
+                        ? () => {
+                            history.push(`/historial/${cita.usuario}`);
+                          }
+                        : () => {
+                            history.push(`/especialistas/${cita.especialista}`);
+                          }
+                    }
+                    title={
+                      isEspecialista
+                        ? "Click para ir a la historia de este paciente."
+                        : "Click para ir al perfil de este especialista."
+                    }
+                  >
+                    <div className="info-consultas date-info">
+                      <span>
+                        {dateF.getDate() + "/" + (dateF.getMonth() + 1)}
+                      </span>
+                    </div>
+                    <div className="info-consultas hour-info">
+                      <span>
+                        {dateF.getHours() + ":" + dateF.getMinutes() + "0"}
+                      </span>
+                    </div>
+                    <div className="info-consultas name-info">
+                      <span>
+                        {isEspecialista
+                          ? listNames[cita.usuario]
+                          : listNames[cita.especialista]}
+                      </span>
+                    </div>
+                    <div className="info-consultas reason-info">
+                      <div>
+                        <span>{cita.reason}</span>
                       </div>
                     </div>
-                  );
-                })}
-              </div>
+                  </div>
+                );
+              })}
             </div>
-          ) : (
-            <div className="altText">
-              No tiene consultas.
-            </div>
-          )
-        }
+          </div>
+        ) : (
+          <div className="altText">No tiene consultas.</div>
+        )}
       </section>
     </>
   );
