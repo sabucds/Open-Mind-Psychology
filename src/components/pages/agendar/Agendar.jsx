@@ -279,57 +279,7 @@ const Agendar = ({ especialista }) => {
           </div>
           <br />
         </div>{" "}
-        <div className={styles.caja}>
-          <div className={styles.subtit}>
-            Estos son los horarios disponibles de tu especialista:
-          </div>
-          <br />
-          <div className={styles.user}>
-            <div className={styles.container}>
-              <div className={styles.week}>Lunes</div>
-              <div className={styles.horas}>
-                {weekDisp.Monday.start} - {weekDisp.Monday.end}
-              </div>
-            </div>
-            <div className={styles.container}>
-              <div className={styles.week}>Martes</div>
-              <div className={styles.horas}>
-                {weekDisp.Tuesday.start} - {weekDisp.Tuesday.end}
-              </div>
-            </div>
-            <div className={styles.container}>
-              <div className={styles.week}>Miercoles</div>
-              <div className={styles.horas}>
-                {weekDisp.Wednesday.start} - {weekDisp.Wednesday.end}
-              </div>
-            </div>
-            <div className={styles.container}>
-              <div className={styles.week}>Jueves</div>
-              <div className={styles.horas}>
-                {weekDisp.Thursday.start} - {weekDisp.Thursday.end}
-              </div>
-            </div>
-            <div className={styles.container}>
-              <div className={styles.week}>Viernes</div>
-              <div className={styles.horas}>
-                {weekDisp.Friday.start} - {weekDisp.Friday.end}
-              </div>
-            </div>
-            <div className={styles.container}>
-              <div className={styles.week}>Sábado</div>
-              <div className={styles.horas}>
-                {weekDisp.Saturday.start} - {weekDisp.Saturday.end}
-              </div>
-            </div>
-            <div className={styles.container}>
-              <div className={styles.week}>Domingo</div>
-              <div className={styles.horas}>
-                {weekDisp.Sunday.start} - {weekDisp.Sunday.end}
-              </div>
-            </div>
-          </div>
-          <br />
-        </div>{" "}
+        <br />
         <div className={styles.caja}>
           <div className={styles.subtit}>
             Selecciona una fecha y hora para pautar tu sesión:
@@ -391,48 +341,6 @@ const Agendar = ({ especialista }) => {
                 </div>
               </>
             )}
-            <div className={styles.caja3}>
-              <div className={styles.subtit}>
-                Selecciona una fecha y hora para pautar tu sesión:
-              </div>
-              <div className={styles.dia}>
-                <div className={styles.calendar}></div>
-                <DatePicker
-                  showTimeSelect
-                  timeCaption="Hora"
-                  selected={selectedDate}
-                  onChange={(date) => setSelectedDate(date)}
-                  minDate={subDays(new Date(), -1)}
-                  placeholderText="Seleccione una fecha y hora"
-                  className={styles.input}
-                  timeIntervals={60}
-                  dateFormat="MMMM d, yyyy HH:mm" // HH:mm formato 24hrs
-                  timeFormat="HH:00" //y que los minutos, sin importar el input, sean 00
-                  id="date-input"
-                  autoComplete="off"
-                />
-              </div>
-              <div className={styles.subtit}>Ingrese el motivo de la cita:</div>
-              <div className={styles.mot}>
-                <div className={styles.type}></div>
-                <input
-                  type="text"
-                  placeholder="Ingrese el motivo de la cita."
-                  onChange={(e) => setReason(e.target.value)}
-                  className={styles.input}
-                  autoComplete="off"
-                ></input>
-              </div>
-              <div className={styles.btn}>
-                <button
-                  type="button"
-                  onClick={handleClick}
-                  className={styles.reserva}
-                >
-                  Reservar
-                </button>
-              </div>
-            </div>
           </div>
         </div>
       </section>
