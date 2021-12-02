@@ -693,7 +693,7 @@ const Perfil = ({ user }) => {
                       </div>
                     </div>
                     <div className="contenedorDias">
-                      <div className="week">Miercoles</div>
+                      <div className="week">Miércoles</div>
                       <div className="horas">
                         {weekDisp.Wednesday.start} - {weekDisp.Wednesday.end}
                       </div>
