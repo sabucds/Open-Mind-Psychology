@@ -218,6 +218,39 @@
   margin: 8px auto;
 }
 
+.container1 {
+  margin: 16px;
+  border-radius: 20px;
+  display: flex;
+  text-align: center;
+  overflow: hidden;
+  overflow-x: scroll;
+  background-color: white;
+}
+
+.contenedorDias{
+  padding: 1em;
+  margin: 5px;
+}
+
+.user {
+  margin: 8px auto;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.week {
+  text-align: center;
+  color: #ee9d6b;
+  margin-bottom: 10%;
+  font-weight: bold;
+}
+
+.horas {
+  text-align: center;
+  font-weight: bold;
+}
+
 @media screen and (max-width: 850px) {
   .ranking-user {
     display: flex;

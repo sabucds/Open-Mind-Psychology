@@ -679,47 +679,49 @@ const Perfil = ({ user }) => {
                   </div>
                 </div>
                 <div className="line"></div>
-                <div className="schedule-user">
-                  <div className="schedule-container">
-                    <div className="titles-week">Lunes</div>
-                    <div className="horas">
-                      {weekDisp.Monday.start} - {weekDisp.Monday.end}
+                <div className="container1">
+                  <div className="user">
+                    <div className="contenedorDias">
+                      <div className="week">Lunes</div>
+                      <div className="horas">
+                        {weekDisp.Monday.start} - {weekDisp.Monday.end}
+                      </div>
                     </div>
-                  </div>
-                  <div className="schedule-container">
-                    <div className="titles-week">Martes</div>
-                    <div className="horas">
-                      {weekDisp.Tuesday.start} - {weekDisp.Tuesday.end}
+                    <div className="contenedorDias">
+                      <div className="week">Martes</div>
+                      <div className="horas">
+                        {weekDisp.Tuesday.start} - {weekDisp.Tuesday.end}
+                      </div>
                     </div>
-                  </div>
-                  <div className="schedule-container">
-                    <div className="titles-week">Miercoles</div>
-                    <div className="horas">
-                      {weekDisp.Wednesday.start} - {weekDisp.Wednesday.end}
+                    <div className="contenedorDias">
+                      <div className="week">Miercoles</div>
+                      <div className="horas">
+                        {weekDisp.Wednesday.start} - {weekDisp.Wednesday.end}
+                      </div>
                     </div>
-                  </div>
-                  <div className="schedule-container">
-                    <div className="titles-week">Jueves</div>
-                    <div className="horas">
-                      {weekDisp.Thursday.start} - {weekDisp.Thursday.end}
+                    <div className="contenedorDias">
+                      <div className="week">Jueves</div>
+                      <div className="horas">
+                        {weekDisp.Thursday.start} - {weekDisp.Thursday.end}
+                      </div>
                     </div>
-                  </div>
-                  <div className="schedule-container">
-                    <div className="titles-week">Viernes</div>
-                    <div className="horas">
-                      {weekDisp.Friday.start} - {weekDisp.Friday.end}
+                    <div className="contenedorDias">
+                      <div className="week">Viernes</div>
+                      <div className="horas">
+                        {weekDisp.Friday.start} - {weekDisp.Friday.end}
+                      </div>
                     </div>
-                  </div>
-                  <div className="schedule-container">
-                    <div className="titles-week">Sábado</div>
-                    <div className="horas">
-                      {weekDisp.Saturday.start} - {weekDisp.Saturday.end}
+                    <div className="contenedorDias">
+                      <div className="week">Sábado</div>
+                      <div className="horas">
+                        {weekDisp.Saturday.start} - {weekDisp.Saturday.end}
+                      </div>
                     </div>
-                  </div>
-                  <div className="schedule-container">
-                    <div className="titles-week">Domingo</div>
-                    <div className="horas">
-                      {weekDisp.Sunday.start} - {weekDisp.Sunday.end}
+                    <div className="contenedorDias">
+                      <div className="week">Domingo</div>
+                      <div className="horas">
+                        {weekDisp.Sunday.start} - {weekDisp.Sunday.end}
+                      </div>
                     </div>
                   </div>
                 </div>

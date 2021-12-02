@@ -28,32 +28,163 @@
 .caja {
   margin: 16px;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25);
-  background: #ffffff;
   border-radius: 20px;
   padding: 10px;
   margin-bottom: 50px;
+  display: flex;
+  align-items: center;
+  text-align: center;
 }
+
+.cajita{
+  margin: 16px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+  padding: 10px;
+  margin-bottom: 50px;
+  padding-top: 15px;
+  background-color: white;
+}
+
+::-webkit-scrollbar {
+  background-color: transparent;
+  width: 16px;
+}
+
+.container1 {
+  margin: 16px;
+  border-radius: 20px;
+  display: flex;
+  text-align: center;
+  overflow: hidden;
+  overflow-x: scroll;
+  background-color: white;
+}
+
 
 .caja2 {
   margin: 16px;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25);
-  background: #ffffff;
+  box-shadow: 0px 4px 12px rgba(236, 39, 39, 0.637);
   border-radius: 20px;
-  padding: 10px;
-  margin-bottom: 50px;
+  padding: 15px;
+  margin-left: 50px;
+  display: flex;
+  width: 400px;
+  position: relative;
+  text-align: center;
+  background-color: white;
 }
 
+.ayuda{
+  margin: 16px;
+  border-radius: 20px;
+  height: 0px;
+  display: flex;
+  width: 400px;
+  position: relative;
+  text-align: center;
+  margin-top: -40px;
+  background-color: white;
+}
+
+.citasbox{
+  overflow-y: scroll;
+  height: 150px;
+}
+
+.caja3 {
+  position: relative;
+  margin:0px auto;
+  border-radius: 20px;
+  padding: 10px;
+  margin-bottom: -20px;
+  margin-left: 10px;
+  background-color: white;
+}
+
+.caja4 {
+  margin: 16px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  text-align: center;
+  background-color: white;
+}
+.pago{
+  margin: 16px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25);
+  background: white;
+  border-radius: 20px;
+  padding: 10px;
+  margin-top: 100px;
+  display: inline-flex;
+}
+.pago > div {
+  width: 50%;
+}
+.pago2{
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+  margin-top: 20px;
+  padding: 10px;
+  width: 400px;
+  background-color: white;
+  display: inline-block;
+  justify-content: center;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+.contenedor{
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  text-align: center;
+}
+.contenedor2{
+  background-color: white;
+  margin-right: 5px;
+  width: 400px;
+  overflow: hidden;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+.contenedor3{
+  background-color: white;
+  width: 300px;
+  display: inline-block;
+  justify-content: center;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+.main{
+  width: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+
+.contenedorDias{
+  padding: 1em;
+  margin: 5px;
+}
 .dia,
 .mot {
   border-radius: 20px;
   width: 400px;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 10px;
   padding: 15px;
   padding-top: 5px;
   display: flex;
   align-items: center;
+  width: max-content;
 }
 
 .btn {
@@ -104,7 +235,6 @@
   margin-top: 11px;
 }
 .box {
-  background-color: blue;
   display: flex;
   align-items: center;
 }
@@ -114,7 +244,23 @@
   font-size: 1.6rem;
   text-align: center;
   color: #ee9d6b;
+  padding-bottom: 0.2em;
+}
+.subtit2 {
+  font-weight: bold;
+  font-size: 1.2rem;
+  text-align: center;
+  color: #ee9d6b;
   padding-bottom: 0.5em;
+}
+.subtit3 {
+  font-weight: bold;
+  font-size: 1.1rem;
+  text-align: left;
+  padding-bottom: 0.5em;
+}
+.cita{
+  font-weight: bold;
 }
 
 .linea {
@@ -141,6 +287,7 @@
 
 .horas {
   text-align: center;
+  font-weight: bold;
 }
 
 .user {
@@ -153,6 +300,7 @@
   text-align: center;
   color: #ee9d6b;
   margin-bottom: 10%;
+  font-weight: bold;
 }
 
 @media screen and (max-width: 850px) {
@@ -167,6 +315,43 @@
     border-width: 0.01em;
     border-color: rgba(0, 0, 0, 0.185);
   }
+  .caja4, .container1 {
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .pago{
+    display: inline-block;
+    column-count:1;
+    justify-content: center;
+  }
+
+  .contenedor2, .contenedor{
+    margin-left: 120px;
+    background-color: white;
+  }
+
+  .pago2, .contenedor3{
+    margin-top: 10px;
+  }
+
+  .subtit3{
+    font-size: 1rem;
+  }
+
+  .contenedor{
+    margin-top: 20px;
+  }
+
+
+  .container1{
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25);
+  }
+  
+  
 }
 
 @media screen and (max-width: 600px) {
@@ -181,4 +366,8 @@
     border-width: 0.01em;
     border-color: rgba(0, 0, 0, 0.185);
   }
+  .caja4, .pago{
+    grid-template-columns: 1fr;
+  }
 }
+
