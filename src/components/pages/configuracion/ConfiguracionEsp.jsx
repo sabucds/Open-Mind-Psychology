@@ -481,7 +481,7 @@ const ConfiguracionEsp = () => {
                         </div>
                       </div>
                       <div className="dispon-edit1">
-                        <div className="titles-week">Miercoles</div>
+                        <div className="titles-week">Miércoles</div>
 
                         <div className="hours-container">
                           <input

@@ -123,7 +123,6 @@ const Agendar = ({ especialista }) => {
 
     if (reason) {
       for (const dateId in reserved) {
-        console.log("Fecha:" + reserved[dateId]);
         if (selectedDate.getTime() === reserved[dateId].getTime()) {
           setLoading(false);
           alert("Esa fecha ya se encuentra reservada.");

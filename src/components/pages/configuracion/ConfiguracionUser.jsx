@@ -127,7 +127,8 @@ const Configuracion = () => {
         successMessage += "Información sobre mí";
       }
     } catch (err) {
-      alert("Hubo un error al guardar: " + err.message);
+      alert("Hubo un error al guardar.");
+      console.log(err.message);
     }
     setSaving(false);
     if (
