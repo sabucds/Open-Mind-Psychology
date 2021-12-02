@@ -307,3 +307,12 @@
     width: 100%;
   }
 }
+
+@media screen and (max-width: 430px) {
+  .especialistas-sect {
+    padding: 0;
+  }
+  .especialistas-sect .how-works {
+    padding: 50px;
+  }
+}

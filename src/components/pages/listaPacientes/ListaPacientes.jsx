@@ -226,7 +226,7 @@ const ListaPacientes = () => {
                   })}
                 </>
               ) : (
-                <div className={styles.subt}>¡No tienes citas para hoy!</div>
+                <div className={styles.subt}>Aún no tienes pacientes.</div>
               )}
             </>
           </div>
