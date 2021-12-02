@@ -78,11 +78,11 @@ const HistorialPaciente = () => {
     setLoadingEntries(false);
   };
 
-  useEffect(() => {
-    getHistorialPacientes();
-  }, [refreshEntry]);
+  // useEffect(() => {
+  // getHistorialPacientes();
+  // }, []);
 
-  console.log(historialPacienteX);
+  console.log("historia" + { historialPacienteX });
 
   return (
     <>
