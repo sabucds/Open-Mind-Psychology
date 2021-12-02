@@ -428,8 +428,8 @@ const ConfiguracionEsp = () => {
                       minutos.
                     </div>
                     <br />
-                    <div className="dispon-edit">
-                      <div className="dispon-edit1">
+                    <div className="container1">
+                      <div className="contenedorDias">
                         <div className="titles-week">Lunes</div>
 
                         <div className="hours-container">
@@ -451,7 +451,7 @@ const ConfiguracionEsp = () => {
                           />
                         </div>
                       </div>
-                      <div className="dispon-edit1">
+                      <div className="contenedorDias">
                         <div className="titles-week">Martes</div>
 
                         <div className="hours-container">
@@ -473,7 +473,7 @@ const ConfiguracionEsp = () => {
                           />
                         </div>
                       </div>
-                      <div className="dispon-edit1">
+                      <div className="contenedorDias">
                         <div className="titles-week">Miércoles</div>
 
                         <div className="hours-container">
@@ -495,7 +495,7 @@ const ConfiguracionEsp = () => {
                           />
                         </div>
                       </div>
-                      <div className="dispon-edit1">
+                      <div className="contenedorDias">
                         <div className="titles-week">Jueves</div>
 
                         <div className="hours-container">
@@ -518,7 +518,7 @@ const ConfiguracionEsp = () => {
                           />
                         </div>
                       </div>
-                      <div className="dispon-edit1">
+                      <div className="contenedorDias">
                         <div className="titles-week">Viernes</div>
 
                         <div className="hours-container">
@@ -540,7 +540,7 @@ const ConfiguracionEsp = () => {
                           />
                         </div>
                       </div>
-                      <div className="dispon-edit1">
+                      <div className="contenedorDias">
                         <div className="titles-week">Sábado</div>
 
                         <div className="hours-container">
@@ -562,7 +562,7 @@ const ConfiguracionEsp = () => {
                           />
                         </div>
                       </div>
-                      <div className="dispon-edit1">
+                      <div className="contenedorDias">
                         <div className="titles-week">Domingo</div>
 
                         <div className="hours-container">

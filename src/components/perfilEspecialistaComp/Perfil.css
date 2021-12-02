@@ -223,13 +223,14 @@
 }
 
 .container1 {
-  margin: 16px;
+  background-color: white;
   border-radius: 20px;
   display: flex;
   text-align: center;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
   overflow-x: scroll;
-  background-color: white;
 }
 
 .contenedorDias{
