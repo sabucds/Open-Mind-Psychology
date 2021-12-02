@@ -1,7 +1,7 @@
 .consulta-section {
     margin-top: 65px;
     width: 100%;
-    height: calc(100vh - 65px);
+    height: 100%;
     padding: 50px;
     background-image: url("../../img/Plants.png"), url("../../img/Top-Leaves.png");
     background-position: bottom left, top right;
@@ -54,6 +54,7 @@
     justify-content: space-evenly;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     background-color: white;
+    cursor: pointer;
 }
 .consulta:last-child {
     border-radius: 0 0 1em 1em;
@@ -63,6 +64,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+.info-consultas span {
+    word-wrap: break-word;
+    width: 100%;
+}
+.cons-pasada .info-consultas span {
+    color:rgba(0, 0, 0, 0.5);
 }
 .date-info {
     width: 15%;
@@ -93,4 +101,100 @@
     height: 80%;
     overflow-y: scroll;
     overflow: overlay;
+}
+
+.filterCitas {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 600px;
+}
+
+.filterCitas label {
+    text-align: center;
+}
+
+.searchInputsCitas {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 70%;
+}
+.byNameInputsCitas {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+.search-box {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.cons-pasada {
+    background-color: rgba(220, 220, 220, 0.479);
+}
+
+@media screen and (max-width: 1440px) {
+    .busqueda-citas {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+@media screen and (max-width: 850px) {
+    .filterCitas {
+        width: 90%;
+        justify-content: center;
+        flex-direction: column;
+        align-content: center;
+        
+        margin-bottom: 10px;
+    }
+    .searchInputsCitas {
+        width: 90%
+    }
+    .byNameInputsCitas {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    .calendario-citas {
+        align-self: center;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    .byNameInputsCitas {
+        width: 100%
+    }
+    .byNameInputsCitas .inputsForm {
+        width: 100%;
+    }
+    .consulta-section .search-box {
+        margin-top: none;
+    }
+    .consulta-section {
+        background-size: 40%, 40%;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .consulta-section {
+        padding: 10px;
+    }
+    .consultas-container {
+        width: 98%;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .info-consultas span {
+        font-size: small;
+    }
+    .consultas-header {
+        font-size: small;
+    }
+    .consulta-section {
+        background-size: 60%, 60%;
+    }
 }

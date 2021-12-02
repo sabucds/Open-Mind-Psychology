@@ -122,7 +122,6 @@
   user-select: none;
 }
 
-/* Hide the browser's default checkbox */
 .searchRanking input {
   position: absolute;
   opacity: 0;
@@ -131,7 +130,6 @@
   width: 0;
 }
 
-/* Create a custom checkbox */
 .checkmark {
   position: absolute;
   top: 0;
@@ -143,29 +141,24 @@
   outline: 1px solid #ee9d6b;
 }
 
-/* On mouse-over, add a grey background color */
 .searchRanking:hover input ~ .checkmark {
   background-color: #ee9d6b;
 }
 
-/* When the checkbox is checked, add a blue background */
 .searchRanking input:checked ~ .checkmark {
   background-color: white;
 }
 
-/* Create the checkmark/indicator (hidden when not checked) */
 .checkmark:after {
   content: "";
   position: absolute;
   display: none;
 }
 
-/* Show the checkmark when checked */
 .searchRanking input:checked ~ .checkmark:after {
   display: block;
 }
 
-/* Style the checkmark/indicator */
 .searchRanking .checkmark:after {
   top: 0;
   left: 0;

@@ -1,6 +1,5 @@
 import React from "react";
 import { useRef, useEffect } from "react";
-import { useState } from "react";
 import { bd } from "../../../utils/firebaseConfig";
 import { useHistory } from "react-router-dom";
 import styles from "./Agendar.module.css";
@@ -12,7 +11,6 @@ export default function PayPal({
 }) {
   const history = useHistory();
   const paypal = useRef();
-
   useEffect(() => {
     window.paypal
       .Buttons({

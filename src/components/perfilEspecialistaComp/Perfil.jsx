@@ -566,7 +566,6 @@ const Perfil = ({ user }) => {
   async function getIsPatient() {
     if (currentUser !== null) {
       const consultationsRef = bd.collection("citas");
-      console.log("llamo para ver si es paciente");
       const consultationsDoc = await consultationsRef.get();
       var consultations = {};
       consultationsDoc.forEach((consultation) => {
@@ -772,6 +771,7 @@ const Perfil = ({ user }) => {
                     )}
                   </div>
                 </div>
+                <div className="line"></div>
               </div>
               <div className="about-user">
                 <div className="info">
