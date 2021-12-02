@@ -771,7 +771,6 @@ const Perfil = ({ user }) => {
                     )}
                   </div>
                 </div>
-                <div className="line"></div>
               </div>
               <div className="about-user">
                 <div className="info">

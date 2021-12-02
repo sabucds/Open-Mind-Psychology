@@ -258,6 +258,12 @@
     justify-content: flex-start;
     margin: 0;
   }
+
+  .nombre-user2{
+    font-size: 27px;
+    margin-left: -2px;
+    margin-bottom: -20px;
+  }
 }
 
 @media screen and (max-width: 600px) {
